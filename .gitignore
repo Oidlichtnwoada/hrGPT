@@ -8,9 +8,9 @@ target
 thesis.pdf
 
 # ignore the class files
-vutinfth.pdf
-vutinfth.hd
-vutinfth.cls
+thesisclass.pdf
+thesisclass.hd
+thesisclass.cls
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

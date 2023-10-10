@@ -1,32 +1,15 @@
 % \iffalse meta-comment
 %
-%% vutinfth.dtx
-%% Copyright (C) 2014-2023 by Thomas Auzinger <thomas@auzinger.name>
-%
-% This work may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either version 1.3
-% of this license or (at your option) any later version.
-% The latest version of this license is in
-%   http://www.latex-project.org/lppl.txt
-% and version 1.3 or later is part of all distributions of LaTeX
-% version 2005/12/01 or later.
-%
-% This work has the LPPL maintenance status `maintained'.
-%
-% The Current Maintainer of this work is Thomas Auzinger.
-%
-% This work consists of the files vutinfth.dtx and vutinfth.ins
-% and the derived file vutinfth.cls.
-% This work also consists of the file intro.tex.
+%% thesisclass.dtx
 %
 % \fi
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{vutinfth.dtx}
+\ProvidesFile{thesisclass.dtx}
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<class>\ProvidesClass{vutinfth}
+%<class>\ProvidesClass{thesisclass}
 %<*class>
     [2023/06/04 v1.12 TU Wien Informatics thesis template]
 %</class>
@@ -42,7 +25,7 @@
 \CodelineIndex
 \RecordChanges
 \begin{document}
-  \DocInput{vutinfth.dtx}
+  \DocInput{thesisclass.dtx}
   \PrintChanges
   \PrintIndex
 \end{document}
@@ -67,7 +50,7 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \newcommand{\issue}[1]{\href{https://gitlab.com/ThomasAUZINGER/vutinfth/issues/#1}{Issue \#{}#1}}
+% \newcommand{\issue}[1]{\href{https://gitlab.com/ThomasAUZINGER/thesisclass/issues/#1}{Issue \#{}#1}}
 %
 % \changes{v0.009=v0.9}{2014/05/30}{Pre-release version}
 % \changes{v1.000=v1.0}{2014/09/07}{Initial release version}
@@ -81,7 +64,7 @@
 % \changes{v1.011=v1.11}{2021/04/20}{Updated name of faculty to `TU Wien Informatics'.}
 % \changes{v1.012=v1.12}{2023/06/04}{Removed obsolete support for a dissertation at the Vienna PhD School of Informations. \issue{8}}
 %
-% \GetFileInfo{vutinfth.dtx}
+% \GetFileInfo{thesisclass.dtx}
 %
 % ^^A\DoNotIndex{\DeclareOption,\LoadClass,\PassOptionsToClass,\ProcessOptions,\RequirePackage}
 % ^^A\DoNotIndex{\f@family}
@@ -94,8 +77,8 @@
 %
 % \newcommand{\ispoly}{\textsuperscript{P}}
 %
-% \title{The \textsf{vutinfth} class\thanks{This document
-%   corresponds to \textsf{vutinfth}~\fileversion, dated \filedate.}}
+% \title{The \textsf{thesisclass} class\thanks{This document
+%   corresponds to \textsf{thesisclass}~\fileversion, dated \filedate.}}
 % \author{Thomas Auzinger \\ \texttt{thomas@auzinger.name}}
 %
 % \maketitle
@@ -114,7 +97,7 @@
 % \section{Introduction}
 %
 % This class provides a \LaTeXe\ template for all theses at TU Wien Informatics.
-% Further information on the document class and accompanying support can be found at \url{https://gitlab.com/ThomasAUZINGER/vutinfth}.
+% Further information on the document class and accompanying support can be found at \url{https://gitlab.com/ThomasAUZINGER/thesisclass}.
 % Further guidelines may apply to both the format and structure of certain theses.
 % These can be found at \url{https://informatics.tuwien.ac.at/study-services}.
 % Thesis authors are advised to consult Section~\ref{sec:user} for a documentation of all relevant commands.
@@ -132,7 +115,7 @@
 % \section{Usage for Document Authors}
 % \label{sec:user}
 %
-% This section contains relevant information for authors of theses that are based on the |vutinfth| document class.
+% This section contains relevant information for authors of theses that are based on the |thesisclass| document class.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \subsection{Data}
@@ -195,7 +178,7 @@
 % \DescribeMacro{\setthirdassistant}
 % \DescribeMacro{\setfirstreviewer}
 % \DescribeMacro{\setsecondreviewer}
-% All commands in this section are called with four mandatory arguments, e.g., as |\command|\marg{pretitle}\marg{name}\marg{posttitle}\marg{gender}, where \meta{name} defines both the first name(s) and family name(s) of the person. A title that is placed before the name is assigned with \meta{pretitle}, while a trailing title is given with \meta{posttitle}. Both \meta{pretitle} and \meta{posttitle} can be left empty, to indicate an absence of such a title; the insertion of appropriate glue between titles and names is handled by the |vutinfth| class. The declaration of the persons gender via \meta{gender} allows the use of gender-specific terms in languages that support them, e.g., German. The possible options for \meta{gender} are |male| and |female| (see Section~\ref{sec:user:data:list}). The following persons can be set:
+% All commands in this section are called with four mandatory arguments, e.g., as |\command|\marg{pretitle}\marg{name}\marg{posttitle}\marg{gender}, where \meta{name} defines both the first name(s) and family name(s) of the person. A title that is placed before the name is assigned with \meta{pretitle}, while a trailing title is given with \meta{posttitle}. Both \meta{pretitle} and \meta{posttitle} can be left empty, to indicate an absence of such a title; the insertion of appropriate glue between titles and names is handled by the |thesisclass| class. The declaration of the persons gender via \meta{gender} allows the use of gender-specific terms in languages that support them, e.g., German. The possible options for \meta{gender} are |male| and |female| (see Section~\ref{sec:user:data:list}). The following persons can be set:
 % \begin{center}
 % \begin{tabular}{lllc}
 %   \toprule
@@ -375,50 +358,50 @@
 % \section{Usage for Class Writers}
 % \label{sec:class}
 %
-% To accomodate shifting requirements, the |vutinfth| class provides various convenience functions that allow the modification and extension of its functionality.
+% To accomodate shifting requirements, the |thesisclass| class provides various convenience functions that allow the modification and extension of its functionality.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \subsection{Data}
 %
 % To compose several parts of the thesis layout, input from the thesis author is required.
-% For the |vutinfth| class, this is realized by the commands provided in Section~\ref{sec:user:data}.
+% For the |thesisclass| class, this is realized by the commands provided in Section~\ref{sec:user:data}.
 % Additional data can be defined with the the commands in the remainder of this section.
 %
 % \DescribeMacro{\CreateData}
 % Used as |\CreateData|\marg{name}, it generates a command |\set|\meta{name}.
-% Used as |\set|\meta{name}\marg{string}, the newly created command assigns the value \meta{string} to the internal variable |\vutinfth@data@|\meta{name}.
+% Used as |\set|\meta{name}\marg{string}, the newly created command assigns the value \meta{string} to the internal variable |\thesisclass@data@|\meta{name}.
 % The variable is initialized with an error value to alert the user of the fact that \meta{string} was not supplied via the |\set|\meta{name} command.
-% Furthermore, a command |\vutinfth@data@|\meta{name}|@def| is created, to increase source code readability when verifying the existence of a specific data item.
+% Furthermore, a command |\thesisclass@data@|\meta{name}|@def| is created, to increase source code readability when verifying the existence of a specific data item.
 % See Section~\ref{sec:impl:data:declarations} for examples.
 %
 % \DescribeMacro{\CreatePerson}
 % Used as |\CreatePerson|\marg{name}, it generates a command |\set|\meta{name}.
-% Used as |\set|\meta{name}\marg{pretitle}\marg{personname}\marg{posttitle}\marg{gender}, the newly created command assigns the supplied values to the corresponding internal variables |\vutinfth@person@|\meta{name}|@|\textellipsis as given in the table below.
+% Used as |\set|\meta{name}\marg{pretitle}\marg{personname}\marg{posttitle}\marg{gender}, the newly created command assigns the supplied values to the corresponding internal variables |\thesisclass@person@|\meta{name}|@|\textellipsis as given in the table below.
 % \begin{center}
 % \begin{tabular}{lllc}
 %   \toprule
 %   Argument & Internal Variable\\
 %   \midrule
-%                     & |\vutinfth@person@|\meta{name}|@def|   \\
-%   \meta{pretitle}   & |\vutinfth@person@|\meta{name}|@pretitle|  \\
-%   \meta{personname} & |\vutinfth@person@|\meta{name}|@name|      \\
-%   \meta{posttitle}  & |\vutinfth@person@|\meta{name}|@posttitle| \\
-%   \meta{gender}     & |\vutinfth@person@|\meta{name}|@gender|    \\
+%                     & |\thesisclass@person@|\meta{name}|@def|   \\
+%   \meta{pretitle}   & |\thesisclass@person@|\meta{name}|@pretitle|  \\
+%   \meta{personname} & |\thesisclass@person@|\meta{name}|@name|      \\
+%   \meta{posttitle}  & |\thesisclass@person@|\meta{name}|@posttitle| \\
+%   \meta{gender}     & |\thesisclass@person@|\meta{name}|@gender|    \\
 %   \bottomrule
 % \end{tabular}
 % \end{center}
-% The command |\vutinfth@person@|\meta{name}|@def| is created to increase source code readability when verifying the existence of a specific person.
-% Furthermore, the command |\vutinfth@person@|\meta{name}|@fullname| returns the person's name together with existing titles and correct whitespace in between.
-% The person's gender is either |\vutinfth@person@male| or |\vutinfth@person@female|, depending on the input.
+% The command |\thesisclass@person@|\meta{name}|@def| is created to increase source code readability when verifying the existence of a specific person.
+% Furthermore, the command |\thesisclass@person@|\meta{name}|@fullname| returns the person's name together with existing titles and correct whitespace in between.
+% The person's gender is either |\thesisclass@person@male| or |\thesisclass@person@female|, depending on the input.
 % See Section~\ref{sec:impl:data:declarations} for examples.
 %
 % \DescribeMacro{\AddLanguage}
 % Used as |\AddLanguage|\marg{lang}, it enables the language \meta{lang} to by used by polylingual expressions.
 % \meta{lang} has to be chosed from the languages of the |babel| package that is used by this class.
-% Currently, |vutinfth| uses two languages, i.e., |english| for English expressions and |naustrian| for German expressions.
+% Currently, |thesisclass| uses two languages, i.e., |english| for English expressions and |naustrian| for German expressions.
 %
 % \DescribeMacro{\CreatePolylingual}
-% Used as |\CreatePolylingual|\oarg{expressions}\marg{name}, it generates a command |\vutinfth@polylingual@|\meta{name} that selects the approriate expression based on the current language at the time of use.
+% Used as |\CreatePolylingual|\oarg{expressions}\marg{name}, it generates a command |\thesisclass@polylingual@|\meta{name} that selects the approriate expression based on the current language at the time of use.
 % The argument \meta{expressions} is a list of elements of the form \meta{expr$_i$}, where each element defines the expression for a valid language, e.g., \meta{lang$_i$}=\meta{text$_i$}.
 % \meta{lang$_i$} has to be chosen from the languages that were defined via |\AddLanguage|.
 % As a convention, text that needs to start with an uppercase letter is assigned to a name that starts with an uppercase letter.
@@ -481,7 +464,7 @@
 %
 % \subsubsection{Loaded Class and Packages}
 %
-% The |vutinfth| class is based on the |memoir| class.
+% The |thesisclass| class is based on the |memoir| class.
 %    \begin{macrocode}
 \LoadClass[a4paper,11pt]{memoir}%
 \chapterstyle{veelo}%
@@ -517,10 +500,10 @@
 %    \begin{macrocode}
 \newcommand{\ifestrequal}[4]{%
   \begingroup
-    \edef\vutinfth@tempa{{#1}}%
-    \edef\vutinfth@tempb{{#2}}%
+    \edef\thesisclass@tempa{{#1}}%
+    \edef\thesisclass@tempb{{#2}}%
     \expandafter\expandafter\expandafter\ifstrequal
-      \expandafter\vutinfth@tempa\vutinfth@tempb{#3}{#4}%
+      \expandafter\thesisclass@tempa\thesisclass@tempb{#3}{#4}%
   \endgroup
 }%
 %    \end{macrocode}
@@ -528,20 +511,20 @@
 %
 % \subsubsection{Fonts}
 %
-% \begin{macro}{\vutinfth@HUGE}
-% \begin{macro}{\vutinfth@huge}
-% \begin{macro}{\vutinfth@LARGE}
-% \begin{macro}{\vutinfth@Large}
-% \begin{macro}{\vutinfth@large}
-% \begin{macro}{\vutinfth@normalsize}
+% \begin{macro}{\thesisclass@HUGE}
+% \begin{macro}{\thesisclass@huge}
+% \begin{macro}{\thesisclass@LARGE}
+% \begin{macro}{\thesisclass@Large}
+% \begin{macro}{\thesisclass@large}
+% \begin{macro}{\thesisclass@normalsize}
 % Initializes the font sizes.
 %    \begin{macrocode}
-\newcommand{\vutinfth@HUGE}{\fontsize{30}{34}\selectfont}%
-\newcommand{\vutinfth@huge}{\fontsize{20}{23}\selectfont}%
-\newcommand{\vutinfth@LARGE}{\fontsize{17}{22}\selectfont}%
-\newcommand{\vutinfth@Large}{\fontsize{14}{18}\selectfont}%
-\newcommand{\vutinfth@large}{\fontsize{12}{14.5}\selectfont}%
-\newcommand{\vutinfth@normalsize}{\fontsize{11}{13.6}\selectfont}%
+\newcommand{\thesisclass@HUGE}{\fontsize{30}{34}\selectfont}%
+\newcommand{\thesisclass@huge}{\fontsize{20}{23}\selectfont}%
+\newcommand{\thesisclass@LARGE}{\fontsize{17}{22}\selectfont}%
+\newcommand{\thesisclass@Large}{\fontsize{14}{18}\selectfont}%
+\newcommand{\thesisclass@large}{\fontsize{12}{14.5}\selectfont}%
+\newcommand{\thesisclass@normalsize}{\fontsize{11}{13.6}\selectfont}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -555,22 +538,22 @@
 %    \begin{macrocode}
 \newenvironment{SFFont}[1]{%
 %    \end{macrocode}
-% Stores the current sans serif font in |\vutinfth@f@family@tmp| and changes to the given sans serif font.
+% Stores the current sans serif font in |\thesisclass@f@family@tmp| and changes to the given sans serif font.
 %    \begin{macrocode}
   \begingroup
     \sffamily
-    \global\let\vutinfth@f@family@tmp=\f@family
+    \global\let\thesisclass@f@family@tmp=\f@family
   \endgroup
   \renewcommand{\sfdefault}{#1}%
 %    \end{macrocode}
 % In case the outer scope is already sans serif, the new font has to be activated.
 %    \begin{macrocode}
-  \ifdefstrequal{\f@family}{\vutinfth@f@family@tmp}{\sffamily}{}%
+  \ifdefstrequal{\f@family}{\thesisclass@f@family@tmp}{\sffamily}{}%
 }{%
 %    \end{macrocode}
 % The scope of the font change is the environment itself. Thus, no cleanup code is required in case the outer scope was already sans serif.
 %    \begin{macrocode}
-  \renewcommand{\sfdefault}{\vutinfth@f@family@tmp}%
+  \renewcommand{\sfdefault}{\thesisclass@f@family@tmp}%
 }%
 %    \end{macrocode}
 % \end{environment}
@@ -585,31 +568,31 @@
 % Creates the internal storage for the signing date.
 %    \begin{macrocode}
 \newcommand{\setdate}[3]{%
-  \DTMsavedate{vutinfth@date@signing}{#3-#2-#1}%
+  \DTMsavedate{thesisclass@date@signing}{#3-#2-#1}%
 }%
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{Textual Data}
 %
-% \begin{macro}{\vutinfth@def@data}
+% \begin{macro}{\thesisclass@def@data}
 % Creates the internal storage for simple data entries.
 %    \begin{macrocode}
-\newcommand{\vutinfth@def@data}[2]{%
-  \@namedef{vutinfth@data@#1@def}{}%
-  \@namedef{vutinfth@data@#1}{#2}%
+\newcommand{\thesisclass@def@data}[2]{%
+  \@namedef{thesisclass@data@#1@def}{}%
+  \@namedef{thesisclass@data@#1}{#2}%
 }%
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@def@data@invalid}
+% \begin{macro}{\thesisclass@def@data@invalid}
 % Initializes the internal storage with error messages.
 %    \begin{macrocode}
-\newcommand{\vutinfth@def@data@invalid}[2]{%
-  \@namedef{vutinfth@data@#1@error}{%
-    \ClassError{vutinfth}{No #2 issued}{Set #1 with #2.}%
+\newcommand{\thesisclass@def@data@invalid}[2]{%
+  \@namedef{thesisclass@data@#1@error}{%
+    \ClassError{thesisclass}{No #2 issued}{Set #1 with #2.}%
   }%
-  \@namedef{vutinfth@data@#1}{\@nameuse{vutinfth@data@#1@error}}%
+  \@namedef{thesisclass@data@#1}{\@nameuse{thesisclass@data@#1@error}}%
 }%
 %    \end{macrocode}
 % \end{macro}
@@ -619,21 +602,21 @@
 %    \begin{macrocode}
 \newcommand{\CreateData}[1]{%
   \@namedef{set#1}##1{%
-    \vutinfth@def@data{#1}{##1}%
+    \thesisclass@def@data{#1}{##1}%
   }%
-  \vutinfth@def@data@invalid{#1}{\string\set#1}%
+  \thesisclass@def@data@invalid{#1}{\string\set#1}%
 }%
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{Persons}
 %
-% \begin{macro}{\vutinfth@person@male}
-% \begin{macro}{\vutinfth@person@female}
+% \begin{macro}{\thesisclass@person@male}
+% \begin{macro}{\thesisclass@person@female}
 % Two genders are differentiated for each person: |male| and |female|.
 %    \begin{macrocode}
-\newcommand{\vutinfth@person@male}{male}%
-\newcommand{\vutinfth@person@female}{female}%
+\newcommand{\thesisclass@person@male}{male}%
+\newcommand{\thesisclass@person@female}{female}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -643,55 +626,55 @@
 % Convenience macros to determine the gender of a person.
 %    \begin{macrocode}
 \newcommand{\ifmale}[2]{%
-  \ifcsstring{vutinfth@person@#1@gender}{\vutinfth@person@male}{#2}{}%
+  \ifcsstring{thesisclass@person@#1@gender}{\thesisclass@person@male}{#2}{}%
 }%
 \newcommand{\iffemale}[2]{%
-  \ifcsstring{vutinfth@person@#1@gender}{\vutinfth@person@female}{#2}{}%
+  \ifcsstring{thesisclass@person@#1@gender}{\thesisclass@person@female}{#2}{}%
 }%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@def@person}
+% \begin{macro}{\thesisclass@def@person}
 % \changes{v1.004=v1.4}{2015/08/01}{Added comma to separate posttitle.}
 % Creates the internal storage for a person's name, titles and gender.
 %    \begin{macrocode}
-\newcommand{\vutinfth@def@person}[5]{%
-  \@namedef{vutinfth@person@#1@def}{}%
-  \@namedef{vutinfth@person@#1@pretitle}{#2}%
-  \@namedef{vutinfth@person@#1@name}{#3}%
-  \@namedef{vutinfth@person@#1@posttitle}{#4}%
-  \ifdefstring{\vutinfth@person@male}{#5}{%
-    \@namedef{vutinfth@person@#1@gender}{\vutinfth@person@male}%
+\newcommand{\thesisclass@def@person}[5]{%
+  \@namedef{thesisclass@person@#1@def}{}%
+  \@namedef{thesisclass@person@#1@pretitle}{#2}%
+  \@namedef{thesisclass@person@#1@name}{#3}%
+  \@namedef{thesisclass@person@#1@posttitle}{#4}%
+  \ifdefstring{\thesisclass@person@male}{#5}{%
+    \@namedef{thesisclass@person@#1@gender}{\thesisclass@person@male}%
   }{}%
-  \ifdefstring{\vutinfth@person@female}{#5}{%
-    \@namedef{vutinfth@person@#1@gender}{\vutinfth@person@female}%
+  \ifdefstring{\thesisclass@person@female}{#5}{%
+    \@namedef{thesisclass@person@#1@gender}{\thesisclass@person@female}%
   }{}%
 %    \end{macrocode}
 % For the full name, additional spaces have to be inserted depending on the presence of pre- or posttitles.
 %    \begin{macrocode}
   \ifstrempty{#3}{%
     \ifstrempty{#2}{%
-      \@namedef{vutinfth@person@#1@fullname}{#4}%
+      \@namedef{thesisclass@person@#1@fullname}{#4}%
     }{%
       \ifstrempty{#4}{%
-        \@namedef{vutinfth@person@#1@fullname}{#2}%
+        \@namedef{thesisclass@person@#1@fullname}{#2}%
       }{%
-        \@namedef{vutinfth@person@#1@fullname}{#2 #4}%
+        \@namedef{thesisclass@person@#1@fullname}{#2 #4}%
       }%
     }%
   }{%
     \ifstrempty{#2}{%
       \ifstrempty{#4}{%
-        \@namedef{vutinfth@person@#1@fullname}{#3}%
+        \@namedef{thesisclass@person@#1@fullname}{#3}%
       }{%
-        \@namedef{vutinfth@person@#1@fullname}{#3, #4}%
+        \@namedef{thesisclass@person@#1@fullname}{#3, #4}%
       }%
     }{%
       \ifstrempty{#4}{%
-        \@namedef{vutinfth@person@#1@fullname}{#2 #3}%
+        \@namedef{thesisclass@person@#1@fullname}{#2 #3}%
       }{%
-        \@namedef{vutinfth@person@#1@fullname}{#2 #3, #4}%
+        \@namedef{thesisclass@person@#1@fullname}{#2 #3, #4}%
       }%
     }%
   }%
@@ -699,23 +682,23 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@def@person@invalid}
+% \begin{macro}{\thesisclass@def@person@invalid}
 % Initializes the internal storage with error messages.
 %    \begin{macrocode}
-\newcommand{\vutinfth@def@person@invalid}[2]{%
-  \@namedef{vutinfth@person@#1@error}{%
-    \ClassError{vutinfth}{No #2 issued}{Set #1 with #2.}%
+\newcommand{\thesisclass@def@person@invalid}[2]{%
+  \@namedef{thesisclass@person@#1@error}{%
+    \ClassError{thesisclass}{No #2 issued}{Set #1 with #2.}%
   }%
-  \@namedef{vutinfth@person@#1@name}{%
-    \@nameuse{vutinfth@person@#1@error}}%
-  \@namedef{vutinfth@person@#1@pretitle}{%
-    \@nameuse{vutinfth@person@#1@error}}%
-  \@namedef{vutinfth@person@#1@posttitle}{%
-    \@nameuse{vutinfth@person@#1@error}}%
-  \@namedef{vutinfth@person@#1@gender}{%
-    \@nameuse{vutinfth@person@#1@error}}%
-  \@namedef{vutinfth@person@#1@fullname}{%
-    \@nameuse{vutinfth@person@#1@error}}%
+  \@namedef{thesisclass@person@#1@name}{%
+    \@nameuse{thesisclass@person@#1@error}}%
+  \@namedef{thesisclass@person@#1@pretitle}{%
+    \@nameuse{thesisclass@person@#1@error}}%
+  \@namedef{thesisclass@person@#1@posttitle}{%
+    \@nameuse{thesisclass@person@#1@error}}%
+  \@namedef{thesisclass@person@#1@gender}{%
+    \@nameuse{thesisclass@person@#1@error}}%
+  \@namedef{thesisclass@person@#1@fullname}{%
+    \@nameuse{thesisclass@person@#1@error}}%
 }%
 %    \end{macrocode}
 % \end{macro}
@@ -725,9 +708,9 @@
 %    \begin{macrocode}
 \newcommand{\CreatePerson}[1]{%
   \@namedef{set#1}##1##2##3##4{%
-    \vutinfth@def@person{#1}{##1}{##2}{##3}{##4}%
+    \thesisclass@def@person{#1}{##1}{##2}{##3}{##4}%
   }%
-  \vutinfth@def@person@invalid{#1}{\string\set#1}%
+  \thesisclass@def@person@invalid{#1}{\string\set#1}%
 }%
 %    \end{macrocode}
 % \end{macro}
@@ -741,42 +724,42 @@
 %    \begin{macrocode}
 \newcommand{\AddLanguage}[1]{%
 %    \end{macrocode}
-% First, the key for the current language, given by its name in the |babel| package, is created. Keys of the |keyval| package are internally stored as |KV@|family|@|keyname, where we use |vutinfth| as family name and the argument as key name. The value that is given to this key as part of a function argument is assigned to a temporary storage.
+% First, the key for the current language, given by its name in the |babel| package, is created. Keys of the |keyval| package are internally stored as |KV@|family|@|keyname, where we use |thesisclass| as family name and the argument as key name. The value that is given to this key as part of a function argument is assigned to a temporary storage.
 %    \begin{macrocode}
-  \@namedef{KV@vutinfth@#1}##1{%
-    \@namedef{vutinfth@current@#1}{##1}%
+  \@namedef{KV@thesisclass@#1}##1{%
+    \@namedef{thesisclass@current@#1}{##1}%
   }%
 %    \end{macrocode}
 % The key value is initialized as empty.
 %    \begin{macrocode}
-  \@nameuse{KV@vutinfth@#1}{}%
+  \@nameuse{KV@thesisclass@#1}{}%
 %    \end{macrocode}
 % The transfer from temporary to permanent storage is achieved by adding code to the already existing transfer routine. This causes each new language to issue the transfer for the previously defined language.
 %    \begin{macrocode}
-  \ifundef{\vutinfth@allocate@polylingual}{%
+  \ifundef{\thesisclass@allocate@polylingual}{%
 %    \end{macrocode}
 % Define the transfer function, if it has not been defined so far.
 %    \begin{macrocode}
-    \newcommand{\vutinfth@allocate@polylingual}[1]{\@empty}%
+    \newcommand{\thesisclass@allocate@polylingual}[1]{\@empty}%
   }{}%
 %    \end{macrocode}
 % Store the current transfer function via |\let| to allow recursion.
 %    \begin{macrocode}
-  \@namelet{vutinfth@allocate@polylingual@#1}%
-    \vutinfth@allocate@polylingual
+  \@namelet{thesisclass@allocate@polylingual@#1}%
+    \thesisclass@allocate@polylingual
 %    \end{macrocode}
 % Define the transfer function to permanent storage.
 %    \begin{macrocode}
-  \renewcommand{\vutinfth@allocate@polylingual}[1]{%
+  \renewcommand{\thesisclass@allocate@polylingual}[1]{%
 %    \end{macrocode}
 % Call the transfer routine of the previously defined language.
 %    \begin{macrocode}
-    \@nameuse{vutinfth@allocate@polylingual@#1}{##1}%
+    \@nameuse{thesisclass@allocate@polylingual@#1}{##1}%
 %    \end{macrocode}
 % To define the permanent storage, |\@namexdef| is used the definition's scope has to be global.
 %    \begin{macrocode}
-    \@namexdef{vutinfth@##1@#1}{%
-      \ifcsempty{vutinfth@current@#1}{%
+    \@namexdef{thesisclass@##1@#1}{%
+      \ifcsempty{thesisclass@current@#1}{%
 %    \end{macrocode}
 % In draft mode we mark unassigned languages, i.e., polylingual expression that were not defined for a language that is in use when the polylingual expression is called.
 %    \begin{macrocode}
@@ -789,36 +772,36 @@
 %    \end{macrocode}
 % The use of |\@namexdef| expands the content of the temporary storage before assigning it to the permanent one.
 %    \begin{macrocode}
-        \@nameuse{vutinfth@current@#1}%
+        \@nameuse{thesisclass@current@#1}%
       }%
     }%
   }%
 %    \end{macrocode}
 % At time of usage, the language, which is given as an argument, is checked against the currently active language.
 %    \begin{macrocode}
-  \ifundef{\vutinfth@selectlanguage@polylingual}{%
+  \ifundef{\thesisclass@selectlanguage@polylingual}{%
 %    \end{macrocode}
 % Define the language selection function, if it has not been defined so far.
 %    \begin{macrocode}
-      \newcommand{\vutinfth@selectlanguage@polylingual}[1]{\@empty}%
+      \newcommand{\thesisclass@selectlanguage@polylingual}[1]{\@empty}%
   }{}%
 %    \end{macrocode}
 % Store the current selection function via |\let| to allow recursion.
 %    \begin{macrocode}
-  \@namelet{vutinfth@selectlanguage@polylingual@#1}%
-    \vutinfth@selectlanguage@polylingual
+  \@namelet{thesisclass@selectlanguage@polylingual@#1}%
+    \thesisclass@selectlanguage@polylingual
 %    \end{macrocode}
 % Define the selection function.
 %    \begin{macrocode}
-  \renewcommand{\vutinfth@selectlanguage@polylingual}[1]{%
+  \renewcommand{\thesisclass@selectlanguage@polylingual}[1]{%
 %    \end{macrocode}
 % Call the selection routine of the previously defined language.
 %    \begin{macrocode}
-    \@nameuse{vutinfth@selectlanguage@polylingual@#1}{##1}%
+    \@nameuse{thesisclass@selectlanguage@polylingual@#1}{##1}%
 %    \end{macrocode}
 % The currently active language is given by |\languagename|. If it matches the language, which was supplied as the argument, the content of the current permanent storage is returned.
 %    \begin{macrocode}
-    \ifdefstring{\languagename}{#1}{\@nameuse{vutinfth@##1@#1}}{}%
+    \ifdefstring{\languagename}{#1}{\@nameuse{thesisclass@##1@#1}}{}%
   }%
 }%
 %    \end{macrocode}
@@ -830,33 +813,33 @@
 \newcommand{\CreatePolylingual}[2][]{%
   \begingroup
 %    \end{macrocode}
-% The key-value pairs of the optional argument define the text that is returned for the respective languages. We use |vutinfth| as the family name for the keys.
+% The key-value pairs of the optional argument define the text that is returned for the respective languages. We use |thesisclass| as the family name for the keys.
 %    \begin{macrocode}
-    \setkeys{vutinfth}{#1}%
+    \setkeys{thesisclass}{#1}%
 %    \end{macrocode}
 % Each key was already assigned a temporary storage, whose content has to be transfered to permanent storage.
 %    \begin{macrocode}
-    \vutinfth@allocate@polylingual{#2}%
+    \thesisclass@allocate@polylingual{#2}%
   \endgroup
 %    \end{macrocode}
 % The mandatory argument \marg{arg} is used to define the macro that returns the appropriate text for the currently active language.
 %    \begin{macrocode}
-  \@namedef{vutinfth@polylingual@#2}{%
-    \vutinfth@selectlanguage@polylingual{#2}}%
+  \@namedef{thesisclass@polylingual@#2}{%
+    \thesisclass@selectlanguage@polylingual{#2}}%
 }%
 %    \end{macrocode}
 % \end{macro}
 %
 % \subsubsection{Thesis Types}
 %
-% \begin{macro}{\vutinfth@thesis@basetype@undergraduate}
-% \begin{macro}{\vutinfth@thesis@basetype@graduate}
+% \begin{macro}{\thesisclass@thesis@basetype@undergraduate}
+% \begin{macro}{\thesisclass@thesis@basetype@graduate}
 % Two thesis categories are differentiated: |undergraduate| and |graduate|.
 %    \begin{macrocode}
-\newcommand{\vutinfth@thesis@basetype@undergraduate}{%
-  vutinfth@undergraduate}%
-\newcommand{\vutinfth@thesis@basetype@graduate}{%
-  vutinfth@graduate}%
+\newcommand{\thesisclass@thesis@basetype@undergraduate}{%
+  thesisclass@undergraduate}%
+\newcommand{\thesisclass@thesis@basetype@graduate}{%
+  thesisclass@graduate}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -866,34 +849,34 @@
 % Convenience macros to determine the category of the selected thesis type.
 %    \begin{macrocode}
 \newcommand{\ifundergraduate}[1]{%
-  \ifestrequal{\vutinfth@thesis@basetype}{%
-    \vutinfth@thesis@basetype@undergraduate
+  \ifestrequal{\thesisclass@thesis@basetype}{%
+    \thesisclass@thesis@basetype@undergraduate
   }{#1}{}%
 }%
 \newcommand{\ifgraduate}[1]{%
-  \ifestrequal{\vutinfth@thesis@basetype}{%
-    \vutinfth@thesis@basetype@graduate
+  \ifestrequal{\thesisclass@thesis@basetype}{%
+    \thesisclass@thesis@basetype@graduate
   }{#1}{}%
 }%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@thesis@basetype}
-% \begin{macro}{\vutinfth@thesis@thesisname}
-% \begin{macro}{\vutinfth@thesis@degreename}
+% \begin{macro}{\thesisclass@thesis@basetype}
+% \begin{macro}{\thesisclass@thesis@thesisname}
+% \begin{macro}{\thesisclass@thesis@degreename}
 % Initialize the thesis category, the type and the specific degree with error messages.
 %    \begin{macrocode}
-\newcommand{\vutinfth@thesis@basetype}{%
-  \ClassError{vutinfth}{No \string\setthesis \space issued}{%
+\newcommand{\thesisclass@thesis@basetype}{%
+  \ClassError{thesisclass}{No \string\setthesis \space issued}{%
     Set thesis type with \string\setthesis.}%
 }%
-\newcommand{\vutinfth@polylingual@degreename}{%
-  \ClassError{vutinfth}{No \string\setthesis \space issued}{%
+\newcommand{\thesisclass@polylingual@degreename}{%
+  \ClassError{thesisclass}{No \string\setthesis \space issued}{%
     Set thesis type with \string\setthesis.}%
 }%
-\newcommand{\vutinfth@polylingual@thesisname}{%
-  \ClassError{vutinfth}{No \string\setthesis \space issued}{%
+\newcommand{\thesisclass@polylingual@thesisname}{%
+  \ClassError{thesisclass}{No \string\setthesis \space issued}{%
     Set thesis type with \string\setthesis.}%
 }%
 %    \end{macrocode}
@@ -901,16 +884,16 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@thesis@bachelor}
-% \begin{macro}{\vutinfth@thesis@master}
-% \begin{macro}{\vutinfth@thesis@doctor}
+% \begin{macro}{\thesisclass@thesis@bachelor}
+% \begin{macro}{\thesisclass@thesis@master}
+% \begin{macro}{\thesisclass@thesis@doctor}
 % \changes{v1.003=v1.3}{2014/11/25}{Added to support multiple dissertation types. \issue{4}}
 % \changes{v1.012=v1.12}{2023/06/04}{Removed support for multiple dissertation types. \issue{8}}
 % Three main thesis types are differentiated: |bachelor|, |master|, and |doctor|.
 %    \begin{macrocode}
-\newcommand{\vutinfth@thesis@bachelor}{bachelor}%
-\newcommand{\vutinfth@thesis@master}{master}%
-\newcommand{\vutinfth@thesis@doctor}{doctor}%
+\newcommand{\thesisclass@thesis@bachelor}{bachelor}%
+\newcommand{\thesisclass@thesis@master}{master}%
+\newcommand{\thesisclass@thesis@doctor}{doctor}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -922,9 +905,9 @@
 % Internal convenience macros.
 %    \begin{macrocode}
 \newcommand{\@setthesisname}[1]{%
-  \renewcommand{\vutinfth@polylingual@thesisname}{#1}}%
+  \renewcommand{\thesisclass@polylingual@thesisname}{#1}}%
 \newcommand{\@setdegreename}[1]{%
-  \renewcommand{\vutinfth@polylingual@degreename}{#1}}%
+  \renewcommand{\thesisclass@polylingual@degreename}{#1}}%
 \newcommand{\@setgendereddegreename}[2]{%
   \ifmale{author}{\@setdegreename{#1}}%
   \iffemale{author}{\@setdegreename{#2}}%
@@ -940,39 +923,39 @@
 % Sets the thesis type.
 %    \begin{macrocode}
 \newcommand{\setthesis}[1]{%
-  \ifdefstring{\vutinfth@thesis@bachelor}{#1}{%
+  \ifdefstring{\thesisclass@thesis@bachelor}{#1}{%
 %    \end{macrocode}
 % Initializes |bachelor| thesis type.
 %    \begin{macrocode}
-    \renewcommand{\vutinfth@thesis@basetype}{%
-      \vutinfth@thesis@basetype@undergraduate}%
-    \@setthesisname{\vutinfth@polylingual@BACHELORTHESIS}%
-    \@setdegreename{\vutinfth@polylingual@Bdeg}%
+    \renewcommand{\thesisclass@thesis@basetype}{%
+      \thesisclass@thesis@basetype@undergraduate}%
+    \@setthesisname{\thesisclass@polylingual@BACHELORTHESIS}%
+    \@setdegreename{\thesisclass@polylingual@Bdeg}%
   }{}%
-  \ifdefstring{\vutinfth@thesis@master}{#1}{%
+  \ifdefstring{\thesisclass@thesis@master}{#1}{%
 %    \end{macrocode}
 % Initializes |master| thesis type.
 %    \begin{macrocode}
-    \renewcommand{\vutinfth@thesis@basetype}{%
-      \vutinfth@thesis@basetype@undergraduate}%
+    \renewcommand{\thesisclass@thesis@basetype}{%
+      \thesisclass@thesis@basetype@undergraduate}%
     \@setthesisname{%
-      \ClassError{vutinfth}{No \string\setmasterdegree \space issued}{%
+      \ClassError{thesisclass}{No \string\setmasterdegree \space issued}{%
         Set masterdegree with \string\setmasterdegree.}%
     }%
     \@setdegreename{%
-      \ClassError{vutinfth}{No \string\setmasterdegree \space issued}{%
+      \ClassError{thesisclass}{No \string\setmasterdegree \space issued}{%
         Set master degree with \string\setmasterdegree.}%
     }%
   }{}%
-  \ifdefstring{\vutinfth@thesis@doctor}{#1}{%
+  \ifdefstring{\thesisclass@thesis@doctor}{#1}{%
 %    \end{macrocode}
 % Initializes |doctor| thesis type.
 %    \begin{macrocode}
-    \renewcommand{\vutinfth@thesis@basetype}{%
-      \vutinfth@thesis@basetype@graduate}%
-    \@setthesisname{\vutinfth@polylingual@DOCTORTHESIS}%
+    \renewcommand{\thesisclass@thesis@basetype}{%
+      \thesisclass@thesis@basetype@graduate}%
+    \@setthesisname{\thesisclass@polylingual@DOCTORTHESIS}%
     \@setdegreename{%
-      \ClassError{vutinfth}{No \string\setdoctordegree \space issued}{%
+      \ClassError{thesisclass}{No \string\setdoctordegree \space issued}{%
         Set doctor degree with \string\setdoctordegree.}%
     }%
   }{}%
@@ -980,16 +963,16 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@thesis@mdeg@dipl}
-% \begin{macro}{\vutinfth@thesis@mdeg@master}
-% \begin{macro}{\vutinfth@thesis@mdeg@rernat}
-% \begin{macro}{\vutinfth@thesis@mdeg@rersocoec}
+% \begin{macro}{\thesisclass@thesis@mdeg@dipl}
+% \begin{macro}{\thesisclass@thesis@mdeg@master}
+% \begin{macro}{\thesisclass@thesis@mdeg@rernat}
+% \begin{macro}{\thesisclass@thesis@mdeg@rersocoec}
 % Four master degrees can be selected: |dipl.|, |master|, |rer.nat.|, and\\|rer.soc.oec.|.
 %    \begin{macrocode}
-\newcommand{\vutinfth@thesis@mdeg@dipl}{dipl.}%
-\newcommand{\vutinfth@thesis@mdeg@master}{master}%
-\newcommand{\vutinfth@thesis@mdeg@rernat}{rer.nat.}%
-\newcommand{\vutinfth@thesis@mdeg@rersocoec}{rer.soc.oec.}%
+\newcommand{\thesisclass@thesis@mdeg@dipl}{dipl.}%
+\newcommand{\thesisclass@thesis@mdeg@master}{master}%
+\newcommand{\thesisclass@thesis@mdeg@rernat}{rer.nat.}%
+\newcommand{\thesisclass@thesis@mdeg@rersocoec}{rer.soc.oec.}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -1000,46 +983,46 @@
 % Sets the specific master degree.
 %    \begin{macrocode}
 \newcommand{\setmasterdegree}[1]{%
-  \ifdefstring{\vutinfth@thesis@mdeg@dipl}{#1}{%
-    \@setthesisname{\vutinfth@polylingual@DIPLOMATHESIS}%
+  \ifdefstring{\thesisclass@thesis@mdeg@dipl}{#1}{%
+    \@setthesisname{\thesisclass@polylingual@DIPLOMATHESIS}%
     \@setgendereddegreename{%
-      \vutinfth@polylingual@MdegDiplMale
+      \thesisclass@polylingual@MdegDiplMale
     }{%
-      \vutinfth@polylingual@MdegDiplFemale
+      \thesisclass@polylingual@MdegDiplFemale
     }%
   }{}%
-  \ifdefstring{\vutinfth@thesis@mdeg@master}{#1}{%
-    \@setthesisname{\vutinfth@polylingual@MASTERTHESIS}%
-    \@setdegreename{\vutinfth@polylingual@MdegMaster}%
+  \ifdefstring{\thesisclass@thesis@mdeg@master}{#1}{%
+    \@setthesisname{\thesisclass@polylingual@MASTERTHESIS}%
+    \@setdegreename{\thesisclass@polylingual@MdegMaster}%
   }{}%
-  \ifdefstring{\vutinfth@thesis@mdeg@rernat}{#1}{%
-    \@setthesisname{\vutinfth@polylingual@MASTERTHESIS}%
+  \ifdefstring{\thesisclass@thesis@mdeg@rernat}{#1}{%
+    \@setthesisname{\thesisclass@polylingual@MASTERTHESIS}%
     \@setgendereddegreename{%
-      \vutinfth@polylingual@MdegRerNatMale
+      \thesisclass@polylingual@MdegRerNatMale
     }{%
-      \vutinfth@polylingual@MdegRerNatFemale
+      \thesisclass@polylingual@MdegRerNatFemale
     }%
   }{}%
-  \ifdefstring{\vutinfth@thesis@mdeg@rersocoec}{#1}{%
-    \@setthesisname{\vutinfth@polylingual@MASTERTHESIS}%
+  \ifdefstring{\thesisclass@thesis@mdeg@rersocoec}{#1}{%
+    \@setthesisname{\thesisclass@polylingual@MASTERTHESIS}%
     \@setgendereddegreename{%
-      \vutinfth@polylingual@MdegRerSocOecMale
+      \thesisclass@polylingual@MdegRerSocOecMale
     }{%
-      \vutinfth@polylingual@MdegRerSocOecFemale
+      \thesisclass@polylingual@MdegRerSocOecFemale
     }%
   }{}%
 }%
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@thesis@ddeg@rernat}
-% \begin{macro}{\vutinfth@thesis@ddeg@techn}
-% \begin{macro}{\vutinfth@thesis@ddeg@rersocoec}
+% \begin{macro}{\thesisclass@thesis@ddeg@rernat}
+% \begin{macro}{\thesisclass@thesis@ddeg@techn}
+% \begin{macro}{\thesisclass@thesis@ddeg@rersocoec}
 % Three doctor degrees can be selected: |rer.nat.|, |techn.|, and |rer.soc.oec.|.
 %    \begin{macrocode}
-\newcommand{\vutinfth@thesis@ddeg@rernat}{rer.nat.}%
-\newcommand{\vutinfth@thesis@ddeg@techn}{techn.}%
-\newcommand{\vutinfth@thesis@ddeg@rersocoec}{rer.soc.oec.}%
+\newcommand{\thesisclass@thesis@ddeg@rernat}{rer.nat.}%
+\newcommand{\thesisclass@thesis@ddeg@techn}{techn.}%
+\newcommand{\thesisclass@thesis@ddeg@rersocoec}{rer.soc.oec.}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -1049,25 +1032,25 @@
 % Sets the specific doctor degree.
 %    \begin{macrocode}
 \newcommand{\setdoctordegree}[1]{%
-  \ifdefstring{\vutinfth@thesis@ddeg@rernat}{#1}{%
+  \ifdefstring{\thesisclass@thesis@ddeg@rernat}{#1}{%
     \@setgendereddegreename{%
-      \vutinfth@polylingual@DdegRerNatMale
+      \thesisclass@polylingual@DdegRerNatMale
     }{%
-      \vutinfth@polylingual@DdegRerNatFemale
+      \thesisclass@polylingual@DdegRerNatFemale
     }%
   }{}%
-  \ifdefstring{\vutinfth@thesis@ddeg@techn}{#1}{%
+  \ifdefstring{\thesisclass@thesis@ddeg@techn}{#1}{%
     \@setgendereddegreename{%
-      \vutinfth@polylingual@DdegTechnMale
+      \thesisclass@polylingual@DdegTechnMale
     }{%
-      \vutinfth@polylingual@DdegTechnFemale
+      \thesisclass@polylingual@DdegTechnFemale
     }%
   }{}%
-  \ifdefstring{\vutinfth@thesis@ddeg@rersocoec}{#1}{%
+  \ifdefstring{\thesisclass@thesis@ddeg@rersocoec}{#1}{%
     \@setgendereddegreename{%
-      \vutinfth@polylingual@DdegRerSocOecMale
+      \thesisclass@polylingual@DdegRerSocOecMale
     }{%
-      \vutinfth@polylingual@DdegRerSocOecFemale
+      \thesisclass@polylingual@DdegRerSocOecFemale
     }%
   }{}%
 }%
@@ -1271,43 +1254,43 @@
 %
 % \subsubsection{Setup}
 %
-% \begin{macro}{\vutinfth@squarebullet}
+% \begin{macro}{\thesisclass@squarebullet}
 % Set internal convenience macros.
 %    \begin{macrocode}
 \newcommand{\newsetlength}[2]{%
   \newlength{#1}%
   \setlength{#1}{#2}%
 }%
-\newcommand{\vutinfth@squarebullet}{\rule[0.47ex]{0.4ex}{0.4ex}}%
+\newcommand{\thesisclass@squarebullet}{\rule[0.47ex]{0.4ex}{0.4ex}}%
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@tmp@parindent}
-% \begin{macro}{\vutinfth@tmp@baselineskip}
-% \begin{macro}{\vutinfth@tmp@parskip}
+% \begin{macro}{\thesisclass@tmp@parindent}
+% \begin{macro}{\thesisclass@tmp@baselineskip}
+% \begin{macro}{\thesisclass@tmp@parskip}
 % Temporary storage for page layout lengths.
 %    \begin{macrocode}
-\newlength{\vutinfth@tmp@parindent}%
-\newlength{\vutinfth@tmp@baselineskip}%
-\newlength{\vutinfth@tmp@parskip}%
+\newlength{\thesisclass@tmp@parindent}%
+\newlength{\thesisclass@tmp@baselineskip}%
+\newlength{\thesisclass@tmp@parskip}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@savelayout}
-% \begin{macro}{\vutinfth@restorelayout}
+% \begin{macro}{\thesisclass@savelayout}
+% \begin{macro}{\thesisclass@restorelayout}
 % Saves and restores relevant page layout lengths.
 %    \begin{macrocode}
-\newcommand{\vutinfth@savelayout}{%
-  \setlength{\vutinfth@tmp@parindent}{\parindent}%
-  \setlength{\vutinfth@tmp@baselineskip}{\baselineskip}%
-  \setlength{\vutinfth@tmp@parskip}{\parskip}%
+\newcommand{\thesisclass@savelayout}{%
+  \setlength{\thesisclass@tmp@parindent}{\parindent}%
+  \setlength{\thesisclass@tmp@baselineskip}{\baselineskip}%
+  \setlength{\thesisclass@tmp@parskip}{\parskip}%
 }%
-\newcommand{\vutinfth@restorelayout}{%
-  \setlength{\parindent}{\vutinfth@tmp@parindent}%
-  \setlength{\baselineskip}{\vutinfth@tmp@baselineskip}%
-  \setlength{\parskip}{\vutinfth@tmp@parskip}%
+\newcommand{\thesisclass@restorelayout}{%
+  \setlength{\parindent}{\thesisclass@tmp@parindent}%
+  \setlength{\baselineskip}{\thesisclass@tmp@baselineskip}%
+  \setlength{\parskip}{\thesisclass@tmp@parskip}%
 }%
 %    \end{macrocode}
 % \end{macro}
@@ -1315,77 +1298,77 @@
 %
 % \subsubsection{Title Page}
 %
-% Initialize the header graphics. The vertical placement of the header graphics on the title pages are given by |\vutinfth@header@placement|, while the composition of the graphical elements are determined by the subsequent lengths, which constitute direct measurements of the graphics. If the header graphics are changed, these values have to be adapted.
+% Initialize the header graphics. The vertical placement of the header graphics on the title pages are given by |\thesisclass@header@placement|, while the composition of the graphical elements are determined by the subsequent lengths, which constitute direct measurements of the graphics. If the header graphics are changed, these values have to be adapted.
 %    \begin{macrocode}
-\newsetlength{\vutinfth@logo@offset@x}{10.6mm}%
-\newsetlength{\vutinfth@logo@offset@y}{22mm}%
-\newsetlength{\vutinfth@logo@width@safe}{74mm}%
-\newsetlength{\vutinfth@logo@height}{11mm}%
-\newsetlength{\vutinfth@header@width}{\paperwidth - \vutinfth@logo@offset@x - \vutinfth@logo@offset@x}%
-\newsetlength{\vutinfth@header@height}{\vutinfth@logo@height}%
-\newsetlength{\vutinfth@header@separator}{-12mm}%
+\newsetlength{\thesisclass@logo@offset@x}{10.6mm}%
+\newsetlength{\thesisclass@logo@offset@y}{22mm}%
+\newsetlength{\thesisclass@logo@width@safe}{74mm}%
+\newsetlength{\thesisclass@logo@height}{11mm}%
+\newsetlength{\thesisclass@header@width}{\paperwidth - \thesisclass@logo@offset@x - \thesisclass@logo@offset@x}%
+\newsetlength{\thesisclass@header@height}{\thesisclass@logo@height}%
+\newsetlength{\thesisclass@header@separator}{-12mm}%
 %    \end{macrocode}
 %
-% \begin{macro}{\vutinfth@header@titlepage}
+% \begin{macro}{\thesisclass@header@titlepage}
 % \changes{v1.009=v1.9}{2019/11/11}{Changed header graphics.}
 % Initialize header.
 %    \begin{macrocode}
-\newcommand{\vutinfth@header@titlepage}{%
+\newcommand{\thesisclass@header@titlepage}{%
   \setlength{\unitlength}{1mm}%
   \begin{picture}(74, 11)%
-    {\includegraphics[height=\vutinfth@logo@height]{Logo-schwarz.pdf}}
+    {\includegraphics[height=\thesisclass@logo@height]{Logo-schwarz.pdf}}
   \end{picture}\hfill
 }%
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@footer@titlepage}
+% \begin{macro}{\thesisclass@footer@titlepage}
 % \changes{v1.009=v1.9}{2019/11/11}{Changed university URL.}
 % Initialize footer.
 %    \begin{macrocode}
-\newcommand{\vutinfth@footer@titlepage}{%
+\newcommand{\thesisclass@footer@titlepage}{%
   \centering
   \begin{minipage}{\textwidth}%
-    \centering\vutinfth@normalsize\sffamily
+    \centering\thesisclass@normalsize\sffamily
     Technische Universit\"{a}t Wien\\
-    A-1040 Wien \vutinfth@squarebullet\space
-    Karlsplatz 13 \vutinfth@squarebullet\space
-    Tel. +43-1-58801-0 \vutinfth@squarebullet\space
+    A-1040 Wien \thesisclass@squarebullet\space
+    Karlsplatz 13 \thesisclass@squarebullet\space
+    Tel. +43-1-58801-0 \thesisclass@squarebullet\space
     www.tuwien.at%
   \end{minipage}%
 }%
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{vutinfth@pagestyle@titlepage}
+% \begin{macro}{thesisclass@pagestyle@titlepage}
 % \changes{v1.009=v1.9}{2019/11/11}{Changed header graphics.}
 % Generate the title page style.
 %    \begin{macrocode}
-\makepagestyle{vutinfth@pagestyle@titlepage}%
-\makerunningwidth{vutinfth@pagestyle@titlepage}[\textwidth]{%
-  \vutinfth@header@width}%
-\makeheadposition{vutinfth@pagestyle@titlepage}{%
+\makepagestyle{thesisclass@pagestyle@titlepage}%
+\makerunningwidth{thesisclass@pagestyle@titlepage}[\textwidth]{%
+  \thesisclass@header@width}%
+\makeheadposition{thesisclass@pagestyle@titlepage}{%
   center}{center}{center}{center}%
-\makeevenhead{vutinfth@pagestyle@titlepage}{}{%
-  \vutinfth@header@titlepage}{}%
-\makeoddhead{vutinfth@pagestyle@titlepage}{}{%
-  \vutinfth@header@titlepage}{}%
-\makefootrule{vutinfth@pagestyle@titlepage}{%
-  \vutinfth@pagestyle@titlepagefootrunwidth}{0.5pt}{\footruleskip}%
-\makeevenfoot{vutinfth@pagestyle@titlepage}{}{%
-  \vutinfth@footer@titlepage}{}%
-\makeoddfoot{vutinfth@pagestyle@titlepage}{}{%
-  \vutinfth@footer@titlepage}{}%
+\makeevenhead{thesisclass@pagestyle@titlepage}{}{%
+  \thesisclass@header@titlepage}{}%
+\makeoddhead{thesisclass@pagestyle@titlepage}{}{%
+  \thesisclass@header@titlepage}{}%
+\makefootrule{thesisclass@pagestyle@titlepage}{%
+  \thesisclass@pagestyle@titlepagefootrunwidth}{0.5pt}{\footruleskip}%
+\makeevenfoot{thesisclass@pagestyle@titlepage}{}{%
+  \thesisclass@footer@titlepage}{}%
+\makeoddfoot{thesisclass@pagestyle@titlepage}{}{%
+  \thesisclass@footer@titlepage}{}%
 %    \end{macrocode}
 % \end{macro}
 %
 % Set style element specifications.
 %    \begin{macrocode}
-\newsetlength{\vutinfth@bigskipamount}{6mm}%
+\newsetlength{\thesisclass@bigskipamount}{6mm}%
 %    \end{macrocode}
 % Helper functions.
 %    \begin{macrocode}
-\newcommand{\vutinfth@bigskip}{\vspace{\vutinfth@bigskipamount}}%
+\newcommand{\thesisclass@bigskip}{\vspace{\thesisclass@bigskipamount}}%
 %    \end{macrocode}
 %
 % \begin{macro}{\AdvisorBlock}
@@ -1396,29 +1379,29 @@
 \newcommand{\AdvisorBlock}{%
   \ifundergraduate{%
     \begin{minipage}[t][2.5cm][t]{\textwidth}%
-      \vutinfth@normalsize
+      \thesisclass@normalsize
       \begin{tabular}{@{}l@{ }l}%
-        \vutinfth@polylingual@Advisor: &
-        \vutinfth@person@advisor@fullname\\
-        \ifdef{\vutinfth@person@firstassistant@def}{%
-          \vutinfth@polylingual@Assistance: &
-          \vutinfth@person@firstassistant@fullname\\
+        \thesisclass@polylingual@Advisor: &
+        \thesisclass@person@advisor@fullname\\
+        \ifdef{\thesisclass@person@firstassistant@def}{%
+          \thesisclass@polylingual@Assistance: &
+          \thesisclass@person@firstassistant@fullname\\
         }{}%
-        \ifdef{\vutinfth@person@secondassistant@def}{%
-          \ifundef{\vutinfth@person@firstassistant@def}{%
-            \vutinfth@person@firstassistant@error
+        \ifdef{\thesisclass@person@secondassistant@def}{%
+          \ifundef{\thesisclass@person@firstassistant@def}{%
+            \thesisclass@person@firstassistant@error
           }{%
-            & \vutinfth@person@secondassistant@fullname\\
+            & \thesisclass@person@secondassistant@fullname\\
           }%
         }{}%
-        \ifdef{\vutinfth@person@thirdassistant@def}{%
-          \ifundef{\vutinfth@person@firstassistant@def}{%
-            \vutinfth@person@firstassistant@error
+        \ifdef{\thesisclass@person@thirdassistant@def}{%
+          \ifundef{\thesisclass@person@firstassistant@def}{%
+            \thesisclass@person@firstassistant@error
           }{%
-            \ifundef{\vutinfth@person@secondassistant@def}{%
-              \vutinfth@person@secondassistant@error
+            \ifundef{\thesisclass@person@secondassistant@def}{%
+              \thesisclass@person@secondassistant@error
             }{%
-              & \vutinfth@person@thirdassistant@fullname\\
+              & \thesisclass@person@thirdassistant@fullname\\
            }%
          }%
        }{}%
@@ -1427,13 +1410,13 @@
   }%
   \ifgraduate{%
     \begin{minipage}[t][1.6cm][t]{\textwidth}%
-      \vutinfth@normalsize
-      \vutinfth@polylingual@Advisor:
-      \vutinfth@person@advisor@fullname
-      \ifdef{\vutinfth@person@secondadvisor@def}{%
+      \thesisclass@normalsize
+      \thesisclass@polylingual@Advisor:
+      \thesisclass@person@advisor@fullname
+      \ifdef{\thesisclass@person@secondadvisor@def}{%
         \\
-        \vutinfth@polylingual@Secondadvisor:
-        \vutinfth@person@secondadvisor@fullname
+        \thesisclass@polylingual@Secondadvisor:
+        \thesisclass@person@secondadvisor@fullname
       }{}%
     \end{minipage}\par%
   }%
@@ -1441,14 +1424,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\vutinfth@signature@height}
-% \begin{macro}{\vutinfth@signature@width}
-% \begin{macro}{\vutinfth@placedate@width}
+% \begin{macro}{\thesisclass@signature@height}
+% \begin{macro}{\thesisclass@signature@width}
+% \begin{macro}{\thesisclass@placedate@width}
 % Set lengths of the signature blocks.
 %    \begin{macrocode}
-\newsetlength{\vutinfth@signature@height}{25mm}%
-\newsetlength{\vutinfth@signature@width}{51mm}%
-\newsetlength{\vutinfth@placedate@width}{50mm}%
+\newsetlength{\thesisclass@signature@height}{25mm}%
+\newsetlength{\thesisclass@signature@width}{51mm}%
+\newsetlength{\thesisclass@placedate@width}{50mm}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -1459,40 +1442,40 @@
 % Generates a block with signatures and an optional place-date entry. The first argument is optional and adds an entry with date and place |[y]|, or adds corresponding whitespace |[h]| or adds nothing |[n]|, which is also the default value. The second arguments adds a rule and the given text below it, if a text is given, or the corresponding whitespace, if not. The third argument adds a rule and the given text below it, if a text is given.
 %    \begin{macrocode}
 \newcommand{\SignatureFields}[3][n]{%
-  {\vutinfth@normalsize
+  {\thesisclass@normalsize
     \ifstrequal{#1}{y}{%
-      \begin{minipage}[b][\vutinfth@signature@height]{%
-          \vutinfth@placedate@width
+      \begin{minipage}[b][\thesisclass@signature@height]{%
+          \thesisclass@placedate@width
         }%
-        \vutinfth@polylingual@Place,
-        \DTMusedate{vutinfth@date@signing}\vspace*{\baselineskip}%
+        \thesisclass@polylingual@Place,
+        \DTMusedate{thesisclass@date@signing}\vspace*{\baselineskip}%
       \end{minipage}%
       \hfill
     }{}%
     \ifstrequal{#1}{n}{}{}%
     \ifstrequal{#1}{h}{%
-      \hspace*{\vutinfth@placedate@width}%
+      \hspace*{\thesisclass@placedate@width}%
       \hfill
     }{}%
     \ifstrempty{#2}{%
-      \hspace*{\vutinfth@signature@width}%
+      \hspace*{\thesisclass@signature@width}%
       \hfill
     }{%
-      \begin{minipage}[b][\vutinfth@signature@height]{%
-          \vutinfth@signature@width
+      \begin{minipage}[b][\thesisclass@signature@height]{%
+          \thesisclass@signature@width
         }%
         \centering
-        \rule{\vutinfth@signature@width}{0.5pt}\\
+        \rule{\thesisclass@signature@width}{0.5pt}\\
         #2%
       \end{minipage}%
       \hfill
     }%
     \ifstrempty{#3}{}{%
-      \begin{minipage}[b][\vutinfth@signature@height]{%
-          \vutinfth@signature@width
+      \begin{minipage}[b][\thesisclass@signature@height]{%
+          \thesisclass@signature@width
         }%
         \centering
-        \rule{\vutinfth@signature@width}{0.5pt}\\
+        \rule{\thesisclass@signature@width}{0.5pt}\\
         #3%
       \end{minipage}%
     }%
@@ -1508,12 +1491,12 @@
 %    \begin{macrocode}
 \newcommand{\ReviewerBlock}{%
   \ifgraduate{%
-    {\vutinfth@normalsize
-      \vutinfth@polylingual@Reviewed\\
+    {\thesisclass@normalsize
+      \thesisclass@polylingual@Reviewed\\
       \SignatureFields[h]{%
-        \vutinfth@person@firstreviewer@name
+        \thesisclass@person@firstreviewer@name
       }{%
-        \vutinfth@person@secondreviewer@name
+        \thesisclass@person@secondreviewer@name
       }%
     }%
   }%
@@ -1528,18 +1511,18 @@
 %    \begin{macrocode}
 \newcommand{\SignatureBlock}{%
   \ifundergraduate{%
-    {\vutinfth@normalsize
+    {\thesisclass@normalsize
       \SignatureFields[y]{%
-        \vutinfth@person@author@name
+        \thesisclass@person@author@name
       }{%
-        \vutinfth@person@advisor@name
+        \thesisclass@person@advisor@name
       }%
     }%
   }%
   \ifgraduate{%
-    {\vutinfth@normalsize
+    {\thesisclass@normalsize
       \SignatureFields[y]{}{%
-        \vutinfth@person@author@name
+        \thesisclass@person@author@name
       }%
     }%
   }%
@@ -1555,20 +1538,20 @@
 %   Generates the language-dependant title page. Multiline title and subtitle are supported.
 %    \begin{macrocode}
 \newcommand{\AddTitlePage}{
-  \thispagestyle{vutinfth@pagestyle@titlepage}%
+  \thispagestyle{thesisclass@pagestyle@titlepage}%
 %    \end{macrocode}
 % Set a new page geometry where the header separation length (|headsep|) places the header.
 % The actual header height (|head|) has to be large enough to contain the header content otherwise the underlying |memoir| class issues a warning.
 %    \begin{macrocode}
   \newgeometry{%
     left=2.4cm,right=2.4cm,bottom=2.5cm,top=2cm,
-    headsep=\vutinfth@header@separator,
-    head=\vutinfth@header@height
+    headsep=\thesisclass@header@separator,
+    head=\thesisclass@header@height
   }%
 %    \end{macrocode}
 % Save the current page layout lengths for later restoration.
 %    \begin{macrocode}
-  \vutinfth@savelayout
+  \thesisclass@savelayout
   \setlength{\parindent}{0pt}%
   \setlength{\baselineskip}{13.6pt}%
   \setlength{\parskip}{0pt plus 1pt}%
@@ -1584,42 +1567,42 @@
 %    \begin{macrocode}
       \begin{minipage}[t][5cm][b]{\textwidth}%
         \centering
-        \vutinfth@HUGE{\bfseries\vutinfth@polylingual@Title}\\
+        \thesisclass@HUGE{\bfseries\thesisclass@polylingual@Title}\\
         \bigskip
-        \vutinfth@huge{\bfseries
-          \ifdef{\vutinfth@polylingual@Subtitle}{%
-            \vutinfth@polylingual@Subtitle}{%
+        \thesisclass@huge{\bfseries
+          \ifdef{\thesisclass@polylingual@Subtitle}{%
+            \thesisclass@polylingual@Subtitle}{%
           }%
         }%
       \end{minipage}\par
-      \vutinfth@bigskip\vutinfth@bigskip
-      {\vutinfth@LARGE\vutinfth@polylingual@thesisname}\par
-      \vutinfth@bigskip
-      {\vutinfth@large\vutinfth@polylingual@submission}\par
-      \vutinfth@bigskip
+      \thesisclass@bigskip\thesisclass@bigskip
+      {\thesisclass@LARGE\thesisclass@polylingual@thesisname}\par
+      \thesisclass@bigskip
+      {\thesisclass@large\thesisclass@polylingual@submission}\par
+      \thesisclass@bigskip
       \ifundergraduate{%
-        {\vutinfth@LARGE{\bfseries\vutinfth@polylingual@degreename}}\par
-        \vutinfth@bigskip
-        {\vutinfth@large\vutinfth@polylingual@in}\par
-        \vutinfth@bigskip
-        {\vutinfth@Large{\bfseries\vutinfth@polylingual@Curriculum}}\par
+        {\thesisclass@LARGE{\bfseries\thesisclass@polylingual@degreename}}\par
+        \thesisclass@bigskip
+        {\thesisclass@large\thesisclass@polylingual@in}\par
+        \thesisclass@bigskip
+        {\thesisclass@Large{\bfseries\thesisclass@polylingual@Curriculum}}\par
       }%
       \ifgraduate{%
-        {\vutinfth@LARGE{\bfseries\vutinfth@polylingual@degreename}}\par
+        {\thesisclass@LARGE{\bfseries\thesisclass@polylingual@degreename}}\par
       }%
-      \vutinfth@bigskip
-      {\vutinfth@large\vutinfth@polylingual@by}\par
-      \vutinfth@bigskip
-      {\vutinfth@Large{\bfseries\vutinfth@person@author@fullname}}\par
+      \thesisclass@bigskip
+      {\thesisclass@large\thesisclass@polylingual@by}\par
+      \thesisclass@bigskip
+      {\thesisclass@Large{\bfseries\thesisclass@person@author@fullname}}\par
       \smallskip
-      {\vutinfth@large\vutinfth@polylingual@Registrationnumber\
-      \vutinfth@data@regnumber}\par
+      {\thesisclass@large\thesisclass@polylingual@Registrationnumber\
+      \thesisclass@data@regnumber}\par
     }%
-    \vutinfth@bigskip\vutinfth@bigskip
+    \thesisclass@bigskip\thesisclass@bigskip
     \begin{minipage}[b][1.6cm][c]{\textwidth}%
-      \vutinfth@normalsize%
-      \vutinfth@polylingual@faculty\par
-      \vutinfth@polylingual@university
+      \thesisclass@normalsize%
+      \thesisclass@polylingual@faculty\par
+      \thesisclass@polylingual@university
     \end{minipage}\par
     \AdvisorBlock\par
 %    \end{macrocode}
@@ -1633,7 +1616,7 @@
   \end{SFFont}%
   \pagestyle{empty}%
   \cleardoublepage
-  \vutinfth@restorelayout
+  \thesisclass@restorelayout
   \restoregeometry
 }%
 %    \end{macrocode}
@@ -1653,28 +1636,28 @@
 %    \begin{macrocode}
 %^^A  \newgeometry{%
 %^^A    left=2.4cm,right=2.4cm,bottom=2.5cm,top=2cm,
-%^^A    headsep=\vutinfth@header@separator,
-%^^A    head=\vutinfth@header@height
+%^^A    headsep=\thesisclass@header@separator,
+%^^A    head=\thesisclass@header@height
 %^^A  }%
 %    \end{macrocode}
 % Save the current page layout lengths for later restoration.
 %    \begin{macrocode}
-  \vutinfth@savelayout
+  \thesisclass@savelayout
   \setlength{\parindent}{0pt}%
   \setlength{\baselineskip}{13.6pt}%
   \setlength{\parskip}{0pt plus 1pt}%
   \begin{SFFont}{phv}%
     \sffamily
-      \chapter*{\vutinfth@polylingual@StatementChapter}%
-      \vutinfth@person@author@fullname\par
-% ^^A      \vutinfth@data@address\par
+      \chapter*{\thesisclass@polylingual@StatementChapter}%
+      \thesisclass@person@author@fullname\par
+% ^^A      \thesisclass@data@address\par
       \vspace{1.2cm}%
-      {\normalfont\vutinfth@polylingual@Statement}\par
+      {\normalfont\thesisclass@polylingual@Statement}\par
       \vspace{1.2cm}%
-      \SignatureFields[y]{\vutinfth@person@author@name}{}%
+      \SignatureFields[y]{\thesisclass@person@author@name}{}%
   \end{SFFont}%
   \cleardoublepage
-  \vutinfth@restorelayout
+  \thesisclass@restorelayout
 %^^A  \restoregeometry
 }%
 %    \end{macrocode}
@@ -1800,12 +1783,12 @@
 %
 % \subsubsection{Page Style}
 %
-% \begin{macro}{vutinfth@pagestyle@default}
+% \begin{macro}{thesisclass@pagestyle@default}
 % Define the default page style of the thesis.
 %    \begin{macrocode}
-\makepagestyle{vutinfth@pagestyle@default}%
-\makeevenfoot{vutinfth@pagestyle@default}{\thepage}{}{}%
-\makeoddfoot{vutinfth@pagestyle@default}{}{}{\thepage}%
+\makepagestyle{thesisclass@pagestyle@default}%
+\makeevenfoot{thesisclass@pagestyle@default}{\thepage}{}{}%
+\makeoddfoot{thesisclass@pagestyle@default}{}{}{\thepage}%
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1815,11 +1798,11 @@
 % \begin{macro}{\backmatter}
 % Apply the default page style to the thesis.
 %    \begin{macrocode}
-\aliaspagestyle{chapter}{vutinfth@pagestyle@default}%
-\aliaspagestyle{part}{vutinfth@pagestyle@default}%
-\addto\frontmatter{\pagestyle{vutinfth@pagestyle@default}}%
+\aliaspagestyle{chapter}{thesisclass@pagestyle@default}%
+\aliaspagestyle{part}{thesisclass@pagestyle@default}%
+\addto\frontmatter{\pagestyle{thesisclass@pagestyle@default}}%
 \addto\mainmatter{\pagestyle{Ruled}}%
-\addto\backmatter{\pagestyle{vutinfth@pagestyle@default}}%
+\addto\backmatter{\pagestyle{thesisclass@pagestyle@default}}%
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
