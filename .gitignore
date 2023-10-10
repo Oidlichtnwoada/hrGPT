@@ -10,6 +10,7 @@ thesis.pdf
 # ignore the class files
 vutinfth.pdf
 vutinfth.hd
+vutinfth.cls
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
