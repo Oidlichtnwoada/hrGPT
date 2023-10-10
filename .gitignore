@@ -7,8 +7,9 @@ target
 # ignore the thesis pdf file
 thesis.pdf
 
-# ignore the class documentation
+# ignore the class files
 vutinfth.pdf
+vutinfth.hd
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
