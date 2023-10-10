@@ -4,6 +4,9 @@
 # ignore rust target folder
 target
 
+# ignore the thesis pdf file
+thesis.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
