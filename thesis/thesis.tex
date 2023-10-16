@@ -24,8 +24,8 @@
 \usepackage[acronym,toc]{glossaries} % Enables the generation of glossaries and lists of acronyms. This package has to be included last.
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
-\newcommand{\authorname}{Forename Surname} % The author name without titles.
-\newcommand{\thesistitle}{Title of the Thesis} % The title of the thesis. The English version should be used, if it exists.
+\newcommand{\authorname}{Hannes Brantner} % The author name without titles.
+\newcommand{\thesistitle}{Enhancing recruitment efficiency by exploring the impact of large language models on optimizing the identification of qualified applicants} % The title of the thesis. The English version should be used, if it exists.
 
 % Set PDF document properties
 \hypersetup{
@@ -33,8 +33,8 @@
     linkbordercolor = {Melon},                % The color of the borders of boxes around hyperlinks (optional).
     pdfauthor       = {\authorname},          % The author's name in the document properties (optional).
     pdftitle        = {\thesistitle},         % The document's title in the document properties (optional).
-    pdfsubject      = {Subject},              % The document's subject in the document properties (optional).
-    pdfkeywords     = {a, list, of, keywords} % The document's keywords in the document properties (optional).
+    pdfsubject      = {LLMs in HR},              % The document's subject in the document properties (optional).
+    pdfkeywords     = {Machine Learning, HR, Human Resources, AI, LLM} % The document's keywords in the document properties (optional).
 }
 
 \setpnumwidth{2.5em}        % Avoid overfull hboxes in the table of contents (see memoir manual).
@@ -50,41 +50,41 @@
 % Set persons with 4 arguments:
 %  {title before name}{name}{title after name}{gender}
 %  where both titles are optional (i.e. can be given as empty brackets {}).
-\setauthor{Pretitle}{\authorname}{Posttitle}{female}
-\setadvisor{Pretitle}{Forename Surname}{Posttitle}{male}
+\setauthor{Ing. Dipl.-Ing.}{\authorname}{BSc}{male}
+\setadvisor{}{Michaela Wawra}{MSc}{female}
 
 % For bachelor and master theses:
-\setfirstassistant{Pretitle}{Forename Surname}{Posttitle}{male}
-\setsecondassistant{Pretitle}{Forename Surname}{Posttitle}{male}
-\setthirdassistant{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setfirstassistant{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setsecondassistant{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setthirdassistant{Pretitle}{Forename Surname}{Posttitle}{male}
 
 % For dissertations:
-\setfirstreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
-\setsecondreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setfirstreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
+% \setsecondreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
 
 % For dissertations at the PhD School and optionally for dissertations:
-\setsecondadvisor{Pretitle}{Forename Surname}{Posttitle}{male} % Comment to remove.
+% \setsecondadvisor{Pretitle}{Forename Surname}{Posttitle}{male} % Comment to remove.
 
 % Required data.
-\setregnumber{0123456}
-\setdate{01}{01}{2001} % Set date with 3 arguments: {day}{month}{year}.
-\settitle{\thesistitle}{Titel der Arbeit} % Sets English and German version of the title (both can be English or German). If your title contains commas, enclose it with additional curvy brackets (i.e., {{your title}}) or define it as a macro as done with \thesistitle.
-\setsubtitle{Optional Subtitle of the Thesis}{Optionaler Untertitel der Arbeit} % Sets English and German version of the subtitle (both can be English or German).
+\setregnumber{01614466}
+\setdate{01}{10}{2023} % Set date with 3 arguments: {day}{month}{year}.
+\settitle{\thesistitle}{\thesistitle} % Sets English and German version of the title (both can be English or German). If your title contains commas, enclose it with additional curvy brackets (i.e., {{your title}}) or define it as a macro as done with \thesistitle.
+\setsubtitle{}{} % Sets English and German version of the subtitle (both can be English or German).
 
 % Select the thesis type: bachelor / master / doctor.
 % Bachelor:
-\setthesis{bachelor}
+% \setthesis{bachelor}
 %
 % Master:
-%\setthesis{master}
-%\setmasterdegree{dipl.} % dipl. / rer.nat. / rer.soc.oec. / master
+\setthesis{master}
+\setmasterdegree{master} % dipl. / rer.nat. / rer.soc.oec. / master
 %
 % Doctor:
 %\setthesis{doctor}
 %\setdoctordegree{rer.soc.oec.}% rer.nat. / techn. / rer.soc.oec.
 
 % For bachelor and master:
-\setcurriculum{Media Informatics and Visual Computing}{Medieninformatik und Visual Computing} % Sets the English and German name of the curriculum.
+\setcurriculum{Master in Business Administration (One Year MBA) }{Master in Business Administration (One Year MBA)} % Sets the English and German name of the curriculum.
 
 % Optional reviewer data:
 \setfirstreviewerdata{Affiliation, Country}
@@ -97,24 +97,14 @@
 % The structure of the thesis has to conform to the guidelines at
 %  https://informatics.tuwien.ac.at/study-services
 
-\addtitlepage{naustrian} % German title page.
+% \addtitlepage{naustrian} % German title page.
 \addtitlepage{english} % English title page.
 \addstatementpage
 
-\begin{danksagung*}
-\todo{Ihr Text hier.}
-\end{danksagung*}
-
 \begin{acknowledgements*}
-\todo{Enter your text here.}
 \end{acknowledgements*}
 
-\begin{kurzfassung}
-\todo{Ihr Text hier.}
-\end{kurzfassung}
-
 \begin{abstract}
-\todo{Enter your text here.}
 \end{abstract}
 
 % Select the language of the thesis, e.g., english or naustrian.
@@ -127,10 +117,16 @@
 \mainmatter
 
 \chapter{Introduction}
-\todo{Enter your text here.}
 
-\chapter{Additional Chapter}
-\todo{Enter your text here.}
+\chapter{Methodology}
+
+\chapter{Implementation}
+
+\chapter{Results}
+
+\chapter{Discussion}
+
+\chapter{Conclusion}
 
 \backmatter
 
@@ -142,14 +138,14 @@
 \listoftables % Starred version, i.e., \listoftables*, removes the toc entry.
 
 % Use an optional list of alogrithms.
-\listofalgorithms
-\addcontentsline{toc}{chapter}{List of Algorithms}
+% \listofalgorithms
+% \addcontentsline{toc}{chapter}{List of Algorithms}
 
 % Add an index.
 \printindex
 
 % Sample citation.
-\cite{Turing1936}
+% \cite{Turing1936}
 
 % Add a glossary.
 \printglossaries
