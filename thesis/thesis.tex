@@ -138,7 +138,41 @@
 
 \section{Background}
 \subsection{Large Language Models}
-The machine learning model type \gls{LLM} is commonly abbreviated as \acs{LLM} and can make natural language more processable for computers.
+The machine learning model type \gls{LLM} is commonly abbreviated as \acs{LLM} and makes natural language texts processable for computers.
+The model works by compressing the read text into an internal state and based on this state an output text is generated.
+As the model compresses the data according to the learned patterns in the training data, it does not understand the text in the same way as humans do.
+These models are used to perform tasks such as translation, summarization, and question answering \cite[1]{llm_literature_review}.
+As this enabled a wide field of automization for application fields that were primarily carried out by humans, many technology companies have developed their own \acs{LLM} and made their services available to the public while keeping their source code mostly private.
+Some notable example are the PaLM 2 model by Google \cite{palm2} that powers Bard, the GPT-4 model by OpenAI \cite{gpt4} that powers ChatGPT and the Llama 2 model by Meta \cite{llama2}.
+The Llama 2 model is the only model from the picked three candidates that has been released with public source code.
+That means that researches and engineers around the world can use the model as building block and either improve the underlying mechanisms or try to incorporate it in their own applications.
+The real breakthrough of \acs{LLM}s came with the release of the GPT-3 model by OpenAI \cite{gpt3} that powered the initial version of ChatGPT.
+They offered the model's capabilities as a website that was accessible to the public and allowed users to insert text and receive a response from the model.
+As described in \cite[1]{gpt3}, the model provided very good performance on various \acs{NLP} datasets that include tasks like translation and question answering.
+To briefly visualize the complexity behind a \acs{LLM}, consider the function $f_{a,b,c}(x) = ax^2+bx+c$ that has the three parameters $a$, $b$ and $c$.
+Here, the function $f$ maps the input data denoted as $x$ to the output data denoted as $f(x)$.
+The input data in the \acs{NLP} case is the input text and the output data is the output text.
+\acs{LLM}s also make use of parameterized and differentiable functions in their internal structure to map the input text to the output text, but they have orders of magnitudes more parameters than this sample function.
+For example, the model GPT-3 uses 175 billion parameters \cite[1]{gpt3} in total. The parameter count of GPT-4 was not disclosed in their technical report \cite{gpt4}.
+The training data needed to train these models was present in the required amounts because the researchers have not used reinforcement learning \cite{rl_bible} or supervised learing \cite[3]{sl_bible}.
+Reinforcement learning gives the model a reward when an action was good and a punishment when an action was bad, this can be done by letting the model train in the real world which has bad scalability or in simulators that must be coded to mimic the real world which is also a very difficult and time consuming task.
+For example, animals learn that behaviors that lead to food are good and behaviors that lead to hunger are bad.
+The supervised learning approach labels input data with the desired output label and based on these mappings and a huge amount of training samples, the model will adjust its parameters to map the input data correctly.
+An example would be input images that would be labeled with the object that can be seen on the images. So each input image must be labeled by hand before the model can be trained to predict it itself correctly.
+To compress the patterns in the training data and fill them into the model parameters, huge amounts of training data are needed as the parameter count of \acs{LLM}s is huge.
+Both techniques were not sufficient to train models of that sheer size, so the researchers used a technique called self-supervised learning \cite[7]{llm_literature_review} where the model tries to fill in artificially generated gaps in the text.
+Because the gaps are artificially introduced, the expected output is known in advance, so the model can be trained without the need of labeled training data which makes this technique immensly scalable.
+Before the text is fed to the model it is tokenized \cite[4]{llm_literature_review}, that means the text is converted into a sequence of tokens which can either be symbols, characters, subwords and words.
+The model gets the tokenized text input and predicts the follow-up output tokens that will likely follow these input tokens. The output tokens are converted back into text and then the text from the artifical gap is compared to the model output.
+Based on this comparison, the model parameters are adjusted. As no human data labelling or costly real-world or simulator training is needed, the model can be trained on huge amounts of data.
+Most of the text data used for training large language models is scraped from the internet \cite[1]{llm_literature_review}.
+The context size of a \acs{LLM} is the number of tokens that the model can store in its internal state while generating the output tokens, so it is the history of tokens it can access while generating the response.
+For example, the context size of the Llama 2 model is 4096 tokens \cite[47]{llama2}.
+The tokenizer that OpenAI is using, can be accessed via this website \cite{openai_tokenizer}.
+The output tokens of a \acs{LLM} are generated token by token, so when the first token is generated, it is appended to the input and the model generates the next token based on the input that now contains the first generated token. Afterwards, it is run iteratively in the same way.
+That means that the total output token size is also constrained by the context size, when the full history of tokens should be within the context size while generating the output.
+The model stops the output loop, when the model emits the stop token. That means that it has finished the output token generation.
+Most of \acs{LLM}s are based on the machine learning model type called Transformers \cite[1]{transformer} which is a neural network architecture that is based on the attention mechanism.
 
 \section{Problem Statement}
 \lipsum[2-4]
@@ -244,6 +278,7 @@ The machine learning model type \gls{LLM} is commonly abbreviated as \acs{LLM} a
 % Add acronym entries.
 \begin{acronym}
     \acro{LLM}{Large Language Model}
+    \acro{NLP}{Natural Language Processing}
 \end{acronym}
 
 % Add a bibliography.
