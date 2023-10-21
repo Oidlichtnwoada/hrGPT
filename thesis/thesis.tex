@@ -21,6 +21,7 @@
 \usepackage{hyperref}  % Enables hyperlinking in the electronic document version. This package has to be included second to last.
 \usepackage[acronym,toc]{glossaries} % Enables the generation of glossaries and lists of acronyms. This package has to be included last.
 \usepackage{lipsum}  % Provides blind text.
+\usepackage{acronym} % Provides a list of acronyms.
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Hannes Brantner} % The author name without titles.
@@ -89,6 +90,12 @@
 \setfirstreviewerdata{Affiliation, Country}
 \setsecondreviewerdata{Affiliation, Country}
 
+% Add glossary entries.
+\newglossaryentry{LLM}
+{
+    name=Large Language Model,
+    description={A Large Language Model is reading and emitting text, enabling it to perform tasks such as translation, summarization, and question answering.}
+}
 
 \begin{document}
 
@@ -131,7 +138,7 @@
 
 \section{Background}
 \subsection{Large Language Models}
-
+The machine learning model type \gls{LLM} is commonly abbreviated as \acs{LLM} and can make natural language more processable for computers.
 
 \section{Problem Statement}
 \lipsum[2-4]
@@ -233,6 +240,11 @@
 
 % Add a glossary.
 \printglossaries
+
+% Add acronym entries.
+\begin{acronym}
+    \acro{LLM}{Large Language Model}
+\end{acronym}
 
 % Add a bibliography.
 % comment out when finished
