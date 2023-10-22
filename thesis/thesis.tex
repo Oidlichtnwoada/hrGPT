@@ -175,6 +175,8 @@ That means that the total output token size is also constrained by the context s
 The model stops the output loop, when the model emits the stop token. That means that it has finished the output token generation.
 Most of \acs{LLM}s are based on the machine learning model type called Transformers \cite[1]{transformer} which is a neural network architecture that is based on the attention mechanism.
 
+\clearpage
+
 \section{Problem Statement}
 As described in \cite[1]{ai_recruiting}, the the average firm's value by 2000 was roughly consisting of 65\% of value from intangible assets.
 This has evolved a lot, as by the end of 1980, around 70 to 90\% of tangible assets were accountable for the average firm's value \cite[1]{ai_recruiting}.
@@ -186,15 +188,27 @@ The article \cite[2-4]{ai_recruiting} described four evolution stages of recruti
     The first stage is the analog recruiting stage where people were the main mechanism of recruiting new employees.
     Prospective applicants needed to go to the company to manually turn a paper job application in.
     Companies want to maximze the information richness they supply for the current job vacancy but also the information reach to attract as many promising applicants as possible.
-    But as described in \cite[2]{ai_recruiting}, in analog recruting this two goals faced the analog reach and richness frontier as shown in \ref{fig:analog_reach_richness_frontier}:
+    But as described in \cite[2]{ai_recruiting}, in analog recruting this two goals faced the analog reach and richness frontier as shown in \ref{fig:analog_reach_richness_frontier} because the more information is supplied, the more costly it is when you supply to media with great reach at that time:
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=0.7,page=2,width=0.6\linewidth,trim={300 100 55 515},clip]{literature/ai_recruiting.pdf}
+        \includegraphics[scale=0.5,page=2,width=0.6\linewidth,trim={300 100 55 515},clip]{literature/ai_recruiting.pdf}
         \caption{Analog reach and richness frontier \cite[2]{ai_recruiting}}
         \label{fig:analog_reach_richness_frontier}
     \end{figure}
-    \item \textbf{Digital Recruting 1.0}
-    \item \textbf{Digital Recruting 2.0}
+    \item \textbf{Digital Recruting 1.0}\\
+    This first evolution stage of digital recruting that happened in the late 1990s was characterized by breaking the analog reach and richness frontier by using digital media which allowed to supply rich information to many prospective candidates at a very low cost because there were no printing and low distribution costs involved.
+    There was also a change on the applicant's side as no more manually filled out documents were required to be handed in physically at the company site.
+    It also allowed them filter out job offers based on various selectors and it also allowed companies to offer more dynamic content to the job seekers by adding video and audio data to the job search websites.
+    There was also a considerable exxponential and self-inforcing network effect that was ongoing at that time for job search websites \cite[3]{ai_recruiting}.
+    As they listed more and more job offers, more and more job seekers were attracted to the platform which made it easier to persuade companies to list their job offers on the job search websites.
+    \item \textbf{Digital Recruting 2.0}\\
+    This evolution step emerged around ten years after the first evolution of Digital Recruiting and was mainly driven by two developments.
+    The first development was the rise of job board aggregation services that presented all job offers from various job search websites on one platform.
+    Job seekers now have access to all available job offers without having to visit each platform individually and job firms do not need to publish their offer at each individual website.
+    The second development was the introduction and rise of professional social network platforms such as \textit{LinkedIn}.
+    These network platforms allowed people to form professional communities and groups of interest and also allowed companies to present themselves to the public and to potential applicants.
+    Moreover, with endorsements people in such platforms could endorse skills of others which allowed to build a reputation and trust in the community.
+    It enabled companies to target their job ads more effectively to promising candidates, contact candidates directly through the netork and also enabled a cheap and efficient way to post job offers on large social websites whether they are professional or not like \textit{Facebook} \cite[3]{ai_recruiting}.
     \item \textbf{Digital Recruting 3.0}
 \end{enumerate}
 
