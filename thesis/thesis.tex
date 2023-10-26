@@ -26,7 +26,7 @@
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Hannes Brantner} % The author name without titles.
-\newcommand{\thesistitle}{Enhancing recruitment efficiency by exploring the impact of large language models on optimizing the identification of qualified applicants} % The title of the thesis. The English version should be used, if it exists.
+\newcommand{\thesistitle}{Enhancing recruitment efficiency by exploring the impact of large language models on the screening process} % The title of the thesis. The English version should be used, if it exists.
 
 % Set PDF document properties
 \hypersetup{
@@ -96,6 +96,11 @@
 {
     name=Large Language Model,
     description={A Large Language Model is reading and emitting text, enabling it to perform tasks such as translation, summarization, and question answering.}
+}
+\newglossaryentry{TTH}
+{
+    name=time-to-hire,
+    description={The time from the receiving of the candidate's application to the accepted job offer.}
 }
 
 \begin{document}
@@ -209,9 +214,34 @@ The article \cite[2-4]{ai_recruiting} described four evolution stages of recruti
     These network platforms allowed people to form professional communities and groups of interest and also allowed companies to present themselves to the public and to potential applicants.
     Moreover, with endorsements people in such platforms could endorse skills of others which allowed to build a reputation and trust in the community.
     It enabled companies to target their job ads more effectively to promising candidates, contact candidates directly through the netork and also enabled a cheap and efficient way to post job offers on large social websites whether they are professional or not like \textit{Facebook} \cite[3]{ai_recruiting}.
-    \item \textbf{Digital Recruting 3.0}
+    \item \textbf{Digital Recruting 3.0}\\
+    After Digital Recruiting matured from 2010 to 2015, Digital Recruiting 3.0 emerged and was primarily driven by the rise of machine learning and artificial intelligence in human resources processes.
+    As digital recruiting digitized the processes and also made the processes more frictionless for employers and employees, more and more applications came in for each job offer, on average the number is around 250 applications per job offer \cite[4]{ai_recruiting}. 
+    This can be explained by the fact that the cost of applying is very low for the applicant, but this lead to about 80\% of the applications being unqualified \cite[4]{ai_recruiting}.
+    To deal with this massive amount of applicants, you can either deploy more human resources to screen the applications or you can use machine learning to either automate processes or assist humans such that they can work more productively.
+    Human Resources are mission-critical for companies as the human capital is getting more and more important for the success of a company.
+    Moreover, research showed that top performers are four to eight times more productive that the average performers, increasingly so in complex environments, according to \cite[4]{ai_recruiting}.
 \end{enumerate}
-
+This should have made the need for an effective human resources pipeline clear. To improve this pipeline machine learning tools are deployed to the following four fields \cite[4-8]{ai_recruiting}:
+\begin{enumerate}
+    \item \textbf{Outreach}\\
+    Firms try to identify candidates and get job oportunities in front of them in a way that invites them to
+    actually apply. Machine learning can help to refine the job description in ways to attract more applicants or to bring more balance to the gender of the applicants. As there are more passive candidates not actively searching for a job than actively searching candidates, machine learning can be used to identify suitable talents from a massive pool of candidates, e.g. hundreds of millions of \textit{LinkedIn} users.
+    \item \textbf{Screening}\\
+    This stage should prefilter the applicants to only keep the most promising ones for the next assessment stage.
+    As stated in \cite[6]{ai_recruiting}, machine learning tools were at least 25\% superior to humans even when they got a reasonable amount of time to screen the application. Furthermore, the AI-enabled screening tool provider \textit{Ideal} says that with its technology the average \gls{TTH} fell from 24 days to 9 days.
+    Moreover, \textit{L'Oréal} reported a drop of screening time per resume from 40 minutes to 4 minutes and \textit{Hilton Hotels \& Resorts} reported a drop of \gls{TTH} from 42 days to 5 days by incorporating AI tools in the recruitment process.
+    \item \textbf{Assessment}\\
+    The assessments typically involves one to many rounds of assessment to determine the best or most suitable canditates that then will receive a job offer. Recent research showed that gamification with short games are more and more used to measure certain personality traits of candidates like riks aversion. Companies like \textit{Unilever} and \textit{L'Oréal} used AI-chatbots that asked various questions and applicants were able to record video responses in the \textit{Unilever} case and chat response in the case of \textit{L'Oréal}. The AI systems analyzed the content, the word choice and the used structure and matched the responses against successful employees in that field. In the case of video content, the system can also analyze the tone of the voice and the microfacial movements. These two chatbots could be filled with information at any time within the given timeframe, so it reduces scheduling times with candidates and also gives candidates more freedom to answer the questions at a time that suits them best. These chatbots can also be used to fill in missing information from the job seekers like potential start date and can also answer questions regarding the salary range for example.
+    \item \textbf{Coordination}\\
+    This task contains the coordination with the applicants which involves appointment scheduling and appointment cancellation. As in the age of digital recruitment more and more candidates are rejected, and therefore you need to make sure to convey this information to all of your applicants, as little to no information regarding the process is the main driver for bad experiences with the application process. Machine learning tools can help to achieve that.
+\end{enumerate}
+By 2018 only around 40\% have used machine learning tools in these four core human resource sourcing processes \cite[4]{ai_recruiting}.
+The cost to implement, to integrate and to maintain AI tools in human resources is significant and most companies should use services from external providers if they do not have massive amounts of hires to ammortize these costs \cite[8]{ai_recruiting}.
+Furthermore, if the AI tools are not used as an assistive technology, but as a technology to replace humans in the human resource sector, the acceptance of these technologies within this sector is quite low \cite[9]{ai_recruiting}.
+Moreover, around 70\% of large organization change initiatives which also include digital transformations, fail.
+That means there is some space for improvement and this thesis tries to implement a new open-source tool in the area of screening to improve the productivity of the human resources workers in companies of any size. As \acs{LLM}s are capable of summarization and question-answering when they are presented natural text as input within their context length, the problem to solve now is to match a provided resume from an applicant to the applied job description and assign this match a score.
+The score is needed to easily compare candidates and to sort them by their score.
 
 \section{Research Objectives}
 \lipsum[2-4]
