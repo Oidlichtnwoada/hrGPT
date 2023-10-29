@@ -259,7 +259,7 @@ The accuracy of the model will be measured by comparing the model's applicant ra
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
 Due to this compression, it is not guaranteed that the model will output plausible text in all cases. 
 As there are huge amounts of possible input texts, the model will not be able to summarize and answer questions on all of them correctly or in the same accuracy, as \acs{LLM}s do not understand the text in the same way as humans do.
-This means that the model will not be able to give a plausible output on every theoretically possible resume-job-description-matchup and should therefore not be used as a single point of truth to prefilter applicants in the screening process if fairness is a top priority.
+This means that the model will not be able to give a plausible output on every theoretically possible resume-job-matchup and should therefore not be used as a single point of truth to prefilter applicants in the screening process if fairness is a top priority.
 However, due to the huge amounts of training data that is scraped off the internet and used to train these models, they will behave quite robust in most of the cases.
 Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous and past experiences influence humans in their decisions, this makes it very hard even for the legal systems to detect discrimination \cite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \cite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms not only for decision-making, but also for the detection of discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior is dependent on human-written data like in the thesis' case is virtually impossible. Also in \cite[158-160]{discrimination_algorithms} the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
 That means when the law forbids the usage of certain features in alogorithmic or human decision-making in terms of fairness, the loss of accuracy can be quite significant as shown in the example. There might be other application areas like healthcare where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
@@ -282,6 +282,19 @@ As described in \cite[1]{rank_biased_overlap}, it was the first metric at that t
 \end{enumerate}
 These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are nonconjoint, huge in size (monotonicity and evaluation at a certain depth is desireable) and results at the front are much more important than search results further back in the ranking.
 For this thesis, the second property is the most important one, as we have complete, definite rankings which are conjoint.
+The mean human-expert ranking will be computed by sorting the applicants' resumes by the mean rank received by all the human experts.
+If there is a tie between resumes when computing the mean ranking, additional criteria will be globally introduced to break the tie.
+The job description and the applicants' resumes must be supplied as pure text to the proposed model.
+As the industry-standard formats for resumes are the \textit{PDF} and the \textit{Microsoft Word} format, files in such formats must be converted to pure text before they can be supplied to the model.
+As this conversion is not the focus of this thesis, it will be only shortly discussed in the chapter \ref{implementation}.
+This also means that a more sophisticated resume layout or design and an included portrait photo will have no influence at all on the model's output as the model will only see the text contents.
+Future work can incorporate this information by converting this visual information to text using image-to-text models.
+The proposed model will compute a score from $0$ to $1$ for each resume-job-matchup that will be supplied to it.
+Based on this score the resumes for a particular job can be ranked from best to worst.
+If there is tie happening with the output scores, additional criteria will be globally introduced to break the tie.
+Furthermore, it is planned that with each score output of the model, an explanation is supplied as well that clarifies why the model thinks this score is justified.
+The exact implementation details of the score and explanation generation is described in chapter \ref{implementation}.
+The rankings of the human experts will not be available during the model implementation phase, they will be only used to benchmark the model's accuracy after the implementation phase.
 
 \section{Data Collection}
 \lipsum[1]
@@ -289,7 +302,7 @@ For this thesis, the second property is the most important one, as we have compl
 \section{Data Analysis}
 \lipsum[1]
 
-\chapter{Implementation}
+\chapter{Implementation} \label{implementation}
 
 \section{Similar Work}
 \lipsum[1]
