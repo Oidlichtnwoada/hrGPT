@@ -267,7 +267,21 @@ That means when the law forbids the usage of certain features in alogorithmic or
 \chapter{Methodology}
 
 \section{Research Design} \label{research_design}
-The accuracy of the designed screening model will be determined by comparing the ranking of the model's output to the mean ranking of human experts against a test set. Therefore, it is a quantitative research design. The test set to benchmark the built model will contain ten job descriptions from various industries with ten applicant resumes per job description. The ten applicant resumes for each of the ten job descriptions will be ranked from each of the ten human-expert recruiters from best (1\textsuperscript{st} place) to worst (10\textsuperscript{th} place) within their associated job description. That means there will be ten rankings for each of the job description as every human-expert recruiter ranks all the resumes for each job description. 
+The accuracy of the designed screening model will be determined by comparing the ranking of the model's output to the mean ranking and the individual rankings of the human experts against a test set. 
+Therefore, it is a quantitative research design. 
+The test set to benchmark the built model will contain ten job descriptions from various industries with ten applicant resumes per job description. 
+The ten applicant resumes for each of the ten job descriptions will be ranked from each of the ten human-expert recruiters from best (1\textsuperscript{st} place) to worst (10\textsuperscript{th} place) within their associated job description. 
+That means there will be ten rankings for each of the job description as every human-expert recruiter ranks all the resumes for each job description. 
+The comparison of the ranking of the model against the mean or individual rankings of the human experts will be done using the rank-biased overlap metric which was introduced in \cite{rank_biased_overlap}. 
+It was used in \cite{rank_biased_overlap} to compare the search results of various search engines.
+As described in \cite[1]{rank_biased_overlap}, it was the first metric at that time that had the following three properties when comparing incomplete rankings (incomplete means that not every element from the population must be necessarily ranked):
+\begin{enumerate}
+\item Nonconjointness (incomplete rankings must not necessarily contain the same elements from the population)
+\item Weighting (the metric should weight high ranks more than low ranks, e.g. it is worse to have a difference in the 1\textsuperscript{st} place than in the 7\textsuperscript{th} place)
+\item Monotonicity (the ranking should be monotonic with increasing depth of evaluation as also indefinite rankings are supported, that means that the rank-biased overlap measure is non-decreasing with increasing depth of evaluation)
+\end{enumerate}
+These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are nonconjoint, huge in size (monotonicity and evaluation at a certain depth is desireable) and results at the front are much more important than search results further back in the ranking.
+For this thesis, the second property is the most important one, as we have complete, definite rankings which are conjoint.
 
 \section{Data Collection}
 \lipsum[1]
