@@ -142,8 +142,7 @@
 
 \chapter{Introduction}
 
-\section{Background}
-\subsection{Large Language Models}
+\section{Large Language Models}
 The machine learning model type \gls{LLM} is commonly abbreviated as \acs{LLM} and makes natural language texts processable for computers.
 The model works by compressing the read text into an internal state and based on this state an output text is generated.
 As the model compresses the data according to the learned patterns in the training data, it does not understand the text in the same way as humans do.
@@ -179,6 +178,31 @@ The output tokens of a \acs{LLM} are generated token by token, so when the first
 That means that the total output token size is also constrained by the context size, when the full history of tokens should be within the context size while generating the output.
 The model stops the output loop, when the model emits the stop token. That means that it has finished the output token generation.
 Most of \acs{LLM}s are based on the machine learning model type called Transformers \cite[1]{transformer} which is a neural network architecture that is based on the attention mechanism.
+
+\section{Person-Environment Fit}
+The person-environment fit can be broken up into the person-organization and the person-job fit.
+Person-organization fit describes the compatibility between the applicant's and the organization's values and characteristics and how good they meet each other's needs \cite[179]{po_and_pj_fit_literature_review}.
+The person-job fit describes the compatibility between the applicant's abilities and the job's demands or the person's desires and the job's attributes \cite[179]{po_and_pj_fit_literature_review}.
+These two fit measures should both be considered when computing the score.
+
+\subsection{Person-Environment Fit Types}
+In essence, person-environment fit is a complex and multi-dimensional concept.
+It can be conceptualized as both complementary and supplementary. 
+Supplementary fit happens when a person supplements, embellishes or possesses characteristics that are similar to other individuals in the environment \cite[180]{po_and_pj_fit_literature_review}.
+Complementary fit happens when a person possesses characteristics that are missing in the environment and make it more complete \cite[180]{po_and_pj_fit_literature_review}.
+Complementary person-environment fit encompasses the needs-supplies and demands-abilities perspectives. 
+A environment supplies financial, physical and psychological resources as well as task-related, interpersonal and growth opportunities that are demanded or needed by the person \cite[180]{po_and_pj_fit_literature_review}.
+When the supply meets the individual's needs, a needs-supplies fit is achieved.
+A demands-abilities fit is achieved when the individual's professional contributions in terms of time, effort, commitment, skills and knowledge meet the demands of the environment \cite[180]{po_and_pj_fit_literature_review}.
+Person-environment fit can be understood as perceived fit and actual fit.
+The interconnections between these types of person-environment fit are visualized in figure \ref{fig:person_environment_fit_types}:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5,page=3,width=0.8\linewidth,trim={55 130 55 470},clip]{literature/po_and_pj_fit_literature_review.pdf}
+    \caption{Person-environment fit types \cite[3]{po_and_pj_fit_literature_review}}
+    \label{fig:person_environment_fit_types}
+\end{figure}
+
 
 \clearpage
 
@@ -232,7 +256,7 @@ This should have made the need for an effective human resources pipeline clear. 
     As stated in \cite[6]{ai_recruiting}, machine learning tools were at least 25\% superior to humans even when they got a reasonable amount of time to screen the application. Furthermore, the AI-enabled screening tool provider \textit{Ideal} says that with its technology the average \gls{TTH} fell from 24 days to 9 days.
     Moreover, \textit{L'Oréal} reported a drop of screening time per resume from 40 minutes to 4 minutes and \textit{Hilton Hotels \& Resorts} reported a drop of \gls{TTH} from 42 days to 5 days by incorporating AI tools in the recruitment process.
     \item \textbf{Assessment}\\
-    The assessments typically involves one to many rounds of assessment to determine the best or most suitable candidates that then will receive a job offer. Recent research showed that gamification with short games are more and more used to measure certain personality traits of candidates like risk aversion. Companies like \textit{Unilever} and \textit{L'Oréal} used AI-chatbots that asked various questions and applicants were able to record video responses in the \textit{Unilever} case and chat response in the case of \textit{L'Oréal}. The AI systems analyzed the content, the word choice and the used structure and matched the responses against successful employees in that field. In the case of video content, the system can also analyze the tone of the voice and the micro-facial movements. These two chatbots could be filled with information at any time within the given timeframe, so it reduces scheduling times with candidates and also gives candidates more freedom to answer the questions at a time that suits them best. These chatbots can also be used to fill in missing information from the job seekers like potential start date and can also answer questions regarding the salary range for example.
+    The assessments typically involve one to many rounds of assessment to determine the best or most suitable candidates that then will receive a job offer. Recent research showed that gamification with short games is more and more used to measure certain personality traits of candidates like risk aversion. Companies like \textit{Unilever} and \textit{L'Oréal} used AI-chatbots that asked various questions and applicants were able to record video responses in the \textit{Unilever} case and chat response in the case of \textit{L'Oréal}. The AI systems analyzed the content, the word choice and the used structure and matched the responses against successful employees in that field. In the case of video content, the system can also analyze the tone of the voice and the micro-facial movements. These two chatbots could be filled with information at any time within the given timeframe, so it reduces scheduling times with candidates and also gives candidates more freedom to answer the questions at a time that suits them best. These chatbots can also be used to fill in missing information from the job seekers like potential start date and can also answer questions regarding the salary range for example.
     \item \textbf{Coordination}\\
     This task contains the coordination with the applicants which involves appointment scheduling and appointment cancellation. As in the age of digital recruitment more and more candidates are rejected, and therefore you need to make sure to convey this information to all of your applicants, as little to no information regarding the process is the main driver for bad experiences with the application process. Machine learning tools can help to achieve that.
 \end{enumerate}
@@ -312,10 +336,6 @@ The rankings of the human experts will not be available during the model impleme
 
 \section{Score Construction}
 The score from $0$ to $1$ from the model output should measure the person-environment fit between the applicant and the job description \cite[1]{po_and_pj_fit_literature_review}.
-The person-environment fit can be broken up into the person-organization and the person-job fit.
-Person-organization fit describes the compatibility between the applicant's and the organization's values and characteristics and how good they meet each other's needs \cite[1]{po_and_pj_fit_literature_review}.
-The person-job fit describes the compatibility between the applicant's abilities and the job's demands or the person's desires and the job's attributes \cite[1]{po_and_pj_fit_literature_review}.
-These two fit measures should both be considered when computing the score.
 
 \section{Prompt Design}
 \lipsum[1]
