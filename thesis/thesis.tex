@@ -340,7 +340,7 @@ It was also discussed that many of these applicants are not qualified enough for
 This pre-filtering saves costly human resources and makes it easier to invest the most time and effort into the most promising candidates, given that you have an easy and cheap way to screen the application documents.
 With the rise of \acs{LLM}s which are capable of summarization and question answering, the idea was born to use these capabilities and apply them to the screening task in human resources.
 The research question is what accuracy could such an \acs{LLM}-based screening model achieve and what would be the associated cost savings for companies and time savings for human resources workers.
-The accuracy of the model will be measured by comparing the model's applicant ranking output to human-expert rankings. This procedure is described in detail in \ref{research_design}.
+The accuracy of the model will be measured by comparing the model's applicant ranking output to human-expert rankings. This procedure is described in detail in \ref{quantitative_research_design}.
 
 \section{Scope and Limitations}
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
@@ -353,14 +353,64 @@ That means when the law forbids the usage of certain features in algorithmic or 
 
 \chapter{Methodology}
 
-\section{Research Design} \label{research_design}
-The accuracy of the designed screening model will be determined by comparing the ranking of the model's output to the mean ranking and the individual rankings of the human experts against a test set. 
-Therefore, it is a quantitative research design. 
-The test set to benchmark the built model will contain ten job descriptions from various industries with ten applicant resumes per job description. 
-The ten applicant resumes for each of the ten job descriptions will be ranked from each of the ten human-expert recruiters from best (1\textsuperscript{st} place) to worst (10\textsuperscript{th} place) within their associated job description. 
-That means there will be ten rankings for each of the job description as every human-expert recruiter ranks all the resumes for each job description. 
-The comparison of the ranking of the model against the mean or individual rankings of the human experts will be done using the rank-biased overlap metric which was introduced in \cite{rank_biased_overlap}. 
-It was used in \cite{rank_biased_overlap} to compare the search results of various search engines.
+\section{Qualitative Research Design} \label{qualitative_research_design}
+To analyze the model's output and its impact from a qualitative perspective, a focus group of five human expert recruiters will be assembled.
+Those will be involved in three major interactions:
+\begin{enumerate}
+    \item \textbf{Kick-off meeting}\\
+    In this meeting the human expert recruiters will be introduced to the proposed model and the topic of machine learning-assisted technologies in human resources will be discussed following these major topics:
+    \begin{enumerate}
+        \item Previous experiences with AI-assisted technologies in human resources
+        \item Ethical and legal considerations
+        \item Data security and privacy
+        \item Accuracy and reliability
+        \item Candidate experience
+        \item User experience
+        \item Integration with existing systems
+        \item Costs
+    \end{enumerate} 
+    \item \textbf{Ranking announcement}\\
+    After the kick-off meeting happened each human expert recruiter will get a set of applicant documents and job descriptions that should be ranked and categorized as described in \ref{quantitative_research_design}.
+    The final outputs of the experts and the time it took to produce the outputs will be collected via an online form that will be provided for that purpose.
+    \item \textbf{Closing meeting}\\
+    In this meeting the human expert recruiters will be presented the model's output to the same applicant documents and job descriptions that the recruiters have gotten.
+    The model's output will be compared to the human expert recruiters' outputs and the differences or similarities will be discussed.
+    The discussion with the experts will be guided by these topics:
+    \begin{enumerate}
+        \item Consistency and agreement
+        \item Explanation and transparency
+        \item Feedback mechanism
+        \item User confidence and trust
+        \item Identification of outliers
+        \item Bias analysis
+    \end{enumerate}
+\end{enumerate}
+All the information that is gathered will be qualitatively analyzed and the discussions will be summarized while also presenting the considerations of the recruiters' common sense.
+
+\section{Quantitative Research Design} \label{quantitative_research_design}
+The five human experts of the focus group introduced in \ref{qualitative_research_design} will get the same sample screening documents consisting of applicant documents and job descriptions.
+The applicant documents should be ranked from best to worst applicant and categorized in promising and unpromising candidates per job description by each human expert.
+That means that for each job description, there is an applicant ranking from from best (1\textsuperscript{st} place) to worst (8\textsuperscript{th} place) applicant and there are also two applicant groups per job description, the promising applicant group and the unpromising applicant group.
+The screening documents consist of six job descriptions of various industries with eight applicant document sets each.
+Two job descriptions will only have resumes as applicant documents, two job descriptions will only have cover letters as applicant documents and two job descriptions will have both resumes and cover letters as applicant documents.
+The length of all cover letters is bounded to one page and the length of resumes is bounded to two pages.
+
+The accuracy of the designed screening model will be determined by comparing the human expert annotations to the model's output for the sample screening documents and the following labels:
+\begin{enumerate}
+    \item \textbf{Ranking}\\
+    The ranking of the model's output will be compared to the mean human expert ranking and to the individual human expert rankings per job description.
+    Metrics that summarize the ranking accuracy for all job descriptions will also be provided.
+    The comparison of the rankings of the model against the mean or individual rankings of the human experts will be done using the rank-biased overlap metric which was introduced in \cite{rank_biased_overlap}. 
+    The mean rankings and the summarized metrics will be computed with an arithmetic mean.
+    \item \textbf{Categorization}\\
+    The set of promising candidates of the model's output will be compared to the mean human expert categorization and to the individual human expert categorizations per job description.
+    Metrics that summarize the categorization accuracy for all job descriptions will also be provided.
+    The comparison of the categorizations of the model against the mean or individual categorizations of the human experts will be done using TODO. 
+    The mean categorizations and the summarized metrics will be computed with an arithmetic mean.
+\end{enumerate}
+
+\subsection{Rank-Biased Overlap}
+Rank-biased overlap was used in \cite{rank_biased_overlap} to compare the search results of various search engines.
 As described in \cite[1]{rank_biased_overlap}, it was the first metric at that time that had the following three properties when comparing incomplete rankings (incomplete means that not every element from the population must be necessarily ranked):
 \begin{enumerate}
 \item Non-Conjointness (incomplete rankings must not necessarily contain the same elements from the population)
