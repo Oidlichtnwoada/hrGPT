@@ -327,7 +327,9 @@ By 2018 only around 40\% have used machine learning tools in these four core hum
 The cost to implement, to integrate and to maintain AI tools in human resources is significant and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \cite[8]{ai_recruiting}.
 Furthermore, if the AI tools are not used as an assistive technology, but as a technology to replace humans in the human resource sector, the acceptance of these technologies within this sector is quite low \cite[9]{ai_recruiting}.
 Moreover, around 70\% of large organization change initiatives which also include digital transformations, fail.
-That means there is some space for improvement and this thesis tries to implement a new open-source tool in the area of screening to improve the productivity of the human resources workers in companies of any size. As \acs{LLM}s are capable of summarization and question-answering when they are presented natural text as input within their context length, the problem to solve now is to match a provided resume from an applicant to the applied job description and assign this match a score.
+That means there is some space for improvement and this thesis tries to implement a new open-source tool in the area of screening to improve the productivity of the human resources workers in companies of any size.
+As \acs{LLM}s are capable of summarization and question-answering when they are presented natural text as input within their context length, the problem to solve now is to match a provided resume from an applicant to the applied job description and assign this match a score.
+Furthermore, the model should also characterize the applicant as promising or not using an additional output.
 The score should represent the suitability of the candidate for the job description and is needed to easily compare candidates and to sort them by their score.
 
 \section{Research Objectives and Significance}
@@ -355,6 +357,7 @@ That means when the law forbids the usage of certain features in algorithmic or 
 
 \section{Qualitative Research Design} \label{qualitative_research_design}
 To analyze the model's output and its impact from a qualitative perspective, a focus group of five human expert recruiters will be assembled.
+This amount of experts was chosen to have a diverse set of opinions, but not too many participants, in order to reduce the coordination work.
 Those will be involved in three major interactions:
 \begin{enumerate}
     \item \textbf{Kick-off meeting}\\
@@ -392,8 +395,12 @@ The five human experts of the focus group introduced in \ref{qualitative_researc
 The applicant documents should be ranked from best to worst applicant and categorized in promising and unpromising candidates per job description by each human expert.
 That means that for each job description, there is an applicant ranking from from best (1\textsuperscript{st} place) to worst (8\textsuperscript{th} place) applicant and there are also two applicant groups per job description, the promising applicant group and the unpromising applicant group.
 The screening documents consist of six job descriptions of various industries with eight applicant document sets each.
+This split was chosen in order to have a diverse set of job descriptions with different applicants that are competing for the job.
+Furthermore, it is important to note that recruiters will have to rank and categorize $48$ applicants while tracking their time usage, therefore it is quite some work to do on their end.
+More importantly, the sample screening data must also be provided in adequate quality in order to mimic the real-world screening process as closely as possible.
 Two job descriptions will only have resumes as applicant documents, two job descriptions will only have cover letters as applicant documents and two job descriptions will have both resumes and cover letters as applicant documents.
 The length of all cover letters is bounded to one page and the length of resumes is bounded to two pages.
+No applicant document will contain a photo of the applicant.
 
 The accuracy of the designed screening model will be determined by comparing the human expert annotations to the model's output for the sample screening documents and the following labels:
 \begin{enumerate}
@@ -402,31 +409,62 @@ The accuracy of the designed screening model will be determined by comparing the
     Metrics that summarize the ranking accuracy for all job descriptions will also be provided.
     The comparison of the rankings of the model against the mean or individual rankings of the human experts will be done using the rank-biased overlap metric which was introduced in \cite{rank_biased_overlap}. 
     The mean rankings and the summarized metrics will be computed with an arithmetic mean.
+    To break eventually occurring ties, an additional criteria will be introduced.
     \item \textbf{Categorization}\\
     The set of promising candidates of the model's output will be compared to the mean human expert categorization and to the individual human expert categorizations per job description.
     Metrics that summarize the categorization accuracy for all job descriptions will also be provided.
-    The comparison of the categorizations of the model against the mean or individual categorizations of the human experts will be done using TODO. 
-    The mean categorizations and the summarized metrics will be computed with an arithmetic mean.
+    The comparison of the categorizations of the model against the mean or individual categorizations of the human experts will be done using the Hamming distance.
+    Therefore, this would equal the amount of applicant category changes necessary to transform one categorization into the other.
+    The mean categorizations will be computed using the mode and the summarized metrics will be computed with an arithmetic mean.
+    To break eventually occurring ties, an additional criteria will be introduced.
 \end{enumerate}
 
 \subsection{Rank-Biased Overlap}
-Rank-biased overlap was used in \cite{rank_biased_overlap} to compare the search results of various search engines.
+Rank-biased overlap (RBO) was used in \cite{rank_biased_overlap} to compare the search results of various search engines.
+It computes the similarity of two rankings from $0$ (no similarity) to $1$ (most similarity) and can be evaluated up to a certain depth $k$ and needs a weighting parameter $p$ out of the interval $(0,1)$.
+The lower $p$ is chosen, the more weight is put on the top ranks of the rankings.
+Here are some examples to illustrate the behavior of rank-biased overlap denoted as $rbo$, $k=\infty$ means that the evaluation depth is as deep as the length of the ranking:
+\begin{itemize}
+    \item $rbo_{k=\infty,p=0.1}(\{'dog','cat','mom'\},\{'dog','cat','mom'\}) \approx 1$
+    \item $rbo_{k=\infty,p=0.1}(\{'apple','peach','mom'\},\{'dog','cat','dad'\}) = 0$
+    \item $rbo_{k=\infty,p=0.1}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.99$
+    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.74$
+    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','tennis'\}) \approx 0.80$
+    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','golf'\}) \approx 0.78$
+\end{itemize}
 As described in \cite[1]{rank_biased_overlap}, it was the first metric at that time that had the following three properties when comparing incomplete rankings (incomplete means that not every element from the population must be necessarily ranked):
 \begin{enumerate}
 \item Non-Conjointness (incomplete rankings must not necessarily contain the same elements from the population)
+\begin{itemize}
+    \item $rbo_{k=\infty,p=0.1}(\{'apple','peach','mom'\},\{'dog','cat','dad'\}) = 0$
+\end{itemize}
 \item Weighting (the metric should weight high ranks more than low ranks, e.g. it is worse to have a difference in the 1\textsuperscript{st} place than in the 7\textsuperscript{th} place)
+\begin{itemize}
+    \item $rbo_{k=\infty,p=0.1}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.99$
+    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.74$
+\end{itemize}
 \item Monotonicity (the ranking should be monotonic with increasing depth of evaluation as also indefinite rankings are supported, that means that the rank-biased overlap measure is non-decreasing with increasing depth of evaluation)
+\begin{itemize}
+    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.74$
+    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','tennis'\}) \approx 0.80$
+    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','golf'\}) \approx 0.78$
+\end{itemize}
 \end{enumerate}
 These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are non-conjoint, huge in size (monotonicity and evaluation at a certain depth is desirable) and results at the front are much more important than search results further back in the ranking.
-For this thesis, the second property is the most important one, as we have complete, definite rankings which are conjoint.
-The mean human-expert ranking will be computed by sorting the applicants' resumes by the mean rank received by all the human experts.
-If there is a tie between resumes when computing the mean ranking, additional criteria will be globally introduced to break the tie.
-The job description and the applicants' resumes must be supplied as pure text to the proposed model.
+For this thesis, the second weighting property is the most important one, as we have complete, definite rankings which are conjoint.
+
+\subsection{Sample Screening Documents}
+The job descriptions and the applicant documents will be either taken from publicly available datasets, manually crafted or generated using tools like GPT-4 (\cite{gpt4}) while giving the model some hints on the context and the expected applicant characteristics.
+The job description and the applicants' resumes and cover letters must be supplied as pure text to the proposed model due to their internal tokenization.
+That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more and more important it will be to supply machine readable applicant documents that please the machine learning models used in the screening process.
+When this AI-barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
+This will lead to new challenges for the applicants as they have to please both the machine learning models and the human decision-makers.
 As the industry-standard formats for resumes are the \textit{PDF} and the \textit{Microsoft Word} format, files in such formats must be converted to pure text before they can be supplied to the model.
 As this conversion is not the focus of this thesis, it will be only shortly discussed in the chapter \ref{implementation}.
 This also means that a more sophisticated resume layout or design and an included portrait photo will have no influence at all on the model's output as the model will only see the text contents.
 Future work can incorporate this information by converting this visual information to text using image-to-text models.
 The proposed model will compute a score from $0$ to $1$ for each resume-job-matchup that will be supplied to it.
+The model should also output if it thinks that the applicant is promising or not, so it also categorizes applicants in two groups.
 Based on this score the resumes for a particular job can be ranked from best to worst.
 If there is tie happening with the output scores, additional criteria will be globally introduced to break the tie.
 Furthermore, it is planned that with each score output of the model, an explanation is supplied as well that clarifies why the model thinks this score is justified.
