@@ -23,6 +23,7 @@
 \usepackage{lipsum}  % Provides blind text.
 \usepackage{acronym} % Provides a list of acronyms.
 \usepackage{float} % Provides the H float modifier option.
+\usepackage{tabularx} % Provides a tabular package.
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Hannes Brantner} % The author name without titles.
@@ -341,8 +342,18 @@ As outlined in the previous chapters, people working in human resources have to 
 It was also discussed that many of these applicants are not qualified enough for the advertised job and should therefore not be assessed further.
 This pre-filtering saves costly human resources and makes it easier to invest the most time and effort into the most promising candidates, given that you have an easy and cheap way to screen the application documents.
 With the rise of \acs{LLM}s which are capable of summarization and question answering, the idea was born to use these capabilities and apply them to the screening task in human resources.
-The research question is what accuracy could such an \acs{LLM}-based screening model achieve and what would be the associated cost savings for companies and time savings for human resources workers.
-The accuracy of the model will be measured by comparing the model's applicant ranking output to human-expert rankings. This procedure is described in detail in \ref{quantitative_research_design}.
+\\\\
+The research question is:\\
+\textit{What impact could such an \acs{LLM}-based screening model have on the screening process?}
+This formulation entails subordinate research questions which are shown in the following enumeration:
+\begin{itemize}
+    \item \textit{What is the accuracy of the proposed model?}\\
+    This question will be answered by testing the accuracy of the model's outputs against annotations from human expert recruiters.
+    This procedure is described in detail in \ref{quantitative_research_design}.
+    \item \textit{What are the time savings associated to the model usage?}\\
+    This question will be answered by measuring the time taken by the the human experts to execute the above-mentioned data annotation.
+    This time will be compared to a sampled time it takes for users to automate the same tasks by using the model.
+\end{itemize}
 
 \section{Scope and Limitations}
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
