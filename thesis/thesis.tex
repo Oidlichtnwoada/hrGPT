@@ -461,29 +461,29 @@ It computes the similarity of two rankings from $0$ (no similarity) to $1$ (most
 The lower $p$ is chosen, the more weight is put on the top ranks of the rankings.
 Here are some examples to illustrate the behavior of rank-biased overlap denoted as $rbo$, $k=\infty$ means that the evaluation depth is as deep as the length of the ranking:
 \begin{itemize}
-    \item $rbo_{k=\infty,p=0.1}(\{'dog','cat','mom'\},\{'dog','cat','mom'\}) \approx 1$
-    \item $rbo_{k=\infty,p=0.1}(\{'apple','peach','mom'\},\{'dog','cat','dad'\}) = 0$
-    \item $rbo_{k=\infty,p=0.1}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.99$
-    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.74$
-    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','tennis'\}) \approx 0.80$
-    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','golf'\}) \approx 0.78$
+    \item $rbo_{k=\infty,p=0.1}(['dog','cat','mom'],['dog','cat','mom']) \approx 1$
+    \item $rbo_{k=\infty,p=0.1}(['apple','peach','mom'],['dog','cat','dad']) = 0$
+    \item $rbo_{k=\infty,p=0.1}(['dog','cat','mom'],['dog','cat','dad']) \approx 0.99$
+    \item $rbo_{k=\infty,p=0.6}(['dog','cat','mom'],['dog','cat','dad']) \approx 0.74$
+    \item $rbo_{k=\infty,p=0.6}(['dog','cat','mom','tennis'],['dog','cat','dad','tennis']) \approx 0.80$
+    \item $rbo_{k=\infty,p=0.6}(['dog','cat','mom','tennis'],['dog','cat','dad','golf']) \approx 0.78$
 \end{itemize}
 As described in \cite[1]{rank_biased_overlap}, it was the first metric at that time that had the following three properties when comparing incomplete rankings (incomplete means that not every element from the population must be necessarily ranked):
 \begin{enumerate}
 \item Non-Conjointness (incomplete rankings must not necessarily contain the same elements from the population)
 \begin{itemize}
-    \item $rbo_{k=\infty,p=0.1}(\{'apple','peach','mom'\},\{'dog','cat','dad'\}) = 0$
+    \item $rbo_{k=\infty,p=0.1}(['apple','peach','mom'],['dog','cat','dad']) = 0$
 \end{itemize}
 \item Weighting (the metric should weight high ranks more than low ranks, e.g. it is worse to have a difference in the 1\textsuperscript{st} place than in the 7\textsuperscript{th} place)
 \begin{itemize}
-    \item $rbo_{k=\infty,p=0.1}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.99$
-    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.74$
+    \item $rbo_{k=\infty,p=0.1}(['dog','cat','mom'],['dog','cat','dad']) \approx 0.99$
+    \item $rbo_{k=\infty,p=0.6}(['dog','cat','mom'],['dog','cat','dad']) \approx 0.74$
 \end{itemize}
 \item Monotonicity (the ranking should be monotonic with increasing depth of evaluation as also indefinite rankings are supported, that means that the rank-biased overlap measure is non-decreasing with increasing depth of evaluation)
 \begin{itemize}
-    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom'\},\{'dog','cat','dad'\}) \approx 0.74$
-    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','tennis'\}) \approx 0.80$
-    \item $rbo_{k=\infty,p=0.6}(\{'dog','cat','mom','tennis'\},\{'dog','cat','dad','golf'\}) \approx 0.78$
+    \item $rbo_{k=\infty,p=0.6}(['dog','cat','mom'],['dog','cat','dad']) \approx 0.74$
+    \item $rbo_{k=\infty,p=0.6}(['dog','cat','mom','tennis'],['dog','cat','dad','tennis']) \approx 0.80$
+    \item $rbo_{k=\infty,p=0.6}(['dog','cat','mom','tennis'],['dog','cat','dad','golf']) \approx 0.78$
 \end{itemize}
 \end{enumerate}
 These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are non-conjoint, huge in size (monotonicity and evaluation at a certain depth is desirable) and results at the front are much more important than search results further back in the ranking.
