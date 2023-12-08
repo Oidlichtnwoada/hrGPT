@@ -13,10 +13,16 @@ export function getChat(options: Omit<ApiInterfaceOptions, 'apiKey'>): Chat {
   let apiInterface: ApiInterface;
   switch (options.model) {
     case Model.GPT_4_TURBO:
-      apiInterface = new OpenaiApiInterface({ apiKey: '', ...options });
+      apiInterface = new OpenaiApiInterface({
+        apiKey: process.env['OPENAI_API_KEY']!,
+        ...options,
+      });
       break;
     case Model.LLAMA_2_70B_CHAT:
-      apiInterface = new ReplicateApiInterface({ apiKey: '', ...options });
+      apiInterface = new ReplicateApiInterface({
+        apiKey: process.env['OPENAI_API_KEY']!,
+        ...options,
+      });
       break;
     default:
       throw new Error();
