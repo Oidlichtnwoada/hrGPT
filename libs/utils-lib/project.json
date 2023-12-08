@@ -1,0 +1,37 @@
+{
+  "name": "utils-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utils-lib/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utils-lib",
+        "main": "libs/utils-lib/src/index.ts",
+        "tsConfig": "libs/utils-lib/tsconfig.lib.json",
+        "assets": ["libs/utils-lib/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/utils-lib/**/*.ts",
+          "libs/utils-lib/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/libs/utils-lib"
+      }
+    }
+  },
+  "tags": []
+}
