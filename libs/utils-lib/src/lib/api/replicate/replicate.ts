@@ -24,6 +24,7 @@ export class ReplicateChat implements Chat {
     this.options = options;
     this.replicate = replicate;
     this.chatMessageHistory = [];
+    this.setContext(this.options.systemContext);
   }
 
   private transformChatMessageToReplicateChatObject(): ReplicateChatObject {

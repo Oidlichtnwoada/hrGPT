@@ -40,10 +40,11 @@ export interface ApiInterfaceOptions {
   maxTokens?: number,
   minTokens?: number,
   debug?: boolean;
+  systemContext?: string;
 }
 
 export function getDefaultApiInterfaceOptions(options: ApiInterfaceOptions): Required<ApiInterfaceOptions> {
-    return {debug: false, minTokens: 0, maxTokens: 1_000_000, topTokens: 50, topProbability: 1, seed: Math.round(Math.random() * Number.MAX_SAFE_INTEGER), stopSequences: [], temperature: 1, ...options};
+    return {systemContext: 'You are a helpful assistant.', debug: false, minTokens: 0, maxTokens: 1_000_000, topTokens: 50, topProbability: 1, seed: Math.round(Math.random() * Number.MAX_SAFE_INTEGER), stopSequences: [], temperature: 1, ...options};
 };
 
 

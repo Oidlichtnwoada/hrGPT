@@ -30,6 +30,7 @@ export class OpenaiChat implements Chat {
     this.options = options;
     this.openai = openai;
     this.chatMessageHistory = [];
+    this.setContext(this.options.systemContext);
   }
 
   private transformChatMessageToOpenaiChatMessage(
