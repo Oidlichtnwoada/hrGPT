@@ -5,7 +5,11 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "@swc/helpers": "~0.5.2"
+    "@swc/helpers": "~0.5.2",
+    "@types/luxon": "^3.3.7",
+    "luxon": "^3.4.4",
+    "openai": "^4.20.1",
+    "replicate": "^0.23.0"
   },
   "devDependencies": {
     "@nx/eslint": "17.1.3",
