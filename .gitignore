@@ -355,3 +355,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Ignore .env files
+.env
