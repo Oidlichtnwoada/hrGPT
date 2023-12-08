@@ -28,7 +28,7 @@ export class ReplicateChat implements Chat {
   }
 
   private transformChatMessageToReplicateChatObject(): ReplicateChatObject {
-    const prompts: string[] = this.getChatMessageHistory(false).map(
+    const prompts: string[] = this.getChatMessageHistory().map(
       (chatMessage) => {
         switch (chatMessage.author) {
           case Author.USER:
@@ -113,7 +113,7 @@ export class ReplicateChat implements Chat {
     return modelChatMessage;
   }
 
-  getChatMessageHistory(includeContext: boolean): ChatMessage[] {
+  getChatMessageHistory(includeContext: boolean = false): ChatMessage[] {
     return this.chatMessageHistory.filter(
       (x) => includeContext || x.author !== Author.SYSTEM
     );

@@ -20,7 +20,7 @@ export function getChat(options: Omit<ApiInterfaceOptions, 'apiKey'>): Chat {
       break;
     case Model.LLAMA_2_70B_CHAT:
       apiInterface = new ReplicateApiInterface({
-        apiKey: process.env['OPENAI_API_KEY']!,
+        apiKey: process.env['REPLICATE_API_KEY']!,
         ...options,
       });
       break;

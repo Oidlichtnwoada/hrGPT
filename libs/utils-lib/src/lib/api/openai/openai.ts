@@ -118,7 +118,7 @@ export class OpenaiChat implements Chat {
     return modelChatMessage;
   }
 
-  getChatMessageHistory(includeContext: boolean): ChatMessage[] {
+  getChatMessageHistory(includeContext: boolean = false): ChatMessage[] {
     return this.chatMessageHistory.filter(
       (x) => includeContext || x.author !== Author.SYSTEM
     );
