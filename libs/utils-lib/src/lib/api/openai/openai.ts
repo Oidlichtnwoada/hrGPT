@@ -66,8 +66,8 @@ export class OpenaiChat implements Chat {
 
   getContext(): ChatMessage | undefined {
     return this.chatMessageHistory
-    .filter((chatMessage) => chatMessage.author === Author.SYSTEM)
-    .pop();
+      .filter((chatMessage) => chatMessage.author === Author.SYSTEM)
+      .pop();
   }
 
   async askQuestion(question: string): Promise<ChatMessage> {
@@ -92,6 +92,10 @@ export class OpenaiChat implements Chat {
       seed: this.options.seed,
       top_p: this.options.topProbability,
       max_tokens: this.options.maxTokens,
+      n: this.options.choices,
+      frequency_penalty: this.options.frequencyPenalty,
+      logit_bias: this.options.logitBias,
+      presence_penalty: this.options.presencePenalty,
     });
     const afterTimestamp = DateTime.now().toUTC();
     const modelResponseChoice = modelResponse.choices[0];
@@ -115,7 +119,9 @@ export class OpenaiChat implements Chat {
   }
 
   getChatMessageHistory(includeContext: boolean): ChatMessage[] {
-    return this.chatMessageHistory.filter(x => includeContext || x.author !== Author.SYSTEM);
+    return this.chatMessageHistory.filter(
+      (x) => includeContext || x.author !== Author.SYSTEM
+    );
   }
   getUserChatMessageHistory(): ChatMessage[] {
     return this.chatMessageHistory.filter(

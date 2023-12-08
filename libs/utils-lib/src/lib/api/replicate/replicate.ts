@@ -28,19 +28,21 @@ export class ReplicateChat implements Chat {
   }
 
   private transformChatMessageToReplicateChatObject(): ReplicateChatObject {
-    const prompts: string[] = this.getChatMessageHistory(false).map((chatMessage) => {
+    const prompts: string[] = this.getChatMessageHistory(false).map(
+      (chatMessage) => {
         switch (chatMessage.author) {
-            case Author.USER:
-                return `[INST] ${chatMessage.text} [/INST]`;
-            case Author.MODEL:
-                return chatMessage.text
-            default:
-                throw new Error();
+          case Author.USER:
+            return `[INST] ${chatMessage.text} [/INST]`;
+          case Author.MODEL:
+            return chatMessage.text;
+          default:
+            throw new Error();
         }
-    });
+      }
+    );
     return {
-        system_prompt: this.getContext()?.text ?? '',
-        prompt: prompts.join('\n'),
+      system_prompt: this.getContext()?.text ?? '',
+      prompt: prompts.join('\n'),
     };
   }
 
@@ -63,8 +65,8 @@ export class ReplicateChat implements Chat {
 
   getContext(): ChatMessage | undefined {
     return this.chatMessageHistory
-    .filter((chatMessage) => chatMessage.author === Author.SYSTEM)
-    .pop();
+      .filter((chatMessage) => chatMessage.author === Author.SYSTEM)
+      .pop();
   }
 
   async askQuestion(question: string): Promise<ChatMessage> {
@@ -79,22 +81,24 @@ export class ReplicateChat implements Chat {
       ),
     };
     this.chatMessageHistory.push(userChatMessage);
-    const outputParts: string[] = await this.replicate.run(
-        this.options.model as `${string}/${string}:${string}`,
-        {
-          input: {
-            ...this.transformChatMessageToReplicateChatObject(),
-            debug: this.options.debug,
-            top_k: this.options.topTokens,
-            top_p: this.options.topProbability,
-            temperature: this.options.temperature,
-            max_new_tokens: this.options.maxTokens,
-            min_new_tokens: this.options.minTokens,
-            seed: this.options.seed,
-            stop_sequences: this.options.stopSequences?.map(x => `<${x}>`).join(','),
-          }
-        }
-      ) as string[];
+    const outputParts: string[] = (await this.replicate.run(
+      this.options.model as `${string}/${string}:${string}`,
+      {
+        input: {
+          ...this.transformChatMessageToReplicateChatObject(),
+          debug: this.options.debug,
+          top_k: this.options.topTokens,
+          top_p: this.options.topProbability,
+          temperature: this.options.temperature,
+          max_new_tokens: this.options.maxTokens,
+          min_new_tokens: this.options.minTokens,
+          seed: this.options.seed,
+          stop_sequences: this.options.stopSequences
+            ?.map((x) => `<${x}>`)
+            .join(','),
+        },
+      }
+    )) as string[];
     const afterTimestamp = DateTime.now().toUTC();
     const modelChatMessage: ChatMessage = {
       text: outputParts.join('').trim(),
@@ -110,7 +114,9 @@ export class ReplicateChat implements Chat {
   }
 
   getChatMessageHistory(includeContext: boolean): ChatMessage[] {
-    return this.chatMessageHistory.filter(x => includeContext || x.author !== Author.SYSTEM);
+    return this.chatMessageHistory.filter(
+      (x) => includeContext || x.author !== Author.SYSTEM
+    );
   }
   getUserChatMessageHistory(): ChatMessage[] {
     return this.chatMessageHistory.filter(
