@@ -5,6 +5,7 @@ import {
   Chat,
   ChatMessage,
   Model,
+  getDefaultApiInterfaceOptions,
 } from '../../interface/interface';
 import OpenAI from 'openai';
 import { DateTime, Interval } from 'luxon';
@@ -21,11 +22,11 @@ export interface OpenaiChatMessage {
 }
 
 export class OpenaiChat implements Chat {
-  private readonly options: ApiInterfaceOptions;
+  private readonly options: Required<ApiInterfaceOptions>;
   private readonly openai: OpenAI;
   private chatMessageHistory: ChatMessage[];
 
-  constructor(options: ApiInterfaceOptions, openai: OpenAI) {
+  constructor(options: Required<ApiInterfaceOptions>, openai: OpenAI) {
     this.options = options;
     this.openai = openai;
     this.chatMessageHistory = [];
@@ -51,7 +52,7 @@ export class OpenaiChat implements Chat {
     }
     const currentTimestamp = DateTime.now().toUTC();
     const systemChatMessage: ChatMessage = {
-      text: context,
+      text: context.trim(),
       author: Author.SYSTEM,
       creationDateTime: currentTimestamp,
       generationInterval: Interval.fromDateTimes(
@@ -62,10 +63,16 @@ export class OpenaiChat implements Chat {
     this.chatMessageHistory.push(systemChatMessage);
   }
 
+  getContext(): ChatMessage | undefined {
+    return this.chatMessageHistory
+    .filter((chatMessage) => chatMessage.author === Author.SYSTEM)
+    .pop();
+  }
+
   async askQuestion(question: string): Promise<ChatMessage> {
     const beforeTimestamp = DateTime.now().toUTC();
     const userChatMessage: ChatMessage = {
-      text: question,
+      text: question.trim(),
       author: Author.USER,
       creationDateTime: beforeTimestamp,
       generationInterval: Interval.fromDateTimes(
@@ -79,6 +86,11 @@ export class OpenaiChat implements Chat {
       messages: this.chatMessageHistory.map(
         this.transformChatMessageToOpenaiChatMessage
       ),
+      temperature: this.options.temperature,
+      stop: this.options.stopSequences,
+      seed: this.options.seed,
+      top_p: this.options.topProbability,
+      max_tokens: this.options.maxTokens,
     });
     const afterTimestamp = DateTime.now().toUTC();
     const modelResponseChoice = modelResponse.choices[0];
@@ -89,7 +101,7 @@ export class OpenaiChat implements Chat {
       throw new Error();
     }
     const modelChatMessage: ChatMessage = {
-      text: modelResponseChoice.message.content,
+      text: modelResponseChoice.message.content.trim(),
       author: Author.MODEL,
       creationDateTime: DateTime.fromSeconds(modelResponse.created).toUTC(),
       generationInterval: Interval.fromDateTimes(
@@ -101,8 +113,8 @@ export class OpenaiChat implements Chat {
     return modelChatMessage;
   }
 
-  getChatMessageHistory(): ChatMessage[] {
-    return this.chatMessageHistory;
+  getChatMessageHistory(includeContext: boolean): ChatMessage[] {
+    return this.chatMessageHistory.filter(x => includeContext || x.author !== Author.SYSTEM);
   }
   getUserChatMessageHistory(): ChatMessage[] {
     return this.chatMessageHistory.filter(
@@ -127,14 +139,14 @@ export class OpenaiChat implements Chat {
 }
 
 export class OpenaiApiInterface implements ApiInterface {
-  private readonly options: ApiInterfaceOptions;
+  private readonly options: Required<ApiInterfaceOptions>;
   private readonly openai: OpenAI;
 
   constructor(options: ApiInterfaceOptions) {
     if (![Model.GPT_4_TURBO].includes(options.model)) {
       throw new Error();
     }
-    this.options = options;
+    this.options = getDefaultApiInterfaceOptions(options);
     this.openai = new OpenAI({ apiKey: options.apiKey });
   }
 

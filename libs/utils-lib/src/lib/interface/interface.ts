@@ -15,8 +15,9 @@ export interface ChatMessage {
 
 export interface Chat {
   setContext(context: string): void;
+  getContext(): ChatMessage | undefined;
   askQuestion(question: string): Promise<ChatMessage>;
-  getChatMessageHistory(): ChatMessage[];
+  getChatMessageHistory(includeContext: boolean): ChatMessage[];
   getUserChatMessageHistory(): ChatMessage[];
   getModelChatMessageHistory(): ChatMessage[];
   getLastUserChatMessage(): ChatMessage | undefined;
@@ -25,13 +26,26 @@ export interface Chat {
 
 export enum Model {
   GPT_4_TURBO = 'gpt-4-1106-preview',
-  LLAMA_2_70B_CHAT = '',
+  LLAMA_2_70B_CHAT = 'meta/llama-2-70b-chat:02e509c789964a7ea8736978a43525956ef40397be9033abf9fd2badfe68c9e3',
 }
 
 export interface ApiInterfaceOptions {
   model: Model;
   apiKey: string;
+  temperature?: number;
+  stopSequences?: string[];
+  seed?: number;
+  topProbability?: number;
+  topTokens?: number;
+  maxTokens?: number,
+  minTokens?: number,
+  debug?: boolean;
 }
+
+export function getDefaultApiInterfaceOptions(options: ApiInterfaceOptions): Required<ApiInterfaceOptions> {
+    return {debug: false, minTokens: 0, maxTokens: 1_000_000, topTokens: 50, topProbability: 1, seed: Math.round(Math.random() * Number.MAX_SAFE_INTEGER), stopSequences: [], temperature: 1, ...options};
+};
+
 
 export interface ApiInterface {
   createChat(): Chat;
