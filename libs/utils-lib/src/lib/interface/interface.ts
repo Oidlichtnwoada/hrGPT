@@ -1,9 +1,9 @@
 import { DateTime, Interval } from 'luxon';
 
 export enum Author {
-  USER,
-  MODEL,
-  SYSTEM,
+  USER = 'user',
+  MODEL = 'model',
+  SYSTEM = 'system',
 }
 
 export interface ChatMessage {
