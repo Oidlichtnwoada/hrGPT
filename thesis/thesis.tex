@@ -24,6 +24,7 @@
 \usepackage{acronym} % Provides a list of acronyms.
 \usepackage{float} % Provides the H float modifier option.
 \usepackage{tabularx} % Provides a tabular package.
+\usepackage{listings} % for code listings.
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Hannes Brantner} % The author name without titles.
@@ -102,6 +103,22 @@
 {
     name=time-to-hire,
     description={The time from the receiving of the candidate's application to the accepted job offer}
+}
+
+% define style for Javascript scripts
+\lstdefinelanguage{TypeScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
 }
 
 \begin{document}
@@ -611,5 +628,12 @@ The score from $0$ to $1$ from the model output should measure the person-enviro
 
 % Add a glossary.
 \printglossaries
+
+
+\chapter{Appendix}
+\setcounter{page}{1}
+
+\section{Code Listings}
+\lstinputlisting[language=TypeScript]{../libs/utils-lib/src/lib/wrapper/wrapper.spec.ts}
 
 \end{document}
