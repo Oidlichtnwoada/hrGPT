@@ -136,6 +136,14 @@
 \listoftables % Starred version, i.e., \listoftables*, removes the toc entry.
 \cleardoublepage
 
+\chapter{List of Abbreviations}
+% Add acronym entries.
+\begin{acronym}
+    \acro{LLM}{Large Language Model}
+    \acro{NLP}{Natural Language Processing}
+\end{acronym}
+\cleardoublepage
+
 % Select the language of the thesis, e.g., english or naustrian.
 \selectlanguage{english}
 
@@ -592,22 +600,16 @@ The score from $0$ to $1$ from the model output should measure the person-enviro
 % \listofalgorithms
 % \addcontentsline{toc}{chapter}{List of Algorithms}
 
-% Add an index.
-\printindex
-
-% Add a glossary.
-\printglossaries
-
-% Add acronym entries.
-\begin{acronym}
-    \acro{LLM}{Large Language Model}
-    \acro{NLP}{Natural Language Processing}
-\end{acronym}
-
 % Add a bibliography.
 % comment out when finished
 \nocite{*}
 \bibliographystyle{apalike}
 \bibliography{thesis}
+
+% Add an index.
+\printindex
+
+% Add a glossary.
+\printglossaries
 
 \end{document}
