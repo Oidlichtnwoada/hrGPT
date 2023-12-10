@@ -478,10 +478,24 @@ That means that for each job description, there is an applicant ranking from bes
 The screening documents consist of six job descriptions of various industries with eight applicant document sets each.
 This split was chosen in order to have a diverse set of job descriptions with different applicants that are competing for the job.
 Furthermore, it is important to note that recruiters will have to rank and categorize $48$ applicants while tracking their time usage, therefore it is quite some work to do on their end.
-More importantly, the sample screening data must also be provided in adequate quality in order to mimic the real-world screening process as closely as possible.
+More importantly, the sample screening documents must also be provided in adequate quality in order to mimic the real-world screening process as closely as possible.
 Two job descriptions will only have resumes as applicant documents, two job descriptions will only have cover letters as applicant documents and two job descriptions will have both resumes and cover letters as applicant documents.
 The length of all cover letters is bounded to one page and the length of resumes is bounded to two pages.
 No applicant document will contain a photo of the applicant.
+In the following is a table summarizing the structure of the sample screening documents:
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \textbf{index} & \textbf{job description present} & \textbf{resume present} & \textbf{cover letter present} \\ \hline
+    1 & yes & yes & no  \\ \hline
+    2 & yes & yes & no  \\ \hline
+    3 & yes & no  & yes \\ \hline
+    4 & yes & no  & yes \\ \hline
+    5 & yes & yes & yes \\ \hline
+    6 & yes & yes & yes \\ \hline
+    \end{tabular}
+    \caption{Structure of the sample screening documents}
+\end{table}
 
 The accuracy of the designed screening model will be determined by comparing the human expert annotations to the model's output for the sample screening documents and the following labels:
 \begin{enumerate}
