@@ -1,5 +1,9 @@
 \documentclass[draft,final]{thesisclass} % Remove option 'final' to obtain debug information.
 
+% added package for bibliography
+\usepackage[style=authoryear]{biblatex}
+\addbibresource{thesis.bib}
+
 % Load packages to allow in- and output of non-ASCII characters.
 \usepackage{lmodern}        % Use an extension of the original Computer Modern font to minimize the use of bitmapped letters.
 \usepackage[T1]{fontenc}    % Determines font encoding of the output. Font packages have to be included before this line.
@@ -659,8 +663,7 @@ That means when the law forbids the usage of certain features in algorithmic or 
 % Add a bibliography.
 % comment out when finished
 \nocite{*}
-\bibliographystyle{apalike}
-\bibliography{thesis}
+\printbibliography
 
 % Add an index.
 \printindex
