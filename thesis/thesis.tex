@@ -186,7 +186,7 @@
 % Switch to arabic numbering and start the enumeration of chapters in the table of content.
 \mainmatter
 
-\chapter{Introduction}
+\chapter{Introduction} \label{introduction}
 
 \section{Problem Statement} \label{problem_statement}
 This section relies heavily on the article \cite{ai_recruiting} which is based on over $50$ research papers in that field and which describes the evolution of the recruiting in a very concise way.
@@ -266,12 +266,12 @@ As \acs{LLM}s are capable of summarization and question-answering when they are 
 Furthermore, the model should also characterize the applicant as promising or not using an additional output.
 The score should represent the suitability of the candidate for the job description and is needed to easily compare candidates and to sort them by their score.
 
-\section{Significance of the Work}
+\section{Significance of the Work} \label{significance_of_the_work}
 The advantages of Digital Recruiting 3.0 should be available to all companies and not just to big corporations or as paid services from external providers.
 The usage of machine learning tools should also not have the preconditions to have massive datasets in order to train and use the models.
 Usage of the model should bring efficiency benefits without needing to use it lots of times in order to amortize the costs, making it perfectly viable for small companies.
 
-\section{Research Objective and Research Question}
+\section{Research Objective and Research Question} \label{research_objective_and_research_question}
 The research objective is to supply the proposed reasonably accurate screening tool based on \acs{LLM}s that was outlined in \ref{problem_statement} as open-source software to the public. 
 That means companies of any size can use this tool and integrate it to their human capital sourcing pipelines to eventually increase their efficiency and decrease costs.
 As outlined in the previous chapters, people working in human resources have to screen more and more resumes as the reach of online job advertisements attracts many applicants.
@@ -291,16 +291,18 @@ This formulation entails subordinate research questions which are shown in the f
     This time will be compared to a sampled time it takes for users to automate the same tasks using the model.
 \end{itemize}
 
-\section{Scope and Limitations}
-As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
-Due to this compression, it is not guaranteed that the model will output plausible text in all cases. 
-As there are huge amounts of possible input texts, the model will not be able to summarize and answer questions on all of them correctly or in the same accuracy, as \acs{LLM}s do not understand the text in the same way as humans do.
-This means that the model will not be able to give a plausible output on every theoretically possible resume-job-matchup and should therefore not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
-However, due to the huge amounts of training data that is scraped off the internet and used to train these models, they will behave quite robust in most of the cases.
-Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous and past experiences influence humans in their decisions, this makes it very hard even for the legal systems to detect discrimination \cite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \cite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms not only for decision-making, but also for the detection of discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior is dependent on human-written data like in the thesis' case is virtually impossible. Also in \cite[158-160]{discrimination_algorithms} the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
-That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be quite significant as shown in the example. There might be other application areas like healthcare where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
+\section{Research Methodology} \label{research_methodology}
+This thesis uses qualitative research design \ref{qualitative_research_design} and quantitative research design \ref{quantitative_research_design} to answer the research question.
+In the qualitative context, the current state of experiences with and expectations from AI-assisted tooling will be explored by a discussion with human experts in the human resources field.
+In the quantitative context, the accuracy of the proposed model will be measured and the time savings associated to the model usage will be measured by comparing the model's statistics against the results from human expert recruiters.
 
-\chapter{Theoretical Background}
+\section{Structure of the Work} \label{structure_of_the_work}
+This thesis starts with the introduction chapter \ref{introduction} which gives an overview of the problem statement \ref{problem_statement}, the significance of the work \ref{significance_of_the_work}, the research objective and research question \ref{research_objective_and_research_question}, the research methodology \ref{research_methodology} and the structure of the work \ref{structure_of_the_work}.
+The second chapter \ref{theoretical_background} gives an overview of the theoretical background of the work, like quickly revisiting \gls{LLM}s and then discussing literature on person-environment fit and methods how to quantize this fit.
+Afterwards, the methodology chapter \ref{methodology} describes what research methods have been used, how the results have been obtained and how to sample screening documents and the model have been created.
+
+
+\chapter{Theoretical Background} \label{theoretical_background}
 
 \section{Large Language Models}
 The machine learning model type \gls{LLM} is commonly abbreviated as \acs{LLM} and makes natural language texts processable for computers.
@@ -431,7 +433,7 @@ Furthermore, there can also be some unexplored factors in research that influenc
 \section{Quantizing the Person-Environment Fit}
 \lipsum[1]
 
-\chapter{Methodology}
+\chapter{Methodology} \label{methodology}
 
 \section{Qualitative Research Design} \label{qualitative_research_design}
 To analyze the model's output and its impact from a qualitative perspective, a focus group of five human expert recruiters will be assembled.
@@ -549,7 +551,9 @@ As described in \cite[1]{rank_biased_overlap}, it was the first metric at that t
 These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are non-conjoint, huge in size (monotonicity and evaluation at a certain depth is desirable) and results at the front are much more important than search results further back in the ranking.
 For this thesis, the second weighting property is the most important one, as we have complete, definite rankings which are conjoint.
 
-\subsection{Sample Screening Documents}
+\section{Sample Screening Documents Construction}
+
+\subsection{Overview of the Construction Process}
 The job descriptions and the applicant documents will be either taken from publicly available datasets, manually crafted or generated using tools like GPT-4 (\cite{gpt4}) while giving the model some hints on the context and the expected applicant characteristics.
 The job description and the applicants' resumes and cover letters must be supplied as pure text to the proposed model due to their internal tokenization.
 That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more and more important it will be to supply machine readable applicant documents that please the machine learning models used in the screening process.
@@ -567,18 +571,7 @@ Furthermore, it is planned that with each score output of the model, an explanat
 The exact implementation details of the score and explanation generation is described in chapter \ref{implementation}.
 The rankings of the human experts will not be available during the model implementation phase, they will be only used to benchmark the model's accuracy after the implementation phase.
 
-\section{Data Collection}
-\lipsum[1]
-
-\section{Data Analysis}
-\lipsum[1]
-
-\chapter{Data}
-
-\chapter{Analysis}
-
-\section{Implementation} \label{implementation}
-
+\section{Model Design and Model Implementation} \label{implementation}
 
 \subsection{Input Data Pre-Processing}
 \lipsum[1]
@@ -592,10 +585,43 @@ The score from $0$ to $1$ from the model output should measure the person-enviro
 \subsection{Output Data Post-Processing}
 \lipsum[1]
 
+\subsection{Scope and Limitations}
+As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
+Due to this compression, it is not guaranteed that the model will output plausible text in all cases. 
+As there are huge amounts of possible input texts, the model will not be able to summarize and answer questions on all of them correctly or in the same accuracy, as \acs{LLM}s do not understand the text in the same way as humans do.
+This means that the model will not be able to give a plausible output on every theoretically possible resume-job-matchup and should therefore not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
+However, due to the huge amounts of training data that is scraped off the internet and used to train these models, they will behave quite robust in most of the cases.
+Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous and past experiences influence humans in their decisions, this makes it very hard even for the legal systems to detect discrimination \cite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \cite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms not only for decision-making, but also for the detection of discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior is dependent on human-written data like in the thesis' case is virtually impossible. Also in \cite[158-160]{discrimination_algorithms} the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
+That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be quite significant as shown in the example. There might be other application areas like healthcare where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
+
+\chapter{Data}
+
+\section{Data Collection}
+\lipsum[1]
+
 \section{Data Overview}
 \lipsum[1]
 
-\section{Machine Learning Impact Analysis}
+\chapter{Analysis}
+
+\section{Accuracy of the Model}
+
+\subsection{Categorization Accuracy}
+\lipsum[1]
+
+\subsection{Ranking Accuracy}
+\lipsum[1]
+
+\section{Explainability of the Model Results}
+\lipsum[1]
+
+\section{Experiences with AI-Assisted Technologies in Human Resources}
+\lipsum[1]
+
+\section{Considerations on AI-Assisted Technologies in Human Resources}
+\lipsum[1]
+
+\section{Expectations from AI-Assisted Technologies in Human Resources}
 \lipsum[1]
 
 \section{Visualizations}
@@ -604,9 +630,6 @@ The score from $0$ to $1$ from the model output should measure the person-enviro
 \chapter{Discussion and Conclusion}
 
 \section{Interpretation}
-\lipsum[1]
-
-\section{Comparison}
 \lipsum[1]
 
 \section{Machine Learning Benefits}
@@ -625,12 +648,6 @@ The score from $0$ to $1$ from the model output should measure the person-enviro
 \lipsum[1]
 
 \section{Practical Implications}
-\lipsum[1]
-
-\section{Limitations}
-\lipsum[1]
-
-\section{Final Thoughts}
 \lipsum[1]
 
 \backmatter
