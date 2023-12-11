@@ -1,8 +1,9 @@
 \documentclass[draft,final]{thesisclass} % Remove option 'final' to obtain debug information.
 
 % added package for bibliography
-\usepackage[backend=biber,style=authoryear,date=year,maxbibnames=99]{biblatex}
+\usepackage[backend=biber,style=authoryear,date=year,maxbibnames=10]{biblatex}
 \addbibresource{thesis.bib}
+\DeclareDelimFormat[bib,biblist]{nametitledelim}{\addcolon\space}
 
 % Load packages to allow in- and output of non-ASCII characters.
 \usepackage{lmodern}        % Use an extension of the original Computer Modern font to minimize the use of bitmapped letters.
