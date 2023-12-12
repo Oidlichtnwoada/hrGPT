@@ -437,7 +437,30 @@ If those two concepts diverge, it may be due to the fact that the research outco
 Furthermore, there can also be some unexplored factors in research that influence the selection process.
 
 \section{Quantizing the Person-Environment Fit}
-\lipsum[1]
+
+\subsection{Text Mining Approach}
+The article \textcite{text_mining_for_automatic_profiling} describes the necessity of automatically filtering candidates due to the probably very high number of applicants when job vacancies are opened using the internet.
+Moreover, in this article the authors have tested their approach using an anonymized dataset of a company's real applicants consisting of over $40$ resumes in the \textit{PDF} format for each of the three job positions \textit{Data Developer}, \textit{Human Resource and Development} and \textit{Marketing}.
+Text mining is getting increasingly popular due to the big data trend that is expanding into many fields, and the fact that most companies probably have many unstructured text documents to analyze \parencite[49]{text_mining_for_automatic_profiling}.
+Some use cases for text mining are sentiment analysis or classification, article classification, spam or fake news detection, argument extraction, exploring social issues, logs mining, search personalization, article summarization and automatic recommendation systems \parencite[49]{text_mining_for_automatic_profiling}.
+The text processing algorithm is capable of extracting skills, education and experiences from the unstructured resumes to summarize each application.
+These extracted keywords are matched against a keyword dictionary of each job vacancy that were created based on the terms used in each profession by the human resource department of the company that provided the dataset \parencite[47]{text_mining_for_automatic_profiling}.
+This is also called the profile matching process that compares present competencies of the applicant with the required competencies of the job vacancy and tests the person-job fit with regards to the demands-abilities perspective.
+It is assumed that the person-job fit is higher, the higher the congruence between the demands and abilities is.
+The final ranking was then compared to the ranking of the human resources department of the company that provided the anonymized resume dataset.
+There were two methods used to compare the extracted keywords against the keyword dictionary of each job vacancy \parencite[53-58]{text_mining_for_automatic_profiling}:
+\begin{enumerate}
+    \item \textbf{Document Vector Analysis}\\
+    This analysis was conducted by using the \textit{KNIME Analytics Platform} for document preprocessing and vectorization.
+    The preprocessing steps on the \textit{PDF} documents include punctuation erasure, number filtering, small word removal with an $n$-char filter (removal of words of length smaller or equal to $n$), conversion to lowercase letters, stop word removal (removal of words not containing any information like \textit{the} and \textit{or}, these words are language-specific) and as final step the bag of words creation (method to build a list of all used words in all input documents).
+    Then document vectorization is applied which converts the preprocessed data of each resume to a vector of length $N$, where $N$ is the number of unique words in the bag of words.
+    The vector represents a one-hot-encoding that means that if one of unique words is present in the processed resume this one value out of $N$ values will be $1$, otherwise it will be $0$.
+    This sample vector representation is also computed for the keyword dictionary that was previously defined whose words are also added to the bag of words.
+    The closer the vector representations of the resumes are to the vector representation of the keyword dictionary with regards to Euclidian distance, the higher the predicted person-job fit is.
+    A downside of this approach is that the presence of words in resumes not in the predefined keyword dictionary will increase the Euclidian distance even if they may not have a negative impact on the person-job fit. 
+    This could be tackled by restricting the bag of words to the words in the keyword dictionary.
+    \item \textbf{N-Gram Analysis}\\
+\end{enumerate}
 
 \chapter{Methodology} \label{methodology}
 
