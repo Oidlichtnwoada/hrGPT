@@ -443,7 +443,7 @@ Furthermore, there can also be some unexplored factors in research that influenc
 
 \section{Quantizing the Person-Environment Fit}
 
-\subsection{Text Mining Approach}
+\subsection{Text Mining Approach} \label{text_mining_approach}
 The article \textcite{text_mining_for_automatic_profiling} describes the necessity of automatically filtering candidates due to the probably very high number of applicants when job vacancies are opened using the internet.
 Moreover, in this article the authors have tested their approach using an anonymized dataset of a company's real applicants consisting of over $40$ resumes in the \textit{PDF} format for each of the three job positions \textit{Data Developer}, \textit{Human Resource and Development} and \textit{Marketing}.
 Text mining is getting increasingly popular due to the big data trend that is expanding into many fields, and the fact that most companies probably have many unstructured text documents to analyze \parencite[49]{text_mining_for_automatic_profiling}.
@@ -476,13 +476,32 @@ The accuracy of the $N$-gram model was slightly higher than the accuracy of the 
 Moreover, when analyzing text based on chunks of words, the context of the words may be lost.
 This thesis tries to mitigate this shortcoming by using the capabilities of \acs{LLM}s to summarize the context of the input documents and to answer question with regard to the provided context.
 
-\subsection{Machine Learning Approach}
+\subsection{Machine Learning Approach} \label{machine_learning_approach}
 The article \textcite{pj_fit_ml} describes a machine learning approach to predict the person-job fit.
 As also outlined by \textcite[1]{pj_fit_ml}, manual inspection of applicant documents from human resource workers is not feasible anymore due to the subjective, incomplete and inefficient nature of human judgement.
 The authors of this article have developed a novel end-to-end \gls{TAPJFNN} framework that should reduce human labor and make the employee selection process more interpretable.
 The key idea is to exploit the information present in historical job application data using a word-level semantic representation for both job requirements and job seekers' experiences based on the Recurrent Neural Network architecture \parencite[1]{pj_fit_ml}.
 There are also two hierarchical topic-based ability-aware attention strategies designed in this article to measure the different importance of job requirements for semantic representation, as well as measure the varying contribution of each job experience to a specific ability requirement \parencite[1]{pj_fit_ml}.
 The \acs{TAPJFNN} framework supports predicting person-job fit predictions, talent sourcing tasks and job recommendation tasks \parencite[1]{pj_fit_ml}.
+There has also never been a formal, mathematical definition of the person-job fit quantization task, but the article \textcite{pj_fit_ml} provides this definition \parencite[2]{pj_fit_ml}.
+It is proposed in \textcite[2]{pj_fit_ml} that the job description is represented as a set of technical skill requirements and a set of comprehensive quality requirements.
+The applicants's abilities are extracted from the applicant's documents and are matched against the two requirement sets by using a weighted, accumulative score, as each requirement can be covered by several abilities and most of the applicants will have different abilities. 
+This approach should counteract the deficiencies of the text mining approach as described in section \ref{text_mining_approach}, where exact keywords or $N$-grams are matched which can lead to ignoring of some abilities if some abilities are not described using the expected keyword list or to misleading of the recruiters due to incomplete or subjective weightings used in the score construction.
+Also the constructed keyword features also need manual labor which is a major downside \parencite[5]{pj_fit_ml}.
+Therefore, \textcite[2]{pj_fit_ml} propose to use machine learning to weight abilities based on historic recruitment results instead of just using semantic understanding of rich textual information.
+
+\subsubsection{Person-Job Fit Quantization Problem}
+The person-job fit quantization problem is mathematically defined as follows in \textcite[7-8]{pj_fit_ml}:
+\begin{itemize}
+    \item $j_l$: $l^{th}$ job requirement in job posting $j$
+    \item $r_l$: $l^{th}$ work/project experience in candidate's resume $r$
+    \item $w^J_{l,t}$: work embedding of the 
+\end{itemize}
+
+\subsubsection{Used Representations}
+The job-oriented abilities and experiences are represented using a word-level semantic representation based on Recurrent Neural Networks to learn the features of each single word in the joint semantic space \parencite[2]{pj_fit_ml}.
+Furthermore, there were two hierarchical topic-based ability-aware structures designed that guide the learning of the above semantic representation and also incorporate the global meaning for job requirements as well as the corresponding experiences of candidates.
+To measure the importance of different abilities as well as the relevance between requirements and experiences, two hierarchical topic-based ability-aware attention strategies were proposed which also make the person-job fit results more interpretable \parencite[3]{pj_fit_ml}.
 
 
 \chapter{Methodology} \label{methodology}
