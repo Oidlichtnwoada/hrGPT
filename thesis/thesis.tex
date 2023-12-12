@@ -460,7 +460,16 @@ There were two methods used to compare the extracted keywords against the keywor
     A downside of this approach is that the presence of words in resumes not in the predefined keyword dictionary will increase the Euclidian distance even if they may not have a negative impact on the person-job fit. 
     This could be tackled by restricting the bag of words to the words in the keyword dictionary.
     \item \textbf{N-Gram Analysis}\\
+    Additionally to the preprocessing steps described in the document vector analysis, the N-gram analysis also includes sentence tokenization (separation of sentences), word tokenization (separation of words), dictionary tagger (tag words that are in a specific language, English for example) and term identification using verb phrase chunking (splits remaining phrases into its constituents).
+    As the bag of words method has the downside to lose the word order and the meanings of word combinations, the data here is analyzed with the N-gram method.
+    That means when a word combination of the manually crafted keyword dictionary is found in the processed resume as a $1$-, $2$- or $3$-gram depending on the keyword word count, the predicted person-job fit is larger.
+    The more keywords that are found to be present as $N$-grams in the processed resume, the higher the predicted person-job fit is.
 \end{enumerate}
+This method suffers from the manual keyword dictionary creation which could be automated. 
+Furthermore, the results heavily depend on the quality and the selection of the keywords in the keyword dictionary.
+The accuracy of the $N$-gram model was slightly higher than the accuracy of the document vector model on average and topped at $87.5\%$ for the \textit{Data Developer} role.
+Moreover, when analyzing text based on chunks of words, the context of the words may be lost.
+This thesis tries to mitigate this shortcoming by using the capabilities of \acs{LLM}s to summarize the context of the input documents and to answer question with regard to the provided context.
 
 \chapter{Methodology} \label{methodology}
 
