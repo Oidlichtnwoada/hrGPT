@@ -110,6 +110,10 @@
     name=time-to-hire,
     description={The time from the receiving of the candidate's application to the accepted job offer}
 }
+\newglossaryentry{TAPJFNN}{
+    name=Topic-Based Ability-Aware Person-Job Fit Neural Network,
+    description={This framework based on the Recurrent Neural Network architecture for predicting person-job fit was introduced in \textcite{pj_fit_ml}}
+}
 
 % define style for Javascript scripts
 \lstdefinelanguage{TypeScript}{
@@ -172,6 +176,7 @@
 \begin{acronym}
     \acro{LLM}{Large Language Model}
     \acro{NLP}{Natural Language Processing}
+    \acro{TAPJFNN}{Topic-Based Ability-Aware Person-Job Fit Neural Network}
 \end{acronym}
 \cleardoublepage
 
@@ -470,6 +475,15 @@ Furthermore, the results heavily depend on the quality and the selection of the 
 The accuracy of the $N$-gram model was slightly higher than the accuracy of the document vector model on average and topped at $87.5\%$ for the \textit{Data Developer} role.
 Moreover, when analyzing text based on chunks of words, the context of the words may be lost.
 This thesis tries to mitigate this shortcoming by using the capabilities of \acs{LLM}s to summarize the context of the input documents and to answer question with regard to the provided context.
+
+\subsection{Machine Learning Approach}
+The article \textcite{pj_fit_ml} describes a machine learning approach to predict the person-job fit.
+As also outlined by \textcite[1]{pj_fit_ml}, manual inspection of applicant documents from human resource workers is not feasible anymore due to the subjective, incomplete and inefficient nature of human judgement.
+The authors of this article have developed a novel end-to-end \gls{TAPJFNN} framework that should reduce human labor and make the employee selection process more interpretable.
+The key idea is to exploit the information present in historical job application data using a word-level semantic representation for both job requirements and job seekers' experiences based on the Recurrent Neural Network architecture \parencite[1]{pj_fit_ml}.
+There are also two hierarchical topic-based ability-aware attention strategies designed in this article to measure the different importance of job requirements for semantic representation, as well as measure the varying contribution of each job experience to a specific ability requirement \parencite[1]{pj_fit_ml}.
+The \acs{TAPJFNN} framework supports predicting person-job fit predictions, talent sourcing tasks and job recommendation tasks \parencite[1]{pj_fit_ml}.
+
 
 \chapter{Methodology} \label{methodology}
 
