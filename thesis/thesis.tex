@@ -549,12 +549,22 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
         Both the job requirements and the applicant's experiences are encoded word by word to an internal embedding using a \textit{BiLSTM} model which is constructed out of two \textit{LSTM} models, one that gets the input step by step in the forward direction (from first to last) and one that gets the input step by step in the backwards direction (from last to first).
         The outputs of both \textit{LSTM} models are concatenated to form the final output of each step.
         Each word in a job requirement $j_l$ or an applicant's experience $r_l$ is encoded to a word embedding $w^J_{l,t}$ or $w^R_{l,t}$ respectively by using the same pre-trained word vector matrix $W_e$ that is retrained during training and the following equation $w^J_{l,t} = W_e \cdot j_{l,t}$ or $w^R_{l,t} = W_e \cdot r_{l,t}$ respectively.
-        The equation to compute the world-level representation $h^J_{l,t}$ or $h^R_{l,t}$ respectively is $h^J_{l,t} = BiLSTM(w^J_{l,1:m_l},t) \; \forall t \in [1,...,m_l]$ or $h^R_{l,t} = BiLSTM(w^R_{l,1:n_l},t) \; \forall t \in [1,...,n_l]$ respectively.
+        The equation to compute the word-level representation $h^J_{l,t}$ or $h^R_{l,t}$ respectively is $h^J_{l,t} = BiLSTM(w^J_{l,1:m_l},t) \; \forall t \in [1,...,m_l]$ or $h^R_{l,t} = BiLSTM(w^R_{l,1:n_l},t) \; \forall t \in [1,...,n_l]$ respectively.
         These equations have the disadvantage that the words at the beginning have fewer context as words at the end, as the first word has just access to the first and last word to compute its word-level representation.
     \item \textbf{Hierarchical Topic-Based Ability-Aware Representation}\\
+    This component is itself divided into the following four parts:
+    \begin{itemize}
+        \item \textbf{Single Ability-Aware Part for Job Requirement}\\
+        This layer is responsible for summing up the attention-weighted intermediate word-level representations $h^J_{l,t}$ to a single ability-aware requirement representation $s^J_l$ for each job requirement $j_l$.
+        This summing can be donated as $s^J_l = \sum_{t=1}^{m_l} \alpha_{l,t} \cdot h^J_{l,t}$ where $\alpha_{l,t} = \frac{\exp(e^J_{l,t})}{\sum_{i=1}^{m_l} \exp(e^J_{l,i})}$ is the attention weight of the $t^{th}$ word in job requirement $j_l$.
+        The term $e^J_{l,t}$ is defined to be $v_{\alpha}^{\intercal} \tanh(W_{\alpha} \cdot h^J_{l,t} + b_{\alpha})$.
+        All parameters not described are learned in the training process.
+        \item \textbf{Multiple Topic-Based Ability-Aware Part for Job Requirement}\\
+        \item \textbf{Single Ability-Aware Part for Experience}\\
+        \item \textbf{Multiple Topic-Based Ability-Aware Part for Experience}\\
+    \end{itemize}
     \item \textbf{Person-Job Fit Prediction}\\
 \end{itemize}
-
 
 \chapter{Methodology} \label{methodology}
 
