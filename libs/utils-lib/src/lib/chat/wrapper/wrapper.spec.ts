@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { Model } from '../interface/interface';
 import { getChat } from './wrapper';
 
