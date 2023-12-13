@@ -6,5 +6,6 @@ describe('pdf', () => {
     const pdfFilePath = './thesis/thesis.pdf';
     const pdfFileText = await extractTextFromPdfFile(pdfFilePath);
     expect(pdfFileText).toContain('Hannes Brantner');
+    expect(pdfFileText.length).toBeGreaterThan(10000);
   });
 });
