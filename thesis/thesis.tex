@@ -6,6 +6,10 @@
 \DeclareDelimFormat[bib,biblist]{nametitledelim}{\addcolon\space}
 \DeclareDelimFormat{postnotedelim}{\addcolon\space}
 
+% for definitions
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+
 % Load packages to allow in- and output of non-ASCII characters.
 \usepackage{lmodern}        % Use an extension of the original Computer Modern font to minimize the use of bitmapped letters.
 \usepackage[T1]{fontenc}    % Determines font encoding of the output. Font packages have to be included before this line.
@@ -482,21 +486,54 @@ As also outlined by \textcite[1]{pj_fit_ml}, manual inspection of applicant docu
 The authors of this article have developed a novel end-to-end \gls{TAPJFNN} framework that should reduce human labor and make the employee selection process more interpretable.
 The key idea is to exploit the information present in historical job application data using a word-level semantic representation for both job requirements and job seekers' experiences based on the Recurrent Neural Network architecture \parencite[1]{pj_fit_ml}.
 There are also two hierarchical topic-based ability-aware attention strategies designed in this article to measure the different importance of job requirements for semantic representation, as well as measure the varying contribution of each job experience to a specific ability requirement \parencite[1]{pj_fit_ml}.
-The \acs{TAPJFNN} framework supports predicting person-job fit predictions, talent sourcing tasks and job recommendation tasks \parencite[1]{pj_fit_ml}.
+The \acs{TAPJFNN} framework supports predicting person-job fit, talent sourcing tasks and job recommendation tasks \parencite[1]{pj_fit_ml}.
 There has also never been a formal, mathematical definition of the person-job fit quantization task, but the article \textcite{pj_fit_ml} provides this definition \parencite[2]{pj_fit_ml}.
-It is proposed in \textcite[2]{pj_fit_ml} that the job description is represented as a set of technical skill requirements and a set of comprehensive quality requirements.
-The applicants's abilities are extracted from the applicant's documents and are matched against the two requirement sets by using a weighted, accumulative score, as each requirement can be covered by several abilities and most of the applicants will have different abilities. 
+It is proposed in \textcite[2]{pj_fit_ml} that the job description is represented as a set of ability requirements.
+The applicants's abilities are extracted from the applicant's documents and are matched against the ability requirement set by using a weighted, accumulative score, as each requirement can be covered by several abilities and most of the applicants will have different abilities. 
 This approach should counteract the deficiencies of the text mining approach as described in section \ref{text_mining_approach}, where exact keywords or $N$-grams are matched which can lead to ignoring of some abilities if some abilities are not described using the expected keyword list or to misleading of the recruiters due to incomplete or subjective weightings used in the score construction.
-Also the constructed keyword features also need manual labor which is a major downside \parencite[5]{pj_fit_ml}.
+Also the constructed keyword features also require manual labor which is a major downside \parencite[5]{pj_fit_ml}.
 Therefore, \textcite[2]{pj_fit_ml} propose to use machine learning to weight abilities based on historic recruitment results instead of just using semantic understanding of rich textual information.
 
-\subsubsection{Person-Job Fit Quantization Problem}
+\subsubsection{Person-Job Fit Quantization Problem Definition}
 The person-job fit quantization problem is mathematically defined as follows in \textcite[7-8]{pj_fit_ml}:
 \begin{itemize}
     \item $j_l$: $l^{th}$ job requirement in job posting $j$
     \item $r_l$: $l^{th}$ work/project experience in candidate's resume $r$
-    \item $w^J_{l,t}$: work embedding of the 
+    \item $w^J_{l,t}$ work embedding of the $t^{th}$ word in job requirement $j_l$
+    \item $w^R_{l,t}$ work embedding of the $t^{th}$ word in candidate's experience $r_l$
+    \item $h^J_{l,t}$ word-level representation of $t^{th}$ word in job requirement $j_l$
+    \item $h^R_{l,t}$ word-level representation of $t^{th}$ word in candidate's experience $r_l$
+    \item $s^J_l$ single topic-based ability-aware representation of job requirement $j_l$
+    \item $s^R_l$ single topic-based ability-aware representation of candidate's experience $r_l$
+    \item $g^J$ multiple topic-based ability-aware representation of job posting $j$
+    \item $g^R$ multiple topic-based ability-aware representation of candidate's resume $r$
+    \item $g^{J,R}_{+,1:k}$ multiple topic-based ability-aware representations of $k$ candidates' resumes who successfully applied for the job $J$.
+    \item $g^{J,R}_{-,1:k}$ multiple topic-based ability-aware representations of $k$ candidates' resumes who unsuccessfully apply for the job $J$.
+    \item $p$ number of job requirements in job posting $j$.
+    \item $q$ number of work/project experiences in candidate's resume $r$.
+    \item $m_l$ number of words in job requirement $j_l$.
+    \item $n_l$ number of words in candidate's experience $r_l$.
 \end{itemize}
+The identifier $J$ is used to denote a job posting which contains $p$ pieces of job requirements and duties which are simply called \textit{ability requirements}.
+The job posting $J$ is the sum of all ability requirements, that means $J = \{j_1,j_2,...,j_p\}$.
+\textcite[7]{pj_fit_ml} divide the ability requirements into two categories:
+\begin{itemize}
+    \item \textbf{Professional skill requirements}\\
+    These requirements are related to the professional skills that are required to perform the job like \textit{Data Mining}, \textit{Truck Driving} or \textit{Hair Cutting} for example.
+    \item \textbf{Comprehensive quality skills}\\
+    These requirements are related to the comprehensive quality skills that are required to perform the job like \textit{Communication}, \textit{Team Work} or \textit{Sincerity} for example.
+\end{itemize}
+These two types are comprehensively analyzed without any distinction between the types.
+Moreover, each job ability requirement $j_l$ is assumed to contain $m_l$ words, that means $j_l = \{j_{l,1},j_{l,2},...,j_{l,m_l}\}$.
+The identifier $R$ is used to denote a candidate's resume which contains $q$ pieces of experiences.
+The resume $R$ is the sum of all experiences, that means $R = \{r_1,r_2,...,r_q\}$.
+Furthermore, each candidate's experience $r_l$ is assumed to contain $n_l$ words, that means $r_l = \{r_{l,1},r_{l,2},...,r_{l,n_l}\}$.
+The job application is denoted as $S$ and is represented by a pair of $J$ and $R$, that has an associated recruitment result label $y \in \{0,1\}$ where $y = 1$ means a successful application and $y = 0$ means a failed one.
+Each job $J$ may have many different applicants $R$, and each applicant $R$ may apply for many different jobs $J$.
+The mathematical problem definition can now be given as provided in \textcite[8]{pj_fit_ml}:
+\begin{definition}
+    Given a set of job applications $A$, where each application $S \in A$ contains a job posting $J$ and a resume $R$ as well as the corresponding recruitment result label $y$, the target of person-job fit is to learn a predictive model $M$ for measuring the matching degree between $J$ and $R$, and then the corresponding result label $y$ can be predicted. 
+\end{definition}
 
 \subsubsection{Used Representations}
 The job-oriented abilities and experiences are represented using a word-level semantic representation based on Recurrent Neural Networks to learn the features of each single word in the joint semantic space \parencite[2]{pj_fit_ml}.
