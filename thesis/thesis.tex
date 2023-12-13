@@ -497,8 +497,8 @@ Therefore, \textcite[2]{pj_fit_ml} propose to use machine learning to weight abi
 \subsubsection{Person-Job Fit Quantization Problem Definition}
 The person-job fit quantization problem is mathematically defined as follows in \textcite[7-8]{pj_fit_ml}:
 \begin{itemize}
-    \item $j_l$: $l^{th}$ job requirement in job posting $j$
-    \item $r_l$: $l^{th}$ work/project experience in candidate's resume $r$
+    \item $j_l$: $l^{th}$ job requirement in job posting $J$
+    \item $r_l$: $l^{th}$ work/project experience in candidate's resume $R$
     \item $w^J_{l,t}$ work embedding of the $t^{th}$ word in job requirement $j_l$
     \item $w^R_{l,t}$ work embedding of the $t^{th}$ word in candidate's experience $r_l$
     \item $h^J_{l,t}$ word-level representation of $t^{th}$ word in job requirement $j_l$
@@ -544,6 +544,7 @@ The \acs{TAPJFNN} architecture is visualized in the following figure:
     \label{fig:tapjfnn_architecture}
 \end{figure}
 Each job requirement $j_l$ is a paragraph in the job posting $J$.
+Each experience $r_l$ is a paragraph in the candidate's resume $R$.
 As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly consists of the following three components \parencite[8-14]{pj_fit_ml}:
 \begin{itemize}
     \item \textbf{Word-Level Representation}\\
@@ -589,6 +590,7 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
     This is not presented here and can be found in \textcite[13-14]{pj_fit_ml}.
 \end{itemize}
 The accuracy of the \acs{TAPJFNN} architecture was tested on a quite large dataset of around $10000$ applicants and the resulting accuracy was around $85\%$.
+Of course the disadvantage of this approach is that the model is only as good as the data it is trained on and for the training quite large amounts of successful and unsuccessful applications are needed which make this method infeasible for small companies.
 The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences or words where the focus of the model lies are clearly identified by the model's attention scores.
 The discussion was more detailed here because the authors have successfully applied the divide and conquer strategy to the person-job fit quantization problem and really tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
 
