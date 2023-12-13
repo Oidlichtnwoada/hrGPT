@@ -61,7 +61,7 @@ export function getDefaultApiInterfaceOptions(
     maxTokens: 4096,
     topTokens: 50,
     topProbability: 1,
-    seed: Math.round(Math.random() * (2**32 - 1)),
+    seed: Math.round(Math.random() * (2 ** 32 - 1)),
     stopSequences: [],
     temperature: 1,
     ...options,
