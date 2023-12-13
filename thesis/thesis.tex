@@ -563,14 +563,19 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
         All parameters that are not described are initialized and learned in the training process.
         \item \textbf{Multiple Topic-Based Ability-Aware Part for Job Requirement}\\
         The single ability-aware part for job requirement is extended to the multiple topic-based ability-aware part for job requirement by summing the weighted results from the previous layer according to $g^J = \sum_{t=1}^p \beta_t c_t^J$.
+        The expression $c_t^J$ can be computed as $c_t^J = BiLSTM(s^J_{1:p},t) \; \forall t \in [1,...,p]$.
         The term $\beta_t$ is defined to be $\frac{\exp(f^J_t)}{\sum_{i=1}^p \exp(f^J_i)}$ where $f^J_t = v_{\beta}^{\intercal} \tanh(W_{\beta} \cdot c_t^J + U_\beta \cdot z^J + b_{\beta})$.
         All parameters that are not described are initialized and learned in the training process.
-        The term $g^J$ is the final representation of the job requirements of job posting $J$.
+        The term $g^J$ is the final representation of the job requirements of job posting $J$, which contains the summed up requirements weighted with their importance.
         \item \textbf{Single Ability-Aware Part for Experience}\\
+        The word-level representations $h^R_{l,t}$ for each job experience $r_l$ are summed up for each job requirement $j_k$ to a single ability-aware experience representation $s^R_{l,k}$ which equals $\sum_{t=1}^{n_l} \gamma_{l,k,t} \cdot h^R_{l,t}$.
+        The term $\gamma_{l,k,t}$ is defined to be $\frac{\exp(e^R_{l,k,t})}{\sum_{i=1}^{n_l} \sum^p_{j=1} \exp(e^R_{j,k,i})}$ where $e^R_{j,k,i} = v_{\gamma}^{\intercal} \tanh(W_{\gamma} \cdot s^J_{k} + U_\gamma \cdot h^R_{l,r} + b_{\gamma})$.
+        This is defined to be a novel approach as the attention is not applied on one dimension like in the job requirements case, but there is the second dimension of the job requirements that is also considered.
         \item \textbf{Multiple Topic-Based Ability-Aware Part for Experience}\\
     \end{itemize}
     \item \textbf{Person-Job Fit Prediction}\\
 \end{itemize}
+The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences or words were the focus lies are clearly identified by the model.
 
 \chapter{Methodology} \label{methodology}
 
