@@ -6,7 +6,8 @@
     "openai": "^4.20.1",
     "luxon": "^3.4.4",
     "replicate": "^0.23.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "pdf2json": "^3.0.5"
   },
   "type": "commonjs",
   "main": "./src/index.js",

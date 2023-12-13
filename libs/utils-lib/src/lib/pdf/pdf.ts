@@ -6,8 +6,8 @@ export async function extractTextFromPdfFile(
   const pdfParser = new PDFParser(undefined, 1);
   const textPromise = new Promise<string>((resolve, reject) => {
     pdfParser.on('pdfParser_dataError', () => reject(new Error()));
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     pdfParser.on('pdfParser_dataReady', () =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       resolve((pdfParser as any).getRawTextContent() as string)
     );
   });
