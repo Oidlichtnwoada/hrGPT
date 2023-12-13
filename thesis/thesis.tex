@@ -543,6 +543,7 @@ The \acs{TAPJFNN} architecture is visualized in the following figure:
     \caption{\acs{TAPJFNN} architecture \parencite[8]{pj_fit_ml}}
     \label{fig:tapjfnn_architecture}
 \end{figure}
+Each job requirement $j_l$ is a paragraph in the job posting $J$.
 As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly consists of the following three components \parencite[8-14]{pj_fit_ml}:
 \begin{itemize}
     \item \textbf{Word-Level Representation}\\
@@ -556,10 +557,15 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
     \begin{itemize}
         \item \textbf{Single Ability-Aware Part for Job Requirement}\\
         This layer is responsible for summing up the attention-weighted intermediate word-level representations $h^J_{l,t}$ to a single ability-aware requirement representation $s^J_l$ for each job requirement $j_l$.
+        Some words might be more important than others in a job requirement, therefore the attention mechanism is used to weight the importance of each word in a job requirement and shift the weighting towards keywords.
         This summing can be donated as $s^J_l = \sum_{t=1}^{m_l} \alpha_{l,t} \cdot h^J_{l,t}$ where $\alpha_{l,t} = \frac{\exp(e^J_{l,t})}{\sum_{i=1}^{m_l} \exp(e^J_{l,i})}$ is the attention weight of the $t^{th}$ word in job requirement $j_l$.
         The term $e^J_{l,t}$ is defined to be $v_{\alpha}^{\intercal} \tanh(W_{\alpha} \cdot h^J_{l,t} + b_{\alpha})$.
-        All parameters not described are learned in the training process.
+        All parameters that are not described are initialized and learned in the training process.
         \item \textbf{Multiple Topic-Based Ability-Aware Part for Job Requirement}\\
+        The single ability-aware part for job requirement is extended to the multiple topic-based ability-aware part for job requirement by summing the weighted results from the previous layer according to $g^J = \sum_{t=1}^p \beta_t c_t^J$.
+        The term $\beta_t$ is defined to be $\frac{\exp(f^J_t)}{\sum_{i=1}^p \exp(f^J_i)}$ where $f^J_t = v_{\beta}^{\intercal} \tanh(W_{\beta} \cdot c_t^J + U_\beta \cdot z^J + b_{\beta})$.
+        All parameters that are not described are initialized and learned in the training process.
+        The term $g^J$ is the final representation of the job requirements of job posting $J$.
         \item \textbf{Single Ability-Aware Part for Experience}\\
         \item \textbf{Multiple Topic-Based Ability-Aware Part for Experience}\\
     \end{itemize}
