@@ -583,10 +583,12 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
     \end{itemize}
     \item \textbf{Person-Job Fit Prediction}\\
     The final prediction result can now be computed as $\hat{y} = sigmoid(W_y \cdot D + b_y)$ where $D$ is defined as $tanh(W_d[g^J;g^R;g^J-g^R;g^J \odot g^R;z^J;z^R;(W_Jz^J + b_J) \odot (W_Rz^R + b_R)] + b_d)$.
+    All parameters that are not described are initialized and learned in the training process.
     If the $\hat{y}$ is bigger than $0.5$, then the application is predicted to be successful, otherwise it is predicted to be unsuccessful.
     The researchers have also implemented a refined prediction strategy that improves the accuracy of the model by supplying the model additionally with $k$ successful and $k$ unsuccessful applications for the same job posting $J$.
     This is not presented here and can be found in \textcite[13-14]{pj_fit_ml}.
 \end{itemize}
+The accuracy of the \acs{TAPJFNN} architecture was tested on a quite large dataset of around $10000$ applicants and the resulting accuracy was around $85\%$.
 The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences or words where the focus of the model lies are clearly identified by the model's attention scores.
 The discussion was more detailed here because the authors have successfully applied the divide and conquer strategy to the person-job fit quantization problem and really tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
 
