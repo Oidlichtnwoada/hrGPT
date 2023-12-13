@@ -3,8 +3,8 @@ import { extractTextFromPdfFile } from './pdf';
 
 describe('pdf', () => {
   it('should extract the text out of the pdf file', async () => {
-    const pdfFilePath = '/Users/hannes.brantner/Downloads/thesis.pdf';
+    const pdfFilePath = './thesis/thesis.pdf';
     const pdfFileText = await extractTextFromPdfFile(pdfFilePath);
-    expect(pdfFileText).toContain('LLM');
+    expect(pdfFileText).toContain('Hannes Brantner');
   });
 });
