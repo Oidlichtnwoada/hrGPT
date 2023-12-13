@@ -565,17 +565,30 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
         The single ability-aware part for job requirement is extended to the multiple topic-based ability-aware part for job requirement by summing the weighted results from the previous layer according to $g^J = \sum_{t=1}^p \beta_t c_t^J$.
         The expression $c_t^J$ can be computed as $c_t^J = BiLSTM(s^J_{1:p},t) \; \forall t \in [1,...,p]$.
         The term $\beta_t$ is defined to be $\frac{\exp(f^J_t)}{\sum_{i=1}^p \exp(f^J_i)}$ where $f^J_t = v_{\beta}^{\intercal} \tanh(W_{\beta} \cdot c_t^J + U_\beta \cdot z^J + b_{\beta})$.
-        All parameters that are not described are initialized and learned in the training process.
         The term $g^J$ is the final representation of the job requirements of job posting $J$, which contains the summed up requirements weighted with their importance.
+        All parameters that are not described are initialized and learned in the training process.
         \item \textbf{Single Ability-Aware Part for Experience}\\
         The word-level representations $h^R_{l,t}$ for each job experience $r_l$ are summed up for each job requirement $j_k$ to a single ability-aware experience representation $s^R_{l,k}$ which equals $\sum_{t=1}^{n_l} \gamma_{l,k,t} \cdot h^R_{l,t}$.
         The term $\gamma_{l,k,t}$ is defined to be $\frac{\exp(e^R_{l,k,t})}{\sum_{i=1}^{n_l} \sum^p_{j=1} \exp(e^R_{j,k,i})}$ where $e^R_{j,k,i} = v_{\gamma}^{\intercal} \tanh(W_{\gamma} \cdot s^J_{k} + U_\gamma \cdot h^R_{l,r} + b_{\gamma})$.
-        This is defined to be a novel approach as the attention is not applied on one dimension like in the job requirements case, but there is the second dimension of the job requirements that is also considered.
+        This is defined to be a novel approach as the attention is not only applied on one dimension which would be all experiences comparably to the job requirements case, but there is the second dimension of the job requirements that is also considered. 
+        Moreover, the attention mechanism uses $s^J_k$ as input to correctly weight the words in the experiences with regards to the requirement $j_k$.
+        All parameters that are not described are initialized and learned in the training process.
         \item \textbf{Multiple Topic-Based Ability-Aware Part for Experience}\\
+        In this layer, the first step is to sum up the attention-weighted intermediate representations $s^R_{l,k}$ to a single ability-aware experience representation $s^R_l$ for each job experience $r_l$.
+        This is done by using the following equation $s^R_l = \sum_{t=1}^p s^R_{l,t}$. 
+        These semantic representations are again accumulated with a \textit{BiLSTM} to extract temporal relationships between them.
+        These accumulated representations are computed as $c_t^R = BiLSTM(s^R_{1:q},t) \; \forall t \in [1,...,q]$.
+        The final representation of the job experiences of resume $R$ is computed as $g^R = \sum_{t=1}^q \delta_t c_t^R$ where $\delta_t = \frac{\exp(f^R_t)}{\sum_{i=1}^q \exp(f^R_i)}$ and $f^R_t = v_{\delta}^{\intercal} \tanh(W_{\delta} \cdot g^J + U_\delta \cdot c^R_t + M_\delta \cdot z^J + V_\delta \cdot z^R + b_{\delta})$ which represents the attention mechanism in this architecture part.
+        All parameters that are not described are initialized and learned in the training process.
     \end{itemize}
     \item \textbf{Person-Job Fit Prediction}\\
+    The final prediction result can now be computed as $\hat{y} = sigmoid(W_y \cdot D + b_y)$ where $D$ is defined as $tanh(W_d[g^J;g^R;g^J-g^R;g^J \odot g^R;z^J;z^R;(W_Jz^J + b_J) \odot (W_Rz^R + b_R)] + b_d)$.
+    If the $\hat{y}$ is bigger than $0.5$, then the application is predicted to be successful, otherwise it is predicted to be unsuccessful.
+    The researchers have also implemented a refined prediction strategy that improves the accuracy of the model by supplying the model additionally with $k$ successful and $k$ unsuccessful applications for the same job posting $J$.
+    This is not presented here and can be found in \textcite[13-14]{pj_fit_ml}.
 \end{itemize}
-The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences or words were the focus lies are clearly identified by the model.
+The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences or words where the focus of the model lies are clearly identified by the model's attention scores.
+The discussion was more detailed here because the authors have successfully applied the divide and conquer strategy to the person-job fit quantization problem and really tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
 
 \chapter{Methodology} \label{methodology}
 
