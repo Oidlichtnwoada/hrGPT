@@ -1,7 +1,7 @@
 import { Model } from '../../chat/interface/interface';
 import { getChat } from '../../chat/wrapper/wrapper';
 import { extractTextFromPdfFile } from '../../pdf/pdf';
-import extract from 'extract-json-from-string';
+import * as extract from 'extract-json-from-string';
 
 export interface Requirements {
   readonly workExperience: string[];
