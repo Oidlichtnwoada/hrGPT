@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { Model } from '../../chat/interface/interface';
 import { getRequirementsFromJobDescriptionPdfFile } from './extractor';
 import { getAbsolutePathFromRelativeRepoPath } from '../../path/path';
