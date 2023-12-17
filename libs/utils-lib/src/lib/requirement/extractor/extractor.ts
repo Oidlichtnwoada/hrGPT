@@ -13,7 +13,7 @@ export interface Requirements {
   readonly personalTraits: string[];
   readonly languages: string[];
   readonly travel: string[];
-  readonly jobLocation: string[];
+  readonly location: string[];
   readonly workingHours: string[];
   readonly physicalAbility: string[];
 }
@@ -37,7 +37,7 @@ const RequirementTypeDefinitions: Record<keyof Requirements, string> = {
     'Employers looking to hire for a role that involves working with a diverse population may require job candidates to be proficient in certain languages. Employers may also specify the level of language proficiency, such as the ability to write and speak fluently. In some cases, basic knowledge of the language may be sufficient to perform the role, while other roles may have no language requirement at all.',
   travel:
     'Some positions require a lot of travelling apart from commuting. This requirement is typical for organizations with field operations, companies with offices in multiple locations, or those undertaking geographically dispersed projects. Employers hiring for such positions can state these requirements in the job posting to help attract candidates willing to travel outside their usual location.',
-  jobLocation:
+  location:
     'Employers hiring for open positions typically intend for the successful candidate to work in a specific location such as the head office, regional offices, or international subsidiaries. Job location is an important job requirement, as stating it can help find candidates able to work in certain places. For instance, candidates with young families may reconsider applying for international positions because of the potential disruption to their lives. Job positions may be on-site, remote or hybrid.',
   workingHours:
     'Sometimes a job entails working very long hours or working on weekends. This is often the case for people in the medical or law field, but also for positions in business administration, like a sales manager or C-suite role. This point also considers the total work amount which can either be part-time, full-time or contract work',
@@ -55,7 +55,7 @@ export const EmptyRequirements: Requirements = {
   personalTraits: [],
   languages: [],
   travel: [],
-  jobLocation: [],
+  location: [],
   workingHours: [],
   physicalAbility: [],
 };

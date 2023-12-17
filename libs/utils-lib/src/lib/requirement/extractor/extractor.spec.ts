@@ -35,7 +35,7 @@ describe('extractor', () => {
       );
       expect(jobRequirements.languages.length).toStrictEqual(0);
       expect(jobRequirements.travel.length).toStrictEqual(0);
-      expect(jobRequirements.jobLocation.length).toStrictEqual(0);
+      expect(jobRequirements.location.length).toStrictEqual(0);
       expect(jobRequirements.workingHours.length).toStrictEqual(0);
       expect(jobRequirements.physicalAbility.length).toStrictEqual(0);
       console.log(jobRequirements);
