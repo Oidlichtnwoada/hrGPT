@@ -38,6 +38,7 @@ describe('extractor', () => {
       expect(jobRequirements.jobLocation.length).toStrictEqual(0);
       expect(jobRequirements.workingHours.length).toStrictEqual(0);
       expect(jobRequirements.physicalAbility.length).toStrictEqual(0);
+      console.log(jobRequirements);
     },
     { timeout: 60000 }
   );
