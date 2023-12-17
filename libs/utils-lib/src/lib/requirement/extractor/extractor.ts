@@ -61,7 +61,11 @@ export const EmptyRequirements: Requirements = {
 };
 
 export function getPromptToExtractRequirements(jobDescription: string): string {
-  return `Please extract the job requirements from the following job description as a JSON object and fill the requirements into the arrays in ${JSON.stringify(EmptyRequirements)} but respect the type of the requirement. An explanation how to fill the arrays with the requirements of the correct type is provided in ${JSON.stringify(RequirementTypeDefinitions)}, but if there are no suitable requirements for this category, the arrays can stay empty. Here is the job description from which the described JSON object should be extracted: ${jobDescription.trim()}`;
+  return `Please extract the job requirements from the following job description as a JSON object and fill the requirements into the arrays in ${JSON.stringify(
+    EmptyRequirements
+  )} but respect the type of the requirement. An explanation how to fill the arrays with the requirements of the correct type is provided in ${JSON.stringify(
+    RequirementTypeDefinitions
+  )}, but if there are no suitable requirements for this category, the arrays can stay empty. All requirements must be unique. Here is the job description from which the described JSON object should be extracted: ${jobDescription.trim()}`;
 }
 
 export async function getRequirementsFromJobDescriptionPdfFile(
