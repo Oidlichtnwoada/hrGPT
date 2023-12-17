@@ -7,7 +7,7 @@ describe('extractor', () => {
     'should extract the job requirements',
     async () => {
       const jobPdfFilePath = getAbsolutePathFromRelativeRepoPath(
-        './libs/utils-lib/src/lib/requirement/extractor/pdf-examples/sample-job-description.pdf'
+        './libs/utils-lib/src/lib/examples/sample-job-description.pdf'
       );
       const jobRequirements = getRequirementsFromJobDescriptionPdfFile(
         jobPdfFilePath,
