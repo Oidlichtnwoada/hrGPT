@@ -5,10 +5,10 @@ import { getAbsolutePathFromRelativeRepoPath } from '../path/path';
 describe('pdf', () => {
   it('should extract the text out of the pdf file', async () => {
     const pdfFilePath = getAbsolutePathFromRelativeRepoPath(
-      './thesis/thesis.pdf'
+      './libs/utils-lib/src/lib/examples/sample-job-description.pdf'
     );
     const pdfFileText = await extractTextFromPdfFile(pdfFilePath);
-    expect(pdfFileText).toContain('Hannes Brantner');
-    expect(pdfFileText.length).toBeGreaterThan(10000);
+    expect(pdfFileText).toContain('Human Resources Assistant');
+    expect(pdfFileText.length).toBeGreaterThan(1000);
   });
 });
