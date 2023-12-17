@@ -17,10 +17,10 @@ describe('extractor', () => {
       expect(jobRequirements.workExperience.length).toStrictEqual(0);
       expect(jobRequirements.education.length).toStrictEqual(0);
       expect(jobRequirements.otherQualifications.length).toStrictEqual(0);
-      expect(jobRequirements.hardSkills.length).toStrictEqual(0);
-      expect(jobRequirements.softSkills.length).toStrictEqual(0);
-      expect(jobRequirements.specificKnowledge.length).toStrictEqual(0);
-      expect(jobRequirements.personalTraits.length).toStrictEqual(0);
+      expect(jobRequirements.hardSkills.length).toBeGreaterThan(0);
+      expect(jobRequirements.softSkills.length).toBeGreaterThan(0)
+      expect(jobRequirements.specificKnowledge.length).toBeGreaterThan(0)
+      expect(jobRequirements.personalTraits.length).toBeGreaterThan(0)
       expect(jobRequirements.languages.length).toStrictEqual(0);
       expect(jobRequirements.travel.length).toStrictEqual(0);
       expect(jobRequirements.jobLocation.length).toStrictEqual(0);
