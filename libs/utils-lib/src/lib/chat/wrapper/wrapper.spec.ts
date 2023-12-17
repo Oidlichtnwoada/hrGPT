@@ -12,15 +12,15 @@ describe('wrapper', () => {
       const replicateChat = getChat({ model: Model.LLAMA_2_70B_CHAT });
       const chats = [openaiChat, replicateChat];
       for (const chat of chats) {
-        const chatFirstResponse = await chat.askQuestion(
+        const chatFirstResponse = await chat.sendPrompt(
           `Hello, my name is ${name} and I am ${age} years old. What is your name?`
         );
         expect(chatFirstResponse.text.length).toBeGreaterThan(0);
-        const chatSecondResponse = await chat.askQuestion(
+        const chatSecondResponse = await chat.sendPrompt(
           'Ok, I understand. Do you remember what my name was?'
         );
         expect(chatSecondResponse.text).toContain(name);
-        const chatThirdResponse = await chat.askQuestion(
+        const chatThirdResponse = await chat.sendPrompt(
           'Ok, I understand. Do you remember what my age was?'
         );
         expect(chatThirdResponse.text).toContain(`${age}`);

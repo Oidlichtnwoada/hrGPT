@@ -5,6 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@airthium/extract-json-from-string": "^1.0.40",
     "@swc/helpers": "~0.5.2",
     "dotenv": "^16.3.1",
     "luxon": "^3.4.4",

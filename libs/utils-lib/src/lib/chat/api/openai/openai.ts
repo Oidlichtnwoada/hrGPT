@@ -70,10 +70,10 @@ export class OpenaiChat implements Chat {
       .pop();
   }
 
-  async askQuestion(question: string): Promise<ChatMessage> {
+  async sendPrompt(prompt: string): Promise<ChatMessage> {
     const beforeTimestamp = DateTime.now().toUTC();
     const userChatMessage: ChatMessage = {
-      text: question.trim(),
+      text: prompt.trim(),
       author: Author.USER,
       creationDateTime: beforeTimestamp,
       generationInterval: Interval.fromDateTimes(

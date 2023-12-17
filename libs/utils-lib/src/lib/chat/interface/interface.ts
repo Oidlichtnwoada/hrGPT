@@ -16,7 +16,7 @@ export interface ChatMessage {
 export interface Chat {
   setContext(context: string): void;
   getContext(): ChatMessage | undefined;
-  askQuestion(question: string): Promise<ChatMessage>;
+  sendPrompt(prompt: string): Promise<ChatMessage>;
   getChatMessageHistory(includeContext: boolean): ChatMessage[];
   getUserChatMessageHistory(): ChatMessage[];
   getModelChatMessageHistory(): ChatMessage[];
