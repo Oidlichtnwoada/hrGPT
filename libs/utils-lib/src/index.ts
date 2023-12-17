@@ -4,3 +4,4 @@ export * from './lib/chat/interface/interface';
 export * from './lib/chat/wrapper/wrapper';
 export * from './lib/pdf/pdf';
 export * from './lib/requirement/extractor/extractor';
+export * from './lib/path/path';

@@ -76,9 +76,8 @@ export async function getRequirementsFromJobDescriptionPdfFile(
     (x: unknown) => !Array.isArray(x)
   );
   const firstExtractedJsonObject: object = extractedJsonObjects.at(0) ?? {};
-  const jobRequirements: Requirements = {
+  return {
     ...EmptyRequirements,
     ...firstExtractedJsonObject,
   };
-  return jobRequirements;
 }
