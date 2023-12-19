@@ -7,12 +7,12 @@ describe('extractor', () => {
   it(
     'should extract the job requirements',
     async () => {
-      const jobPdfFilePath = getAbsolutePathFromRelativeRepoPath(
-        './libs/utils-lib/src/lib/examples/sample-job-description.pdf'
+      const jobDescriptionPdfFilePath = getAbsolutePathFromRelativeRepoPath(
+        './libs/utils-lib/src/lib/examples/sample-hr-job-description.pdf'
       );
       const jobRequirements = await getRequirementsFromJobDescriptionPdfFile(
         Model.GPT_4_TURBO,
-        jobPdfFilePath
+        jobDescriptionPdfFilePath
       );
       expect(jobRequirements.workExperience.length).toStrictEqual(0);
       expect(jobRequirements.education.length).toStrictEqual(0);

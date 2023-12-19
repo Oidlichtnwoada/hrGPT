@@ -7,16 +7,13 @@ describe('matcher', () => {
   it(
     'should match the applicant documents to the job',
     async () => {
-      const jobPdfFilePath = getAbsolutePathFromRelativeRepoPath(
-        './libs/utils-lib/src/lib/examples/sample-job-description.pdf'
+      const jobDescriptionPdfFilePath = getAbsolutePathFromRelativeRepoPath(
+        './libs/utils-lib/src/lib/examples/sample-software-job-description.pdf'
       );
       const resumePdfFilePath = getAbsolutePathFromRelativeRepoPath(
-        './libs/utils-lib/src/lib/examples/sample-job-description.pdf'
+        './libs/utils-lib/src/lib/examples/sample-software-resume.pdf'
       );
-      const coverLetterPdfFilePath = getAbsolutePathFromRelativeRepoPath(
-        './libs/utils-lib/src/lib/examples/sample-job-description.pdf'
-      );
-      const matchResult = await matchJobDescriptionToResumeOrCoverLetter(Model.GPT_4_TURBO, jobPdfFilePath, resumePdfFilePath, coverLetterPdfFilePath);
+      const matchResult = await matchJobDescriptionToResumeOrCoverLetter(Model.GPT_4_TURBO, jobDescriptionPdfFilePath, resumePdfFilePath, undefined);
       expect(matchResult).toBeDefined();
       console.log(matchResult);
     },
