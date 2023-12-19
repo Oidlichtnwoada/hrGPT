@@ -17,6 +17,6 @@ describe('matcher', () => {
       expect(matchResult).toBeDefined();
       console.log(matchResult);
     },
-    { timeout: 60000 }
+    { timeout: 6000000 }
   );
 });

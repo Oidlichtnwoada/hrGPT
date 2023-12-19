@@ -91,6 +91,7 @@ export async function matchJobDescriptionToResumeOrCoverLetter(
       );
       const firstExtractedJsonObject: object = extractedJsonObjects.at(0) ?? {};
       const requirementScore = { ...EmptyRequirementScore, ...firstExtractedJsonObject, requirement: requirement };
+      requirementScore.score = Math.min(Math.max(requirementScore.score, 0), 100);
       matchResult[requirementType as keyof Requirements].push(requirementScore);
     }
   }

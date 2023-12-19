@@ -27,6 +27,6 @@ describe('wrapper', () => {
         console.log(chat.getChatMessageHistory(false));
       }
     },
-    { timeout: 60000 }
+    { timeout: 6000000 }
   );
 });

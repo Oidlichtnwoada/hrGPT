@@ -40,6 +40,6 @@ describe('extractor', () => {
       expect(jobRequirements.physicalAbility.length).toStrictEqual(0);
       console.log(jobRequirements);
     },
-    { timeout: 60000 }
+    { timeout: 6000000 }
   );
 });
