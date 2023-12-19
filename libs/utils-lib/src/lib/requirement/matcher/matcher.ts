@@ -58,7 +58,7 @@ export function getPromptToMatchRequirement(requirement: string, requirementType
   let prompt = `Please match the requirement from the following JSON object ${JSON.stringify({
     ...EmptyRequirementScore,
     requirement: requirement
-  })} with the provided application documents and fill the score and the explanation in the JSON object. The score should be 0 if the requirement is completely unfulfilled and 100 if the requirement is fully covered. Assign a score between 0 and 100 if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement is provided here: ${JSON.stringify(RequirementTypeDefinitions[requirementType])}. Explain the chosen score with the explanation field in the JSON object. `;
+  })} with the provided application documents and fill the score and the explanation in the JSON object. The score should be 0 if the requirement is completely unfulfilled and 100 if the requirement is fully covered. Assign a score between 0 and 100 if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement is provided here: ${JSON.stringify(RequirementTypeDefinitions[requirementType])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. `;
   if (resumeText) {
     prompt += `Here is the resume for which the described requirement should be scored and explained: ${resumeText}. `;
   }
