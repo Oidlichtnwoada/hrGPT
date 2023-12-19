@@ -11,8 +11,8 @@ describe('extractor', () => {
         './libs/utils-lib/src/lib/examples/sample-job-description.pdf'
       );
       const jobRequirements = await getRequirementsFromJobDescriptionPdfFile(
-        jobPdfFilePath,
-        Model.GPT_4_TURBO
+        Model.GPT_4_TURBO,
+        jobPdfFilePath
       );
       expect(jobRequirements.workExperience.length).toStrictEqual(0);
       expect(jobRequirements.education.length).toStrictEqual(0);

@@ -18,7 +18,7 @@ export interface Requirements {
   readonly physicalAbility: string[];
 }
 
-const RequirementTypeDefinitions: Record<keyof Requirements, string> = {
+export const RequirementTypeDefinitions: Record<keyof Requirements, string> = {
   workExperience:
     'Work experience requirements relate to the previous roles you have worked and the amount of time you have spent in each role. Employers use this job requirement to attract candidates with a certain amount or type of work experience and may seek employees who have worked in similar positions. Other employers may not require candidates to have previous experience, making the role it suitable for candidates who are just entering the workforce, recently graduated, or changing careers. If you have unrelated work experience, you can include the transferable skills gained in those roles to help demonstrate your suitability for the position on your resume.',
   education:
@@ -69,10 +69,10 @@ export function getPromptToExtractRequirements(jobDescription: string): string {
 }
 
 export async function getRequirementsFromJobDescriptionPdfFile(
-  pdfFilePath: string,
-  model: Model
+  model: Model,
+  jobDescriptionPdfFilePath: string,
 ): Promise<Requirements> {
-  const jobDescriptionText = await extractTextFromPdfFile(pdfFilePath);
+  const jobDescriptionText = await extractTextFromPdfFile(jobDescriptionPdfFilePath);
   const prompt = getPromptToExtractRequirements(jobDescriptionText);
   const chat = getChat({ model: model });
   const answer = await chat.sendPrompt(prompt);
