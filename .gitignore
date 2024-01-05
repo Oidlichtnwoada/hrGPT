@@ -358,3 +358,6 @@ Thumbs.db
 
 # Ignore .env files
 .env
+
+# Python
+__pycache__
