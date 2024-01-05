@@ -11,7 +11,8 @@ def anonymize_applicant_document(path: str) -> None:
     pdf_reader = PdfReader(stream=path)
     pdf_writer = PdfWriter(clone_from=pdf_reader)
     for page in pdf_writer.pages:
-        pass
+        page_contents = page.get_contents()
+        page.replace_contents(page_contents)
     pdf_writer.write(path)
     pdf_writer.close()
 
