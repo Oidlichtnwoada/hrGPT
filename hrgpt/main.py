@@ -1,6 +1,9 @@
 import argparse
 
+from dotenv import load_dotenv
+
 from hrgpt.anonymization import anonymize_applicant_documents
+from hrgpt.utils import get_environment_file_path
 
 
 def get_args() -> argparse.Namespace:
@@ -10,6 +13,7 @@ def get_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    load_dotenv(dotenv_path=get_environment_file_path())
     args = get_args()
     if args.target == 'server':
         pass

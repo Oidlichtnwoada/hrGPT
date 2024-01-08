@@ -1,59 +1,37 @@
-import re
-from pypdf import PdfReader, PdfWriter, PageObject
+import concurrent.futures
+import os
+import random
+import shutil
+import string
+
+import asposepdfcloud
 
 from hrgpt.utils import get_applicant_document_paths
 
 
-def is_text_content_line(string_content_line: str) -> bool:
-    return string_content_line.endswith('TJ')
+def get_random_name(length: int = 64) -> str:
+    return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
 
 
-def replace_text_content(string_content_line: str) -> str:
-    pattern = '\\[<([0-9A-F]+)>] TJ'
-    matches = re.findall(pattern, string_content_line)
-    if len(matches) != 1:
-        raise RuntimeError
-    text_bytes = bytes.fromhex(matches[0])
-    character_encoding = 'utf-16be'
-    text = text_bytes.decode(character_encoding)
-    modified_text = text
-    modified_content_line = re.sub(
-        pattern,
-        f'[<{modified_text.encode(character_encoding).hex().upper()}>] TJ',
-        string_content_line)
-    return modified_content_line
+def get_text_replacements() -> asposepdfcloud.TextReplaceListRequest:
+    text_replace = asposepdfcloud.models.TextReplace(old_value='German', new_value='Penis', regex='true')
+    text_replace_list = asposepdfcloud.models.TextReplaceListRequest(text_replaces=[text_replace])
+    return text_replace_list
 
 
-def anonymize_string_content(string_content: str):
-    string_content_lines = string_content.split('\n')
-    modified_content_lines = []
-    for string_content_line in string_content_lines:
-        if is_text_content_line(string_content_line):
-            modified_string_content_line = replace_text_content(string_content_line)
-            modified_content_lines.append(modified_string_content_line)
-        else:
-            modified_content_lines.append(string_content_line)
-    return '\n'.join(modified_content_lines)
-
-
-def anonymize_applicant_document_page(page: PageObject) -> None:
-    page_contents = page.get_contents()
-    decoded_page_contents = page_contents.get_data().decode('utf-8')
-    anonymized_string_content = anonymize_string_content(decoded_page_contents)
-    encoded_page_contents = anonymized_string_content.encode('utf-8')
-    page_contents.set_data(encoded_page_contents)
-    page.replace_contents(page_contents)
-
-
-def anonymize_applicant_document(applicant_document_path: str) -> None:
-    pdf_reader = PdfReader(stream=applicant_document_path)
-    pdf_writer = PdfWriter(clone_from=pdf_reader)
-    for page in pdf_writer.pages:
-        anonymize_applicant_document_page(page)
-    pdf_writer.write(applicant_document_path)
-    pdf_writer.close()
+def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi, applicant_document_path: str) -> None:
+    remote_name = get_random_name()
+    pdf_api.upload_file(remote_name, applicant_document_path)
+    pdf_api.post_document_text_replace(remote_name, get_text_replacements())
+    downloaded_file_path = pdf_api.download_file(remote_name)
+    shutil.copyfile(downloaded_file_path, applicant_document_path)
 
 
 def anonymize_applicant_documents() -> None:
-    for applicant_document_path in get_applicant_document_paths():
-        anonymize_applicant_document(applicant_document_path)
+    pdf_api_client = asposepdfcloud.api_client.ApiClient(
+        app_key=os.getenv('ASPOSE_APP_KEY'),
+        app_sid=os.getenv('ASPOSE_APP_SID'))
+    pdf_api = asposepdfcloud.apis.pdf_api.PdfApi(pdf_api_client)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=int(os.getenv('PARALLEL_PDF_WORKERS'))) as executor:
+        for applicant_document_path in get_applicant_document_paths():
+            executor.submit(anonymize_applicant_document, pdf_api, applicant_document_path)
