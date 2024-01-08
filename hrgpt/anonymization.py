@@ -6,16 +6,25 @@ import string
 
 import asposepdfcloud
 
-from hrgpt.utils import get_applicant_document_paths
+from hrgpt.utils import get_applicant_document_paths, get_module_root_path
 
 
 def get_random_name(length: int = 64) -> str:
     return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
 
 
+def get_text_replacement_list(replacements_path: str = os.path.join(get_module_root_path(),
+                                                                    'replacements.txt')) -> list[tuple[str, str]]:
+    with open(replacements_path) as file:
+        file_content_lines = file.read().strip().split()
+    return [tuple(line.split('>')) for line in file_content_lines]
+
+
 def get_text_replacements() -> asposepdfcloud.TextReplaceListRequest:
-    text_replace = asposepdfcloud.models.TextReplace(old_value='German', new_value='Penis', regex='true')
-    text_replace_list = asposepdfcloud.models.TextReplaceListRequest(text_replaces=[text_replace])
+    text_replaces = [asposepdfcloud.models.TextReplace(
+        old_value=old_value, new_value=new_value, regex='false') for old_value, new_value in
+        get_text_replacement_list()]
+    text_replace_list = asposepdfcloud.models.TextReplaceListRequest(text_replaces=text_replaces)
     return text_replace_list
 
 

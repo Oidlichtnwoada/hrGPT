@@ -361,3 +361,6 @@ Thumbs.db
 
 # Python
 __pycache__
+
+# Replacements are private
+replacements.txt
