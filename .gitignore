@@ -364,3 +364,7 @@ __pycache__
 
 # Replacements are private
 replacements.txt
+
+# Ingore name csv files
+forenames.csv
+surnames.csv

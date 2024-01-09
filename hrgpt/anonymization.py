@@ -5,11 +5,28 @@ import shutil
 import string
 
 import asposepdfcloud
+import pandas
 
 from hrgpt.utils import get_applicant_document_paths, get_module_root_path
 
 
-def get_random_name(length: int = 64) -> str:
+def generate_random_names(amount: int = 1,
+                          forenames_csv_path: str = os.path.join(get_module_root_path(), 'forenames.csv'),
+                          surnames_csv_path: str = os.path.join(get_module_root_path(), 'surnames.csv')) -> list[str]:
+    forenames = pandas.read_csv(forenames_csv_path)['name'].tolist()
+    surnames = pandas.read_csv(surnames_csv_path)['name'].tolist()
+    random_names = set()
+    while len(random_names) < amount:
+        random_forename = random.choice(forenames)
+        random_surname = random.choice(surnames)
+        random_name = f'{random_forename.capitalize()} {random_surname.capitalize()}'
+        if len(random_name.split(' ')) != 2:
+            continue
+        random_names.add(random_name)
+    return list(random_names)
+
+
+def get_random_file_name(length: int = 64) -> str:
     return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
 
 
@@ -29,7 +46,7 @@ def get_text_replacements() -> asposepdfcloud.TextReplaceListRequest:
 
 
 def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi, applicant_document_path: str) -> None:
-    remote_name = get_random_name()
+    remote_name = get_random_file_name()
     pdf_api.upload_file(remote_name, applicant_document_path)
     pdf_api.post_document_text_replace(remote_name, get_text_replacements())
     downloaded_file_path = pdf_api.download_file(remote_name)

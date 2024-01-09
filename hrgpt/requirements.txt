@@ -1,2 +1,3 @@
 git+https://github.com/aspose-pdf-cloud/aspose-pdf-cloud-python.git
 python-dotenv
+pandas
