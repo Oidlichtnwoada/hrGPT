@@ -16,8 +16,8 @@ def get_random_name(length: int = 64) -> str:
 def get_text_replacement_list(replacements_path: str = os.path.join(get_module_root_path(),
                                                                     'replacements.txt')) -> list[tuple[str, str]]:
     with open(replacements_path) as file:
-        file_content_lines = file.read().strip().split()
-    return [tuple(line.split('>')) for line in file_content_lines]
+        file_content_lines = file.read().strip().split('\n')
+    return [tuple(line.split('>')) for line in file_content_lines if not line.startswith('#')]
 
 
 def get_text_replacements() -> asposepdfcloud.TextReplaceListRequest:
