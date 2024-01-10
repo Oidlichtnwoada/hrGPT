@@ -48,7 +48,7 @@
     pdfauthor       = {\authorname},          % The author's name in the document properties (optional).
     pdftitle        = {\thesistitle},         % The document's title in the document properties (optional).
     pdfsubject      = {LLMs in \acs{HR}},              % The document's subject in the document properties (optional).
-    pdfkeywords     = {Machine Learning, \acs{HR}, Human Resources, AI, LLM} % The document's keywords in the document properties (optional).
+    pdfkeywords     = {Machine Learning, \acs{HR}, Human Resources, \acs{AI}, LLM} % The document's keywords in the document properties (optional).
 }
 
 \setpnumwidth{2.5em}        % Avoid overfull hboxes in the table of contents (see memoir manual).
@@ -179,6 +179,7 @@
 \chapter{List of Abbreviations}
 % Add acronym entries.
 \begin{acronym}
+    \acro{AI}{Artificial Intelligence}
     \acro{CV}{Curriculum Vitae}
     \acro{LLM}{Large Language Model}
     \acro{HR}{Human Resources}
@@ -252,9 +253,9 @@ The article \textcite[2-4]{ai_recruiting} described four evolution stages of rec
         \item Furthermore, it is argued that the used technologies are often static and one-way communication systems that do not allow either side of the recruiting process to ask questions. This may entail creating an artificial distance between the applicant and the people doing the recruitment tasks. The technologies of the future which are already here, are already capable of partially mitigating those drawbacks.
         \item The article also discussed that if the tasks of complete human resource departments are transferred to other employees and managers, this may have a negative effect on the overall productivity of organizations. This also means that if the administrative burden for the human resource department is reduced, it can also contribute to the strategic direction of organizations.
     \end{itemize}
-    More consideration on the use of AI-assisted technologies regarding recruiting are presented here \parencite[2-4]{ai_in_hr_management}:
+    More consideration on the use of \acs{AI}-assisted technologies regarding recruiting are presented here \parencite[2-4]{ai_in_hr_management}:
     \begin{itemize}
-        \item Algorithms that help filtering applicants and were trained with imitation learning are often trained with biased data. As these algorithms try to map input attributes or features to desirable outputs like job performance present in the training data sets, it keeps the bias from past recruiting activities like hiring less women in top management positions in favor for men. Also \textit{Amazon} had this bias problem in their hiring algorithm which is an alarming sign for the use of AI in human resources due to legal considerations and violations of the social norms.
+        \item Algorithms that help filtering applicants and were trained with imitation learning are often trained with biased data. As these algorithms try to map input attributes or features to desirable outputs like job performance present in the training data sets, it keeps the bias from past recruiting activities like hiring less women in top management positions in favor for men. Also \textit{Amazon} had this bias problem in their hiring algorithm which is an alarming sign for the use of \acs{AI} in human resources due to legal considerations and violations of the social norms.
         \item Furthermore, as applicants more and more discover the biases of the used algorithms or traits that they will like, applicants may more and more artificially craft applications documents to meet the algorithm's expectations.
         \item The article also discussed that it is hard to define what a \textit{good employee} actually is. Most sources define a good employee based on performance appraisal scores, but those are very hard to measure as any reasonably complex job is interdependent with other jobs, making it very hard to disentangle the individual performance from the group performance. The performance metrics are often criticized for a lack of validity and reliability while having a considerable bias. Therefore, it is very hard and nearly impossible to achieve exactly this behavior of selecting high-performant applicants with imitation learning and unsuitable training data.
         \item Algorithms based on imitation learning require large amounts of past data and important events like dismissals may be sparse in the training data.
@@ -268,16 +269,16 @@ This should have made the need for an effective human resources pipeline clear. 
     actually apply. Machine learning can help to refine the job description in ways to attract more applicants or to bring more balance to the gender of the applicants. As there are more passive candidates not actively searching for a job than actively searching candidates, machine learning can be used to identify suitable talents from a massive pool of candidates, e.g. hundreds of millions of \textit{LinkedIn} users.
     \item \textbf{Screening}\\
     This stage should pre-filter the applicants to only keep the most promising ones for the next assessment stage.
-    As stated in \textcite[6]{ai_recruiting}, machine learning tools were at least 25\% superior to humans even when they got a reasonable amount of time to screen the application. Furthermore, the AI-enabled screening tool provider \textit{Ideal} says that with its technology the average \gls{TTH} fell from 24 days to 9 days.
-    Moreover, \textit{L'Oréal} reported a drop of screening time per resume from 40 minutes to 4 minutes and \textit{Hilton Hotels \& Resorts} reported a drop of \gls{TTH} from 42 days to 5 days by incorporating AI tools in the recruitment process.
+    As stated in \textcite[6]{ai_recruiting}, machine learning tools were at least 25\% superior to humans even when they got a reasonable amount of time to screen the application. Furthermore, the \acs{AI}-enabled screening tool provider \textit{Ideal} says that with its technology the average \gls{TTH} fell from 24 days to 9 days.
+    Moreover, \textit{L'Oréal} reported a drop of screening time per resume from 40 minutes to 4 minutes and \textit{Hilton Hotels \& Resorts} reported a drop of \gls{TTH} from 42 days to 5 days by incorporating \acs{AI} tools in the recruitment process.
     \item \textbf{Assessment}\\
-    The assessments typically involve one to many rounds of assessment to determine the best or most suitable candidates that then will receive a job offer. Recent research showed that gamification with short games is more and more used to measure certain personality traits of candidates like risk aversion. Companies like \textit{Unilever} and \textit{L'Oréal} used AI-chatbots that asked various questions and applicants were able to record video responses in the \textit{Unilever} case and chat response in the case of \textit{L'Oréal}. The AI systems analyzed the content, the word choice and the used structure and matched the responses against successful employees in that field. In the case of video content, the system can also analyze the tone of the voice and the micro-facial movements. These two chatbots could be filled with information at any time within the given timeframe, so it reduces scheduling times with candidates and also gives candidates more freedom to answer the questions at a time that suits them best. These chatbots can also be used to fill in missing information from the job seekers like potential start date and can also answer questions regarding the salary range for example.
+    The assessments typically involve one to many rounds of assessment to determine the best or most suitable candidates that then will receive a job offer. Recent research showed that gamification with short games is more and more used to measure certain personality traits of candidates like risk aversion. Companies like \textit{Unilever} and \textit{L'Oréal} used \acs{AI}-chatbots that asked various questions and applicants were able to record video responses in the \textit{Unilever} case and chat response in the case of \textit{L'Oréal}. The \acs{AI} systems analyzed the content, the word choice and the used structure and matched the responses against successful employees in that field. In the case of video content, the system can also analyze the tone of the voice and the micro-facial movements. These two chatbots could be filled with information at any time within the given timeframe, so it reduces scheduling times with candidates and also gives candidates more freedom to answer the questions at a time that suits them best. These chatbots can also be used to fill in missing information from the job seekers like potential start date and can also answer questions regarding the salary range for example.
     \item \textbf{Coordination}\\
     This task contains the coordination with the applicants which involves appointment scheduling and appointment cancellation. As in the age of digital recruitment more and more candidates are rejected, and therefore you need to make sure to convey this information to all of your applicants, as little to no information regarding the process is the main driver for bad experiences with the application process. Machine learning tools can help to achieve that.
 \end{enumerate}
 By 2018 only around 40\% have used machine learning tools in these four core human resource sourcing processes \parencite[4]{ai_recruiting}.
-The cost to implement, to integrate and to maintain AI tools in human resources is significant and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \parencite[8]{ai_recruiting}.
-Furthermore, if the AI tools are not used as an assistive technology, but as a technology to replace humans in the human resource sector, the acceptance of these technologies within this sector is quite low \parencite[9]{ai_recruiting}.
+The cost to implement, to integrate and to maintain \acs{AI} tools in human resources is significant and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \parencite[8]{ai_recruiting}.
+Furthermore, if the \acs{AI} tools are not used as an assistive technology, but as a technology to replace humans in the human resource sector, the acceptance of these technologies within this sector is quite low \parencite[9]{ai_recruiting}.
 Moreover, around 70\% of large organization change initiatives which also include digital transformations, fail.
 That means there is some space for improvement and this thesis tries to implement a new open-source tool in the area of screening to improve the productivity of the human resources workers in companies of any size.
 As \acs{LLM}s are capable of summarization and question-answering when they are presented natural text as input within their context length, the problem to solve now is to match a provided \acs{CV} from an applicant to the applied job description and assign this match a score.
@@ -311,7 +312,7 @@ This formulation entails subordinate research questions which are shown in the f
 
 \section{Research Methodology} \label{research_methodology}
 This thesis uses qualitative research design \ref{qualitative_research_design} and quantitative research design \ref{quantitative_research_design} to answer the research question.
-In the qualitative context, the current state of experiences with and expectations from AI-assisted tooling will be explored by a discussion with human experts in the human resources field.
+In the qualitative context, the current state of experiences with and expectations from \acs{AI}-assisted tooling will be explored by a discussion with human experts in the human resources field.
 In the quantitative context, the accuracy of the proposed model will be measured and the time savings associated to the model usage will be measured by comparing the model's statistics against the results from human expert recruiters.
 
 \section{Structure of the Work} \label{structure_of_the_work}
@@ -615,11 +616,11 @@ Those will be involved in three major interactions:
         This topic entails a discussion how well the technologies should be able to replicate human judgement.
         The operation should be probably reliable and different \acs{CV} formats and layouts should be supported while keeping the ability to match job requirements with various qualifications and experiences in different industry fields.
         \item \textbf{Legal Considerations}\\
-        This topic entails a discussion on the legal considerations of the technologies that must be matched to use AI-assisted technologies in real-world human resource processes.
+        This topic entails a discussion on the legal considerations of the technologies that must be matched to use \acs{AI}-assisted technologies in real-world human resource processes.
         This includes the discussion of data security and privacy, as well as the discussion of the transparency of the technologies.
         \item \textbf{Machine Learning as Assistive Technology}\\
         This topic entails a discussion on the role of machine learning in the human resource process and how it can complement the human decision-making process.
-        There can maybe also be a discussion on scenarios where it would be better to not use AI-assisted technologies or a discussion on the balance of automated and human decision-making in the screening process and whether the proposed architecture matches the expected balance or if changes should be implemented.
+        There can maybe also be a discussion on scenarios where it would be better to not use \acs{AI}-assisted technologies or a discussion on the balance of automated and human decision-making in the screening process and whether the proposed architecture matches the expected balance or if changes should be implemented.
         Moreover, the expected efficiency gains of the technologies should be discussed.
         \item \textbf{Customization and Adaptability}\\
         This topic entails a discussion on the customization and adaptability of the technologies, whether they are able to adapt to certain industry needs, company cultures and varying contexts.
@@ -634,8 +635,8 @@ Those will be involved in three major interactions:
         \item \textbf{Candidate experience}\\
         This topic entails a discussion on the candidate experience of the technologies, whether they have any advantages on their side.
         Moreover, these advantages may include a faster response time and automated feedback generation for positive and negative feedbacks.
-        \item \textbf{Previous experiences with AI-assisted technologies in human resources}\\
-        This topic entails a discussion on the previous experiences the human experts may have had with AI-assisted technologies in the context of human resources.
+        \item \textbf{Previous experiences with \acs{AI}-assisted technologies in human resources}\\
+        This topic entails a discussion on the previous experiences the human experts may have had with \acs{AI}-assisted technologies in the context of human resources.
         Moreover, the discussion should include the general reception, advantages and disadvantages of these technologies including potential improvements and drawbacks and their field of use within the human resource pipeline.
         \item \textbf{Costs}
         This topic entails a discussion on the costs of the technologies, whether they are affordable and whether they are worth the investment including the expected costs for a model as outlined in this thesis. 
@@ -780,7 +781,7 @@ For this thesis, the second weighting property is the most important one, as we 
 The job descriptions and the applicant documents will be either taken from publicly available datasets, manually crafted or generated using tools like GPT-4 \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
 The job description and the applicants' \acs{CV}s must be supplied as pure text to the proposed model due to their internal tokenization.
 That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more and more important it will be to supply machine readable applicant documents that please the machine learning models used in the screening process.
-When this AI barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
+When this \acs{AI} barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
 This will lead to new challenges for the applicants as they have to please both the machine learning models and the human decision-makers.
 As the industry-standard formats for applicant documents are the \textit{PDF} and the \textit{Microsoft Word} format, files in such formats must be converted to pure text before they can be supplied to the model.
 As this conversion is not the focus of this thesis, it will be only shortly discussed in the chapter \ref{implementation}.
@@ -828,7 +829,7 @@ In order to provide more validity to the open, verbal discussion with the human 
 \begin{enumerate}
     \item \textbf{Bias and Fairness}
     \begin{itemize}
-        \item How do you perceive the potential for bias in AI-assisted recruitment technologies?
+        \item How do you perceive the potential for bias in \acs{AI}-assisted recruitment technologies?
         \item In what ways can these technologies be designed to ensure fairness and avoid discrimination based on gender, ethnicity, age, or other non-job-related factors?
         \item What are your views on the ethical considerations surrounding the use of machine learning in human resource processes?
     \end{itemize}
@@ -836,48 +837,48 @@ In order to provide more validity to the open, verbal discussion with the human 
     \begin{itemize}
         \item To what extent should these technologies replicate human judgment in the screening process?
         \item How can we ensure reliability and support various CV formats and layouts?
-        \item In what ways can AI effectively match job requirements with a diverse range of qualifications and experiences across different industries?
+        \item In what ways can \acs{AI} effectively match job requirements with a diverse range of qualifications and experiences across different industries?
     \end{itemize}
     \item \textbf{Legal Considerations}
     \begin{itemize}
-        \item What legal challenges do you foresee in implementing AI in \acs{HR} processes, particularly concerning data security and privacy?
-        \item How can we maintain transparency in AI-assisted recruitment technologies?
+        \item What legal challenges do you foresee in implementing \acs{AI} in \acs{HR} processes, particularly concerning data security and privacy?
+        \item How can we maintain transparency in \acs{AI}-assisted recruitment technologies?
         \item What are the key legal safeguards that should be in place when using these technologies?
     \end{itemize}
     \item \textbf{Machine Learning as Assistive Technology}
     \begin{itemize}
         \item How do you see machine learning complementing human decision-making in \acs{HR}?
-        \item Are there scenarios where AI-assisted technologies should not be used in recruitment?
+        \item Are there scenarios where \acs{AI}-assisted technologies should not be used in recruitment?
         \item What balance should be struck between automated and human decision-making in the screening process?
         \item What are your expectations regarding the efficiency gains from these technologies?
     \end{itemize}
     \item \textbf{Customization and Adaptability}
     \begin{itemize}
-        \item How important is customization in AI-assisted recruitment technologies for different industries and company cultures?
+        \item How important is customization in \acs{AI}-assisted recruitment technologies for different industries and company cultures?
         \item What aspects of the technology should be customizable by the user?
         \item Can you suggest ways for users to provide feedback and influence the system's development?
     \end{itemize}
     \item \textbf{User Experience}
     \begin{itemize}
-        \item What are the key factors that make an AI-assisted recruitment tool user-friendly?
+        \item What are the key factors that make an \acs{AI}-assisted recruitment tool user-friendly?
         \item How should these technologies integrate with existing \acs{HR} systems and file types?
         \item What are your thoughts on third-party export and import functionalities for these tools?
     \end{itemize}
     \item \textbf{Candidate Experience}
     \begin{itemize}
-        \item What advantages do AI-assisted recruitment technologies offer to candidates?
+        \item What advantages do \acs{AI}-assisted recruitment technologies offer to candidates?
         \item How might these technologies improve response times and feedback generation for applicants?
-        \item What impact do you think AI screening will have on the overall candidate experience?
+        \item What impact do you think \acs{AI} screening will have on the overall candidate experience?
     \end{itemize}
-    \item \textbf{Previous Experiences with AI-assisted Technologies in Human Resources}
+    \item \textbf{Previous Experiences with \acs{AI}-assisted Technologies in Human Resources}
     \begin{itemize}
-        \item What has been your experience with AI-assisted technologies in \acs{HR} to date?
+        \item What has been your experience with \acs{AI}-assisted technologies in \acs{HR} to date?
         \item Can you share insights on the general reception, advantages, disadvantages, and areas of improvement for these technologies?
         \item How have these technologies been integrated into the \acs{HR} pipeline in your experience?
     \end{itemize}
     \item \textbf{Costs}
     \begin{itemize}
-        \item How do you assess the affordability and cost-effectiveness of AI-assisted recruitment technologies?
+        \item How do you assess the affordability and cost-effectiveness of \acs{AI}-assisted recruitment technologies?
         \item What are your expectations regarding the investment required for the model outlined in this thesis?
         \item How do you justify the costs of these technologies in relation to their benefits?
     \end{itemize}
@@ -899,7 +900,7 @@ In order to provide more validity to the open, verbal discussion with the human 
         \item Can you give an example of a situation where the model's explanation of its decision was particularly clear or unclear?
         \item Upon reviewing the model's explanations, did you identify any deficiencies? If so, what were they?
         \item In your opinion, what changes or tweaks could be made to the model's configuration to improve understanding and usability?
-        \item How important do you believe explainability and transparency are in the context of using AI for recruitment? Do you think these factors impact user trust and confidence?
+        \item How important do you believe explainability and transparency are in the context of using \acs{AI} for recruitment? Do you think these factors impact user trust and confidence?
     \end{itemize}
 \end{enumerate}
 
@@ -921,13 +922,13 @@ In order to provide more validity to the open, verbal discussion with the human 
 \section{Explainability of the Model Results}
 \lipsum[1]
 
-\section{Experiences with AI-Assisted Technologies in Human Resources}
+\section{Experiences with \acs{AI}-Assisted Technologies in Human Resources}
 \lipsum[1]
 
-\section{Considerations on AI-Assisted Technologies in Human Resources}
+\section{Considerations on \acs{AI}-Assisted Technologies in Human Resources}
 \lipsum[1]
 
-\section{Expectations from AI-Assisted Technologies in Human Resources}
+\section{Expectations from \acs{AI}-Assisted Technologies in Human Resources}
 \lipsum[1]
 
 \section{Visualizations}
