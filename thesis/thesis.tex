@@ -179,6 +179,7 @@
 \chapter{List of Abbreviations}
 % Add acronym entries.
 \begin{acronym}
+    \acro{CV}{Curriculum Vitae}
     \acro{LLM}{Large Language Model}
     \acro{NLP}{Natural Language Processing}
     \acro{TAPJFNN}{Topic-Based Ability-Aware Person-Job Fit Neural Network}
@@ -278,7 +279,7 @@ The cost to implement, to integrate and to maintain AI tools in human resources 
 Furthermore, if the AI tools are not used as an assistive technology, but as a technology to replace humans in the human resource sector, the acceptance of these technologies within this sector is quite low \parencite[9]{ai_recruiting}.
 Moreover, around 70\% of large organization change initiatives which also include digital transformations, fail.
 That means there is some space for improvement and this thesis tries to implement a new open-source tool in the area of screening to improve the productivity of the human resources workers in companies of any size.
-As \acs{LLM}s are capable of summarization and question-answering when they are presented natural text as input within their context length, the problem to solve now is to match a provided resume from an applicant to the applied job description and assign this match a score.
+As \acs{LLM}s are capable of summarization and question-answering when they are presented natural text as input within their context length, the problem to solve now is to match a provided \acs{CV} from an applicant to the applied job description and assign this match a score.
 Furthermore, the model should also characterize the applicant as promising or not using an additional output.
 The score should represent the suitability of the candidate for the job description and is needed to easily compare candidates and to sort them by their score.
 
@@ -290,7 +291,7 @@ Usage of the model should bring efficiency benefits without needing to use it lo
 \section{Research Objective and Research Question} \label{research_objective_and_research_question}
 The research objective is to supply the proposed reasonably accurate screening tool based on \acs{LLM}s that was outlined in \ref{problem_statement} as open-source software to the public. 
 That means companies of any size can use this tool and integrate it to their human capital sourcing pipelines to eventually increase their efficiency and decrease costs.
-As outlined in the previous chapters, people working in human resources have to screen more and more resumes as the reach of online job advertisements attracts many applicants.
+As outlined in the previous chapters, people working in human resources have to screen more and more resumes or \acs{CV}s as the reach of online job advertisements attracts many applicants.
 It was also discussed that many of these applicants are not qualified enough for the advertised job and should therefore not be assessed further.
 This pre-filtering saves costly human resources and makes it easier to invest the most time and effort into the most promising candidates, given that you have an easy and cheap way to screen the application documents.
 With the rise of \acs{LLM}s which are capable of summarization and question answering, the idea was born to use these capabilities and apply them to the screening task in human resources.
@@ -413,7 +414,7 @@ This assessment also received legal support and was merged into the employee sel
     The needs-supplies perspective includes the individual's desires like goals, psychological needs, interests and values. The characteristics and attributes of a job may or may not satisfy those desires.
     The demands-abilities perspective consists of job demands like knowledge, skills, abilities, education, experience and aptitudes that are required in order to carry out the tasks that are part of this job.
 \end{itemize}
-The strategies to assess the person-job fit include resumes, tests, interviews and reference checks \parencite[184]{po_and_pj_fit_literature_review}.
+The strategies to assess the person-job fit include resumes, \acs{CV}s, tests, interviews and reference checks \parencite[184]{po_and_pj_fit_literature_review}.
 The more structured and validated the procedures were, the more effective the employee selection process has been when comparing it to using unstructured strategies like oral interviews with no guidelines \parencite[184]{po_and_pj_fit_literature_review}.
 Moreover, most candidate selection processes of companies have focused on achieving a high person-job fit because this has positive outcomes like job satisfaction, lower stress levels, and higher adjustment, organizational commitment, motivation, performance, attendance and employee retention \parencite[184]{po_and_pj_fit_literature_review}.
 
@@ -602,7 +603,7 @@ To analyze the model's output and its impact from a qualitative perspective, a f
 This amount of experts was chosen to have a diverse set of opinions, but not too many participants, in order to reduce the coordination work.
 Those will be involved in three major interactions:
 \begin{enumerate}
-    \item \textbf{Kick-off Meeting}\\
+    \item \textbf{Kick-Off Meeting} \label{kick_off_meeting}\\ 
     In this meeting the human expert recruiters will be introduced to the proposed model and the topic of machine learning-assisted technologies in human resources will be discussed following these major topics to collect the requirements of the domain:
     \begin{enumerate}
         \item \textbf{Bias and Fairness}\\
@@ -611,7 +612,7 @@ Those will be involved in three major interactions:
         Moreover, also more general ethical considerations should be discussed in this topic.
         \item \textbf{Accuracy and Reliability}\\
         This topic entails a discussion how well the technologies should be able to replicate human judgement.
-        The operation should be probably reliable and different resume formats and layouts should be supported while keeping the ability to match job requirements with various qualifications and experiences in different industry fields.
+        The operation should be probably reliable and different \acs{CV} formats and layouts should be supported while keeping the ability to match job requirements with various qualifications and experiences in different industry fields.
         \item \textbf{Legal Considerations}\\
         This topic entails a discussion on the legal considerations of the technologies that must be matched to use AI-assisted technologies in real-world human resource processes.
         This includes the discussion of data security and privacy, as well as the discussion of the transparency of the technologies.
@@ -638,10 +639,10 @@ Those will be involved in three major interactions:
         \item \textbf{Costs}
         This topic entails a discussion on the costs of the technologies, whether they are affordable and whether they are worth the investment including the expected costs for a model as outlined in this thesis. 
     \end{enumerate}
-    \item \textbf{Ranking Announcement}\\
+    \item \textbf{Ranking Announcement} \label{ranking_announcement}\\
     After the kick-off meeting happened each human expert recruiter will get a set of applicant documents and job descriptions that should be ranked and categorized as described in \ref{quantitative_research_design}.
-    The final outputs of the experts and the time it took to produce the outputs will be collected via an online form that will be provided for that purpose.
-    \item \textbf{Closing Meeting}\\
+    The final outputs of the experts and the time it took to produce the outputs per job description will be collected via an online form that will be provided for that purpose.
+    \item \textbf{Closing Meeting} \label{closing_meeting}\\ 
     In this meeting the human expert recruiters will be presented the model's output to the same applicant documents and job descriptions that the recruiters have gotten.
     In order for the recruiters to be able to prepare for the meeting, the model's output will be provided to the recruiters beforehand.
     The model's output will be compared to the human expert recruiters' outputs and the differences or similarities will be discussed.
@@ -700,20 +701,20 @@ The screening documents consist of six job descriptions of various industries wi
 This split was chosen in order to have a diverse set of job descriptions with different applicants that are competing for the job.
 Furthermore, it is important to note that recruiters will have to rank and categorize $48$ applicants while tracking their time usage, therefore it is quite some work to do on their end.
 More importantly, the sample screening documents must also be provided in adequate quality in order to mimic the real-world screening process as closely as possible.
-Two job descriptions will only have resumes as applicant documents, two job descriptions will only have cover letters as applicant documents and two job descriptions will have both resumes and cover letters as applicant documents.
-The length of all cover letters is bounded to one page and the length of resumes is bounded to two pages.
+Al job descriptions will only have \acs{CV}s as applicant documents.
+The length of each \acs{CV} is bounded to six pages.
 No applicant document will contain a photo of the applicant.
 In the following is a table summarizing the structure of the sample screening documents:
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
     \hline
-    \textbf{index} & \textbf{job description present} & \textbf{resume present} & \textbf{cover letter present} \\ \hline
-    1 & yes & yes & no  \\ \hline
-    2 & yes & yes & no  \\ \hline
-    3 & yes & no  & yes \\ \hline
-    4 & yes & no  & yes \\ \hline
-    5 & yes & yes & yes \\ \hline
-    6 & yes & yes & yes \\ \hline
+    \textbf{index} & \textbf{job description present} & \textbf{\acs{CV} present} & \textbf{cover letter present} \\ \hline
+    1 & yes & yes & no \\ \hline
+    2 & yes & yes & no \\ \hline
+    3 & yes & yes & no \\ \hline
+    4 & yes & yes & no \\ \hline
+    5 & yes & yes & no \\ \hline
+    6 & yes & yes & no \\ \hline
     \end{tabular}
     \caption{Structure of the sample screening documents}
 \end{table}
@@ -776,17 +777,17 @@ For this thesis, the second weighting property is the most important one, as we 
 
 \subsection{Overview of the Construction Process}
 The job descriptions and the applicant documents will be either taken from publicly available datasets, manually crafted or generated using tools like GPT-4 \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
-The job description and the applicants' resumes and cover letters must be supplied as pure text to the proposed model due to their internal tokenization.
+The job description and the applicants' \acs{CV}s must be supplied as pure text to the proposed model due to their internal tokenization.
 That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more and more important it will be to supply machine readable applicant documents that please the machine learning models used in the screening process.
-When this AI-barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
+When this AI barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
 This will lead to new challenges for the applicants as they have to please both the machine learning models and the human decision-makers.
-As the industry-standard formats for resumes are the \textit{PDF} and the \textit{Microsoft Word} format, files in such formats must be converted to pure text before they can be supplied to the model.
+As the industry-standard formats for applicant documents are the \textit{PDF} and the \textit{Microsoft Word} format, files in such formats must be converted to pure text before they can be supplied to the model.
 As this conversion is not the focus of this thesis, it will be only shortly discussed in the chapter \ref{implementation}.
-This also means that a more sophisticated resume layout or design and an included portrait photo will have no influence at all on the model's output as the model will only see the text contents.
+This also means that a more sophisticated \acs{CV} layout or design and an included portrait photo will have no influence at all on the model's output as the model will only see the text contents.
 Future work can incorporate this information by converting this visual information to text using image-to-text models.
-The proposed model will compute a score from $0$ to $1$ for each resume-job-matchup that will be supplied to it.
+The proposed model will compute a score from $0$ to $1$ for each \acs{CV}-job-matchup that will be supplied to it.
 The model should also output if it thinks that the applicant is promising or not, so it also categorizes applicants in two groups.
-Based on this score the resumes for a particular job can be ranked from best to worst.
+Based on this score the \acs{CV}s for a particular job can be ranked from best to worst.
 If there is tie happening with the output scores, additional criteria will be globally introduced to break the tie.
 Furthermore, it is planned that with each score output of the model, an explanation is supplied as well that clarifies why the model thinks this score is justified.
 The exact implementation details of the score and explanation generation is described in chapter \ref{implementation}.
@@ -810,7 +811,7 @@ The score from $0$ to $1$ from the model output should measure the person-enviro
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
 Due to this compression, it is not guaranteed that the model will output plausible text in all cases. 
 As there are huge amounts of possible input texts, the model will not be able to summarize and answer questions on all of them correctly or in the same accuracy, as \acs{LLM}s do not understand the text in the same way as humans do.
-This means that the model will not be able to give a plausible output on every theoretically possible resume-job-matchup and should therefore not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
+This means that the model will not be able to give a plausible output on every theoretically possible \acs{CV}-job-matchup and should therefore not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
 However, due to the huge amounts of training data that is scraped off the internet and used to train these models, they will behave quite robust in most of the cases.
 Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous and past experiences influence humans in their decisions, this makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms not only for decision-making, but also for the detection of discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior is dependent on human-written data like in the thesis' case is virtually impossible. Also in \textcite[158-160]{discrimination_algorithms} the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
 That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be quite significant as shown in the example. There might be other application areas like healthcare where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
@@ -818,7 +819,16 @@ That means when the law forbids the usage of certain features in algorithmic or 
 \chapter{Data}
 
 \section{Data Collection}
-\lipsum[1]
+
+\subsection{Qualitative Research Design}
+
+\subsubsection{Kick-Off Meeting Discussion Guide}
+In order to provide more validity to the open, verbal discussion with the human experts of the focus group, the following discussion guide formulates the main topics and the most important open questions in the form of a questionnaire as quickly outlined in \ref{kick_off_meeting}:
+
+\subsubsection{Closing Meeting Discussion Guide}
+In order to provide more validity to the open, verbal discussion with the human experts of the focus group, the following discussion guide formulates the main topics and the most important open questions in the form of a questionnaire as quickly outlined in \ref{closing_meeting}:
+
+\subsection{Quantitative Research Design}
 
 \section{Data Overview}
 \lipsum[1]
