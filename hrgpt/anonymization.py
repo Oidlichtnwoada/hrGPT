@@ -80,7 +80,7 @@ def remove_links(pdf_document_path: str) -> None:
 
 def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi,
                                  applicant_document_path: str,
-                                 replace_text: bool = False) -> None:
+                                 replace_text: bool = True) -> None:
     # clean the document at the start
     clean_pdf_document(applicant_document_path)
 
