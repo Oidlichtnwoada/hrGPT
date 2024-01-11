@@ -51,7 +51,6 @@ def clean_pdf_document(pdf_document_path: str,
                        compress: bool = True,
                        linearize: bool = True,
                        prettify: bool = True):
-    pdf_document = fitz.open(pdf_document_path)
     kwargs = {}
     if clean:
         kwargs.update({'garbage': 4, 'clean': True})
@@ -64,18 +63,19 @@ def clean_pdf_document(pdf_document_path: str,
     if prettify:
         kwargs.update({'pretty': True})
     random_file_name = get_random_file_name()
-    pdf_document.save(random_file_name, **kwargs, encryption=fitz.PDF_ENCRYPT_NONE)
-    shutil.copyfile(random_file_name, pdf_document.name)
+    with fitz.open(pdf_document_path) as pdf_document:
+        pdf_document.save(random_file_name, **kwargs, encryption=fitz.PDF_ENCRYPT_NONE)
+    shutil.copyfile(random_file_name, pdf_document_path)
     os.remove(random_file_name)
 
 
 def remove_links(pdf_document_path: str) -> None:
-    pdf_document = fitz.open(pdf_document_path)
-    for page in pdf_document:
-        links = page.get_links()
-        for link in links:
-            page.delete_link(link)
-    pdf_document.save(pdf_document_path, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
+    with fitz.open(pdf_document_path) as pdf_document:
+        for page in pdf_document:
+            links = page.get_links()
+            for link in links:
+                page.delete_link(link)
+        pdf_document.save(pdf_document_path, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
 
 
 def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi,
