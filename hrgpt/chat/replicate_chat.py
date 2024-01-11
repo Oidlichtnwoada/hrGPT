@@ -21,7 +21,7 @@ class ReplicateChat(Chat):
         self.config = config
         self.replicate = replicate.Client(get_api_key_for_provider(self.config.model.provider))
 
-    def transform_chat_message_to_replicate_chat_object(self) -> ReplicateChatMessage:
+    def transform_chat_messages_to_replicate_chat_object(self) -> ReplicateChatMessage:
         prompts = []
         for chat_message in self.get_chat_message_history():
             if chat_message.author == Author.USER:
@@ -39,7 +39,7 @@ class ReplicateChat(Chat):
         output_parts = self.replicate.run(
             self.config.model.model_name,
             {
-                **dataclasses.asdict(self.transform_chat_message_to_replicate_chat_object()),
+                **dataclasses.asdict(self.transform_chat_messages_to_replicate_chat_object()),
                 'debug': self.config.debug,
                 'top_k': self.config.top_tokens,
                 'top_p': self.config.top_probability,
