@@ -47,7 +47,7 @@ class ReplicateChat(Chat):
                 'max_new_tokens': self.config.max_tokens,
                 'min_new_tokens': self.config.min_tokens,
                 'seed': 0 if self.config.deterministic else get_model_seed(),
-                'stop_sequences': ','.join([x for x in self.config.stop_sequences]),
+                'stop_sequences': ','.join([f'<{x}>' for x in self.config.stop_sequences]),
             }
         )
         after_datetime = pendulum.DateTime.utcnow()
