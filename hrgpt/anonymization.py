@@ -5,6 +5,7 @@ import shutil
 import string
 
 import asposepdfcloud
+import fitz
 import pandas
 
 from hrgpt.utils import get_applicant_document_paths, get_module_root_path
@@ -45,12 +46,57 @@ def get_text_replacements() -> asposepdfcloud.TextReplaceListRequest:
     return text_replace_list
 
 
-def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi, applicant_document_path: str) -> None:
-    remote_name = get_random_file_name()
-    pdf_api.upload_file(remote_name, applicant_document_path)
-    pdf_api.post_document_text_replace(remote_name, get_text_replacements())
-    downloaded_file_path = pdf_api.download_file(remote_name)
-    shutil.copyfile(downloaded_file_path, applicant_document_path)
+def clean_pdf_document(pdf_document_path: str,
+                       clean: bool = True,
+                       compress: bool = True,
+                       linearize: bool = True,
+                       prettify: bool = True):
+    pdf_document = fitz.open(pdf_document_path)
+    kwargs = {}
+    if clean:
+        kwargs.update({'garbage': 4, 'clean': True})
+    if compress:
+        kwargs.update({'deflate': True})
+    else:
+        kwargs.update({'expand': 255})
+    if linearize:
+        kwargs.update({'linear': True})
+    if prettify:
+        kwargs.update({'pretty': True})
+    random_file_name = get_random_file_name()
+    pdf_document.save(random_file_name, **kwargs, encryption=fitz.PDF_ENCRYPT_NONE)
+    shutil.copyfile(random_file_name, pdf_document.name)
+    os.remove(random_file_name)
+
+
+def remove_links(pdf_document_path: str) -> None:
+    pdf_document = fitz.open(pdf_document_path)
+    for page in pdf_document:
+        links = page.get_links()
+        for link in links:
+            page.delete_link(link)
+    pdf_document.save(pdf_document_path, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
+
+
+def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi,
+                                 applicant_document_path: str,
+                                 replace_text: bool = False) -> None:
+    # clean the document at the start
+    clean_pdf_document(applicant_document_path)
+
+    # remove all hyperlinks from the pdf documents
+    remove_links(applicant_document_path)
+
+    if replace_text:
+        # apply the text replacements
+        remote_name = get_random_file_name()
+        pdf_api.upload_file(remote_name, applicant_document_path)
+        pdf_api.post_document_text_replace(remote_name, get_text_replacements())
+        downloaded_file_path = pdf_api.download_file(remote_name)
+        shutil.copyfile(downloaded_file_path, applicant_document_path)
+
+    # clean the document at the end
+    clean_pdf_document(applicant_document_path)
 
 
 def anonymize_applicant_documents() -> None:
