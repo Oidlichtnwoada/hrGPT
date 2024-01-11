@@ -3,20 +3,23 @@ import argparse
 from dotenv import load_dotenv
 
 from hrgpt.anonymization import anonymize_applicant_documents
+from hrgpt.scoring import score_applicants
 from hrgpt.utils import get_environment_file_path
 
 
 def get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('--target', type=str, default='server')
+    parser.add_argument('--target', type=str, default='scoring')
+    parser.add_argument('--job', type=int, default=1)
+    parser.add_argument('--candidate', type=int, default=1)
     return parser.parse_args()
 
 
 def main() -> None:
     load_dotenv(dotenv_path=get_environment_file_path())
     args = get_args()
-    if args.target == 'server':
-        pass
+    if args.target == 'scoring':
+        score_applicants(args.job, args.candidate)
     elif args.target == 'anonymization':
         anonymize_applicant_documents()
     else:
