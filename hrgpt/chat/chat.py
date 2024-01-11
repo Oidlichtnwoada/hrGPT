@@ -70,6 +70,7 @@ class ModelConfig:
     stop_sequences: tuple[str, ...]
     temperature: float
     response_format: dict
+    repetition_penalty: float
 
 
 DEFAULT_MODEL_CONFIG = ModelConfig(
@@ -87,7 +88,8 @@ DEFAULT_MODEL_CONFIG = ModelConfig(
     deterministic=True,
     stop_sequences=(),
     temperature=0.01,
-    response_format={'type': 'text'}
+    response_format={'type': 'text'},
+    repetition_penalty=1,
 )
 
 
