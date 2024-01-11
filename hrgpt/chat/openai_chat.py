@@ -46,7 +46,8 @@ class OpenaiChat(Chat):
         self.chat_message_history += (user_chat_message,)
         model_response = self.openai.chat.completions.create(
             model=self.config.model.model_name,
-            messages=map(transform_chat_message_to_openai_chat_message, self.chat_message_history),
+            messages=list(map(dataclasses.asdict,
+                              map(transform_chat_message_to_openai_chat_message, self.chat_message_history))),
             temperature=self.config.temperature,
             stop=self.config.stop_sequences,
             seed=0 if self.config.deterministic else get_model_seed(),
