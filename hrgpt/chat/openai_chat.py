@@ -16,17 +16,17 @@ class OpenaiRole(enum.Enum):
 
 @dataclasses.dataclass(order=True, frozen=True, kw_only=True)
 class OpenaiChatMessage:
-    role: OpenaiRole
+    role: str
     content: str
 
 
 def transform_chat_message_to_openai_chat_message(chat_message: ChatMessage) -> OpenaiChatMessage:
     if chat_message.author == Author.USER:
-        role = OpenaiRole.USER
+        role = OpenaiRole.USER.value
     elif chat_message.author == Author.SYSTEM:
-        role = OpenaiRole.SYSTEM
+        role = OpenaiRole.SYSTEM.value
     elif chat_message.author == Author.MODEL:
-        role = OpenaiRole.ASSISTANT
+        role = OpenaiRole.ASSISTANT.value
     else:
         raise ValueError
     return OpenaiChatMessage(role=role, content=chat_message.text)

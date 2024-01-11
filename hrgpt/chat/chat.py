@@ -73,7 +73,7 @@ class ModelConfig:
 
 
 DEFAULT_MODEL_CONFIG = ModelConfig(
-    model=ModelOption.GPT_35_TURBO,
+    model=ModelOption.GPT_35_TURBO.value,
     presence_penalty=0,
     frequency_penalty=0,
     logit_bias={},
@@ -87,7 +87,7 @@ DEFAULT_MODEL_CONFIG = ModelConfig(
     deterministic=True,
     stop_sequences=(),
     temperature=0,
-    response_format={'type': 'json_object'}
+    response_format={'type': 'text'}
 )
 
 

@@ -6,7 +6,8 @@ from hrgpt.chat.replicate_chat import ReplicateChat
 
 
 def get_chat(**kwargs) -> Chat:
-    config_dict = dataclasses.asdict(DEFAULT_MODEL_CONFIG)
+    config = DEFAULT_MODEL_CONFIG
+    config_dict = dict((field.name, getattr(config, field.name)) for field in dataclasses.fields(config))
     for key, value in kwargs.items():
         config_dict[key] = value
     config = ModelConfig(**config_dict)
