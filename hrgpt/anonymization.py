@@ -105,5 +105,6 @@ def anonymize_applicant_documents() -> None:
         app_sid=os.getenv('ASPOSE_APP_SID'))
     pdf_api = asposepdfcloud.apis.pdf_api.PdfApi(pdf_api_client)
     with concurrent.futures.ThreadPoolExecutor(max_workers=int(os.getenv('PARALLEL_PDF_WORKERS'))) as executor:
-        for applicant_document_path in get_applicant_document_paths():
-            executor.submit(anonymize_applicant_document, pdf_api, applicant_document_path)
+        for applicant_document_paths in get_applicant_document_paths().values():
+            for applicant_document_path in applicant_document_paths:
+                executor.submit(anonymize_applicant_document, pdf_api, applicant_document_path)
