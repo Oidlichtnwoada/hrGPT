@@ -80,13 +80,13 @@ DEFAULT_MODEL_CONFIG = ModelConfig(
     choices=1,
     system_context='You are a helpful assistant.',
     debug=False,
-    min_tokens=0,
+    min_tokens=-1,
     max_tokens=4096,
     top_tokens=50,
     top_probability=1,
     deterministic=True,
     stop_sequences=(),
-    temperature=0,
+    temperature=0.01,
     response_format={'type': 'text'}
 )
 
