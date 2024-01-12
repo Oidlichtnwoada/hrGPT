@@ -57,8 +57,13 @@ def get_empty_requirements(requirement_type_definitions: dict[str, str]) -> dict
     return result_dict
 
 
+def get_prettify_prompt(text: str):
+    return f'Please format the following text more nicely but do not change its contents. Group lines that belong together in a paragraph and format it to improve readability. This is the text:\n{text}'
+
+
 def get_pdf_document_text(pdf_document_path: str,
-                          replacements: tuple[tuple[str, str]] = ((chr(160), ' '),)) -> str:
+                          replacements: tuple[tuple[str, str]] = ((chr(160), ' '),),
+                          prettify: bool = True) -> str:
     with fitz.open(pdf_document_path) as pdf_document:
         page_texts = []
         for page in pdf_document:
@@ -66,7 +71,12 @@ def get_pdf_document_text(pdf_document_path: str,
             for search_string, replacement_string in replacements:
                 page_text = page_text.replace(search_string, replacement_string)
             page_texts.append(page_text)
-        return '\n'.join(page_texts)
+        text = '\n'.join(page_texts)
+    if prettify:
+        chat = get_chat()
+        answer = chat.send_prompt(get_prettify_prompt(text))
+        text = answer.text
+    return text
 
 
 def extract_json_object_from_string(text: str) -> dict:
