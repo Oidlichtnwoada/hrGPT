@@ -111,6 +111,9 @@ def get_requirements_from_job_description(
             # the requirements should be given as a list
             continue
         for requirement in requirements:
+            if not isinstance(requirement, dict):
+                # each requirement should be an object
+                continue
             if 'type' not in requirement or requirement['type'] not in [x.value for x in RequirementType]:
                 # each requirement should have a suitable type and must be present
                 continue
