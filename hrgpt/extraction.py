@@ -70,7 +70,7 @@ def get_pdf_document_text(pdf_document_path: str,
         return '\n'.join(page_texts)
 
 
-def extract_json_objects_from_string(text: str) -> tuple[dict, ...]:
+def extract_json_object_from_string(text: str) -> dict:
     result = extract(text)
     result_tuple = ()
     for result_object_string in result:
@@ -88,14 +88,35 @@ def get_prompt_to_extract_requirements(job_description: str, requirement_type_de
 def get_requirements_from_job_description(
     job_description_pdf_file_path: str,
     requirement_type_definitions: dict[str, str],
-) -> dict[str, tuple[Requirement, ...]]:
+) -> dict[str, list[Requirement, ...]]:
+    # generate the extraction prompt
     job_description_text = get_pdf_document_text(job_description_pdf_file_path)
     prompt = get_prompt_to_extract_requirements(job_description_text, requirement_type_definitions)
+    # send the prompt to the model
     chat = get_chat()
     answer = chat.send_prompt(prompt)
-    extracted_json_objects = extract_json_objects_from_string(answer.text)
+    # extract the JSON object from the answer
+    extracted_json_objects = extract_json_object_from_string(answer.text)
     if len(extracted_json_objects) == 0:
         extracted_json_object = {}
     else:
         extracted_json_object = extracted_json_objects[0]
-    return get_empty_requirements(requirement_type_definitions).update(extracted_json_object)
+    # validate the structure and transform the JSON object from the answer
+    job_requirements = get_empty_requirements(requirement_type_definitions)
+    for requirement_type, requirements in extracted_json_object.items():
+        if requirement_type not in job_requirements:
+            # do not add unspecified requirement types
+            continue
+        if not isinstance(requirements, list):
+            # the requirements should be given as a list
+            continue
+        for requirement in requirements:
+            if 'type' not in requirement or requirement['type'] not in [x.value for x in RequirementType]:
+                # each requirement should have a suitable type and must be present
+                continue
+            if 'specification' not in requirement or not isinstance(requirement['specification'], str):
+                # each requirement should have a specification which must be present
+                continue
+            # add the requirement
+            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']), specification=requirement['specification']))
+    return job_requirements
