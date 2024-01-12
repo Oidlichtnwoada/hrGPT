@@ -3,7 +3,6 @@ import enum
 import json
 
 import fitz
-from extract_json_from_string.extract_json_from_string import extract
 
 from hrgpt.chat.chat_factory import get_chat
 
@@ -71,14 +70,14 @@ def get_pdf_document_text(pdf_document_path: str,
 
 
 def extract_json_object_from_string(text: str) -> dict:
-    result = extract(text)
-    result_tuple = ()
-    for result_object_string in result:
+    json_start_string = text.find('{')
+    json_end_string = text.rfind('}')
+    if json_start_string != -1 and json_end_string != -1:
         try:
-            result_tuple += (json.loads(result_object_string),)
+            return json.loads(text[json_start_string:json_end_string + 1])
         except json.JSONDecodeError:
             pass
-    return result_tuple
+    return {}
 
 
 def get_prompt_to_extract_requirements(job_description: str, requirement_type_definitions: dict[str, str]) -> str:
@@ -96,11 +95,7 @@ def get_requirements_from_job_description(
     chat = get_chat()
     answer = chat.send_prompt(prompt)
     # extract the JSON object from the answer
-    extracted_json_objects = extract_json_object_from_string(answer.text)
-    if len(extracted_json_objects) == 0:
-        extracted_json_object = {}
-    else:
-        extracted_json_object = extracted_json_objects[0]
+    extracted_json_object = extract_json_object_from_string(answer.text)
     # validate the structure and transform the JSON object from the answer
     job_requirements = get_empty_requirements(requirement_type_definitions)
     for requirement_type, requirements in extracted_json_object.items():
