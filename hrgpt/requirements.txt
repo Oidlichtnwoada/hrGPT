@@ -5,3 +5,4 @@ PyMuPDF
 pendulum
 openai
 replicate
+extract-json-from-string

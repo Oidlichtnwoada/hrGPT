@@ -1,4 +1,23 @@
+import dataclasses
+import enum
+import json
+
 import fitz
+from extract_json_from_string.extract_json_from_string import extract
+
+from hrgpt.chat.chat_factory import get_chat
+
+
+class RequirementType(enum.Enum):
+    MANDATORY = 'mandatory'
+    OPTIONAL = 'optional'
+
+
+@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
+class Requirement:
+    type: str
+    specification: str
+
 
 DEFAULT_REQUIREMENT_TYPE_DEFINITIONS: dict[str, str] = {
     'work_experience':
@@ -28,6 +47,17 @@ DEFAULT_REQUIREMENT_TYPE_DEFINITIONS: dict[str, str] = {
 }
 
 
+def get_sample_requirement() -> Requirement:
+    return Requirement(type=RequirementType.MANDATORY.value, specification='Here should stand the specification text of the requirement')
+
+
+def get_empty_requirements(requirement_type_definitions: dict[str, str]) -> dict[str, list[Requirement, ...]]:
+    result_dict = {}
+    for key in requirement_type_definitions.keys():
+        result_dict[key] = []
+    return result_dict
+
+
 def get_pdf_document_text(pdf_document_path: str,
                           replacements: tuple[tuple[str, str]] = ((chr(160), ' '),)) -> str:
     with fitz.open(pdf_document_path) as pdf_document:
@@ -38,3 +68,34 @@ def get_pdf_document_text(pdf_document_path: str,
                 page_text = page_text.replace(search_string, replacement_string)
             page_texts.append(page_text)
         return '\n'.join(page_texts)
+
+
+def extract_json_objects_from_string(text: str) -> tuple[dict, ...]:
+    result = extract(text)
+    result_tuple = ()
+    for result_object_string in result:
+        try:
+            result_tuple += (json.loads(result_object_string),)
+        except json.JSONDecodeError:
+            pass
+    return result_tuple
+
+
+def get_prompt_to_extract_requirements(job_description: str, requirement_type_definitions: dict[str, str]) -> str:
+    return f'Please extract the job requirements from the following job description as a JSON object and fill the requirements into the arrays in {get_empty_requirements(requirement_type_definitions)}. Please respect the type of the requirement. An explanation how to fill the arrays with the requirements of the correct type is provided here:\n{json.dumps(requirement_type_definitions)}.\nIf there are no suitable requirements for this category, the arrays can stay empty. All requirements must be unique. The JSON objects in the array must have the following structure {json.dumps(dataclasses.asdict(get_sample_requirement()))} and the type must be either "{RequirementType.MANDATORY.value}" or "{RequirementType.OPTIONAL.value}". Here is the job description from which the described JSON object should be extracted: ${job_description.strip()}'
+
+
+def get_requirements_from_job_description(
+    job_description_pdf_file_path: str,
+    requirement_type_definitions: dict[str, str],
+) -> dict[str, tuple[Requirement, ...]]:
+    job_description_text = get_pdf_document_text(job_description_pdf_file_path)
+    prompt = get_prompt_to_extract_requirements(job_description_text, requirement_type_definitions)
+    chat = get_chat()
+    answer = chat.send_prompt(prompt)
+    extracted_json_objects = extract_json_objects_from_string(answer.text)
+    if len(extracted_json_objects) == 0:
+        extracted_json_object = {}
+    else:
+        extracted_json_object = extracted_json_objects[0]
+    return get_empty_requirements(requirement_type_definitions).update(extracted_json_object)
