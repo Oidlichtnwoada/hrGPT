@@ -25,7 +25,6 @@ DEFAULT_REQUIREMENT_TYPE_DEFINITIONS: dict[str, str] = {
         'Sometimes a job entails working very long hours or working on weekends. This is often the case for people in the medical or law field, but also for positions in business administration, like a sales manager or C-suite role. This point also considers the total work amount which can either be part-time, full-time or contract work',
     'physicalAbility':
         'Some positions may involve a high physical demand. These include positions in the army, machine operator, or nursing assistant as they typically involve spending long periods of time standing, moving, or lifting heavy objects. Employers hiring for such positions usually specify that candidates be physically fit so they can effectively complete their tasks.',
-
 }
 
 
@@ -39,6 +38,3 @@ def get_pdf_document_text(pdf_document_path: str,
                 page_text = page_text.replace(search_string, replacement_string)
             page_texts.append(page_text)
         return '\n'.join(page_texts)
-
-
-def get_requirements_from_job_description
