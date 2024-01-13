@@ -787,7 +787,7 @@ As the industry-standard formats for applicant documents are the \textit{PDF} an
 As this conversion is not the focus of this thesis, it will be only shortly discussed in the chapter \ref{implementation}.
 This also means that a more sophisticated \acs{CV} layout or design and an included portrait photo will have no influence at all on the model's output as the model will only see the text contents.
 Future work can incorporate this information by converting this visual information to text using image-to-text models.
-The proposed model will compute a score from $0$ to $1$ for each \acs{CV}-job-matchup that will be supplied to it.
+The proposed model will compute a score from $0$ to $100$ for each \acs{CV}-job-matchup that will be supplied to it.
 The model should also output if it thinks that the applicant is promising or not, so it also categorizes applicants in two groups.
 Based on this score the \acs{CV}s for a particular job can be ranked from best to worst.
 If there is tie happening with the output scores, additional criteria will be globally introduced to break the tie.
@@ -801,7 +801,7 @@ The rankings of the human experts will not be available during the model impleme
 \lipsum[1]
 
 \subsection{Score Construction}
-The score from $0$ to $1$ from the model output should measure the person-environment fit between the applicant and the job description \parencite[1]{po_and_pj_fit_literature_review}.
+The score from $0$ to $100$ from the model output should measure the person-environment fit between the applicant and the job description \parencite[1]{po_and_pj_fit_literature_review}.
 
 \subsection{Prompt Design}
 \lipsum[1]
