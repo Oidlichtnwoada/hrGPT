@@ -1,11 +1,11 @@
 import collections
 import dataclasses
-import json
 import numbers
 import statistics
 
 from hrgpt.chat.chat_factory import get_chat
 from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_from_string
+from hrgpt.utils import dumps
 
 DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, float] = {
     'work_experience': 0.25,
@@ -60,11 +60,12 @@ def get_prompt_to_match_requirement(requirement: Requirement,
                                     requirement_type: str,
                                     requirement_type_definitions: dict[str, str],
                                     cv_text: str) -> str:
-    return f'Please match the following requirement "{requirement.specification}" with the provided application document and fill the score and the explanation of the score in the following JSON object {json.dumps(dataclasses.asdict(get_empty_score()))}. The score should be 0 if the requirement is completely unfulfilled and 100 if the requirement is fully covered. Assign a score between 0 and 100 if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement called "{requirement_type}" is provided here: {json.dumps(requirement_type_definitions[requirement_type])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. Here is the CV for which the described requirement should be scored and explained: {cv_text}.'
+    return f'Please match the following requirement "{requirement.specification}" with the provided application document and fill the score and the explanation of the score in the following JSON object {dumps(get_empty_score())}. The score should be 0 if the requirement is completely unfulfilled and 100 if the requirement is fully covered. Assign a score between 0 and 100 if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement called "{requirement_type}" is provided here: {dumps(requirement_type_definitions[requirement_type])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. Here is the CV for which the described requirement should be scored and explained: {cv_text}.'
 
 
 def get_prompt_if_candidate_is_promising(requirement_matches: dict[str, list[RequirementMatch]]) -> PromisingResult:
-    return f'Please report if the following candidate is promising and should proceed in the application process or if the candidate is not promising. The candidate was evaluated to the various job requirements and this was the result: {json.dumps(dataclasses.asdict(requirement_matches))}. A score of 0 means a complete mismatch of the requirement and a score of 100 means a perfect match of the requirement. The higher the score, the better is the requirement matched by the candidate. Furthermore, an explanation is given and if the requirement is mandatory or optional. Please provide the answer in from of a JSON object that looks like this {json.dumps(dataclasses.asdict(get_empty_promising_result()))}. Please fill in the promising field with "true" if you think the candidate is promising and with "false" otherwise. Please provide an explanation why this decision was made in the JSON return value in the respective field.'
+    return f'Please report if the following candidate is promising and should proceed in the application process or if the candidate is not promising. The candidate was evaluated to the various job requirements and this was the result: {dumps(requirement_matches)}. A score of 0 means a complete mismatch of the requirement and a score of 100 means a perfect match of the requirement. The higher the score, the better is the requirement matched by the candidate. Furthermore, an explanation is given and if the requirement is mandatory or optional. Please provide the answer in from of a JSON object that looks like this {dumps(get_empty_promising_result())}. Please fill in the promising field with "true" if you think the candidate is promising and with "false" otherwise. Please provide an explanation why this decision was made in the JSON return value in the respective field.'
+
 
 def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], requirement_type_weightings: dict[str, float]) -> float:
     if sum(requirement_type_weightings.values()) != 1:
