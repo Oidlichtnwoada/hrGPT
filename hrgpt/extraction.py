@@ -4,7 +4,7 @@ import json
 
 import fitz
 
-from hrgpt.chat.chat_factory import get_chat
+from hrgpt.chat.chat_factory import get_chat, get_answer_message
 from hrgpt.utils import dumps
 
 
@@ -103,8 +103,7 @@ def get_requirements_from_job_description(
     job_description_text = get_pdf_document_text(job_description_pdf_file_path)
     prompt = get_prompt_to_extract_requirements(job_description_text, requirement_type_definitions)
     # send the prompt to the model
-    chat = get_chat()
-    answer = chat.send_prompt(prompt)
+    answer = get_answer_message(prompt)
     # extract the JSON object from the answer
     extracted_json_object = extract_json_object_from_string(answer.text)
     # validate the structure and transform the JSON object from the answer
