@@ -775,10 +775,10 @@ As described in \textcite[1]{rank_biased_overlap}, it was the first metric at th
 These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are non-conjoint, huge in size (monotonicity and evaluation at a certain depth is desirable) and results at the front are much more important than search results further back in the ranking.
 For this thesis, the second weighting property is the most important one, as we have complete, definite rankings which are conjoint.
 
-\section{Sample Screening Documents Construction}
+\section{Sample Screening Documents}
 
-\subsection{Overview of the Construction Process}
-The job descriptions and the applicant documents will be either taken from publicly available datasets, manually crafted or generated using tools like GPT-4 \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
+\subsection{Overview of the Construction and Usage of the Sample Screening Documents}
+The job descriptions and the applicant documents will be either taken from publicly available datasets, taken from publicly available sources, manually crafted or generated using tools like GPT-4 \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
 The job description and the applicants' \acs{CV}s must be supplied as pure text to the proposed model due to their internal tokenization.
 That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more and more important it will be to supply machine readable applicant documents that please the machine learning models used in the screening process.
 When this \acs{AI} barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
@@ -794,6 +794,63 @@ If there is tie happening with the output scores, additional criteria will be gl
 Furthermore, it is planned that with each score output of the model, an explanation is supplied as well that clarifies why the model thinks this score is justified.
 The exact implementation details of the score and explanation generation is described in chapter \ref{implementation}.
 The rankings of the human experts will not be available during the model implementation phase, they will be only used to benchmark the model's accuracy after the implementation phase.
+
+\subsection{Construction Process of the Sample Screening Documents}
+At first there was an extensive research on the availability of datasets done that contain job descriptions and the corresponding applicant \acs{CV}s in document format. 
+With document format, it is meant that the documents are either supplied in the \textit{PDF} or the \textit{Microsoft Word} format.
+Most of the datasets that were found on \textit{Kaggle} \parencite{kaggle}, via the \textit{Google} search or in \textit{GitHub} projects had at least one of the following deficiencies:
+\begin{itemize}
+    \item The dataset was not publicly available or not anymore publicly available due to legal reasons
+    \item The dataset either contained only jobs or only candidates which is not ideal since random matching is also no option as there will not be completely random applicants for a specific job in the real world
+    \item The dataset contained the applicant or job data in a columnar format which makes it impossible to use it for the human screening process that is used to benchmark the model's accuracy
+    \item The dataset only contained a very narrow set of jobs from a particular industry making impossible to test the model's ability to generalize to different industries
+    \item The dataset contained seemingly random candidates for the contained jobs which as noted before is no good representation of real-world screening data
+\end{itemize}
+That are the reasons why it was decided to construct the sample screening documents explicitly for this thesis.
+In order to have a diverse set of jobs, the following key sectors of the Austrian economy were looked up on the website \parencite{austria_key_sectors} which is created by an organization of the Austrian Federal Economic Chamber:
+\begin{itemize}
+    \item Food and Drink industry
+    \item Mechanical and Steel Engineering
+    \item Chemical and Automotive industry
+    \item Electrics and Electronics industry
+    \item Wood, Pulp and Paper industry
+\end{itemize}
+By doing some research on the platform \textit{LinkedIn} \parencite{linkedin} on the various job opportunities these industries offer, the following six job types were selected to be contained in the sample screening documents' job descriptions in order to cover most of Austria's key sectors:
+\begin{itemize}
+    \item Export Specialist (Food and Drink industry)
+    \item Embedded Software Engineer (Electrics and Electronics industry)
+    \item Green Hydrogen Piping Engineer (Mechanical and Steel Engineering)
+    \item Validation and Qualification Engineer (Chemical and Automotive industry)
+    \item Store Manager (picked representatively for the Commerce industry even if it is not a key sector)
+    \item Digital Design Engineer (Chemical and Automotive industry)
+\end{itemize}
+The six job descriptions that are present in the sample screening documents were manually crafted but heavily inspired by job listings from real companies on the \textit{LinkedIn} platform in order to be as close to reality as possible.
+All the job descriptions kept a reduced form of the initial job description header structure of the platform which contains the job title, the job location, the work model, the employment type and the specific level of the position.
+The other content was mostly paraphrased from the real job listings but the company name was removed from the text and the job location was always set to \textit{Vienna} in order to further redact the job listings.
+The basic formatting and sectioning of the job listings was kept but the font and the font sizes of the header and the content were homogenized in order to make the job listings more standardized.
+This is no advantage for the proposed machine learning model as this model only sees the text contents of the job descriptions.
+
+Furthermore, the eight applicants per job description were also manually crafted but heavily inspired by real \acs{CV}s from the \textit{LinkedIn} platform.
+Possible applicants per job description were searched for on the \textit{LinkedIn} platform by searching for the job title of the job description using a people search.
+Then there were eight applicants randomly selected per job description that had a proper English \textit{LinkedIn} profile where most of the entries in the education and experience section were commented and elaborated using English text.
+There were also some candidates selected that were listed on later pages of the search results, that means they had a lower degree of relevance to the job description.
+This was done in order to achieve a reasonable balance of candidate variety and candidate suitability for the job description and to have enough information in the profile to deduce if certain job requirements are met or not met by applicants.
+The \textit{LinkedIn} platform allows to download profiles as \acs{CV}s in form of \textit{PDF} files.
+The structure, layout and design of this \acs{CV} download was used to craft the \acs{CV}s for the sample screening documents.
+Information that is included in this \acs{CV} structure:
+\begin{itemize}
+    \item Name
+    \item Summary
+    \item Job Experiences
+    \item Educational Degrees
+    \item Contact Details
+    \item Top Skills
+    \item Spoken Languages (if present)
+    \item Certifications (if present)
+    \item Publications (if present)
+    \item Honors/Awards (if present)
+    \item Patents (if present)
+\end{itemize}
 
 \section{Model Design and Model Implementation} \label{implementation}
 
