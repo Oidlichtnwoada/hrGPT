@@ -127,5 +127,5 @@ def get_requirements_from_job_description(
                 # each requirement should have a specification which must be present
                 continue
             # add the requirement
-            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']), specification=requirement['specification']))
+            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']).value, specification=requirement['specification']))
     return job_requirements
