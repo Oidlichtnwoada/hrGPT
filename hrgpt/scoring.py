@@ -1,6 +1,7 @@
 import collections
 import concurrent.futures
 import functools
+import logging
 
 from hrgpt.extraction import get_requirements_from_job_description, DEFAULT_REQUIREMENT_TYPE_DEFINITIONS
 from hrgpt.matcher import match_job_requirements_to_candidate_cv, DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS, ApplicantMatch
@@ -26,4 +27,5 @@ def score_applicants(job_id: int, candidate_id: int) -> dict[str, dict[str, Appl
         job_path = arguments[0]
         for candidate_path, match_result in zip(arguments[1], match_results):
             result_dict[job_path][candidate_path] = match_result
+    logging.debug(result_dict)
     return result_dict

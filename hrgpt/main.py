@@ -1,4 +1,6 @@
 import argparse
+import logging
+import os
 
 from dotenv import load_dotenv
 
@@ -17,6 +19,7 @@ def get_args() -> argparse.Namespace:
 
 def main() -> None:
     load_dotenv(dotenv_path=get_environment_file_path())
+    logging.basicConfig(level=logging.getLevelName(os.getenv('LOGGING_LEVEL')))
     args = get_args()
     if args.target == 'scoring':
         score_applicants(args.job, args.candidate)
