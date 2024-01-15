@@ -106,7 +106,7 @@ class ModelConfig:
 
 
 DEFAULT_MODEL_CONFIG = ModelConfig(
-    model=ModelOption.GPT_35_TURBO.value,
+    model=ModelOption.GPT_4_TURBO.value,
     presence_penalty=0,
     frequency_penalty=0,
     logit_bias={},
