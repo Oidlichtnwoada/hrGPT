@@ -49,8 +49,19 @@ def get_api_key_for_provider(provider: Provider) -> str:
         raise ValueError
 
 
-def get_model_seed() -> int:
+def get_random_seed() -> int:
     return random.randint(0, 2 ** 32 - 1)
+
+
+def get_deterministic_seed() -> int:
+    return 42
+
+
+def get_seed(deterministic: bool) -> int:
+    if deterministic:
+        return get_deterministic_seed()
+    else:
+        return get_random_seed()
 
 
 @dataclasses.dataclass(order=True, frozen=True, kw_only=True)
