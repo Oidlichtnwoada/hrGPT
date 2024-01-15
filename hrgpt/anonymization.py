@@ -78,9 +78,14 @@ def remove_links(pdf_document_path: str) -> None:
         pdf_document.save(pdf_document_path, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
 
 
-def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi,
-                                 applicant_document_path: str,
+def anonymize_applicant_document(applicant_document_path: str,
                                  replace_text: bool = True) -> None:
+    # create the api
+    pdf_api_client = asposepdfcloud.api_client.ApiClient(
+        app_key=os.getenv('ASPOSE_APP_KEY'),
+        app_sid=os.getenv('ASPOSE_APP_SID'))
+    pdf_api = asposepdfcloud.apis.pdf_api.PdfApi(pdf_api_client)
+
     # clean the document at the start
     clean_pdf_document(applicant_document_path)
 
@@ -100,11 +105,11 @@ def anonymize_applicant_document(pdf_api: asposepdfcloud.apis.pdf_api.PdfApi,
 
 
 def anonymize_applicant_documents() -> None:
-    pdf_api_client = asposepdfcloud.api_client.ApiClient(
-        app_key=os.getenv('ASPOSE_APP_KEY'),
-        app_sid=os.getenv('ASPOSE_APP_SID'))
-    pdf_api = asposepdfcloud.apis.pdf_api.PdfApi(pdf_api_client)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=int(os.getenv('PARALLEL_PDF_WORKERS'))) as executor:
-        for applicant_document_paths in get_applicant_document_paths().values():
-            for applicant_document_path in applicant_document_paths:
-                executor.submit(anonymize_applicant_document, pdf_api, applicant_document_path)
+    paths = []
+    for applicant_document_paths in get_applicant_document_paths().values():
+        for applicant_document_path in applicant_document_paths:
+            paths.append(applicant_document_path)
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        executor.map(anonymize_applicant_document, paths)
+
+
