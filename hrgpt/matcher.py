@@ -94,9 +94,9 @@ def match_job_requirements_to_candidate_cv(
     for requirement_type in requirement_type_definitions.keys():
         for requirement in job_requirements[requirement_type]:
             prompt = get_prompt_to_match_requirement(requirement, requirement_type, requirement_type_definitions, cv_text)
-            prompts.append((requirement_type, prompt))
-    prompt_answers = zip([x[0] for x in prompts], get_answer_messages([x[1] for x in prompts]))
-    for requirement_type, answer in prompt_answers:
+            prompts.append((requirement_type, requirement, prompt))
+    prompt_answers = zip([x[0] for x in prompts], [x[1] for x in prompts], get_answer_messages([x[2] for x in prompts]))
+    for requirement_type, requirement, answer in prompt_answers:
         extracted_json_object = extract_json_object_from_string(answer.text)
         requirement_score = dataclasses.asdict(get_empty_score())
         if 'score' in extracted_json_object and isinstance(extracted_json_object['score'], numbers.Number):
