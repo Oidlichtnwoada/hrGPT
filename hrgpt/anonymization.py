@@ -111,5 +111,3 @@ def anonymize_applicant_documents() -> None:
             paths.append(applicant_document_path)
     with concurrent.futures.ProcessPoolExecutor() as executor:
         executor.map(anonymize_applicant_document, paths)
-
-

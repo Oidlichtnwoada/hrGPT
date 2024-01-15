@@ -4,7 +4,7 @@ import pendulum
 import replicate
 
 from hrgpt.chat.chat import ModelConfig, Chat, Provider, generate_user_chat_message, Author, ChatMessage, \
-    get_api_key_for_provider, generate_model_chat_message, get_seed, get_temperature
+    get_api_key_for_provider, generate_model_chat_message, get_seed, get_temperature, get_top_tokens, get_top_probability
 
 
 @dataclasses.dataclass(order=True, frozen=True, kw_only=True)
@@ -41,9 +41,9 @@ class ReplicateChat(Chat):
             {
                 **dataclasses.asdict(self.transform_chat_messages_to_replicate_chat_object()),
                 'debug': self.config.debug,
-                'top_k': self.config.top_tokens,
-                'top_p': self.config.top_probability,
-                'temperature': get_temperature(self.config.deterministic, min(0.01, self.config.temperature)),
+                'top_k': get_top_tokens(self.config.deterministic, self.config.top_tokens),
+                'top_p': get_top_probability(self.config.deterministic, self.config.top_probability),
+                'temperature': max(0.01, get_temperature(self.config.deterministic, self.config.temperature)),
                 'max_new_tokens': self.config.max_tokens,
                 'min_new_tokens': self.config.min_tokens,
                 'seed': get_seed(self.config.deterministic),

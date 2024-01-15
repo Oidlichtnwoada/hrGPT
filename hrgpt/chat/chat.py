@@ -71,6 +71,20 @@ def get_temperature(deterministic: bool, temperature: float) -> float:
         return temperature
 
 
+def get_top_tokens(deterministic: bool, top_tokens: int) -> int:
+    if deterministic:
+        return 1
+    else:
+        return top_tokens
+
+
+def get_top_probability(deterministic: bool, top_probability: float) -> float:
+    if deterministic:
+        return 0
+    else:
+        return top_probability
+
+
 @dataclasses.dataclass(order=True, frozen=True, kw_only=True)
 class ModelConfig:
     model: Model
@@ -101,13 +115,14 @@ DEFAULT_MODEL_CONFIG = ModelConfig(
     debug=False,
     min_tokens=-1,
     max_tokens=4096,
+    stop_sequences=(),
+    response_format={'type': 'text'},
+    repetition_penalty=1,
     top_tokens=50,
     top_probability=1,
     deterministic=True,
-    stop_sequences=(),
     temperature=0,
-    response_format={'type': 'text'},
-    repetition_penalty=1,
+
 )
 
 
