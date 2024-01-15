@@ -7,19 +7,19 @@ from hrgpt.chat.chat_factory import get_chat
 from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_from_string
 from hrgpt.utils import dumps
 
-DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, float] = {
-    'work_experience': 0.25,
-    'education': 0.15,
-    'other_qualifications': 0.1,
-    'hard_skills': 0.15,
-    'soft_skills': 0.1,
-    'specific_knowledge': 0.05,
-    'personal_traits': 0.05,
-    'languages': 0.05,
-    'travel': 0.02,
-    'location': 0.02,
-    'working_hours': 0.03,
-    'physical_ability': 0.03}
+DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
+    'work_experience': 25,
+    'education': 15,
+    'other_qualifications': 10,
+    'hard_skills': 15,
+    'soft_skills': 10,
+    'specific_knowledge': 5,
+    'personal_traits': 5,
+    'languages': 5,
+    'travel': 2,
+    'location': 2,
+    'working_hours': 3,
+    'physical_ability': 3}
 
 
 @dataclasses.dataclass(order=True, frozen=True, kw_only=True)
@@ -67,21 +67,23 @@ def get_prompt_if_candidate_is_promising(requirement_matches: dict[str, list[Req
     return f'Please report if the following candidate is promising and should proceed in the application process or if the candidate is not promising. The candidate was evaluated to the various job requirements and this was the result: {dumps(requirement_matches)}. A score of 0 means a complete mismatch of the requirement and a score of 100 means a perfect match of the requirement. The higher the score, the better is the requirement matched by the candidate. Furthermore, an explanation is given and if the requirement is mandatory or optional. Please provide the answer in from of a JSON object that looks like this {dumps(get_empty_promising_result())}. Please fill in the promising field with "true" if you think the candidate is promising and with "false" otherwise. Please provide an explanation why this decision was made in the JSON return value in the respective field.'
 
 
-def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], requirement_type_weightings: dict[str, float]) -> float:
-    if sum(requirement_type_weightings.values()) != 1:
+def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], requirement_type_weightings: dict[str, int]) -> float:
+    if sum(requirement_type_weightings.values()) != 100:
         return ValueError
     present_requirement_types_maximum = sum([value for key, value in requirement_type_weightings.items() if len(requirement_matches[key]) > 0])
-    correction_factor = 1 / present_requirement_types_maximum
+    correction_factor = 100 / present_requirement_types_maximum
     total_score = 0
     for requirement_type, requirement_match_list in requirement_matches.items():
-        total_score += statistics.mean([x.score.score for x in requirement_match_list]) * requirement_type_weightings[requirement_type] * correction_factor
+        if len(requirement_match_list) == 0:
+            continue
+        total_score += statistics.mean([x.score.score for x in requirement_match_list]) * requirement_type_weightings[requirement_type] * correction_factor / 100
     return total_score
 
 
 def match_job_requirements_to_candidate_cv(
     job_requirements: dict[str, list[Requirement, ...]],
     requirement_type_definitions: dict[str, str],
-    requirement_type_weightings: dict[str, float],
+    requirement_type_weightings: dict[str, int],
     candidate_cv_file_path: str,
 ) -> ApplicantMatch:
     cv_text = get_pdf_document_text(candidate_cv_file_path)
