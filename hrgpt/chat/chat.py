@@ -64,6 +64,13 @@ def get_seed(deterministic: bool) -> int:
         return get_random_seed()
 
 
+def get_temperature(deterministic: bool, temperature: float) -> float:
+    if deterministic:
+        return 0
+    else:
+        return temperature
+
+
 @dataclasses.dataclass(order=True, frozen=True, kw_only=True)
 class ModelConfig:
     model: Model

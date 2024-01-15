@@ -5,7 +5,7 @@ import openai
 import pendulum
 
 from hrgpt.chat.chat import Chat, ChatMessage, ModelConfig, get_api_key_for_provider, \
-    Author, Provider, generate_user_chat_message, generate_model_chat_message, get_seed
+    Author, Provider, generate_user_chat_message, generate_model_chat_message, get_seed, get_temperature
 
 
 class OpenaiRole(enum.Enum):
@@ -48,7 +48,7 @@ class OpenaiChat(Chat):
             model=self.config.model.model_name,
             messages=list(map(dataclasses.asdict,
                               map(transform_chat_message_to_openai_chat_message, self.chat_message_history))),
-            temperature=self.config.temperature,
+            temperature=get_temperature(self.config.deterministic, self.config.temperature),
             stop=self.config.stop_sequences,
             seed=get_seed(self.config.deterministic),
             top_p=self.config.top_probability,
