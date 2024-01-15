@@ -4,7 +4,7 @@ import json
 
 import fitz
 
-from hrgpt.chat.chat_factory import get_chat, get_answer_message
+from hrgpt.chat.chat_factory import get_answer_message
 from hrgpt.utils import dumps
 
 
@@ -74,8 +74,7 @@ def get_pdf_document_text(pdf_document_path: str,
             page_texts.append(page_text)
         text = '\n'.join(page_texts)
     if prettify:
-        chat = get_chat()
-        answer = chat.send_prompt(get_prettify_prompt(text))
+        answer = get_answer_message(get_prettify_prompt(text))
         text = answer.text
     return text
 
