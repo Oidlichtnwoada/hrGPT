@@ -43,7 +43,7 @@ class ReplicateChat(Chat):
                 'debug': self.config.debug,
                 'top_k': self.config.top_tokens,
                 'top_p': self.config.top_probability,
-                'temperature': self.config.temperature,
+                'temperature': min(0.01, self.config.temperature),
                 'max_new_tokens': self.config.max_tokens,
                 'min_new_tokens': self.config.min_tokens,
                 'seed': 0 if self.config.deterministic else get_model_seed(),

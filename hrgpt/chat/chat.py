@@ -87,7 +87,7 @@ DEFAULT_MODEL_CONFIG = ModelConfig(
     top_probability=1,
     deterministic=True,
     stop_sequences=(),
-    temperature=0.01,
+    temperature=0,
     response_format={'type': 'text'},
     repetition_penalty=1,
 )
