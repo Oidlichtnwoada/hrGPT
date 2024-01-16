@@ -921,9 +921,45 @@ Following the divide-and-conquer principle of \textcite{pj_fit_ml}, the hard tas
 \end{enumerate}
 
 \subsection{Job Requirement Extraction}
-\lipsum[1]
+This part of the model receives the prettified, extracted text from the job description \textit{PDF} file.
+Before extracting the requirements there were $12$ job requirement types or categories defined which are heavily inspired by the enumeration of \textcite{job_requirement_types}:
+\begin{itemize} \label{job_requirement_types}
+    \item \textbf{Work Experience}\\
+    This point includes requirements on previous job titles, key responsibilities, achievements or duration of tenure at a specific position or in a specific field.
+    \item \textbf{Education}\\
+    This requirement type includes the education level or the requested field of study, for example.
+    \item \textbf{Other Qualifications}\\
+    This requirement type covers other necessary qualifications like certifications, licenses or accreditations.
+    \item \textbf{Hard Skills}\\
+    This requirement type covers the technical skills that are required to perform the job.
+    \item \textbf{Soft Skills}\\
+    This requirement type covers the necessary abilities of a candidate to relate well to others.
+    \item \textbf{Specific Knowledge}\\
+    This requirement type includes knowledge on specific fields that is necessary to perform the job which is not listed in the other requirement types.
+    \item \textbf{Personal Traits}\\
+    This requirement type includes mostly personality traits that the employer is looking for in order to achieve a high person-environment fit and a high person-job fit which may include attention to detail, reliability, creativity or general intelligence for example.
+    \item \textbf{Languages}\\
+    This requirement type includes the languages that are required to perform well in the job with a required level of fluency or proficiency.
+    \item \textbf{Travel}\\
+    This requirement type includes the traveling aspect apart from commuting that the job entails.
+    \item \textbf{Location}\\
+    This requirement type includes the willingness to commute to the working location of the job but it also includes the work model like the hybrid or the remote work model.
+    \item \textbf{Working Hours}\\
+    This requirement type includes the total amount of work hours and the flexibility regarding working hours, including shifts or necessary weekend work.
+    \item \textbf{Physical Ability}\\
+    This requirement type includes any physical capabilities or limitations relevant to job requirements, such as the ability to lift certain weights or stand for extended periods of time.
+\end{itemize}
+The requirements where extracted using one prompt that is sent to the \acs{LLM} that contains the extracted text from the job description as well as a mapping of the job requirement types to a textual definition of the type that should be extracted including some hints how to match the requirements of that type with an applicant \acs{CV}.
+This mapping is mostly based on the definitions in \textcite{job_requirement_types} and has the same types as in \ref{job_requirement_types}, but some fine tunings were applied to the definitions in order to produce a more human-like output.
+Moreover, the amount of requirement types or their definitions can be easily changed in the current architecture if a human expert wants to modify the behavior of the model.
+It was decided to extract all the requirements in one pass as extracting them isolated by job requirement type led to many duplicated job requirements.
+Also it seemed like the \acs{LLM} models are better in categorizing all the requirements in one pass.
+The prompt requests the \acs{LLM} to output the job requirements extraction result using the \textit{JSON} format with specific fields that are specified in the prompt.
+This \text{JSON} object is then extracted from the output text of the \acs{LLM} and contains $0$ or more requirements as a list per requirement type.
+Each requirement has a textual specification and an information if the requirement is mandatory or optional.
+These extracted job requirements by job requirement types are then passed onto the job requirement matching task.
 
-\subsection{Job Requirement Extraction}
+\subsection{Job Requirement Matching}
 \lipsum[1]
 
 \subsection{Output Data Postprocessing}
