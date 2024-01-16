@@ -906,10 +906,24 @@ This was the case as line breaks may also be implicitly coded into the \textit{P
 The prettification was done by sending the extracted text to an \acs{LLM} which was asked to group relevant text parts in a paragraph and to improve the overall formatting of the text without changing the text contents.
 This approach worked reasonably well for use case of the thesis.
 
-\subsection{Score Construction}
-The score from $0$ to $100$ from the model output should measure the person-environment fit between the applicant and the job description \parencite[1]{po_and_pj_fit_literature_review}.
+\subsection{Model Design}
+Following the divide-and-conquer principle of \textcite{pj_fit_ml}, the hard task of programmatically quantizing the person-environment fit for a specific job description and a specific applicant was broken into the following two tasks:
+\begin{enumerate}
+    \item \textbf{Job Requirement Extraction}\\
+    The first part of the proposed model extracted the job requirements into a machine-readable format from a job description that was supplied as pure text.
+    All \acs{CV}s from applicants for the same job where matched against the same set of extracted job requirements.
+    This adds determinism to the model's output as the same set of job requirements is used for all applicants for the same job.
+    \item \textbf{Job Requirement Matching}\\
+    The second part of the proposed model matched the extracted job requirements against the applicant's \acs{CV} that was also supplied as pure text.
+    This part of the model was responsible for quantizing the person-environment fit between the applicant and the job description for every extracted job requirement.
+    Furthermore, the used \acs{LLM} was also asked to state whether the candidate was promising or not by supplying it with all the results that were computed in the previous steps.
+    Afterwards, the quantizations were aggregated into a single score that quantized the person-environment fit between the applicant and the job description in a total score from $0$ to $100$.
+\end{enumerate}
 
-\subsection{Prompt Design}
+\subsection{Job Requirement Extraction}
+\lipsum[1]
+
+\subsection{Job Requirement Extraction}
 \lipsum[1]
 
 \subsection{Output Data Postprocessing}
