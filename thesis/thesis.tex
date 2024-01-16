@@ -775,7 +775,7 @@ As described in \textcite[1]{rank_biased_overlap}, it was the first metric at th
 These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are non-conjoint, huge in size (monotonicity and evaluation at a certain depth is desirable) and results at the front are much more important than search results further back in the ranking.
 For this thesis, the second weighting property is the most important one, as we have complete, definite rankings which are conjoint.
 
-\section{Sample Screening Documents}
+\section{Sample Screening Documents} \label{sample_screening_documents}
 
 \subsection{Overview of the Construction and Usage of the Sample Screening Documents}
 The job descriptions and the applicant documents will be either taken from publicly available datasets, taken from publicly available sources, manually crafted or generated using tools like GPT-4 \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
@@ -837,9 +837,10 @@ There were also some candidates selected that were listed on later pages of the 
 This was done in order to achieve a reasonable balance of candidate variety and candidate suitability for the job description and to have enough information in the profile to deduce if certain job requirements are met or not met by applicants.
 The \textit{LinkedIn} platform allows to download profiles as \acs{CV}s in form of \textit{PDF} files.
 The structure, layout and design of this \acs{CV} download was used to craft the \acs{CV}s for the sample screening documents.
-Information that is included in this \acs{CV} structure:
+Information that is included in this \acs{CV} structure \label{cv_structure}:
 \begin{itemize}
     \item Name
+    \item Candidate Location
     \item Summary
     \item Job Experiences
     \item Educational Degrees
@@ -857,8 +858,53 @@ Furthermore, the names of the candidates were redacted to random unisex English 
 
 \section{Model Design and Model Implementation} \label{implementation}
 
-\subsection{Input Data Pre-Processing}
-\lipsum[1]
+\subsection{Input Data Preprocessing}
+As described in \ref{sample_screening_documents}, all input files are supplied in the \textit{PDF} format, as this format can be used for human and for \acs{AI}-enabled screening and is widely adopted.
+The inputs files can even be printed if a human expert recruiter wants to analyze the person-environment fit while looking at physical paper instead of a digital screen.
+This might be more familiar for recruiters if quick notes need to be made.
+These \textit{PDF} files must be converted to pure text contents in order to be tokenizable and supplied to the proposed model.
+The text extraction of the \textit{PDF} files was carried out with the \textit{Python} package \textit{PyMuPDF} \parencite{pymupdf}, but faces these issues which are mentioned in \textcite{pymupdf}:
+\begin{itemize}
+    \item \textbf{Complex File Structure}\\
+    The \textit{PDF Reference} defining the \textit{PDF} standard is vast and extensive. 
+    The text in a \textit{PDF} document can either be stored in plain text or as a graphic.
+    Whereas plain text is easy to extract, the text in a graphic must be extracted using optical character recognition which may introduce wrongly extracted characters. 
+    Optical character recognition is supported by the used package but was not used for this thesis.
+    Furthermore, for plain text extraction the font and the used encoding must be properly detected in order to extract the text correctly which is properly done by the used package.
+    Moreover, plain text segments can be specified as a collection of words and placed on the \textit{PDF} page which is commonly used. 
+    It is also possible to position each character individually on the page.
+    Not only that, but also the order of the specified plain text segments in the \textit{PDF} file must not occur in the natural reading order of the \textit{PDF} file as due to a possible absolute positioning of these segments, the end result may always be the same even if a random order of these segments is used.
+    Due to the final position of the text a natural reading order may be reestablished, but due to the standard's complexity, this is a hard problem. 
+    The used package offers several extraction modes to cope with this problem.
+    \item \textbf{Complex Layouts}\\
+    Another facet of the problem that was described above is the text extraction of \textit{PDF} files with complex layouts.
+    If the layout has multiple columns or even a more complex structure, it is not clear what the order of the extracted text segments should be. 
+    It is very hard to determine the natural reading order of this kind of documents most of the time.
+    The used package also offers some extraction modes to cope with this problem.
+\end{itemize}
+As the \textit{PDF} files containing the job descriptions have a simple layout and no images, no optical character recognition was needed for this case.
+These job description \textit{PDF} files were created using \textit{Microsoft Word} which does not store individual characters as plain text segments but instead stores as long text contents as possible in the natural reading order (from top to bottom) into the resulting \textit{PDF} file.
+Most of the time, the plain text segments of a \textit{PDF} file are stored in a natural reading order if the file was programmatically created.
+This is also the industry standard way of doing it, so for the extraction, it was enough to just extract the plain text segment contents in the order they were defined in the \textit{PDF} file.
+
+The \textit{PDF} files containing the applicant \acs{CV}s were created using \textit{Apache FOP}. They also contain no images, so also no optical character recognition was needed for this case.
+They have a slightly more complex layout than the job description \textit{PDF} files as they feature a two-column layout.
+However the creation tool \textit{Apache FOP} stores the plain text segments of the left column first in the \text{PDF} file and then the plain text segments of the right column follow in the file.
+This means that the plain text segments are stored in a natural reading order (from left column to right column, from top to bottom), as is the case for most programmatically generated \textit{PDF} files.
+The left \acs{CV} column contains all the information mentioned in \ref{cv_structure} except the name, candidate location, summary, job experiences and educational degrees.
+The extraction was done in the same way as for the job description \textit{PDF} files by extracting the plain text segments in the order they were defined in the \textit{PDF} file.
+
+If there would have been images with text in the \textit{PDF} files or scanned \textit{PDF} documents, optical character recognition would have been needed.
+Furthermore, if the \textit{PDF} files would have had a more complex layout or stored the plain text segments in non-natural reading order, the extraction would have been more difficult.
+Text extraction could still have been achieved by using the \textit{PyMuPDF} package and extracting text underneath user-defined extraction rectangles (reading order must be explicitly set) and extracted characters or words can be brought into a natural reading order by ordering them according to the position of their bounding rectangles.
+
+As stated in \textcite{pymupdf} no effort is made by the package in any way to prettify the extracted text.
+That means there can be too few or too many whitespaces (spaces, line breaks, \dots) in expected or unexpected positions in the extracted text.
+The non-prettified extracted text was already proper usable for the proposed model, but it was decided to prettify the extracted text in order to group relevant information together.
+The main issue with the sample screening documents was that the extracted text lacked most of the line breaks that seemed to be there in a \textit{PDF} viewer.
+This was the case as line breaks may also be implicitly coded into the \textit{PDF} file by the absolute starting position of the plain text segment.
+The prettification was done by sending the extracted text to an \acs{LLM} which was asked to group relevant text parts in a paragraph and to improve the overall formatting of the text without changing the text contents.
+This approach worked reasonably well for use case of the thesis.
 
 \subsection{Score Construction}
 The score from $0$ to $100$ from the model output should measure the person-environment fit between the applicant and the job description \parencite[1]{po_and_pj_fit_literature_review}.
@@ -866,7 +912,7 @@ The score from $0$ to $100$ from the model output should measure the person-envi
 \subsection{Prompt Design}
 \lipsum[1]
 
-\subsection{Output Data Post-Processing}
+\subsection{Output Data Postprocessing}
 \lipsum[1]
 
 \subsection{Scope and Limitations}
