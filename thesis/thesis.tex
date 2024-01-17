@@ -963,12 +963,16 @@ These extracted job requirements by job requirement types are then passed onto t
 The job requirements that were extracted in the previous step are then matched against each applicant's \acs{CV} that is also already supplied as pure text because it already had gone through the preprocessing.
 The $0$ or more requirements per requirement type are matched individually against each applicant's \acs{CV}, so the matching processes are not interfering with each other and it can be parallelized.
 The matching is done by querying the \acs{LLM} to output a \textit{JSON} object that contains a score between $0$ and $100$ and an explanation for the score by supplying the \acs{LLM} with the job requirement specification, the job requirement type, the job requirement type definition from \ref{job_requirement_extraction} and the applicant's \acs{CV}.
+The score was chosen between the interval of $0$ and $100$ as the model was more capable to output intermediate scores in this interval than in the interval of $0$ and $1$, for example.
+Probably, this is because most sample text also contained percentage values instead of values between $0$ and $1$.
 This objects are then extracted from the text output of the \acs{LLM} and are using the amend the data structure that was created in the previous step with the concrete score and a textual explanation.
 Afterwards, this amended data structure with scores and explanations was used as input to ask the \acs{LLM} if the applicant is promising or not.
 The model was prompted to output the result again as \textit{JSON} object, which contained whether the applicant is promising or not and a textual explanation for the decision.
 Furthermore, the total score of the applicant was computed by firstly taking an arithmetic mean of each requirement's score within each requirement type, types that had $0$ requirements were left out.
-Secondly, a weighted arithmetic mean was taken from the arithmetic means of each requirement type to build the final total score of the applicant.
-This weighting was initially set to a fixed value, but the weighting of the individual requirement types can be easily changed if a human expert wants to change the behavior of the model.
+Secondly, a weighted arithmetic mean was taken from the arithmetic means of each requirement type to build the final total score of the applicant which is also between $0$ and $100$.
+There was a correction factor used to compensate for requirement types that had $0$ requirements but a non-zero waiting in order to still cover the whole total score range from $0$ to $100$ even if one requirement type had no requirements.
+This final total score can be used to sort the applicants by relevance or predicted person-environment fit.
+The weighting used for the total score computation was initially set to a fixed value, but the weighting of the individual requirement types can be easily changed if a human expert wants to change the behavior of the model.
 This concludes the inner workings of the requirement matching task and the final output of the model per applicant is the amended data structure from before, a total score, a promising or not promising decision and a textual explanation for the decision.
 
 \subsection{Output Data Postprocessing}
