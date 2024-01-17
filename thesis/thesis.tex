@@ -920,7 +920,7 @@ Following the divide-and-conquer principle of \textcite{pj_fit_ml}, the hard tas
     Afterwards, the quantizations were aggregated into a single score that quantized the person-environment fit between the applicant and the job description in a total score from $0$ to $100$.
 \end{enumerate}
 
-\subsection{Job Requirement Extraction}
+\subsection{Job Requirement Extraction} \label{job_requirement_extraction}
 This part of the model receives the prettified, extracted text from the job description \textit{PDF} file.
 Before extracting the requirements there were $12$ job requirement types or categories defined which are heavily inspired by the enumeration of \textcite{job_requirement_types}:
 \begin{itemize} \label{job_requirement_types}
@@ -959,8 +959,17 @@ This \text{JSON} object is then extracted from the output text of the \acs{LLM} 
 Each requirement has a textual specification and an information if the requirement is mandatory or optional.
 These extracted job requirements by job requirement types are then passed onto the job requirement matching task.
 
-\subsection{Job Requirement Matching}
-\lipsum[1]
+\subsection{Job Requirement Matching} \label{job_requirement_matching}
+The job requirements that were extracted in the previous step are then matched against each applicant's \acs{CV} that is also already supplied as pure text because it already had gone through the preprocessing.
+The $0$ or more requirements per requirement type are matched individually against each applicant's \acs{CV}, so the matching processes are not interfering with each other and it can be parallelized.
+The matching is done by querying the \acs{LLM} to output a \textit{JSON} object that contains a score between $0$ and $100$ and an explanation for the score by supplying the \acs{LLM} with the job requirement specification, the job requirement type, the job requirement type definition from \ref{job_requirement_extraction} and the applicant's \acs{CV}.
+This objects are then extracted from the text output of the \acs{LLM} and are using the amend the data structure that was created in the previous step with the concrete score and a textual explanation.
+Afterwards, this amended data structure with scores and explanations was used as input to ask the \acs{LLM} if the applicant is promising or not.
+The model was prompted to output the result again as \textit{JSON} object, which contained whether the applicant is promising or not and a textual explanation for the decision.
+Furthermore, the total score of the applicant was computed by firstly taking an arithmetic mean of each requirement's score within each requirement type, types that had $0$ requirements were left out.
+Secondly, a weighted arithmetic mean was taken from the arithmetic means of each requirement type to build the final total score of the applicant.
+This weighting was initially set to a fixed value, but the weighting of the individual requirement types can be easily changed if a human expert wants to change the behavior of the model.
+This concludes the inner workings of the requirement matching task and the final output of the model per applicant is the amended data structure from before, a total score, a promising or not promising decision and a textual explanation for the decision.
 
 \subsection{Output Data Postprocessing}
 \lipsum[1]
