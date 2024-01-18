@@ -182,6 +182,7 @@
     \acro{AI}{Artificial Intelligence}
     \acro{CV}{Curriculum Vitae}
     \acro{LLM}{Large Language Model}
+    \acro{LIWC}{Linguistic Inquiry and Word Count}
     \acro{HR}{Human Resources}
     \acro{NLP}{Natural Language Processing}
     \acro{TAPJFNN}{Topic-Based Ability-Aware Person-Job Fit Neural Network}
@@ -644,10 +645,14 @@ The system consisted of the following $4$ components \parencite[518-519]{applica
     The semantic distance of the required skills and present skills is based on the node distance metric \parencite[520]{applicant_semantic_matching}.
     \item \textbf{Personality Mining Module}\\
     This module uses the \textit{LinkedIn} user's posts to apply linguistic analysis and deriving features that may reflect the user's personality which is often overlooked in existing recruitment pipelines \parencite[518-520]{applicant_semantic_matching}.
+    It was scientifically verified that by using the \acs{LIWC} system, the frequency of certain words in written texts correlated with the \textit{Big-Five} personality dimensions, but the dimension extraversion received the most research attention in this regard and was the dimension exclusively used in this article \parencite[521]{applicant_semantic_matching}.
     \item \textbf{Job Application Module}\\
     This module implemented forms that were necessary to fill out if a candidate wanted to apply to a job \parencite[518]{applicant_semantic_matching}.
     \item \textbf{Applicant Ranking Module}\\
     This module combines the candidate's selection criteria to derive the candidate's relevance score for the applied position using a parameterized function derived through supervised learning algorithms \parencite[518]{applicant_semantic_matching}.
+    As is the case with all machine learning techniques, this one too requires sufficient training data of past candidate selection decisions which will not be present in the necessary scale in all companies \parencite[523]{applicant_semantic_matching}.
+    This also gives rise to the problem that the model will learn the past human bias from past candidate selections as was the case in \textcite[9]{bias_ai_hiring}.
+    Of course, all past candidates must again be used to compute the $5$ objective criteria and also a human expert recruiter must annotate all the past recruitment decisions with relevance scores that the model should learn, it should be obvious that this involves a lot of manual labor \parencite[523-524]{applicant_semantic_matching}.
 \end{itemize}
 
 \section{Bias in \acs{AI}-enabled Recruiting Tools}
