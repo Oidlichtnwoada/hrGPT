@@ -485,6 +485,7 @@ Moreover, when analyzing text based on chunks of words, the context of the words
 This thesis tries to mitigate this shortcoming by using the capabilities of \acs{LLM}s to summarize the context of the input documents and to answer question with regard to the provided context.
 
 \subsection{Machine Learning Approach} \label{machine_learning_approach}
+
 The article \textcite{pj_fit_ml} describes a machine learning approach to predict the person-job fit.
 As also outlined by \textcite[1]{pj_fit_ml}, manual inspection of applicant documents from human resource workers is not feasible anymore due to the subjective, incomplete and inefficient nature of human judgement.
 The authors of this article have developed a novel end-to-end \gls{TAPJFNN} framework that should reduce human labor and make the employee selection process more interpretable.
@@ -597,6 +598,24 @@ The accuracy of the \acs{TAPJFNN} architecture was tested on a quite large datas
 Of course the disadvantage of this approach is that the model is only as good as the data it is trained on and for the training quite large amounts of successful and unsuccessful applications are needed which make this method infeasible for small companies.
 The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences or words where the focus of the model lies are clearly identified by the model's attention scores.
 The discussion was more detailed here because the authors have successfully applied the divide and conquer strategy to the person-job fit quantization problem and really tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
+
+\section{Bias in \acs{AI}-enabled Recruiting Tools}
+The article \textcite[9]{bias_ai_hiring} mentions that even \textit{Amazon} had an \acs{AI}-enabled hiring tool that had an internal bias towards male candidates while penalizing female applciants.
+Bias in this context means that identical applications apart from the name and sex would be ranked differently by this algorithm, even if they should be ranked equally.
+As mentioned in \textcite[9]{bias_ai_hiring} the problem was that since the machine learning model was trained with historic recruitment data, it also inherently learned the bias that was already present in this historic data.
+This was the bias from the past decisions of human recruiters that seemed to prefer male applicants over female ones and past decisions also penalized African Americans \parencite[9-10]{bias_ai_hiring}.
+But there are also a number of startups that want to show that with a carefully designed system, the human bias can also be removed from the recruitment process \parencite[9]{bias_ai_hiring}.
+Some techniques these startups are using are the extraction of identifying information from applications, the holding of anonymous interviews and skill-set tests and the tuning of the job posting wording in order to attract a more diverse set of applicants \parencite[9]{bias_ai_hiring}.
+The first approach is the one that this thesis takes, the second approach completely eliminates gender bias by focussing on skills and impartiality of all candidates (personally identifiable information is stripped away) and the third approach is not applicable in this thesis as the job postings have already been created and are an input to the model.
+This truly shows that a bias-free recruiting process cannot be achieved by just replacing one tool in the pipeline, all tools must be carefully designed to be bias-free starting from the job description wording and ending with a valid way to assess the candidate's skills such that an informed decision can be made.
+The second approach can be used to further assess the candidates that the proposed model from the thesis finds promising and the the third approach is also necessary to attract a diverse set of applicants in the first place.
+A filtering model like the one from the thesis can never reintroduce diversity that is not there in the applicants, so the job description wording is crucial.
+Another important aspect that the article \textcite[9-10]{bias_ai_hiring} mentions is that (continually) trained models must also be monitored for bias continually, and the recruiters must know that the results from \acs{AI}-enabled tools cannot be trusted blindly but most be overriden by human judgement if necessary.
+Furthermore, this constant staying on alert and cross-checking the results of the model with human judgement might defeat some of the efficiency gains that the model may bring.
+The bias issue is increasingly important if the \acs{AI}-enabled tools are increasingly used as autonomous and not as assistive tools, that means the tools make active hiring decisions instead of just providing suggestions or recommendations within the process.
+Moreover, there was also a software presented in \textcite[10-11]{bias_ai_hiring} that computes a match score between a candidate's documents and a job's requirements similarly to the model proposed in this thesis and it was reported that with this matching system recruiters were more likely to consider underprivileged and underrepresented minorities to move forward in the hiring process, significantly improving the overall hiring diversity.
+There is also the issue with verifying the claims of \acs{AI}-assisted tools as there currently is no publicly available dataset to actually benchmark these systems and that issue also made the creation of original sample applicant data necessary for this thesis \parencite[11]{bias_ai_hiring}.
+Companies do not want to share their training data as this can lead to data privacy or liability issues if some sort of bias is found in the data or the model, so the current system, lacking robust mechanisms for verification and inherently susceptible to confirmation biases, must undergo a radical and scientifically-driven transformation in the future \parencite[11]{bias_ai_hiring}.
 
 \chapter{Methodology} \label{methodology}
 
