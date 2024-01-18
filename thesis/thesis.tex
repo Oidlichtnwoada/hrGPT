@@ -471,6 +471,7 @@ The text processing algorithm is capable of extracting skills, education and exp
 These extracted keywords are matched against a keyword dictionary of each job vacancy that were created based on the terms used in each profession by the human resource department of the company that provided the dataset \parencite[47]{text_mining_for_automatic_profiling}.
 This is also called the profile matching process that compares present competencies of the applicant with the required competencies of the job vacancy and tests the person-job fit with regards to the demands-abilities perspective.
 It is assumed that the person-job fit is higher, the higher the congruence between the demands and abilities is.
+This simple matching will not work as expected in all cases since it suffers from the extracted words losing their contextual information and structure and the model also does not understand the inherent meaning of the words as matching is done solely by equality checks \parencite[517]{applicant_semantic_matching}.
 The final ranking was then compared to the ranking of the human resources department of the company that provided the anonymized resume dataset.
 There were two methods used to compare the extracted keywords against the keyword dictionary of each job vacancy \parencite[53-58]{text_mining_for_automatic_profiling}:
 \begin{enumerate}
@@ -609,6 +610,45 @@ The accuracy of the \acs{TAPJFNN} architecture was tested on a quite large datas
 Of course the disadvantage of this approach is that the model is only as good as the data it is trained on and for the training quite large amounts of successful and unsuccessful applications are needed which make this method infeasible for small companies.
 The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences or words where the focus of the model lies are clearly identified by the model's attention scores.
 The discussion was more detailed here because the authors have successfully applied the divide and conquer strategy to the person-job fit quantization problem and really tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
+
+\subsection{Mixed Approach}
+The model introduced in \textcite[517]{applicant_semantic_matching} uses a mixed approach to match applicants to job postings by incorporating a combination of supervised learning algorithms and a semantic matching system.
+The evaluation of the applicants in this system is based on objective criteria which are directly extracted from an applicant's \textit{LinkedIn} profile and the personality characteristics are deduced from the applicant's social presence on \textit{LinkedIn} \parencite[517]{applicant_semantic_matching}.
+The $5$ objective criteria that were chosen were \parencite[518]{applicant_semantic_matching}:
+\begin{enumerate}
+    \item Education (years of formal academic training)
+    \item Work Experience (months of related experience)
+    \item Loyalty (average number of years spent per job)
+    \item Extraversion (deduced from the applicant's social presence)
+    \item Skills (used to be semantically matched to the job requirements)
+\end{enumerate}
+It was also a semantic matching system introduced that was used to match past experiences of the applicant to the job requirements which also incorporated an algorithm that determined whether the past work experience is within the domain of expertise of the job position.
+
+The system consisted of the following $4$ components \parencite[518-519]{applicant_semantic_matching}:
+\begin{itemize}
+    \item \textbf{Semantic Matching}\\
+    This semantic matching system calculates the semantic distance between candidate skills or prior experiences and the job requirements \parencite[518]{applicant_semantic_matching}.
+    Semantic matching means that annotations using controlled domain specific vocabularies are matched with background knowledge about a certain application domain which is modeled as a taxonomy of skills in this domain that was created by an expert \parencite[519]{applicant_semantic_matching}.
+    A taxonomy is a set of categories or terms organized into a hierarchy with parent-child relationships and implied inheritance, more general concepts are on the top and more specific concepts are on the bottom as shown in the following picture \ref{fig:it_skill_taxonomy}:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=1,page=5,width=0.8\linewidth,trim={45 510 45 55},clip]{literature/applicant_semantic_matching.pdf}
+        \caption{A part of an IT skill taxonomy \parencite[519]{applicant_semantic_matching}}
+        \label{fig:it_skill_taxonomy}
+    \end{figure}
+    This taxonomy would today be labelled as knowledge graph which is a way to structurally store information in graphs.
+    The taxonomy is used to match the skills mentioned in the applicant's profile (skill keywords are used), the applicant's current work experience (skills from unstructured text are used) and eventually (if the candidate has the required skills) the applicants' past work experiences (skills from unstructured text are used) to the job position requirements (skill keywords are used), whenever a required skill is absent the applicant is rejected and not included into the final ranking \parencite[519-520]{applicant_semantic_matching}.
+    The months of work experience are only calculated for experiences that concern relative competencies \parencite[519]{applicant_semantic_matching}.
+    As the required skills of the job and the skills of the user were provided as skill keywords, the problem of extracting skills from unstructured text was reduced to the work experiences.
+    The search was not keyword-based but concept-based, that means because of the provided ontology the system would know that a requirement of \textit{structured} can be fulfilled by the skill \textit{C} as can be seen in figure \ref{fig:it_skill_taxonomy}.
+    The semantic distance of the required skills and present skills is based on the node distance metric \parencite[520]{applicant_semantic_matching}.
+    \item \textbf{Personality Mining Module}\\
+    This module uses the \textit{LinkedIn} user's posts to apply linguistic analysis and deriving features that may reflect the user's personality which is often overlooked in existing recruitment pipelines \parencite[518-520]{applicant_semantic_matching}.
+    \item \textbf{Job Application Module}\\
+    This module implemented forms that were necessary to fill out if a candidate wanted to apply to a job \parencite[518]{applicant_semantic_matching}.
+    \item \textbf{Applicant Ranking Module}\\
+    This module combines the candidate's selection criteria to derive the candidate's relevance score for the applied position using a parameterized function derived through supervised learning algorithms \parencite[518]{applicant_semantic_matching}.
+\end{itemize}
 
 \section{Bias in \acs{AI}-enabled Recruiting Tools}
 The article \textcite[9]{bias_ai_hiring} mentions that even \textit{Amazon} had an \acs{AI}-enabled hiring tool that had an internal bias towards male candidates while penalizing female applciants.
