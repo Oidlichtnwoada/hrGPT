@@ -1,18 +1,12 @@
 import collections
-import dataclasses
-import json
 import os
 import pathlib
 
+import jsonpickle
 
-def dumps(x: ...) -> str:
-    class EnhancedJSONEncoder(json.JSONEncoder):
-        def default(self, o):
-            if dataclasses.is_dataclass(o):
-                return dataclasses.asdict(o)
-            return super().default(o)
 
-    return json.dumps(x, cls=EnhancedJSONEncoder)
+def dumps(x: object, include_types: bool = False, separators: tuple[str, str] = (', ', ': '), indent: int = 4) -> str:
+    return jsonpickle.dumps(x, unpicklable=include_types, separators=separators, indent=indent).strip()
 
 
 def get_repo_root_path() -> str:
