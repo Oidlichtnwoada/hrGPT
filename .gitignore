@@ -1,6 +1,9 @@
 # ignore ds store files
 .DS_Store
 
+# ignore the result folder
+result
+
 # ignore rust target folder
 target
 

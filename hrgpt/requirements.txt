@@ -6,3 +6,4 @@ pendulum
 openai
 replicate
 jsonpickle
+polars
