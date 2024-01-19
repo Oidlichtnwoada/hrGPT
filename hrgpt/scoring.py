@@ -51,7 +51,7 @@ def create_output_files(score_result: dict[str, dict[str, ApplicantMatch]], log_
                 'explanation': [match_result.explanation],
             }))
             # save the applicants data as json in the result directory
-            match_result_json = dumps(match_results)
+            match_result_json = dumps(match_result)
             candidate_result_path = os.path.join(result_directory, f'match_result_{pathlib.Path(candidate_path).stem}.json')
             with open(candidate_result_path, 'w') as file:
                 file.write(match_result_json)
