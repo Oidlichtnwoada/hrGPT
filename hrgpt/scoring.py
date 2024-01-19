@@ -59,4 +59,4 @@ def create_output_files(score_result: dict[str, dict[str, ApplicantMatch]], log_
         # save the result table in the result directory
         job_df.write_csv(os.path.join(result_directory, 'job_match_result.csv'))
         if log_result:
-            logging.info(f'Results for the job \'{job_path}\':\n{job_df}\n')
+            logging.info(f'\n\nMatching results for the job \'{job_path}\':\n{job_df}\n')
