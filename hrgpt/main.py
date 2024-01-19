@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 
+import polars as pl
 from dotenv import load_dotenv
 
 from hrgpt.anonymization import anonymize_applicant_documents
@@ -19,6 +20,7 @@ def get_args() -> argparse.Namespace:
 
 def main() -> None:
     load_dotenv(dotenv_path=get_environment_file_path())
+    pl.Config.set_fmt_str_lengths(int(os.getenv('POLARS_MAX_PRINT_STRING_LENGTH')))
     logging.basicConfig(level=logging.getLevelName(os.getenv('LOGGING_LEVEL')))
     args = get_args()
     if args.target == 'scoring':
