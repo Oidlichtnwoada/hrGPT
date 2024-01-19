@@ -18,8 +18,8 @@ def score_applicants_for_job_path(job_path: str, candidate_paths: list[str]) -> 
         return tuple(executor.map(matching_function, candidate_paths))
 
 
-def score_applicants(job_id: int, candidate_id: int) -> dict[str, dict[str, ApplicantMatch]]:
-    arguments = list(get_applicant_document_paths(job_id, candidate_id).items())
+def score_applicants(job_ids: tuple[int, ...], candidate_ids: tuple[int, ...]) -> dict[str, dict[str, ApplicantMatch]]:
+    arguments = list(get_applicant_document_paths(job_ids, candidate_ids).items())
     with concurrent.futures.ThreadPoolExecutor() as executor:
         mapped_arguments = tuple(executor.map(lambda x: score_applicants_for_job_path(*x), arguments))
     result_dict = collections.defaultdict(dict)
