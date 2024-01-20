@@ -1046,12 +1046,20 @@ The model was prompted to output the result again as \textit{JSON} object, which
 Furthermore, the total score of the applicant was computed by firstly taking an arithmetic mean of each requirement's score within each requirement type, types that had $0$ requirements were left out.
 Secondly, a weighted arithmetic mean was taken from the arithmetic means of each requirement type to build the final total score of the applicant which is also between $0$ and $100$.
 There was a correction factor used to compensate for requirement types that had $0$ requirements but a non-zero waiting in order to still cover the whole total score range from $0$ to $100$ even if one requirement type had no requirements.
-This final total score can be used to sort the applicants by relevance or predicted person-environment fit.
+This final total score can be used to sort the applicants by relevance that means predicted person-environment fit.
 The weighting used for the total score computation was initially set to a fixed value, but the weighting of the individual requirement types can be easily changed if a human expert wants to change the behavior of the model.
 This concludes the inner workings of the requirement matching task and the final output of the model per applicant is the amended data structure from before, a total score, a promising or not promising decision and a textual explanation for the decision.
 
 \subsection{Output Data Postprocessing}
-\lipsum[1]
+In this step the model's output data structure is presented to the user in a human-readable way.
+This was done by providing the user a table per job description that includes all candidates, their total scores, if the candidate is promising or not and the textual explanation for this decision.
+Furthermore, this table is sorted in descending order by the promising flag first and then by the total score of the applicants.
+This table is provided in the console output of the invoked model and the table is also provided as a \textit{CSV} file in order to be used as input for other software in the human resource pipeline.
+It must be noted that there can be a promising candidate that has a lower total score than a non-promising candidate as the promising decision is not solely based on the total score but also on the individual scores of the requirements and if they are mandatory or not.
+That means to focus the work effort on the most promising candidates, it is advisable to look at the candidates from top to bottom in the table due to the aforementioned sorting.
+Moreover, if the recruiter wants to have a deeper look into how the decision was made up, the model stores the whole internal date structure of each applicant into the human-readable and machine-readable \textit{JSON} format.
+This \textit{JSON} file in comparison to the table additionally contains information on the individual requirements that were matched including their score and their textual explanations.
+That should help to fine-tune the job requirement type definitions and the weightings of the job requirements in order to match the desires of the human expert recruiter. 
 
 \subsection{Scope and Limitations}
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
