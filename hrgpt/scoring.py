@@ -55,7 +55,7 @@ def create_output_files(score_result: dict[str, dict[str, ApplicantMatch]], log_
             candidate_result_path = os.path.join(result_directory, f'match_result_{pathlib.Path(candidate_path).stem}.json')
             with open(candidate_result_path, 'w') as file:
                 file.write(match_result_json)
-        job_df = pl.concat(job_df_parts).sort('score', descending=True)
+        job_df = pl.concat(job_df_parts).sort('promising', 'score', descending=(True, True))
         # save the result table in the result directory
         job_df.write_csv(os.path.join(result_directory, 'job_match_result.csv'))
         if log_result:
