@@ -33,7 +33,7 @@ class Model:
 
 
 class ModelOption(enum.Enum):
-    GPT_4_TURBO = Model(provider=Provider.OPENAI, model_name='gpt-4-1106-preview')
+    GPT_4_TURBO = Model(provider=Provider.OPENAI, model_name='gpt-4-0125-preview')
     GPT_35_TURBO = Model(provider=Provider.OPENAI, model_name='gpt-3.5-turbo-1106')
     LLAMA_2_70B_CHAT = Model(provider=Provider.REPLICATE, model_name='meta/llama-2-70b-chat')
     LLAMA_2_13B_CHAT = Model(provider=Provider.REPLICATE, model_name='meta/llama-2-13b-chat')
@@ -106,7 +106,7 @@ class ModelConfig:
 
 
 DEFAULT_MODEL_CONFIG = ModelConfig(
-    model=ModelOption.GPT_35_TURBO.value,
+    model=ModelOption.GPT_4_TURBO.value,
     presence_penalty=0,
     frequency_penalty=0,
     logit_bias={},
