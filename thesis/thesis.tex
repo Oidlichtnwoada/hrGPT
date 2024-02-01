@@ -1105,6 +1105,26 @@ A typical requirement extraction \acs{LLM} output contains around $3000$ charact
 In terms of the context window size, the job requirement extraction task is the limiting factor or critical path as the other prompts without the input texts and expected output texts are much smaller.
 If the configuration is changed such that the job requirement definitions are larger in size or if the used job descriptions are much larger in size, the context window size may quickly reach its limit and models with a larger context size must be used.
 
+\subsection{Determinism of the used \acs{LLM}s}
+The settings used for configuring the \acs{LLM}s were picked to make the underlying \acs{LLM} deterministic that means that the same input to the model should lead to the same output every single time.
+These settings remove all configurable penalties (presence penalty, repetition penalty, repetition penalty) and biases (only logit bias) that would alter the model output, use a constant system prompt, limit the maximum output token amount to $4096$ and define no stop sequences.
+The aforementioned settings are not altering if the \acs{LLM} is behaving deterministically or not, but they are rather listed for completeness.
+The output tokens of an \acs{LLM} are sampled from the probability distribution of the model's output logits which represent the token vocabulary.
+This sampling needs a random number generator to sample which is seeded with a known fixed seed in our case in order to make the output values of this generator and therefore the sampled tokens deterministic.
+This is the single setting that makes an \acs{LLM} deterministic.
+Additionally, the token vocabulary sampling space that is sampled in every \acs{LLM} step can be trimmed down by setting the amount of top tokens to sample from or by only sampling from the top tokens that add up to a certain probability mass.
+Both settings were configured such that only the single top token is sampled in every step, that means the token with the highest probability should always be chosen.
+The temperature setting of \acs{LLM}s is used as the input to a \textit{Softmax} function with temperature, this parameter controls whether the probability differences should be softened or enlarged.
+In this thesis the temperature was picked to zero that means only the highest probability token has a non-zero probability and therefore should always be chosen.
+Despite fixing the seed which should make the model deterministic anyway, trimming the sampling space to only one token and setting the temperature setting to further enforce this single token, only the \textit{LLAMA 2-Chat} models were behaving deterministically.
+Both models from \textit{OpenAI} failed to deliver deterministic responses even with the aforementioned settings which should lead to deterministic behavior.
+The responses from \textit{OpenAI} models to the same inputs are mostly very similar or even identical, but nothing can be guaranteed and therefore no unit test cases can be written for these models if they check the full model response text.
+The \textit{OpenAI} API sends a \textit{system fingerprint} value with their responses and does not guarantee determinism in general \parencite{openai_chat_api}.
+\textit{OpenAI} systems make their best effort to sample deterministically if the seed was also fixed in the request \parencite{openai_chat_api}.
+If the \textit{system fingerprint} of the response changes compared to a previous request with the same input, it is likely that it will result in a nondeterministic response \parencite{openai_chat_api}.
+The problem for the \textit{OpenAI} API user is that there is no way to specify which system you want to have in order to get deterministic responses, \textit{OpenAI} assigns the used backend systems nondeterministically and it is likely that two back-to-back requests will have two different \textit{system fingerprint} values \parencite{openai_chat_api}.
+The nondeterministic behavior is known to \textit{OpenAI} and hopefully they fix it in a future release.
+
 \subsection{Scope and Limitations}
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
 Due to this compression, it is not guaranteed that the model will output plausible text in all cases. 
