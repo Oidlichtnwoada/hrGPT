@@ -1073,6 +1073,38 @@ Moreover, if the recruiter wants to have a deeper look into how the decision was
 This \textit{JSON} file in comparison to the table additionally contains information on the individual requirements that were matched including their score and their textual explanations.
 That should help to fine-tune the job requirement type definitions and the weightings of the job requirements in order to match the desires of the human expert recruiter. 
 
+\subsection{Supported \acs{LLM}s}
+Whenever the section \ref{implementation} mentions the use of an \acs{LLM}, it is meant that a concrete \acs{LLM} implementation is used.
+For this thesis only \acs{LLM}s that were fine tuned for chat completions were used, as the prompts are formulated in conversational requests.
+The interface-based implementation supports different models from different vendors, no matter if they are open source or proprietary.
+All models are queried by making requests to third-party hosting providers, the model configuration options from the interface-based implementation are automatically translated to options understandable by the underlying and currently used model.
+The following models were implemented and can be used as \acs{LLM} for the proposed model:
+\begin{enumerate}
+    \item \textbf{GPT-4 Turbo}\\
+    This proprietary model is an evolution of \textit{GPT-4} proposed in \textcite{gpt4}, which has not gotten its own technical report. It has a context window of $128000$ tokens and an undisclosed amount of parameters.
+    The model was developed by \textit{OpenAI} and is hosted by \textit{OpenAI}.
+    \item \textbf{GPT-3.5 Turbo}\\
+    This proprietary model is an evolution of \textit{GPT-3} proposed in \textcite{gpt3}, which has not gotten its own technical report. It has a context window of $16385$ tokens and an undisclosed amount of parameters.
+    The model was developed by \textit{OpenAI} and is hosted by \textit{OpenAI}.
+    \item \textbf{LLAMA 2-Chat}\\
+    This open source model collection is described in \textcite{llama2}, each model has a context window of $4096$ tokens and the three models of this collection used in this thesis differ in their amount of parameters which is either $7$, $13$ and $70$ billion parameters.
+    These models were developed by \textit{Meta} and are hosted by \textit{Replicate} in the implementation's case, which is one of many hosting providers for this model collection.
+\end{enumerate}
+
+\subsection{Context windows of \acs{LLM}s}
+It is essential that the context window is large enough to contain the prompt itself including all input texts and the whole expected output text of the model in order to fully reference all input parts in the answer.
+As a rule of thumb around four characters of common English text will be translated to one token, a text fragment that is encoded using a unique integer, in the case of the \textit{OpenAI} tokenizer which is based on the byte pair encoding algorithm \parencite{openai_tokenizer}. 
+This token translation is bidirectional and can therefore go both ways that means the unique integer sequence can be translated back into the source text.
+As mentioned in \textcite[6]{llama2} the \textit{LLAMA 2-Chat} models also use a tokenizer that employs the byte pair encoding algorithm, therefore the rule of thumb for the \textit{OpenAI} tokenizer is used as a general measure in the following calculation examples.
+The largest \acs{CV} that this thesis is using as input text has around $6500$ characters which would would translate to around $1625$ tokens.
+The largest job description that this thesis is using as input text has around $3700$ characters which would translate to around $925$ tokens.
+The largest prompt without the contained input text is the one which extracts the requirements from the job description as it contains all the job requirement definitions and consists of around $7000$ characters in the current default configuration which equals to around $1750$ tokens.
+That means with a context size of $4096$ tokens, there are only $4096-925-1750=1421$ tokens left for the output text of the model for the job requirement extraction task which equals to about $5684$ characters.
+The largest answer that the used \acs{LLM} may give depends on when the model is stopping to generate output text which itself depends on how many requirements are actually present in the input job description.
+A typical requirement extraction \acs{LLM} output contains around $3000$ characters, so it is within the remaining and available minimum context size of all supported models and there is still some margin there.
+In terms of the context window size, the job requirement extraction task is the limiting factor or critical path as the other prompts without the input texts and expected output texts are much smaller.
+If the configuration is changed such that the job requirement definitions are larger in size or if the used job descriptions are much larger in size, the context window size may quickly reach its limit and models with a larger context size must be used.
+
 \subsection{Scope and Limitations}
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
 Due to this compression, it is not guaranteed that the model will output plausible text in all cases. 
