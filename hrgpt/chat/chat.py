@@ -6,6 +6,8 @@ import random
 
 import pendulum
 
+DEFAULT_RETRY_LIMIT = 1_000_000
+
 
 class Author(enum.Enum):
     USER = 'user'

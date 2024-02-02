@@ -5,7 +5,7 @@ import openai
 import pendulum
 
 from hrgpt.chat.chat import Chat, ChatMessage, ModelConfig, get_api_key_for_provider, \
-    Author, Provider, generate_user_chat_message, generate_model_chat_message, get_seed, get_temperature, get_top_probability
+    Author, Provider, generate_user_chat_message, generate_model_chat_message, get_seed, get_temperature, get_top_probability, DEFAULT_RETRY_LIMIT
 
 
 class OpenaiRole(enum.Enum):
@@ -40,7 +40,7 @@ class OpenaiChat(Chat):
         self.config = config
         self.openai = openai.OpenAI(
             api_key=get_api_key_for_provider(self.config.model.provider),
-            max_retries=1_000_000,
+            max_retries=DEFAULT_RETRY_LIMIT,
         )
 
     def send_prompt(self, prompt: str) -> ChatMessage:

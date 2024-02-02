@@ -4,7 +4,7 @@ import pendulum
 import replicate
 
 from hrgpt.chat.chat import ModelConfig, Chat, Provider, generate_user_chat_message, Author, ChatMessage, \
-    get_api_key_for_provider, generate_model_chat_message, get_seed, get_temperature, get_top_tokens, get_top_probability
+    get_api_key_for_provider, generate_model_chat_message, get_seed, get_temperature, get_top_tokens, get_top_probability, DEFAULT_RETRY_LIMIT
 
 
 @dataclasses.dataclass(order=True, frozen=True, kw_only=True)
@@ -22,7 +22,7 @@ class ReplicateChat(Chat):
         self.replicate = replicate.Client(
             api_token=get_api_key_for_provider(self.config.model.provider),
         )
-        self.replicate._client._transport.max_attempts = 1_000_000
+        self.replicate._client._transport.max_attempts = DEFAULT_RETRY_LIMIT
 
     def transform_chat_messages_to_replicate_chat_object(self) -> ReplicateChatMessage:
         prompts = []
