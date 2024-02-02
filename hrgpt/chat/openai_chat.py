@@ -38,7 +38,10 @@ class OpenaiChat(Chat):
             raise ValueError
         super().__init__(config.system_context)
         self.config = config
-        self.openai = openai.OpenAI(api_key=get_api_key_for_provider(self.config.model.provider))
+        self.openai = openai.OpenAI(
+            api_key=get_api_key_for_provider(self.config.model.provider),
+            max_retries=1_000_000,
+        )
 
     def send_prompt(self, prompt: str) -> ChatMessage:
         before_datetime = pendulum.DateTime.utcnow()
