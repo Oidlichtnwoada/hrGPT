@@ -19,7 +19,10 @@ class ReplicateChat(Chat):
             raise ValueError
         super().__init__(config.system_context)
         self.config = config
-        self.replicate = replicate.Client(get_api_key_for_provider(self.config.model.provider))
+        self.replicate = replicate.Client(
+            api_token=get_api_key_for_provider(self.config.model.provider),
+        )
+        self.replicate._client._transport.max_attempts = 1_000_000
 
     def transform_chat_messages_to_replicate_chat_object(self) -> ReplicateChatMessage:
         prompts = []
