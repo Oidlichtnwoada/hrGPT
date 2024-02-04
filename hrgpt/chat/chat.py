@@ -105,7 +105,7 @@ class ModelConfig(pydantic.BaseModel):
 
 
 DEFAULT_MODEL_CONFIG = ModelConfig(
-    model=ModelOption.LLAMA_2_7B_CHAT.value,
+    model=ModelOption.GPT_35_TURBO.value,
     debug=False,
     choices=1,
     presence_penalty=0,
