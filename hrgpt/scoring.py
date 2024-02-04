@@ -4,6 +4,7 @@ import functools
 import logging
 import os
 import pathlib
+import typing
 
 import polars as pl
 
@@ -12,12 +13,18 @@ from hrgpt.matcher import match_job_requirements_to_candidate_cv, DEFAULT_REQUIR
 from hrgpt.utils import get_applicant_document_paths, dumps
 
 
-def score_applicants_for_job_path(job_path: str, candidate_paths: list[str]) -> tuple[ApplicantMatch]:
-    job_requirements = get_requirements_from_job_description(job_path, DEFAULT_REQUIREMENT_TYPE_DEFINITIONS)
+def score_applicants_for_job_path(job_path: str, candidate_paths: list[str],
+                                  requirement_type_definitions: typing.Optional[dict[str, int]] = None,
+                                  requirement_type_weightings: typing.Optional[dict[str, int]] = None) -> tuple[ApplicantMatch]:
+    if requirement_type_definitions is None:
+        requirement_type_definitions = DEFAULT_REQUIREMENT_TYPE_DEFINITIONS
+    if requirement_type_weightings is None:
+        requirement_type_weightings = DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS
+    job_requirements = get_requirements_from_job_description(job_path, requirement_type_definitions)
     matching_function = functools.partial(match_job_requirements_to_candidate_cv,
                                           job_requirements,
-                                          DEFAULT_REQUIREMENT_TYPE_DEFINITIONS,
-                                          DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS, )
+                                          requirement_type_definitions,
+                                          requirement_type_weightings, )
     with concurrent.futures.ThreadPoolExecutor() as executor:
         return tuple(executor.map(matching_function, candidate_paths))
 

@@ -63,17 +63,18 @@ def get_prompt_if_candidate_is_promising(requirement_matches: dict[str, list[Req
 
 
 def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], requirement_type_weightings: dict[str, int]) -> ScoreValue:
-    if sum(requirement_type_weightings.values()) != 100:
-        return ValueError
+    requirement_types_maximum = sum(requirement_type_weightings.values())
     present_requirement_types_maximum = sum([value for key, value in requirement_type_weightings.items() if len(requirement_matches[key]) > 0])
     if present_requirement_types_maximum == 0:
-        present_requirement_types_maximum = 100
-    correction_factor = 100 / present_requirement_types_maximum
+        present_requirement_types_maximum = requirement_types_maximum
+    correction_factor = requirement_types_maximum / present_requirement_types_maximum
     total_score = MINIMUM_SCORE_VALUE
     for requirement_type, requirement_match_list in requirement_matches.items():
         if len(requirement_match_list) == 0:
             continue
-        total_score += statistics.mean([x.score.value for x in requirement_match_list]) * requirement_type_weightings[requirement_type] * correction_factor / 100
+        total_score += statistics.mean(
+            [x.score.value - MINIMUM_SCORE_VALUE for x in requirement_match_list]
+        ) * requirement_type_weightings[requirement_type] * correction_factor / requirement_types_maximum
     return total_score
 
 
