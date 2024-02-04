@@ -14,7 +14,7 @@ class RequirementType(enum.StrEnum):
 
 
 class Requirement(pydantic.BaseModel):
-    type: str
+    type: RequirementType
     specification: StrippedString
 
 
@@ -47,7 +47,7 @@ DEFAULT_REQUIREMENT_TYPE_DEFINITIONS: dict[str, str] = {
 
 
 def get_sample_requirement() -> Requirement:
-    return Requirement(type=RequirementType.MANDATORY.value, specification='Here should stand the specification text of the requirement')
+    return Requirement(type=RequirementType.MANDATORY, specification='Here should stand the specification text of the requirement')
 
 
 def get_empty_requirements(requirement_type_definitions: dict[str, str]) -> dict[str, list[Requirement, ...]]:
@@ -90,7 +90,7 @@ def extract_json_object_from_string(text: str) -> dict:
 
 
 def get_prompt_to_extract_requirements(job_description: str, requirement_type_definitions: dict[str, str]) -> str:
-    return f'Please extract the job requirements from the following job description as a JSON object and fill the requirements into the arrays in {get_empty_requirements(requirement_type_definitions)}. Please respect the type of the requirement. An explanation how to fill the arrays with the requirements of the correct type is provided here:\n{dumps(requirement_type_definitions)}.\nIf there are no suitable requirements for a category, the respective array can stay empty. If there are suitable requirements for a requirement, fill in one or more requirements into the array. All requirements must be unique. The JSON objects in the array must have the following structure {dumps(get_sample_requirement())} and the type must be either "{RequirementType.MANDATORY.value}" or "{RequirementType.OPTIONAL.value}". Here is the job description from which the described JSON object should be extracted: {job_description.strip()}'
+    return f'Please extract the job requirements from the following job description as a JSON object and fill the requirements into the arrays in {get_empty_requirements(requirement_type_definitions)}. Please respect the type of the requirement. An explanation how to fill the arrays with the requirements of the correct type is provided here:\n{dumps(requirement_type_definitions)}.\nIf there are no suitable requirements for a category, the respective array can stay empty. If there are suitable requirements for a requirement, fill in one or more requirements into the array. All requirements must be unique. The JSON objects in the array must have the following structure {dumps(get_sample_requirement())} and the type must be either "{RequirementType.MANDATORY.value}" or "{RequirementType.OPTIONAL.value}". Here is the job description from which the described JSON object should be extracted:\n\n{job_description.strip()}'
 
 
 def get_requirements_from_job_description(
@@ -124,5 +124,5 @@ def get_requirements_from_job_description(
                 # each requirement should have a specification which must be present
                 continue
             # add the requirement
-            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']).value, specification=requirement['specification'].strip()))
+            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']), specification=requirement['specification'].strip()))
     return job_requirements
