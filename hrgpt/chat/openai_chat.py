@@ -1,5 +1,6 @@
 import datetime
 import enum
+import functools
 
 import openai
 import pydantic
@@ -15,17 +16,17 @@ class OpenaiRole(enum.StrEnum):
 
 
 class OpenaiChatMessage(pydantic.BaseModel):
-    role: str
+    role: OpenaiRole
     content: str
 
 
 def transform_chat_message_to_openai_chat_message(chat_message: ChatMessage) -> OpenaiChatMessage:
     if chat_message.author == Author.USER:
-        role = OpenaiRole.USER.value
+        role = OpenaiRole.USER
     elif chat_message.author == Author.SYSTEM:
-        role = OpenaiRole.SYSTEM.value
+        role = OpenaiRole.SYSTEM
     elif chat_message.author == Author.MODEL:
-        role = OpenaiRole.ASSISTANT.value
+        role = OpenaiRole.ASSISTANT
     else:
         raise ValueError
     return OpenaiChatMessage(role=role, content=chat_message.text)
@@ -48,7 +49,7 @@ class OpenaiChat(Chat):
         self.chat_message_history += (user_chat_message,)
         model_response = self.openai.chat.completions.create(
             model=self.config.model.name,
-            messages=list(map(pydantic.BaseModel.model_dump,
+            messages=list(map(functools.partial(pydantic.BaseModel.model_dump, mode='json'),
                               map(transform_chat_message_to_openai_chat_message, self.chat_message_history))),
             temperature=get_temperature(self.config.deterministic, self.config.temperature),
             stop=self.config.stop_sequences,
