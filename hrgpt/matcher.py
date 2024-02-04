@@ -40,8 +40,7 @@ class PromisingResult(pydantic.BaseModel):
 
 class ApplicantMatch(pydantic.BaseModel):
     total_score: ScoreValue
-    promising: bool
-    explanation: StrippedString
+    promising_result: PromisingResult
     requirement_matches: dict[str, list[RequirementMatch]]
 
 
@@ -115,5 +114,5 @@ def match_job_requirements_to_candidate_cv(
         # extract the explanation
         explanation = extracted_json_object['explanation'].strip()
     total_score = compute_total_score(requirement_matches, requirement_type_weightings)
-    applicant_match = ApplicantMatch(total_score=total_score, promising=promising, explanation=explanation, requirement_matches=requirement_matches)
+    applicant_match = ApplicantMatch(total_score=total_score, promising_result=PromisingResult(promising=promising, explanation=explanation), requirement_matches=requirement_matches)
     return applicant_match

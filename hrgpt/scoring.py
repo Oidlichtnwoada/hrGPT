@@ -47,8 +47,8 @@ def create_output_files(score_result: dict[str, dict[str, ApplicantMatch]], log_
             job_df_parts.append(pl.DataFrame({
                 'candidate': [candidate_path],
                 'score': [match_result.total_score],
-                'promising': [match_result.promising],
-                'explanation': [match_result.explanation],
+                'promising': [match_result.promising_result.promising],
+                'explanation': [match_result.promising_result.explanation],
             }))
             # save the applicants data as json in the result directory
             match_result_json = dumps(match_result)
