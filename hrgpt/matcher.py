@@ -1,7 +1,8 @@
 import collections
-import dataclasses
 import numbers
 import statistics
+
+import pydantic
 
 from hrgpt.chat.chat_factory import get_answer_messages, get_answer_message
 from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_from_string
@@ -22,26 +23,22 @@ DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
     'physical_ability': 3}
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class Score:
+class Score(pydantic.BaseModel):
     score: float
     explanation: str
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class RequirementMatch:
+class RequirementMatch(pydantic.BaseModel):
     score: Score
     requirement: Requirement
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class PromisingResult:
+class PromisingResult(pydantic.BaseModel):
     promising: bool
     explanation: str
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class ApplicantMatch:
+class ApplicantMatch(pydantic.BaseModel):
     score: float
     promising: bool
     explanation: str
@@ -98,14 +95,14 @@ def match_job_requirements_to_candidate_cv(
     prompt_answers = zip([x[0] for x in prompts], [x[1] for x in prompts], get_answer_messages([x[2] for x in prompts]))
     for requirement_type, requirement, answer in prompt_answers:
         extracted_json_object = extract_json_object_from_string(answer.text)
-        requirement_score = dataclasses.asdict(get_empty_score())
+        requirement_score = get_empty_score()
         if 'score' in extracted_json_object and isinstance(extracted_json_object['score'], numbers.Number):
             # extract the score
-            requirement_score['score'] = min(max(extracted_json_object['score'], 0), 100)
+            requirement_score.score = min(max(extracted_json_object['score'], 0), 100)
         if 'explanation' in extracted_json_object and isinstance(extracted_json_object['explanation'], str):
             # extract the explanation
-            requirement_score['explanation'] = extracted_json_object['explanation']
-        requirement_match = RequirementMatch(score=Score(**requirement_score), requirement=requirement)
+            requirement_score.explanation = extracted_json_object['explanation']
+        requirement_match = RequirementMatch(score=requirement_score, requirement=requirement)
         requirement_matches[requirement_type].append(requirement_match)
     answer = get_answer_message(get_prompt_if_candidate_is_promising(requirement_matches))
     extracted_json_object = extract_json_object_from_string(answer.text)

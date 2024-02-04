@@ -1,20 +1,19 @@
-import dataclasses
 import enum
 import json
 
 import fitz
+import pydantic
 
 from hrgpt.chat.chat_factory import get_answer_message
 from hrgpt.utils import dumps
 
 
-class RequirementType(enum.Enum):
-    MANDATORY = 'mandatory'
-    OPTIONAL = 'optional'
+class RequirementType(enum.StrEnum):
+    MANDATORY = enum.auto()
+    OPTIONAL = enum.auto()
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class Requirement:
+class Requirement(pydantic.BaseModel):
     type: str
     specification: str
 

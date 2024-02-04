@@ -1,45 +1,43 @@
 import abc
-import dataclasses
+import datetime
 import enum
 import os
 import random
 
-import pendulum
+import pydantic
 
 DEFAULT_RETRY_LIMIT = 1_000_000
 
 
-class Author(enum.Enum):
-    USER = 'user'
-    MODEL = 'model'
-    SYSTEM = 'system'
+class Author(enum.StrEnum):
+    USER = enum.auto()
+    MODEL = enum.auto()
+    SYSTEM = enum.auto()
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class ChatMessage:
+class ChatMessage(pydantic.BaseModel):
     text: str
     author: Author
-    creation_datetime: pendulum.DateTime
-    generation_interval: pendulum.Interval
+    creation_datetime: datetime.datetime
+    generation_timedelta: datetime.timedelta
 
 
-class Provider(enum.Enum):
-    OPENAI = 'OPENAI'
-    REPLICATE = 'REPLICATE'
+class Provider(enum.StrEnum):
+    OPENAI = enum.auto()
+    REPLICATE = enum.auto()
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class Model:
+class Model(pydantic.BaseModel):
     provider: Provider
-    model_name: str
+    name: str
 
 
 class ModelOption(enum.Enum):
-    GPT_4_TURBO = Model(provider=Provider.OPENAI, model_name='gpt-4-0125-preview')
-    GPT_35_TURBO = Model(provider=Provider.OPENAI, model_name='gpt-3.5-turbo-0125')
-    LLAMA_2_70B_CHAT = Model(provider=Provider.REPLICATE, model_name='meta/llama-2-70b-chat')
-    LLAMA_2_13B_CHAT = Model(provider=Provider.REPLICATE, model_name='meta/llama-2-13b-chat')
-    LLAMA_2_7B_CHAT = Model(provider=Provider.REPLICATE, model_name='meta/llama-2-7b-chat')
+    GPT_4_TURBO = Model(provider=Provider.OPENAI, name='gpt-4-0125-preview')
+    GPT_35_TURBO = Model(provider=Provider.OPENAI, name='gpt-3.5-turbo-0125')
+    LLAMA_2_70B_CHAT = Model(provider=Provider.REPLICATE, name='meta/llama-2-70b-chat')
+    LLAMA_2_13B_CHAT = Model(provider=Provider.REPLICATE, name='meta/llama-2-13b-chat')
+    LLAMA_2_7B_CHAT = Model(provider=Provider.REPLICATE, name='meta/llama-2-7b-chat')
 
 
 def get_api_key_for_provider(provider: Provider) -> str:
@@ -87,8 +85,7 @@ def get_top_probability(deterministic: bool, top_probability: float) -> float:
         return top_probability
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class ModelConfig:
+class ModelConfig(pydantic.BaseModel):
     model: Model
     presence_penalty: int
     logit_bias: dict
@@ -108,7 +105,7 @@ class ModelConfig:
 
 
 DEFAULT_MODEL_CONFIG = ModelConfig(
-    model=ModelOption.GPT_35_TURBO.value,
+    model=ModelOption.LLAMA_2_7B_CHAT.value,
     debug=False,
     choices=1,
     presence_penalty=0,
@@ -124,42 +121,35 @@ DEFAULT_MODEL_CONFIG = ModelConfig(
     top_probability=0,
     deterministic=True,
     temperature=0,
-
 )
 
 
-def generate_user_chat_message(prompt: str, datetime: pendulum.DateTime) -> ChatMessage:
+def generate_user_chat_message(prompt: str, datetime_value: datetime.datetime) -> ChatMessage:
     return ChatMessage(
         text=prompt.strip(),
         author=Author.USER,
-        creation_datetime=datetime,
-        generation_interval=pendulum.Interval(
-            datetime,
-            datetime
-        ))
+        creation_datetime=datetime_value,
+        generation_timedelta=datetime_value - datetime_value)
 
 
 def generate_model_chat_message(prompt: str,
-                                before_datetime: pendulum.DateTime,
-                                creation_datetime: pendulum.DateTime,
-                                after_datetime: pendulum.DateTime) -> ChatMessage:
+                                before_datetime: datetime.datetime,
+                                creation_datetime: datetime.datetime,
+                                after_datetime: datetime.datetime) -> ChatMessage:
     return ChatMessage(
         text=prompt.strip(),
         author=Author.MODEL,
         creation_datetime=creation_datetime,
-        generation_interval=pendulum.Interval(
-            before_datetime,
-            after_datetime
-        ))
+        generation_timedelta=after_datetime - before_datetime)
 
 
 def generate_system_chat_message(prompt: str) -> ChatMessage:
-    current_datetime = pendulum.DateTime.utcnow()
+    current_datetime = datetime.datetime.now(datetime.timezone.utc)
     return ChatMessage(
         text=prompt.strip(),
         author=Author.SYSTEM,
         creation_datetime=current_datetime,
-        generation_interval=pendulum.Interval(current_datetime, current_datetime)
+        generation_timedelta=current_datetime - current_datetime
     )
 
 

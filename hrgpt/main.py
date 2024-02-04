@@ -2,7 +2,6 @@ import argparse
 import logging
 import os
 
-import jsonpickle
 import polars as pl
 from dotenv import load_dotenv
 
@@ -26,7 +25,6 @@ def main() -> None:
     pl.Config.set_fmt_str_lengths(int(os.getenv('POLARS_MAX_PRINT_STRING_LENGTH')))
     pl.Config.set_tbl_hide_dataframe_shape(bool(int(os.getenv('POLARS_DISABLE_SHAPE_PRINT'))))
     logging.basicConfig(level=logging.getLevelName(os.getenv('LOGGING_LEVEL')))
-    jsonpickle.set_encoder_options('json', ensure_ascii=not bool(int(os.getenv('JSON_UTF8_OUTPUT'))))
     # parse arguments and start execution
     args = get_args()
     if args.target == 'scoring':

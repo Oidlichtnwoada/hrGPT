@@ -1,21 +1,20 @@
-import dataclasses
+import datetime
 import enum
 
 import openai
-import pendulum
+import pydantic
 
 from hrgpt.chat.chat import Chat, ChatMessage, ModelConfig, get_api_key_for_provider, \
     Author, Provider, generate_user_chat_message, generate_model_chat_message, get_seed, get_temperature, get_top_probability, DEFAULT_RETRY_LIMIT
 
 
-class OpenaiRole(enum.Enum):
-    USER = 'user'
-    ASSISTANT = 'assistant'
-    SYSTEM = 'system'
+class OpenaiRole(enum.StrEnum):
+    USER = enum.auto()
+    ASSISTANT = enum.auto()
+    SYSTEM = enum.auto()
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class OpenaiChatMessage:
+class OpenaiChatMessage(pydantic.BaseModel):
     role: str
     content: str
 
@@ -44,12 +43,12 @@ class OpenaiChat(Chat):
         )
 
     def send_prompt(self, prompt: str) -> ChatMessage:
-        before_datetime = pendulum.DateTime.utcnow()
+        before_datetime = datetime.datetime.now(datetime.timezone.utc)
         user_chat_message = generate_user_chat_message(prompt, before_datetime)
         self.chat_message_history += (user_chat_message,)
         model_response = self.openai.chat.completions.create(
-            model=self.config.model.model_name,
-            messages=list(map(dataclasses.asdict,
+            model=self.config.model.name,
+            messages=list(map(pydantic.BaseModel.model_dump,
                               map(transform_chat_message_to_openai_chat_message, self.chat_message_history))),
             temperature=get_temperature(self.config.deterministic, self.config.temperature),
             stop=self.config.stop_sequences,
@@ -62,11 +61,11 @@ class OpenaiChat(Chat):
             presence_penalty=self.config.presence_penalty,
             response_format=self.config.response_format,
         )
-        after_datetime = pendulum.DateTime.utcnow()
+        after_datetime = datetime.datetime.now(datetime.timezone.utc)
         model_response_choice = model_response.choices[0]
         if model_response_choice.message.content is None or model_response_choice.finish_reason != 'stop':
             raise RuntimeError
-        creation_datetime = pendulum.from_timestamp(model_response.created)
+        creation_datetime = datetime.datetime.fromtimestamp(model_response.created, datetime.timezone.utc)
         model_chat_message = generate_model_chat_message(model_response_choice.message.content,
                                                          before_datetime,
                                                          creation_datetime,

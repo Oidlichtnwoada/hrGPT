@@ -1,14 +1,13 @@
-import dataclasses
+import datetime
 
-import pendulum
+import pydantic
 import replicate
 
 from hrgpt.chat.chat import ModelConfig, Chat, Provider, generate_user_chat_message, Author, ChatMessage, \
     get_api_key_for_provider, generate_model_chat_message, get_seed, get_temperature, get_top_tokens, get_top_probability, DEFAULT_RETRY_LIMIT
 
 
-@dataclasses.dataclass(order=True, frozen=True, kw_only=True)
-class ReplicateChatMessage:
+class ReplicateChatMessage(pydantic.BaseModel):
     prompt: str
     system_prompt: str
 
@@ -36,13 +35,13 @@ class ReplicateChat(Chat):
         return ReplicateChatMessage(system_prompt=self.get_context(), prompt='\n'.join(prompts))
 
     def send_prompt(self, prompt: str) -> ChatMessage:
-        before_datetime = pendulum.DateTime.utcnow()
+        before_datetime = datetime.datetime.now(datetime.timezone.utc)
         user_chat_message = generate_user_chat_message(prompt, before_datetime)
         self.chat_message_history += (user_chat_message,)
         output_parts = self.replicate.run(
-            self.config.model.model_name,
+            self.config.model.name,
             {
-                **dataclasses.asdict(self.transform_chat_messages_to_replicate_chat_object()),
+                **self.transform_chat_messages_to_replicate_chat_object().model_dump(),
                 'debug': self.config.debug,
                 'top_k': get_top_tokens(self.config.deterministic, self.config.top_tokens),
                 'top_p': get_top_probability(self.config.deterministic, self.config.top_probability),
@@ -54,7 +53,7 @@ class ReplicateChat(Chat):
                 'repetition_penalty': self.config.repetition_penalty,
             }
         )
-        after_datetime = pendulum.DateTime.utcnow()
+        after_datetime = datetime.datetime.now(datetime.timezone.utc)
         model_chat_message = generate_model_chat_message(''.join(output_parts),
                                                          before_datetime,
                                                          after_datetime,

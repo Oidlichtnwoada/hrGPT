@@ -1,12 +1,19 @@
 import collections
+import json
 import os
 import pathlib
 
-import jsonpickle
+import pydantic
 
 
-def dumps(x: object, include_types: bool = False, separators: tuple[str, str] = (', ', ': '), indent: int = 4) -> str:
-    return jsonpickle.dumps(x, unpicklable=include_types, separators=separators, indent=indent).strip()
+def dumps(x: object, separators: tuple[str, str] = (', ', ': '), indent: int = 4) -> str:
+    class ExtendedEncoder(json.JSONEncoder):
+        def default(self, obj):
+            if isinstance(obj, pydantic.BaseModel):
+                return obj.model_dump()
+            return json.JSONEncoder.default(self, obj)
+
+    return json.dumps(x, ensure_ascii=False, indent=indent, separators=separators, cls=ExtendedEncoder)
 
 
 def get_repo_root_path() -> str:
