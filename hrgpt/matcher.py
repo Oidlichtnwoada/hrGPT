@@ -6,7 +6,7 @@ import pydantic
 
 from hrgpt.chat.chat_factory import get_answer_messages, get_answer_message
 from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_from_string
-from hrgpt.utils import dumps
+from hrgpt.utils import dumps, StrippedString
 
 DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
     'work_experience': 25,
@@ -25,7 +25,7 @@ DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
 
 class Score(pydantic.BaseModel):
     score: float
-    explanation: str
+    explanation: StrippedString
 
 
 class RequirementMatch(pydantic.BaseModel):
@@ -35,13 +35,13 @@ class RequirementMatch(pydantic.BaseModel):
 
 class PromisingResult(pydantic.BaseModel):
     promising: bool
-    explanation: str
+    explanation: StrippedString
 
 
 class ApplicantMatch(pydantic.BaseModel):
     score: float
     promising: bool
-    explanation: str
+    explanation: StrippedString
     requirement_matches: dict[str, list[RequirementMatch]]
 
 
@@ -57,7 +57,7 @@ def get_prompt_to_match_requirement(requirement: Requirement,
                                     requirement_type: str,
                                     requirement_type_definitions: dict[str, str],
                                     cv_text: str) -> str:
-    return f'Please match the following requirement "{requirement.specification}" with the provided application document and fill the score and the explanation of the score in the following JSON object {dumps(get_empty_score())}. The score should be 0 if the requirement is completely unfulfilled and 100 if the requirement is fully covered. Assign a score between 0 and 100 if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement called "{requirement_type}" is provided here: {dumps(requirement_type_definitions[requirement_type])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. Here is the CV for which the described requirement should be scored and explained: {cv_text}.'
+    return f'Please match the following requirement "{requirement.specification}" with the provided application document and fill the score and the explanation of the score in the following JSON object {dumps(get_empty_score())}. The score should be 0 if the requirement is completely unfulfilled and 100 if the requirement is fully covered. Assign a score between 0 and 100 if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement called "{requirement_type}" is provided here: {dumps(requirement_type_definitions[requirement_type])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. Here is the CV for which the described requirement should be scored and explained: {cv_text.strip()}.'
 
 
 def get_prompt_if_candidate_is_promising(requirement_matches: dict[str, list[RequirementMatch]]) -> PromisingResult:
@@ -101,7 +101,7 @@ def match_job_requirements_to_candidate_cv(
             requirement_score.score = min(max(extracted_json_object['score'], 0), 100)
         if 'explanation' in extracted_json_object and isinstance(extracted_json_object['explanation'], str):
             # extract the explanation
-            requirement_score.explanation = extracted_json_object['explanation']
+            requirement_score.explanation = extracted_json_object['explanation'].strip()
         requirement_match = RequirementMatch(score=requirement_score, requirement=requirement)
         requirement_matches[requirement_type].append(requirement_match)
     answer = get_answer_message(get_prompt_if_candidate_is_promising(requirement_matches))
@@ -113,7 +113,7 @@ def match_job_requirements_to_candidate_cv(
         promising = extracted_json_object['promising']
     if 'explanation' in extracted_json_object and isinstance(extracted_json_object['explanation'], str):
         # extract the explanation
-        explanation = extracted_json_object['explanation']
+        explanation = extracted_json_object['explanation'].strip()
     total_score = compute_total_score(requirement_matches, requirement_type_weightings)
     applicant_match = ApplicantMatch(score=total_score, promising=promising, explanation=explanation, requirement_matches=requirement_matches)
     return applicant_match

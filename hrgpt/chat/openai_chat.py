@@ -7,6 +7,7 @@ import pydantic
 
 from hrgpt.chat.chat import Chat, ChatMessage, ModelConfig, get_api_key_for_provider, \
     Author, Provider, generate_user_chat_message, generate_model_chat_message, get_seed, get_temperature, get_top_probability, DEFAULT_RETRY_LIMIT
+from hrgpt.utils import StrippedString
 
 
 class OpenaiRole(enum.StrEnum):
@@ -17,7 +18,7 @@ class OpenaiRole(enum.StrEnum):
 
 class OpenaiChatMessage(pydantic.BaseModel):
     role: OpenaiRole
-    content: str
+    content: StrippedString
 
 
 def transform_chat_message_to_openai_chat_message(chat_message: ChatMessage) -> OpenaiChatMessage:

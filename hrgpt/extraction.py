@@ -5,7 +5,7 @@ import fitz
 import pydantic
 
 from hrgpt.chat.chat_factory import get_answer_message
-from hrgpt.utils import dumps
+from hrgpt.utils import dumps, StrippedString
 
 
 class RequirementType(enum.StrEnum):
@@ -15,7 +15,7 @@ class RequirementType(enum.StrEnum):
 
 class Requirement(pydantic.BaseModel):
     type: str
-    specification: str
+    specification: StrippedString
 
 
 DEFAULT_REQUIREMENT_TYPE_DEFINITIONS: dict[str, str] = {
@@ -124,5 +124,5 @@ def get_requirements_from_job_description(
                 # each requirement should have a specification which must be present
                 continue
             # add the requirement
-            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']).value, specification=requirement['specification']))
+            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']).value, specification=requirement['specification'].strip()))
     return job_requirements

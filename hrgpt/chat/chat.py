@@ -6,6 +6,8 @@ import random
 
 import pydantic
 
+from hrgpt.utils import StrippedString
+
 DEFAULT_RETRY_LIMIT = 1_000_000
 
 
@@ -16,7 +18,7 @@ class Author(enum.StrEnum):
 
 
 class ChatMessage(pydantic.BaseModel):
-    text: str
+    text: StrippedString
     author: Author
     creation_datetime: datetime.datetime
     generation_timedelta: datetime.timedelta
@@ -29,7 +31,7 @@ class Provider(enum.StrEnum):
 
 class Model(pydantic.BaseModel):
     provider: Provider
-    name: str
+    name: StrippedString
 
 
 class ModelOption(enum.Enum):
@@ -88,7 +90,7 @@ def get_top_probability(deterministic: bool, top_probability: float) -> float:
 class ModelConfig(pydantic.BaseModel):
     model: Model
     presence_penalty: int
-    logit_bias: dict
+    logit_bias: dict[int, float]
     frequency_penalty: int
     choices: int
     system_context: str
@@ -100,7 +102,7 @@ class ModelConfig(pydantic.BaseModel):
     deterministic: bool
     stop_sequences: tuple[str, ...]
     temperature: float
-    response_format: dict
+    response_format: dict[str, str]
     repetition_penalty: float
 
 

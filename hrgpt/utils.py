@@ -2,8 +2,17 @@ import collections
 import json
 import os
 import pathlib
+import typing
 
 import pydantic
+
+
+def check_string(string: str) -> str:
+    assert string == string.strip()
+    return string
+
+
+StrippedString = typing.Annotated[str, pydantic.AfterValidator(check_string)]
 
 
 def dumps(x: object, separators: tuple[str, str] = (', ', ': '), indent: int = 4) -> str:

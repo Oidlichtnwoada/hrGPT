@@ -5,11 +5,12 @@ import replicate
 
 from hrgpt.chat.chat import ModelConfig, Chat, Provider, generate_user_chat_message, Author, ChatMessage, \
     get_api_key_for_provider, generate_model_chat_message, get_seed, get_temperature, get_top_tokens, get_top_probability, DEFAULT_RETRY_LIMIT
+from hrgpt.utils import StrippedString
 
 
 class ReplicateChatMessage(pydantic.BaseModel):
-    prompt: str
-    system_prompt: str
+    prompt: StrippedString
+    system_prompt: StrippedString
 
 
 class ReplicateChat(Chat):
