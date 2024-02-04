@@ -14,6 +14,8 @@ def check_string(string: str) -> str:
 
 StrippedString = typing.Annotated[str, pydantic.AfterValidator(check_string)]
 
+ScoreValue = typing.Annotated[float, pydantic.Field(ge=0.0, le=100.0)]
+
 
 def dumps(x: object, separators: tuple[str, str] = (', ', ': '), indent: int = 4) -> str:
     class ExtendedEncoder(json.JSONEncoder):

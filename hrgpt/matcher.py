@@ -6,7 +6,7 @@ import pydantic
 
 from hrgpt.chat.chat_factory import get_answer_messages, get_answer_message
 from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_from_string
-from hrgpt.utils import dumps, StrippedString
+from hrgpt.utils import dumps, StrippedString, ScoreValue
 
 DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
     'work_experience': 25,
@@ -24,7 +24,7 @@ DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
 
 
 class Score(pydantic.BaseModel):
-    value: float
+    value: ScoreValue
     explanation: StrippedString
 
 
@@ -39,7 +39,7 @@ class PromisingResult(pydantic.BaseModel):
 
 
 class ApplicantMatch(pydantic.BaseModel):
-    total_score: float
+    total_score: ScoreValue
     promising: bool
     explanation: StrippedString
     requirement_matches: dict[str, list[RequirementMatch]]
@@ -64,7 +64,7 @@ def get_prompt_if_candidate_is_promising(requirement_matches: dict[str, list[Req
     return f'Please report if the following candidate is promising and should proceed in the application process or if the candidate is not promising. The candidate was evaluated to the various job requirements and this was the result: {dumps(requirement_matches)}. A score of 0 means a complete mismatch of the requirement and a score of 100 means a perfect match of the requirement. The higher the score, the better is the requirement matched by the candidate. Furthermore, an explanation is given and if the requirement is mandatory or optional. Please provide the answer in from of a JSON object that looks like this {dumps(get_empty_promising_result())}. Please fill in the promising field with "true" if you think the candidate is promising and with "false" otherwise. Please provide an explanation why this decision was made in the JSON return value in the respective field.'
 
 
-def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], requirement_type_weightings: dict[str, int]) -> float:
+def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], requirement_type_weightings: dict[str, int]) -> ScoreValue:
     if sum(requirement_type_weightings.values()) != 100:
         return ValueError
     present_requirement_types_maximum = sum([value for key, value in requirement_type_weightings.items() if len(requirement_matches[key]) > 0])
