@@ -10,12 +10,16 @@ MINIMUM_SCORE_VALUE = 0.0
 MAXIMUM_SCORE_VALUE = 100.0
 
 
-def check_string(string: str) -> str:
+def strip_string(string: str) -> str:
+    return string.strip()
+
+
+def check_string_if_stripped(string: str) -> str:
     assert string == string.strip()
     return string
 
 
-StrippedString = typing.Annotated[str, pydantic.AfterValidator(check_string)]
+StrippedString = typing.Annotated[str, pydantic.AfterValidator(strip_string), pydantic.AfterValidator(check_string_if_stripped)]
 
 ScoreValue = typing.Annotated[float, pydantic.Field(ge=MINIMUM_SCORE_VALUE, le=MAXIMUM_SCORE_VALUE)]
 

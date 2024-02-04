@@ -1,11 +1,10 @@
 import collections
-import numbers
 import statistics
 
 import pydantic
 
 from hrgpt.chat.chat_factory import get_answer_messages, get_answer_message
-from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_from_string
+from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_string_from_string
 from hrgpt.utils import dumps, StrippedString, ScoreValue, MAXIMUM_SCORE_VALUE, MINIMUM_SCORE_VALUE
 
 DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
@@ -93,26 +92,11 @@ def match_job_requirements_to_candidate_cv(
             prompts.append((requirement_type, requirement, prompt))
     prompt_answers = zip([x[0] for x in prompts], [x[1] for x in prompts], get_answer_messages([x[2] for x in prompts]))
     for requirement_type, requirement, answer in prompt_answers:
-        extracted_json_object = extract_json_object_from_string(answer.text)
-        requirement_score = get_empty_score()
-        if 'value' in extracted_json_object and isinstance(extracted_json_object['value'], numbers.Number):
-            # extract the score
-            requirement_score.value = min(max(extracted_json_object['value'], MINIMUM_SCORE_VALUE), MAXIMUM_SCORE_VALUE)
-        if 'explanation' in extracted_json_object and isinstance(extracted_json_object['explanation'], str):
-            # extract the explanation
-            requirement_score.explanation = extracted_json_object['explanation'].strip()
+        requirement_score = Score.model_validate_json(extract_json_object_string_from_string(answer.text))
         requirement_match = RequirementMatch(score=requirement_score, requirement=requirement)
         requirement_matches[requirement_type].append(requirement_match)
     answer = get_answer_message(get_prompt_if_candidate_is_promising(requirement_matches))
-    extracted_json_object = extract_json_object_from_string(answer.text)
-    promising = False
-    explanation = ''
-    if 'promising' in extracted_json_object and isinstance(extracted_json_object['promising'], bool):
-        # extract the promising flag
-        promising = extracted_json_object['promising']
-    if 'explanation' in extracted_json_object and isinstance(extracted_json_object['explanation'], str):
-        # extract the explanation
-        explanation = extracted_json_object['explanation'].strip()
+    promising_result = PromisingResult.model_validate_json(extract_json_object_string_from_string(answer.text))
     total_score = compute_total_score(requirement_matches, requirement_type_weightings)
-    applicant_match = ApplicantMatch(total_score=total_score, promising_result=PromisingResult(promising=promising, explanation=explanation), requirement_matches=requirement_matches)
+    applicant_match = ApplicantMatch(total_score=total_score, promising_result=promising_result, requirement_matches=requirement_matches)
     return applicant_match

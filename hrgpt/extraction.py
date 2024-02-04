@@ -78,15 +78,13 @@ def get_pdf_document_text(pdf_document_path: str,
     return text
 
 
-def extract_json_object_from_string(text: str) -> dict:
+def extract_json_object_string_from_string(text: str) -> str:
     json_start_string = text.find('{')
     json_end_string = text.rfind('}')
     if json_start_string != -1 and json_end_string != -1:
-        try:
-            return json.loads(text[json_start_string:json_end_string + 1])
-        except json.JSONDecodeError:
-            pass
-    return {}
+        return text[json_start_string:json_end_string + 1]
+    else:
+        raise ValueError
 
 
 def get_prompt_to_extract_requirements(job_description: str, requirement_type_definitions: dict[str, str]) -> str:
@@ -103,7 +101,7 @@ def get_requirements_from_job_description(
     # send the prompt to the model
     answer = get_answer_message(prompt)
     # extract the JSON object from the answer
-    extracted_json_object = extract_json_object_from_string(answer.text)
+    extracted_json_object = json.loads(extract_json_object_string_from_string(answer.text))
     # validate the structure and transform the JSON object from the answer
     job_requirements = get_empty_requirements(requirement_type_definitions)
     for requirement_type, requirements in extracted_json_object.items():
@@ -117,12 +115,8 @@ def get_requirements_from_job_description(
             if not isinstance(requirement, dict):
                 # each requirement should be an object
                 continue
-            if 'type' not in requirement or requirement['type'] not in [x.value for x in RequirementType]:
-                # each requirement should have a suitable type and must be present
-                continue
-            if 'specification' not in requirement or not isinstance(requirement['specification'], str):
-                # each requirement should have a specification which must be present
-                continue
+            # validate the requirement
+            requirement_object = Requirement.model_validate(requirement)
             # add the requirement
-            job_requirements[requirement_type].append(Requirement(type=RequirementType(requirement['type']), specification=requirement['specification'].strip()))
+            job_requirements[requirement_type].append(requirement_object)
     return job_requirements
