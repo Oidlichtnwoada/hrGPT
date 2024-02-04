@@ -6,7 +6,7 @@ import pydantic
 
 from hrgpt.chat.chat_factory import get_answer_messages, get_answer_message
 from hrgpt.extraction import Requirement, get_pdf_document_text, extract_json_object_from_string
-from hrgpt.utils import dumps, StrippedString, ScoreValue
+from hrgpt.utils import dumps, StrippedString, ScoreValue, MAXIMUM_SCORE_VALUE, MINIMUM_SCORE_VALUE
 
 DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
     'work_experience': 25,
@@ -46,7 +46,7 @@ class ApplicantMatch(pydantic.BaseModel):
 
 
 def get_empty_score() -> Score:
-    return Score(value=0, explanation='')
+    return Score(value=MINIMUM_SCORE_VALUE, explanation='')
 
 
 def get_empty_promising_result() -> PromisingResult:
@@ -57,11 +57,11 @@ def get_prompt_to_match_requirement(requirement: Requirement,
                                     requirement_type: str,
                                     requirement_type_definitions: dict[str, str],
                                     cv_text: str) -> str:
-    return f'Please match the following requirement "{requirement.specification}" with the provided application document and fill the score and the explanation of the score in the following JSON object {dumps(get_empty_score())}. The score should be 0 if the requirement is completely unfulfilled and 100 if the requirement is fully covered. Assign a score between 0 and 100 if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement called "{requirement_type}" is provided here: {dumps(requirement_type_definitions[requirement_type])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. Here is the CV for which the described requirement should be scored and explained:\n\n{cv_text.strip()}.'
+    return f'Please match the following requirement "{requirement.specification}" with the provided application document and fill the score and the explanation of the score in the following JSON object {dumps(get_empty_score())}. The score should be {MINIMUM_SCORE_VALUE} if the requirement is completely unfulfilled and {MAXIMUM_SCORE_VALUE} if the requirement is fully covered. Assign a score between {MINIMUM_SCORE_VALUE} and {MAXIMUM_SCORE_VALUE} if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement called "{requirement_type}" is provided here: {dumps(requirement_type_definitions[requirement_type])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. Here is the CV for which the described requirement should be scored and explained:\n\n{cv_text.strip()}.'
 
 
 def get_prompt_if_candidate_is_promising(requirement_matches: dict[str, list[RequirementMatch]]) -> PromisingResult:
-    return f'Please report if the following candidate is promising and should proceed in the application process or if the candidate is not promising. The candidate was evaluated to the various job requirements and this was the result: {dumps(requirement_matches)}. A score of 0 means a complete mismatch of the requirement and a score of 100 means a perfect match of the requirement. The higher the score, the better is the requirement matched by the candidate. Furthermore, an explanation is given and if the requirement is mandatory or optional. Please provide the answer in from of a JSON object that looks like this {dumps(get_empty_promising_result())}. Please fill in the promising field with "true" if you think the candidate is promising and with "false" otherwise. Please provide an explanation why this decision was made in the JSON return value in the respective field.'
+    return f'Please report if the following candidate is promising and should proceed in the application process or if the candidate is not promising. The candidate was evaluated to the various job requirements and this was the result: {dumps(requirement_matches)}. A score of {MINIMUM_SCORE_VALUE} means a complete mismatch of the requirement and a score of {MAXIMUM_SCORE_VALUE} means a perfect match of the requirement. The higher the score, the better is the requirement matched by the candidate. Furthermore, an explanation is given and if the requirement is mandatory or optional. Please provide the answer in from of a JSON object that looks like this {dumps(get_empty_promising_result())}. Please fill in the promising field with "true" if you think the candidate is promising and with "false" otherwise. Please provide an explanation why this decision was made in the JSON return value in the respective field.'
 
 
 def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], requirement_type_weightings: dict[str, int]) -> ScoreValue:
@@ -71,7 +71,7 @@ def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], 
     if present_requirement_types_maximum == 0:
         present_requirement_types_maximum = 100
     correction_factor = 100 / present_requirement_types_maximum
-    total_score = 0
+    total_score = MINIMUM_SCORE_VALUE
     for requirement_type, requirement_match_list in requirement_matches.items():
         if len(requirement_match_list) == 0:
             continue
@@ -98,7 +98,7 @@ def match_job_requirements_to_candidate_cv(
         requirement_score = get_empty_score()
         if 'value' in extracted_json_object and isinstance(extracted_json_object['value'], numbers.Number):
             # extract the score
-            requirement_score.value = min(max(extracted_json_object['value'], 0), 100)
+            requirement_score.value = min(max(extracted_json_object['value'], MINIMUM_SCORE_VALUE), MAXIMUM_SCORE_VALUE)
         if 'explanation' in extracted_json_object and isinstance(extracted_json_object['explanation'], str):
             # extract the explanation
             requirement_score.explanation = extracted_json_object['explanation'].strip()
