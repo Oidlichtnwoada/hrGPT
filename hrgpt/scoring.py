@@ -46,7 +46,7 @@ def create_output_files(score_result: dict[str, dict[str, ApplicantMatch]], log_
             # append the result part of the applicant
             job_df_parts.append(pl.DataFrame({
                 'candidate': [candidate_path],
-                'score': [match_result.score],
+                'score': [match_result.total_score],
                 'promising': [match_result.promising],
                 'explanation': [match_result.explanation],
             }))

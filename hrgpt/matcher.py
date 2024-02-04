@@ -24,7 +24,7 @@ DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS: dict[str, int] = {
 
 
 class Score(pydantic.BaseModel):
-    score: float
+    value: float
     explanation: StrippedString
 
 
@@ -39,14 +39,14 @@ class PromisingResult(pydantic.BaseModel):
 
 
 class ApplicantMatch(pydantic.BaseModel):
-    score: float
+    total_score: float
     promising: bool
     explanation: StrippedString
     requirement_matches: dict[str, list[RequirementMatch]]
 
 
 def get_empty_score() -> Score:
-    return Score(score=0, explanation='')
+    return Score(value=0, explanation='')
 
 
 def get_empty_promising_result() -> PromisingResult:
@@ -75,7 +75,7 @@ def compute_total_score(requirement_matches: dict[str, list[RequirementMatch]], 
     for requirement_type, requirement_match_list in requirement_matches.items():
         if len(requirement_match_list) == 0:
             continue
-        total_score += statistics.mean([x.score.score for x in requirement_match_list]) * requirement_type_weightings[requirement_type] * correction_factor / 100
+        total_score += statistics.mean([x.score.value for x in requirement_match_list]) * requirement_type_weightings[requirement_type] * correction_factor / 100
     return total_score
 
 
@@ -96,9 +96,9 @@ def match_job_requirements_to_candidate_cv(
     for requirement_type, requirement, answer in prompt_answers:
         extracted_json_object = extract_json_object_from_string(answer.text)
         requirement_score = get_empty_score()
-        if 'score' in extracted_json_object and isinstance(extracted_json_object['score'], numbers.Number):
+        if 'value' in extracted_json_object and isinstance(extracted_json_object['value'], numbers.Number):
             # extract the score
-            requirement_score.score = min(max(extracted_json_object['score'], 0), 100)
+            requirement_score.value = min(max(extracted_json_object['value'], 0), 100)
         if 'explanation' in extracted_json_object and isinstance(extracted_json_object['explanation'], str):
             # extract the explanation
             requirement_score.explanation = extracted_json_object['explanation'].strip()
@@ -115,5 +115,5 @@ def match_job_requirements_to_candidate_cv(
         # extract the explanation
         explanation = extracted_json_object['explanation'].strip()
     total_score = compute_total_score(requirement_matches, requirement_type_weightings)
-    applicant_match = ApplicantMatch(score=total_score, promising=promising, explanation=explanation, requirement_matches=requirement_matches)
+    applicant_match = ApplicantMatch(total_score=total_score, promising=promising, explanation=explanation, requirement_matches=requirement_matches)
     return applicant_match

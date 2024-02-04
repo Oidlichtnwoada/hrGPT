@@ -42,7 +42,7 @@ class ReplicateChat(Chat):
         output_parts = self.replicate.run(
             self.config.model.name,
             {
-                **self.transform_chat_messages_to_replicate_chat_object().model_dump(),
+                **self.transform_chat_messages_to_replicate_chat_object().model_dump(mode='json'),
                 'debug': self.config.debug,
                 'top_k': get_top_tokens(self.config.deterministic, self.config.top_tokens),
                 'top_p': get_top_probability(self.config.deterministic, self.config.top_probability),
