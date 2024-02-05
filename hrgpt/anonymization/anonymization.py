@@ -22,7 +22,7 @@ def generate_random_names(
 ) -> list[str]:
     forenames = pandas.read_csv(forenames_csv_path)["name"].tolist()
     surnames = pandas.read_csv(surnames_csv_path)["name"].tolist()
-    random_names = set()
+    random_names: set[str] = set()
     while len(random_names) < amount:
         random_forename = random.choice(forenames)
         random_surname = random.choice(surnames)
