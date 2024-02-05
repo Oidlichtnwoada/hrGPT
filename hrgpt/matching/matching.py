@@ -11,6 +11,7 @@ from hrgpt.prompting.prompting import (
 )
 from hrgpt.utils.chat_utils import get_answer_messages, get_answer_message
 from hrgpt.utils.config_utils import AppConfigFactory
+from hrgpt.utils.math_utils import clamp_int
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.score_utils import compute_total_score
 from hrgpt.utils.type_utils import (
@@ -27,12 +28,9 @@ def match_job_requirements_to_candidate_cv(
 ) -> ApplicantMatch:
     cv_text = get_pdf_document_text(candidate_cv_file_path)
     requirement_matches = collections.defaultdict(list)
+    app_config = AppConfigFactory.get_app_config()
     prompts = []
-    for (
-        requirement_type
-    ) in (
-        AppConfigFactory.get_app_config().generic_config.job_requirements_config.keys()
-    ):
+    for requirement_type in app_config.generic_config.job_requirements_config.keys():
         for requirement in job_requirements[requirement_type]:
             prompt = get_prompt_to_match_requirement(
                 requirement, requirement_type, cv_text
@@ -46,6 +44,11 @@ def match_job_requirements_to_candidate_cv(
     for requirement_type, requirement, answer in prompt_answers:
         requirement_score = Score.model_validate_json(
             extract_json_object_string_from_string(answer.text)
+        )
+        requirement_score.value = clamp_int(
+            requirement_score.value,
+            min_value=app_config.generic_config.score_config.minimum_score_value,
+            max_value=app_config.generic_config.score_config.maximum_score_value,
         )
         requirement_match = RequirementMatch(
             score=requirement_score, requirement=requirement
