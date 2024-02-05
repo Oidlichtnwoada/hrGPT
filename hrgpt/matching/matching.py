@@ -1,6 +1,6 @@
 import collections
 
-from hrgpt.config.config import AppConfig
+from hrgpt.config.config import AppConfig, JobRequirementType
 from hrgpt.extraction.extraction import Requirement, extract_json_object_string_from_string
 from hrgpt.prompting.prompting import get_prompt_to_match_requirement, get_prompt_to_check_if_candidate_is_promising
 from hrgpt.utils.chat_utils import get_answer_messages, get_answer_message
@@ -10,7 +10,7 @@ from hrgpt.utils.type_utils import Score, PromisingResult, RequirementMatch, App
 
 
 def match_job_requirements_to_candidate_cv(
-    job_requirements: dict[str, list[Requirement, ...]],
+    job_requirements: dict[JobRequirementType, list[Requirement, ...]],
     candidate_cv_file_path: str,
     app_config: AppConfig
 ) -> ApplicantMatch:

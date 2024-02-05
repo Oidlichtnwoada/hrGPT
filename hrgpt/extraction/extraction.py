@@ -1,6 +1,6 @@
 import json
 
-from hrgpt.config.config import AppConfig
+from hrgpt.config.config import AppConfig, JobRequirementType
 from hrgpt.prompting.prompting import get_prompt_to_extract_requirements
 from hrgpt.utils.chat_utils import get_answer_message
 from hrgpt.utils.extraction_utils import extract_json_object_string_from_string
@@ -12,7 +12,7 @@ from hrgpt.utils.type_utils import Requirement
 def get_requirements_from_job_description(
     job_description_pdf_file_path: str,
     app_config: AppConfig,
-) -> dict[str, list[Requirement, ...]]:
+) -> dict[JobRequirementType, list[Requirement, ...]]:
     # generate the extraction prompt
     job_description_text = get_pdf_document_text(job_description_pdf_file_path, app_config)
     prompt = get_prompt_to_extract_requirements(job_description_text, app_config)
