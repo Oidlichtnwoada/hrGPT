@@ -31,6 +31,8 @@ def match_job_requirements_to_candidate_cv(
     app_config = AppConfigFactory.get_app_config()
     prompts = []
     for requirement_type in app_config.generic_config.job_requirements_config.keys():
+        if requirement_type not in job_requirements:
+            continue
         for requirement in job_requirements[requirement_type]:
             prompt = get_prompt_to_match_requirement(
                 requirement, requirement_type, cv_text
