@@ -2,7 +2,7 @@ import datetime
 import typing
 
 import openai
-import typing_extensions
+import openai.types.chat
 
 from hrgpt.chat.chat import Chat
 from hrgpt.config.config import Provider, AppConfigFactory
@@ -19,33 +19,42 @@ from hrgpt.utils.message_utils import (
 from hrgpt.utils.secret_utils import get_api_key_for_provider
 from hrgpt.utils.type_utils import ChatMessage, Author
 
-OpenaiRoleLiteral = typing.Literal["user", "assistant", "system"]
-
-
-class OpenaiChatMessageDict(typing_extensions.TypedDict):
-    content: str
-    role: OpenaiRoleLiteral
+OpenaiChatMessageDict = typing.Union[
+    openai.types.chat.ChatCompletionSystemMessageParam,
+    openai.types.chat.ChatCompletionUserMessageParam,
+    openai.types.chat.ChatCompletionAssistantMessageParam,
+    openai.types.chat.ChatCompletionToolMessageParam,
+    openai.types.chat.ChatCompletionFunctionMessageParam,
+]
 
 
 def transform_chat_message_history_to_openai_chat_messages(
     chat_messages: tuple[ChatMessage, ...],
 ) -> list[OpenaiChatMessageDict]:
     dict_list: list[OpenaiChatMessageDict] = []
-    role: OpenaiRoleLiteral
     for chat_message in chat_messages:
+        dict_value: OpenaiChatMessageDict
         if chat_message.author == Author.USER:
-            role = "user"
+            user_value: openai.types.chat.ChatCompletionUserMessageParam = {
+                "role": "user",
+                "content": chat_message.text,
+            }
+            dict_value = user_value
         elif chat_message.author == Author.SYSTEM:
-            role = "system"
+            system_value: openai.types.chat.ChatCompletionSystemMessageParam = {
+                "role": "system",
+                "content": chat_message.text,
+            }
+            dict_value = system_value
         elif chat_message.author == Author.MODEL:
-            role = "assistant"
+            model_value: openai.types.chat.ChatCompletionAssistantMessageParam = {
+                "role": "assistant",
+                "content": chat_message.text,
+            }
+            dict_value = model_value
         else:
             raise ValueError
-        openai_chat_message_dict: OpenaiChatMessageDict = {
-            "content": chat_message.text,
-            "role": role,
-        }
-        dict_list.append(openai_chat_message_dict)
+        dict_list.append(dict_value)
     return dict_list
 
 
