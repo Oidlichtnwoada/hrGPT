@@ -8,7 +8,7 @@ from hrgpt.utils.type_utils import (
 )
 
 
-def test_compute_total_score():
+def test_compute_total_score() -> None:
     sample_requirement_matches: dict[JobRequirementType, list[RequirementMatch]] = {
         "work_experience": [
             RequirementMatch(
