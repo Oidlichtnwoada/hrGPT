@@ -31,9 +31,9 @@ def score_applicants(
             executor.map(lambda x: score_applicants_for_job_path(*x), arguments)
         )
     result_dict = collections.defaultdict(dict)
-    for arguments, match_results in zip(arguments, mapped_arguments):
-        job_path = arguments[0]
-        for candidate_path, match_result in zip(arguments[1], match_results):
+    for argument_tuple, match_results in zip(arguments, mapped_arguments):
+        job_path = argument_tuple[0]
+        for candidate_path, match_result in zip(argument_tuple[1], match_results):
             result_dict[job_path][candidate_path] = match_result
     create_output_files(result_dict)
     return result_dict
