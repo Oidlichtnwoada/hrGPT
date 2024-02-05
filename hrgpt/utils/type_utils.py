@@ -23,3 +23,27 @@ class RequirementType(enum.StrEnum):
 class Requirement(pydantic.BaseModel):
     type: RequirementType
     specification: StrippedString
+
+
+ScoreValue: typing.TypeAlias = float
+
+
+class Score(pydantic.BaseModel):
+    value: ScoreValue
+    explanation: StrippedString
+
+
+class RequirementMatch(pydantic.BaseModel):
+    score: Score
+    requirement: Requirement
+
+
+class PromisingResult(pydantic.BaseModel):
+    promising: bool
+    explanation: StrippedString
+
+
+class ApplicantMatch(pydantic.BaseModel):
+    total_score: ScoreValue
+    promising_result: PromisingResult
+    requirement_matches: dict[str, list[RequirementMatch]]

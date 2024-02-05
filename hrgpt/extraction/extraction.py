@@ -4,7 +4,7 @@ import fitz
 
 from hrgpt.chat.chat_factory import get_answer_message
 from hrgpt.config.config import AppConfig
-from hrgpt.prompting.prompting import get_prettify_prompt, get_prompt_to_extract_requirements
+from hrgpt.prompting.prompting import get_prompt_to_prettify_text, get_prompt_to_extract_requirements
 from hrgpt.utils.extraction_utils import extract_json_object_string_from_string
 from hrgpt.utils.sample_utils import get_empty_requirements
 from hrgpt.utils.type_utils import Requirement
@@ -23,7 +23,7 @@ def get_pdf_document_text(pdf_document_path: str,
             page_texts.append(page_text)
         text = '\n'.join(page_texts)
     if prettify:
-        answer = get_answer_message(get_prettify_prompt(text), app_config)
+        answer = get_answer_message(get_prompt_to_prettify_text(text), app_config)
         text = answer.text
     return text
 
