@@ -11,7 +11,6 @@ from hrgpt.utils.type_utils import (
     RequirementType,
     Requirement,
     RequirementMatch,
-    PromisingResult,
 )
 
 
