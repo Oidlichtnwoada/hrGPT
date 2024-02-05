@@ -30,7 +30,7 @@ def score_applicants(
         mapped_arguments = tuple(
             executor.map(lambda x: score_applicants_for_job_path(*x), arguments)
         )
-    result_dict = collections.defaultdict(dict)
+    result_dict: dict[str, dict[str, ApplicantMatch]] = collections.defaultdict(dict)
     for argument_tuple, match_results in zip(arguments, mapped_arguments):
         job_path = argument_tuple[0]
         for candidate_path, match_result in zip(argument_tuple[1], match_results):
