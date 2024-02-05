@@ -11,7 +11,7 @@ def get_sample_requirement() -> Requirement:
 
 def get_empty_requirements() -> dict[JobRequirementType, list[Requirement]]:
     app_config = AppConfigFactory.get_app_config()
-    result_dict = {}
+    result_dict: dict[JobRequirementType, list[Requirement]] = {}
     for key in app_config.generic_config.job_requirements_config:
         result_dict[key] = []
     return result_dict

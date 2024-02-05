@@ -24,7 +24,7 @@ def compute_total_score(
     if present_requirement_types_maximum == 0:
         present_requirement_types_maximum = requirement_types_maximum
     correction_factor = requirement_types_maximum / present_requirement_types_maximum
-    total_score = minimum_score_value
+    total_score = float(minimum_score_value)
     for requirement_type, requirement_match_list in requirement_matches.items():
         if len(requirement_match_list) == 0:
             continue
