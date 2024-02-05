@@ -3,14 +3,14 @@ import functools
 import os
 import random
 import shutil
-import string
 
 import asposepdfcloud
-import fitz
 import pandas
 
 from hrgpt.config.config import AppConfig
-from hrgpt.utils.path_utils import get_module_root_path, get_applicant_document_paths
+from hrgpt.utils.path_utils import get_module_root_path, get_applicant_document_paths, get_random_file_name
+from hrgpt.utils.pdf_utils import clean_pdf_document, remove_links
+from hrgpt.utils.secret_utils import get_aspose_pdf_cloud_credentials
 
 
 def generate_random_names(amount: int = 1,
@@ -29,10 +29,6 @@ def generate_random_names(amount: int = 1,
     return list(random_names)
 
 
-def get_random_file_name(length: int = 64) -> str:
-    return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
-
-
 def get_text_replacement_list(replacements_path: str = os.path.join(get_module_root_path(),
                                                                     'replacements.txt')) -> list[tuple[str, str]]:
     with open(replacements_path) as file:
@@ -48,45 +44,14 @@ def get_text_replacements() -> asposepdfcloud.TextReplaceListRequest:
     return text_replace_list
 
 
-def clean_pdf_document(pdf_document_path: str,
-                       clean: bool = True,
-                       compress: bool = True,
-                       linearize: bool = True,
-                       prettify: bool = True) -> None:
-    kwargs = {}
-    if clean:
-        kwargs.update({'garbage': 4, 'clean': True})
-    if compress:
-        kwargs.update({'deflate': True})
-    else:
-        kwargs.update({'expand': 255})
-    if linearize:
-        kwargs.update({'linear': True})
-    if prettify:
-        kwargs.update({'pretty': True})
-    random_file_name = get_random_file_name()
-    with fitz.open(pdf_document_path) as pdf_document:
-        pdf_document.save(random_file_name, **kwargs, encryption=fitz.PDF_ENCRYPT_NONE)
-    shutil.copyfile(random_file_name, pdf_document_path)
-    os.remove(random_file_name)
-
-
-def remove_links(pdf_document_path: str) -> None:
-    with fitz.open(pdf_document_path) as pdf_document:
-        for page in pdf_document:
-            links = page.get_links()
-            for link in links:
-                page.delete_link(link)
-        pdf_document.save(pdf_document_path, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
-
-
 def anonymize_applicant_document(applicant_document_path: str,
                                  app_config: AppConfig,
                                  replace_text: bool = True) -> None:
     # create the api
+    credentials = get_aspose_pdf_cloud_credentials(app_config)
     pdf_api_client = asposepdfcloud.api_client.ApiClient(
-        app_key=app_config.secrets.aspose_app_key,
-        app_sid=app_config.secrets.aspose_app_sid)
+        app_key=credentials[0],
+        app_sid=credentials[1])
     pdf_api = asposepdfcloud.apis.pdf_api.PdfApi(pdf_api_client)
 
     # clean the document at the start
