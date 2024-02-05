@@ -1091,7 +1091,7 @@ The following models were implemented and can be used as \acs{LLM} for the propo
     These models were developed by \textit{Meta} and are hosted by \textit{Replicate} in the implementation's case, which is one of many hosting providers for this model collection.
 \end{enumerate}
 
-\subsection{Context windows of \acs{LLM}s}
+\subsection{Context Windows of \acs{LLM}s}
 It is essential that the context window is large enough to contain the prompt itself including all input texts and the whole expected output text of the model in order to fully reference all input parts in the answer.
 As a rule of thumb around four characters of common English text will be translated to one token, a text fragment that is encoded using a unique integer, in the case of the \textit{OpenAI} tokenizer which is based on the byte pair encoding algorithm \parencite{openai_tokenizer}. 
 This token translation is bidirectional and can therefore go both ways that means the unique integer sequence can be translated back into the source text.
@@ -1105,7 +1105,7 @@ A typical requirement extraction \acs{LLM} output contains around $3000$ charact
 In terms of the context window size, the job requirement extraction task is the limiting factor or critical path as the other prompts without the input texts and expected output texts are much smaller.
 If the configuration is changed such that the job requirement definitions are larger in size or if the used job descriptions are much larger in size, the context window size may quickly reach its limit and models with a larger context size must be used.
 
-\subsection{Determinism of the used \acs{LLM}s}
+\subsection{Determinism of \acs{LLM}s}
 The settings used for configuring the \acs{LLM}s were picked to make the underlying \acs{LLM} deterministic that means that the same input to the model should lead to the same output every single time.
 These settings remove all configurable penalties (presence penalty, repetition penalty, repetition penalty) and biases (only logit bias) that would alter the model output, use a constant system prompt, limit the maximum output token amount to $4096$ and define no stop sequences.
 The aforementioned settings are not altering if the \acs{LLM} is behaving deterministically or not, but they are rather listed for completeness.
@@ -1124,6 +1124,10 @@ The \textit{OpenAI} API sends a \textit{system fingerprint} value with their res
 If the \textit{system fingerprint} of the response changes compared to a previous request with the same input, it is likely that it will result in a nondeterministic response \parencite{openai_chat_api}.
 The problem for the \textit{OpenAI} API user is that there is no way to specify which system you want to have in order to get deterministic responses, \textit{OpenAI} assigns the used backend systems nondeterministically and it is likely that two back-to-back requests will have two different \textit{system fingerprint} values \parencite{openai_chat_api}.
 The nondeterministic behavior is known to \textit{OpenAI} and hopefully they fix it in a future release.
+
+\subsection{Model Configuration}
+This is the default configuration that is used to operate the proposed model, every single setting can be changed in order to modify the behavior of the proposed model to the desires of the operating human expert recruiter:
+\lstinputlisting[language=TypeScript,label=lst:default_model_configuration,caption=Default configuration of the proposed model]{../hrgpt/default_config.json}
 
 \subsection{Scope and Limitations}
 As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and to answer questions based on the input text fairly well in the most general cases.
@@ -1298,6 +1302,6 @@ In order to provide more validity to the open, verbal discussion with the human 
 
 \section{Code Listings}
 
-\lstinputlisting[language=Python,label=lst:code_usage_example,caption=Example usage of the programmed model]{../hrgpt/chat/chat_factory.py}
+\lstinputlisting[language=Python,label=lst:code_usage_example,caption=Example usage of the programmed model]{../hrgpt/utils/chat_utils.py}
 
 \end{document}
