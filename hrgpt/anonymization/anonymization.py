@@ -33,13 +33,19 @@ def generate_random_names(
     return list(random_names)
 
 
+def check_tuple_length_and_return(value: tuple[str, ...]) -> tuple[str, str]:
+    if len(value) != 2:
+        raise ValueError
+    return value
+
+
 def get_text_replacement_list(
     replacements_path: str = os.path.join(get_module_root_path(), "replacements.txt")
 ) -> list[tuple[str, str]]:
     with open(replacements_path) as file:
         file_content_lines = file.read().strip().split("\n")
     return [
-        tuple(line.split(">"))
+        check_tuple_length_and_return(tuple(line.split(">")))
         for line in file_content_lines
         if not line.startswith("#")
     ]
