@@ -5,7 +5,7 @@ from hrgpt.utils.serialization_utils import dumps
 from hrgpt.utils.type_utils import RequirementType, Requirement, RequirementMatch, PromisingResult
 
 
-def get_prompt_to_prettify_text(text: str):
+def get_prompt_to_prettify_text(text: str) -> str:
     return f'Please format the following text more nicely but do not change its contents. Group lines that belong together in a paragraph and format it to improve readability. This is the text:\n\n{text}'
 
 
@@ -23,7 +23,7 @@ def get_prompt_to_match_requirement(requirement: Requirement,
     return f'Please match the following requirement "{requirement.specification}" with the provided application document and fill the score and the explanation of the score in the following JSON object {dumps(get_empty_score())}. The score should be {minimum_score_value} if the requirement is completely unfulfilled and {maximum_score_value} if the requirement is fully covered. Assign a score between {minimum_score_value} and {maximum_score_value} if the requirement is only partially covered and a higher score means a higher degree of coverage. A description of the type of requirement called "{requirement_type}" is provided here: {dumps(get_job_requirement_definitions(app_config.generic_config.job_requirements_config)[requirement_type])}. Explain the chosen score with the explanation field in the JSON object. The response must contain the filled JSON object. Here is the CV for which the described requirement should be scored and explained:\n\n{cv_text.strip()}.'
 
 
-def get_prompt_to_check_if_candidate_is_promising(requirement_matches: dict[JobRequirementType, list[RequirementMatch]]) -> PromisingResult:
+def get_prompt_to_check_if_candidate_is_promising(requirement_matches: dict[JobRequirementType, list[RequirementMatch]]) -> str:
     app_config = AppConfigFactory.get_app_config()
     minimum_score_value = app_config.generic_config.score_config.minimum_score_value
     maximum_score_value = app_config.generic_config.score_config.maximum_score_value
