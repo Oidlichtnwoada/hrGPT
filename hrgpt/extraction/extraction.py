@@ -11,7 +11,7 @@ from hrgpt.utils.type_utils import Requirement
 
 def get_requirements_from_job_description(
     job_description_pdf_file_path: str,
-) -> dict[JobRequirementType, list[Requirement, ...]]:
+) -> dict[JobRequirementType, list[Requirement]]:
     # generate the extraction prompt
     job_description_text = get_pdf_document_text(job_description_pdf_file_path)
     prompt = get_prompt_to_extract_requirements(job_description_text)

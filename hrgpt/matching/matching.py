@@ -21,7 +21,7 @@ from hrgpt.utils.type_utils import (
 
 
 def match_job_requirements_to_candidate_cv(
-    job_requirements: dict[JobRequirementType, list[Requirement, ...]],
+    job_requirements: dict[JobRequirementType, list[Requirement]],
     candidate_cv_file_path: str,
 ) -> ApplicantMatch:
     cv_text = get_pdf_document_text(candidate_cv_file_path)
