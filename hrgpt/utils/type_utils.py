@@ -19,6 +19,10 @@ JobRequirementType = typing.Literal[
     "physical_ability",
 ]
 
+VALID_JOB_REQUIREMENT_TYPES: tuple[JobRequirementType, ...] = typing.get_args(
+    JobRequirementType
+)
+
 
 def strip_string(string: str) -> str:
     return string.strip()

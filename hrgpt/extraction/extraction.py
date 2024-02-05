@@ -1,3 +1,5 @@
+import typing
+
 from hrgpt.config.config import JobRequirementType
 from hrgpt.prompting.prompting import get_prompt_to_extract_requirements
 from hrgpt.utils.chat_utils import get_answer_message
@@ -5,7 +7,7 @@ from hrgpt.utils.extraction_utils import extract_json_object_from_string
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.sample_utils import get_empty_requirements
 from hrgpt.utils.timing_utils import TimingClock, TaskType
-from hrgpt.utils.type_utils import Requirement
+from hrgpt.utils.type_utils import Requirement, VALID_JOB_REQUIREMENT_TYPES
 
 
 def get_requirements_from_job_description(
@@ -24,7 +26,10 @@ def get_requirements_from_job_description(
     # validate the structure and transform the JSON object from the answer
     job_requirements = get_empty_requirements()
     for requirement_type, requirements in extracted_json_object.items():
-        if requirement_type not in job_requirements:
+        if requirement_type not in VALID_JOB_REQUIREMENT_TYPES:
+            continue
+        job_requirement_type = typing.cast(JobRequirementType, requirement_type)
+        if job_requirement_type not in job_requirements:
             # do not add unspecified requirement types
             continue
         if not isinstance(requirements, list):
@@ -37,7 +42,7 @@ def get_requirements_from_job_description(
             # validate the requirement
             requirement_object = Requirement.model_validate(requirement)
             # add the requirement
-            job_requirements[requirement_type].append(requirement_object)
+            job_requirements[job_requirement_type].append(requirement_object)
     TimingClock.stop_timer(
         TaskType.REQUIREMENT_EXTRACTION, job_description_pdf_file_path
     )
