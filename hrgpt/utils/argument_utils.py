@@ -7,8 +7,8 @@ from hrgpt.utils.path_utils import get_default_model_config_json_path, get_defau
 
 class ArgumentParser(tap.Tap):
     target: typing.Literal['scoring', 'anonymization'] = 'scoring'
-    job: tuple[int, ...] = (1,)
-    candidate: tuple[int, ...] = (1,)
+    job: tuple[str, ...] = ()
+    candidate: tuple[str, ...] = ()
     config: str = get_default_model_config_json_path()
     secrets: str = get_default_environment_secrets_file_path()
 
