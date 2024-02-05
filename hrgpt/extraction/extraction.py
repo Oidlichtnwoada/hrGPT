@@ -10,7 +10,7 @@ from hrgpt.utils.type_utils import Requirement
 
 
 def get_requirements_from_job_description(
-    job_description_pdf_file_path: str
+    job_description_pdf_file_path: str,
 ) -> dict[JobRequirementType, list[Requirement, ...]]:
     # generate the extraction prompt
     job_description_text = get_pdf_document_text(job_description_pdf_file_path)
@@ -18,7 +18,9 @@ def get_requirements_from_job_description(
     # send the prompt to the model
     answer = get_answer_message(prompt)
     # extract the JSON object from the answer
-    extracted_json_object = json.loads(extract_json_object_string_from_string(answer.text))
+    extracted_json_object = json.loads(
+        extract_json_object_string_from_string(answer.text)
+    )
     # validate the structure and transform the JSON object from the answer
     job_requirements = get_empty_requirements()
     for requirement_type, requirements in extracted_json_object.items():

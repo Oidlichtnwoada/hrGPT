@@ -47,7 +47,9 @@ class LoggerFactory:
             cls.logger_dict[logger_type] = logger
 
     @classmethod
-    def get_logger(cls, logger_type: LoggerType = LoggerType.APPLICATION) -> logging.Logger:
+    def get_logger(
+        cls, logger_type: LoggerType = LoggerType.APPLICATION
+    ) -> logging.Logger:
         if logger_type not in cls.logger_dict:
             raise RuntimeError
         return cls.logger_dict[logger_type]

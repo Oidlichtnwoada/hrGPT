@@ -13,8 +13,16 @@ class Chat(abc.ABC):
     def send_prompt(self, prompt: str) -> ChatMessage:
         pass
 
-    def get_chat_message_history(self, include_context: bool = False) -> tuple[ChatMessage]:
-        return tuple([x for x in self.chat_message_history if include_context or x.author != Author.SYSTEM])
+    def get_chat_message_history(
+        self, include_context: bool = False
+    ) -> tuple[ChatMessage]:
+        return tuple(
+            [
+                x
+                for x in self.chat_message_history
+                if include_context or x.author != Author.SYSTEM
+            ]
+        )
 
     def set_context(self, context: str) -> None:
         if len(self.chat_message_history) > 0:
@@ -22,7 +30,9 @@ class Chat(abc.ABC):
         self.chat_message_history += (generate_system_chat_message(context),)
 
     def get_context(self) -> StrippedString:
-        system_chat_messages = [x for x in self.chat_message_history if x.author == Author.SYSTEM]
+        system_chat_messages = [
+            x for x in self.chat_message_history if x.author == Author.SYSTEM
+        ]
         if len(system_chat_messages) == 0:
             raise RuntimeError
         system_chat_message = system_chat_messages[0]

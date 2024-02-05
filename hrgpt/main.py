@@ -19,13 +19,13 @@ def main() -> None:
     # initialize the app config factory
     AppConfigFactory.initialize_app_config(app_config)
     # start the correct execution path
-    if args.target == 'scoring':
+    if args.target == "scoring":
         score_applicants(args.job, args.candidate)
-    elif args.target == 'anonymization':
+    elif args.target == "anonymization":
         anonymize_applicant_documents()
     else:
         raise RuntimeError
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

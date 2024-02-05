@@ -4,7 +4,13 @@ import typing
 import pydantic
 import typing_extensions
 
-from hrgpt.utils.type_utils import StrippedString, PositiveInt, NonNegativeIntWithDefault, JobRequirementType, ScoreValue
+from hrgpt.utils.type_utils import (
+    StrippedString,
+    PositiveInt,
+    NonNegativeIntWithDefault,
+    JobRequirementType,
+    ScoreValue,
+)
 
 WeightingInt = typing.Annotated[int, pydantic.Field(gt=0)]
 
@@ -70,7 +76,9 @@ class ModelConfiguration(pydantic.BaseModel):
     repetition_penalty: RepetitionPenaltyFloat
 
 
-NonEmptyJobRequirementDict = typing.Annotated[JobRequirementDict, pydantic.Field(min_length=1)]
+NonEmptyJobRequirementDict = typing.Annotated[
+    JobRequirementDict, pydantic.Field(min_length=1)
+]
 
 
 class ScoreConfiguration(pydantic.BaseModel):
@@ -125,7 +133,9 @@ class AppConfigFactory:
         cls.app_config = config
 
     @classmethod
-    def get_app_config(cls, ) -> AppConfig:
+    def get_app_config(
+        cls,
+    ) -> AppConfig:
         if cls.app_config is None:
             raise RuntimeError
         return cls.app_config

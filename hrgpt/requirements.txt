@@ -6,3 +6,5 @@ polars
 pydantic
 typed-argument-parser
 typing-extensions
+mypy
+black
