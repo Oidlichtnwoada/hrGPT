@@ -5,7 +5,7 @@ from hrgpt.utils.type_utils import RequirementType, Requirement, RequirementMatc
 
 
 def get_prompt_to_prettify_text(text: str):
-    return f'Please format the following text more nicely but do not change its contents. Group lines that belong together in a paragraph and format it to improve readability. This is the text:\n{text}'
+    return f'Please format the following text more nicely but do not change its contents. Group lines that belong together in a paragraph and format it to improve readability. This is the text:\n\n{text}'
 
 
 def get_prompt_to_extract_requirements(job_description: str, app_config: AppConfig) -> str:

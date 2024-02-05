@@ -3,8 +3,9 @@ import statistics
 
 from hrgpt.chat.chat_factory import get_answer_messages, get_answer_message
 from hrgpt.config.config import AppConfig, get_job_requirement_weightings
-from hrgpt.extraction.extraction import Requirement, get_pdf_document_text, extract_json_object_string_from_string
+from hrgpt.extraction.extraction import Requirement, extract_json_object_string_from_string
 from hrgpt.prompting.prompting import get_prompt_to_match_requirement, get_prompt_to_check_if_candidate_is_promising
+from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.type_utils import Score, PromisingResult, RequirementMatch, ScoreValue, ApplicantMatch
 
 
