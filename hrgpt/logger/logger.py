@@ -17,7 +17,7 @@ class LoggerFactory:
 
     @classmethod
     def get_application_name(cls) -> str:
-        return os.path.basename(get_repo_root_path())
+        return os.path.basename(get_repo_root_path()).lower()
 
     @classmethod
     def initialize_loggers(cls, config: LoggingConfiguration):
@@ -29,12 +29,13 @@ class LoggerFactory:
                 logger = logging.getLogger()
                 logger.setLevel(logging.getLevelName(config.root_logging_level))
             logger.handlers.clear()
+            logger.propagate = False
             stdout_handler = logging.StreamHandler(sys.stdout)
             stdout_handler.setLevel(logging.NOTSET)
             stdout_handler.addFilter(lambda record: record.levelno <= logging.INFO)
             stderr_handler = logging.StreamHandler(sys.stderr)
             stderr_handler.setLevel(logging.WARNING)
-            log_format = logging.Formatter("%(levelname)s: %(message)s")
+            log_format = logging.Formatter("[%(levelname)s/%(name)s]: %(message)s")
             stdout_handler.setFormatter(log_format)
             stderr_handler.setFormatter(log_format)
             logger.addHandler(stdout_handler)
