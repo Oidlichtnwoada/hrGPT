@@ -32,7 +32,8 @@
             "root_logging_level": "INFO",
             "application_logging_level": "INFO",
             "loggers_to_disable_propagation": [
-                "httpx"
+                "httpx",
+                "openai._base_client"
             ]
         },
         "network_config": {
