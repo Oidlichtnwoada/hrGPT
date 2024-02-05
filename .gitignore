@@ -359,8 +359,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Ignore .env files
-.env
+# Ignore .env.json files
+hrgpt/.env.json
 
 # Python
 __pycache__

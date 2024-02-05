@@ -1,49 +1,22 @@
 import collections
-import json
 import os
 import pathlib
-import typing
-
-import pydantic
-
-MINIMUM_SCORE_VALUE = 0.0
-MAXIMUM_SCORE_VALUE = 100.0
-
-
-def strip_string(string: str) -> str:
-    return string.strip()
-
-
-def check_string_if_stripped(string: str) -> str:
-    assert string == string.strip()
-    return string
-
-
-StrippedString = typing.Annotated[str, pydantic.AfterValidator(strip_string), pydantic.AfterValidator(check_string_if_stripped)]
-
-ScoreValue = typing.Annotated[float, pydantic.Field(ge=MINIMUM_SCORE_VALUE, le=MAXIMUM_SCORE_VALUE)]
-
-
-def dumps(x: object, separators: tuple[str, str] = (', ', ': '), indent: int = 4) -> str:
-    class ExtendedEncoder(json.JSONEncoder):
-        def default(self, obj):
-            if isinstance(obj, pydantic.BaseModel):
-                return obj.model_dump(mode='json')
-            return json.JSONEncoder.default(self, obj)
-
-    return json.dumps(x, ensure_ascii=False, indent=indent, separators=separators, cls=ExtendedEncoder)
 
 
 def get_repo_root_path() -> str:
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-
-
-def get_environment_file_path() -> str:
-    return os.path.join(get_repo_root_path(), '.env')
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
 
 
 def get_module_root_path() -> str:
-    return os.path.join(get_repo_root_path(), 'hrgpt')
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+
+
+def get_default_model_config_json_path() -> str:
+    return os.path.join(get_module_root_path(), 'default_config.json')
+
+
+def get_default_environment_secrets_file_path() -> str:
+    return os.path.join(get_module_root_path(), '.env.json')
 
 
 def get_applicant_document_paths(filter_job_indices: tuple[int, ...] = (0,),

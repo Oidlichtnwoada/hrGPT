@@ -1,4 +1,5 @@
 import concurrent.futures
+import functools
 import os
 import random
 import shutil
@@ -8,7 +9,8 @@ import asposepdfcloud
 import fitz
 import pandas
 
-from hrgpt.utils import get_applicant_document_paths, get_module_root_path
+from hrgpt.config.config import AppConfig
+from hrgpt.utils.path_utils import get_module_root_path, get_applicant_document_paths
 
 
 def generate_random_names(amount: int = 1,
@@ -50,7 +52,7 @@ def clean_pdf_document(pdf_document_path: str,
                        clean: bool = True,
                        compress: bool = True,
                        linearize: bool = True,
-                       prettify: bool = True):
+                       prettify: bool = True) -> None:
     kwargs = {}
     if clean:
         kwargs.update({'garbage': 4, 'clean': True})
@@ -79,11 +81,12 @@ def remove_links(pdf_document_path: str) -> None:
 
 
 def anonymize_applicant_document(applicant_document_path: str,
+                                 app_config: AppConfig,
                                  replace_text: bool = True) -> None:
     # create the api
     pdf_api_client = asposepdfcloud.api_client.ApiClient(
-        app_key=os.getenv('ASPOSE_APP_KEY'),
-        app_sid=os.getenv('ASPOSE_APP_SID'))
+        app_key=app_config.secrets.aspose_app_key,
+        app_sid=app_config.secrets.aspose_app_sid)
     pdf_api = asposepdfcloud.apis.pdf_api.PdfApi(pdf_api_client)
 
     # clean the document at the start
@@ -104,10 +107,11 @@ def anonymize_applicant_document(applicant_document_path: str,
     clean_pdf_document(applicant_document_path)
 
 
-def anonymize_applicant_documents() -> None:
+def anonymize_applicant_documents(app_config: AppConfig) -> None:
     paths = []
     for applicant_document_paths in get_applicant_document_paths().values():
         for applicant_document_path in applicant_document_paths:
             paths.append(applicant_document_path)
+    anonymize_applicant_document_with_config = functools.partial(anonymize_applicant_document, app_config=app_config)
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        executor.map(anonymize_applicant_document, paths)
+        executor.map(anonymize_applicant_document_with_config, paths)

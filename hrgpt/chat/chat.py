@@ -1,14 +1,13 @@
 import abc
 import datetime
 import enum
-import os
 import random
+import typing
 
 import pydantic
 
-from hrgpt.utils import StrippedString
-
-DEFAULT_RETRY_LIMIT = 1_000_000
+from hrgpt.config.config import Provider, TemperatureFloat, TopProbabilityFloat, AppConfig, get_model_for_model_enum
+from hrgpt.utils.type_utils import StrippedString, PositiveInt
 
 
 class Author(enum.StrEnum):
@@ -24,31 +23,16 @@ class ChatMessage(pydantic.BaseModel):
     generation_timedelta: datetime.timedelta
 
 
-class Provider(enum.StrEnum):
-    OPENAI = enum.auto()
-    REPLICATE = enum.auto()
-
-
-class Model(pydantic.BaseModel):
-    provider: Provider
-    name: StrippedString
-
-
-class ModelOption(enum.Enum):
-    GPT_4_TURBO = Model(provider=Provider.OPENAI, name='gpt-4-0125-preview')
-    GPT_35_TURBO = Model(provider=Provider.OPENAI, name='gpt-3.5-turbo-0125')
-    LLAMA_2_70B_CHAT = Model(provider=Provider.REPLICATE, name='meta/llama-2-70b-chat')
-    LLAMA_2_13B_CHAT = Model(provider=Provider.REPLICATE, name='meta/llama-2-13b-chat')
-    LLAMA_2_7B_CHAT = Model(provider=Provider.REPLICATE, name='meta/llama-2-7b-chat')
-
-
-def get_api_key_for_provider(provider: Provider) -> str:
+def get_api_key_for_provider(app_config: AppConfig) -> str:
+    api_key: typing.Optional[str] = None
+    provider = get_model_for_model_enum(app_config.llm_config.model).provider
     if provider == Provider.OPENAI:
-        return os.getenv('OPENAI_API_KEY')
+        api_key = app_config.secrets.openai_api_key
     elif provider == Provider.REPLICATE:
-        return os.getenv('REPLICATE_API_KEY')
-    else:
-        raise ValueError
+        api_key = app_config.secrets.replicate_api_key
+    if api_key is None:
+        raise RuntimeError
+    return api_key
 
 
 def get_random_seed() -> int:
@@ -66,64 +50,25 @@ def get_seed(deterministic: bool) -> int:
         return get_random_seed()
 
 
-def get_temperature(deterministic: bool, temperature: float) -> float:
+def get_temperature(deterministic: bool, temperature: TemperatureFloat) -> TemperatureFloat:
     if deterministic:
         return 0
     else:
         return temperature
 
 
-def get_top_tokens(deterministic: bool, top_tokens: int) -> int:
+def get_top_tokens(deterministic: bool, top_tokens: PositiveInt) -> PositiveInt:
     if deterministic:
         return 1
     else:
         return top_tokens
 
 
-def get_top_probability(deterministic: bool, top_probability: float) -> float:
+def get_top_probability(deterministic: bool, top_probability: TopProbabilityFloat) -> TopProbabilityFloat:
     if deterministic:
         return 0
     else:
         return top_probability
-
-
-class ModelConfig(pydantic.BaseModel):
-    model: Model
-    presence_penalty: int
-    logit_bias: dict[int, float]
-    frequency_penalty: int
-    choices: int
-    system_context: str
-    debug: bool
-    min_tokens: int
-    max_tokens: int
-    top_tokens: int
-    top_probability: float
-    deterministic: bool
-    stop_sequences: tuple[str, ...]
-    temperature: float
-    response_format: dict[str, str]
-    repetition_penalty: float
-
-
-DEFAULT_MODEL_CONFIG = ModelConfig(
-    model=ModelOption.GPT_35_TURBO.value,
-    debug=False,
-    choices=1,
-    presence_penalty=0,
-    frequency_penalty=0,
-    repetition_penalty=1,
-    logit_bias={},
-    system_context='You are a helpful assistant.',
-    min_tokens=-1,
-    max_tokens=4096,
-    stop_sequences=(),
-    response_format={'type': 'text'},
-    top_tokens=1,
-    top_probability=0,
-    deterministic=True,
-    temperature=0,
-)
 
 
 def generate_user_chat_message(prompt: str, datetime_value: datetime.datetime) -> ChatMessage:
@@ -172,7 +117,7 @@ class Chat(abc.ABC):
             return
         self.chat_message_history += (generate_system_chat_message(context),)
 
-    def get_context(self) -> str:
+    def get_context(self) -> StrippedString:
         system_chat_messages = [x for x in self.chat_message_history if x.author == Author.SYSTEM]
         if len(system_chat_messages) == 0:
             raise RuntimeError

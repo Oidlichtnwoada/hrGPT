@@ -1,38 +1,34 @@
 import collections
 import concurrent.futures
 import functools
-import logging
 import os
 import pathlib
-import typing
 
 import polars as pl
 
-from hrgpt.extraction import get_requirements_from_job_description, DEFAULT_REQUIREMENT_TYPE_DEFINITIONS
-from hrgpt.matcher import match_job_requirements_to_candidate_cv, DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS, ApplicantMatch
-from hrgpt.utils import get_applicant_document_paths, dumps
+from hrgpt.config.config import AppConfig
+from hrgpt.extraction.extraction import get_requirements_from_job_description
+from hrgpt.logger.logger import LoggerFactory
+from hrgpt.matching.matching import match_job_requirements_to_candidate_cv, ApplicantMatch
+from hrgpt.utils.path_utils import get_applicant_document_paths
+from hrgpt.utils.serialization_utils import dumps
 
 
-def score_applicants_for_job_path(job_path: str, candidate_paths: list[str],
-                                  requirement_type_definitions: typing.Optional[dict[str, int]] = None,
-                                  requirement_type_weightings: typing.Optional[dict[str, int]] = None) -> tuple[ApplicantMatch]:
-    if requirement_type_definitions is None:
-        requirement_type_definitions = DEFAULT_REQUIREMENT_TYPE_DEFINITIONS
-    if requirement_type_weightings is None:
-        requirement_type_weightings = DEFAULT_REQUIREMENT_TYPE_WEIGHTINGS
-    job_requirements = get_requirements_from_job_description(job_path, requirement_type_definitions)
+def score_applicants_for_job_path(job_path: str,
+                                  candidate_paths: list[str],
+                                  app_config: AppConfig) -> tuple[ApplicantMatch]:
+    job_requirements = get_requirements_from_job_description(job_path, app_config)
     matching_function = functools.partial(match_job_requirements_to_candidate_cv,
                                           job_requirements,
-                                          requirement_type_definitions,
-                                          requirement_type_weightings, )
+                                          app_config=app_config)
     with concurrent.futures.ThreadPoolExecutor() as executor:
         return tuple(executor.map(matching_function, candidate_paths))
 
 
-def score_applicants(job_ids: tuple[int, ...], candidate_ids: tuple[int, ...]) -> dict[str, dict[str, ApplicantMatch]]:
+def score_applicants(job_ids: tuple[int, ...], candidate_ids: tuple[int, ...], app_config: AppConfig, ) -> dict[str, dict[str, ApplicantMatch]]:
     arguments = list(get_applicant_document_paths(job_ids, candidate_ids).items())
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        mapped_arguments = tuple(executor.map(lambda x: score_applicants_for_job_path(*x), arguments))
+        mapped_arguments = tuple(executor.map(lambda x: score_applicants_for_job_path(*x, app_config), arguments))
     result_dict = collections.defaultdict(dict)
     for arguments, match_results in zip(arguments, mapped_arguments):
         job_path = arguments[0]
@@ -66,4 +62,4 @@ def create_output_files(score_result: dict[str, dict[str, ApplicantMatch]], log_
         # save the result table in the result directory
         job_df.write_csv(os.path.join(result_directory, 'job_match_result.csv'))
         if log_result:
-            logging.info(f'\n\nMatching results for the job \'{job_path}\':\n{job_df}\n')
+            LoggerFactory.get_logger().info(f'\n\nMatching results for the job \'{job_path}\':\n{job_df}\n')
