@@ -48,8 +48,8 @@ PresencePenaltyFloat = typing.Annotated[float, pydantic.Field(ge=-2.0, le=2.0)]
 TopProbabilityFloat = typing.Annotated[float, pydantic.Field(ge=0.0, le=1.0)]
 TemperatureFloat = typing.Annotated[float, pydantic.Field(ge=0.0, le=2.0)]
 RepetitionPenaltyFloat = typing.Annotated[float, pydantic.Field(ge=0.0, le=2.0)]
-TokenId: typing.TypeAlias = int
-BiasValueFloat = typing.Annotated[float, pydantic.Field(ge=-100.0, le=100.0)]
+TokenId: typing.TypeAlias = str
+BiasValueInt = typing.Annotated[int, pydantic.Field(ge=-100, le=100)]
 MaxTokensInt = typing.Annotated[PositiveInt, pydantic.Field(le=4096)]
 
 
@@ -60,7 +60,7 @@ class ResponseFormatDict(typing_extensions.TypedDict):
 class ModelConfiguration(pydantic.BaseModel):
     model: ModelEnum
     presence_penalty: PresencePenaltyFloat
-    logit_bias: dict[TokenId, BiasValueFloat]
+    logit_bias: dict[TokenId, BiasValueInt]
     frequency_penalty: FrequencyPenaltyFloat
     choices: PositiveInt
     system_context: StrippedString

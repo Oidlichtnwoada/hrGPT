@@ -79,7 +79,7 @@ class OpenaiChat(Chat):
             temperature=get_temperature(
                 config.llm_config.deterministic, config.llm_config.temperature
             ),
-            stop=config.llm_config.stop_sequences,
+            stop=list(config.llm_config.stop_sequences),
             seed=get_seed(config.llm_config.deterministic),
             top_p=get_top_probability(
                 config.llm_config.deterministic, config.llm_config.top_probability
