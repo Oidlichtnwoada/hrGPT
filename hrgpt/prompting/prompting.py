@@ -1,5 +1,5 @@
-from hrgpt.config.config import JobRequirementType, AppConfigFactory
-from hrgpt.utils.config_utils import get_job_requirement_definitions
+from hrgpt.config.config import JobRequirementType
+from hrgpt.utils.config_utils import get_job_requirement_definitions, AppConfigFactory
 from hrgpt.utils.sample_utils import (
     get_empty_requirements,
     get_sample_requirement,

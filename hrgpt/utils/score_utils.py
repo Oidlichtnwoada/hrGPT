@@ -1,7 +1,7 @@
 import statistics
 
-from hrgpt.config.config import JobRequirementType, AppConfigFactory
-from hrgpt.utils.config_utils import get_job_requirement_weightings
+from hrgpt.config.config import JobRequirementType
+from hrgpt.utils.config_utils import get_job_requirement_weightings, AppConfigFactory
 from hrgpt.utils.type_utils import RequirementMatch, TotalScoreValue
 
 
@@ -18,7 +18,7 @@ def compute_total_score(
         [
             value
             for key, value in requirement_type_weightings.items()
-            if len(requirement_matches[key]) > 0
+            if key in requirement_matches and len(requirement_matches[key]) > 0
         ]
     )
     if present_requirement_types_maximum == 0:

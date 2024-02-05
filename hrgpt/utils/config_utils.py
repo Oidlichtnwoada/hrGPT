@@ -12,6 +12,11 @@ from hrgpt.config.config import (
     AppConfig,
     JobRequirementWeightings,
 )
+from hrgpt.utils.path_utils import (
+    get_default_model_config_json_path,
+    get_default_environment_secrets_file_path,
+)
+from hrgpt.utils.testing_utils import is_test_running
 from hrgpt.utils.type_utils import PositiveInt
 
 
@@ -88,7 +93,8 @@ def get_model_for_model_enum(value: ModelEnum) -> Model:
 
 
 def get_app_config_from_json_file(
-    config_json_file_path: str, secrets_json_file_path: str
+    config_json_file_path: str = get_default_model_config_json_path(),
+    secrets_json_file_path: str = get_default_environment_secrets_file_path(),
 ) -> AppConfig:
     with open(secrets_json_file_path) as file:
         secrets_dict = {"secrets": json.loads(file.read())}
@@ -96,3 +102,21 @@ def get_app_config_from_json_file(
         config_dict = json.loads(file.read())
     app_config = config_dict | secrets_dict
     return AppConfig.model_validate(app_config)
+
+
+class AppConfigFactory:
+    app_config: AppConfig | None = None
+
+    @classmethod
+    def initialize_app_config(cls, config: AppConfig):
+        cls.app_config = config
+
+    @classmethod
+    def get_app_config(
+        cls,
+    ) -> AppConfig:
+        if is_test_running():
+            cls.initialize_app_config(get_app_config_from_json_file())
+        if cls.app_config is None:
+            raise RuntimeError
+        return cls.app_config

@@ -1,6 +1,6 @@
 import collections
 
-from hrgpt.config.config import JobRequirementType, AppConfigFactory
+from hrgpt.config.config import JobRequirementType
 from hrgpt.extraction.extraction import (
     Requirement,
     extract_json_object_string_from_string,
@@ -10,6 +10,7 @@ from hrgpt.prompting.prompting import (
     get_prompt_to_check_if_candidate_is_promising,
 )
 from hrgpt.utils.chat_utils import get_answer_messages, get_answer_message
+from hrgpt.utils.config_utils import AppConfigFactory
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.score_utils import compute_total_score
 from hrgpt.utils.type_utils import (

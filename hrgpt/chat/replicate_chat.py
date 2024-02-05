@@ -4,13 +4,14 @@ import pydantic
 import replicate
 
 from hrgpt.chat.chat import Chat
-from hrgpt.config.config import Provider, AppConfigFactory
+from hrgpt.config.config import Provider
 from hrgpt.utils.config_utils import (
     get_top_tokens,
     get_top_probability,
     get_temperature,
     get_seed,
     get_model_for_model_enum,
+    AppConfigFactory,
 )
 from hrgpt.utils.message_utils import (
     generate_user_chat_message,

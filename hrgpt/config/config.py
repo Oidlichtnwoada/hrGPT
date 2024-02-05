@@ -123,19 +123,3 @@ class AppConfig(pydantic.BaseModel):
     llm_config: ModelConfiguration
     generic_config: GenericConfiguration
     secrets: EnvironmentSecrets
-
-
-class AppConfigFactory:
-    app_config: AppConfig | None = None
-
-    @classmethod
-    def initialize_app_config(cls, config: AppConfig):
-        cls.app_config = config
-
-    @classmethod
-    def get_app_config(
-        cls,
-    ) -> AppConfig:
-        if cls.app_config is None:
-            raise RuntimeError
-        return cls.app_config

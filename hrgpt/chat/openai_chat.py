@@ -5,12 +5,13 @@ import openai
 import openai.types.chat
 
 from hrgpt.chat.chat import Chat
-from hrgpt.config.config import Provider, AppConfigFactory
+from hrgpt.config.config import Provider
 from hrgpt.utils.config_utils import (
     get_temperature,
     get_seed,
     get_top_probability,
     get_model_for_model_enum,
+    AppConfigFactory,
 )
 from hrgpt.utils.message_utils import (
     generate_user_chat_message,

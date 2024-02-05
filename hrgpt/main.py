@@ -1,9 +1,8 @@
 from hrgpt.anonymization.anonymization import anonymize_applicant_documents
-from hrgpt.config.config import AppConfigFactory
 from hrgpt.logger.logger import LoggerFactory
 from hrgpt.scoring.scoring import score_applicants
 from hrgpt.utils.argument_utils import get_args
-from hrgpt.utils.config_utils import get_app_config_from_json_file
+from hrgpt.utils.config_utils import get_app_config_from_json_file, AppConfigFactory
 from hrgpt.utils.polars_utils import configure_polars
 
 

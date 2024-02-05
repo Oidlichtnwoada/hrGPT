@@ -1,7 +1,7 @@
 import typing
 
-from hrgpt.config.config import Provider, AppConfigFactory
-from hrgpt.utils.config_utils import get_model_for_model_enum
+from hrgpt.config.config import Provider
+from hrgpt.utils.config_utils import get_model_for_model_enum, AppConfigFactory
 
 
 def get_api_key_for_provider() -> str:
