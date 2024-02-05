@@ -53,7 +53,7 @@ BiasValueInt = typing.Annotated[int, pydantic.Field(ge=-100, le=100)]
 MaxTokensInt = typing.Annotated[PositiveInt, pydantic.Field(le=4096)]
 
 
-class ResponseFormatDict(typing_extensions.TypedDict):
+class ResponseFormatDict(typing_extensions.TypedDict, total=False):
     type: typing.Literal["text", "json_object"]
 
 

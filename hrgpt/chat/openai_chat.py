@@ -1,9 +1,8 @@
 import datetime
-import enum
-import functools
+import typing
 
 import openai
-import pydantic
+import typing_extensions
 
 from hrgpt.chat.chat import Chat
 from hrgpt.config.config import Provider, AppConfigFactory
@@ -18,32 +17,36 @@ from hrgpt.utils.message_utils import (
     generate_model_chat_message,
 )
 from hrgpt.utils.secret_utils import get_api_key_for_provider
-from hrgpt.utils.type_utils import StrippedString, ChatMessage, Author
+from hrgpt.utils.type_utils import ChatMessage, Author
+
+OpenaiRoleLiteral = typing.Literal["user", "assistant", "system"]
 
 
-class OpenaiRole(enum.StrEnum):
-    USER = enum.auto()
-    ASSISTANT = enum.auto()
-    SYSTEM = enum.auto()
+class OpenaiChatMessageDict(typing_extensions.TypedDict):
+    content: str
+    role: OpenaiRoleLiteral
 
 
-class OpenaiChatMessage(pydantic.BaseModel):
-    role: OpenaiRole
-    content: StrippedString
-
-
-def transform_chat_message_to_openai_chat_message(
-    chat_message: ChatMessage,
-) -> OpenaiChatMessage:
-    if chat_message.author == Author.USER:
-        role = OpenaiRole.USER
-    elif chat_message.author == Author.SYSTEM:
-        role = OpenaiRole.SYSTEM
-    elif chat_message.author == Author.MODEL:
-        role = OpenaiRole.ASSISTANT
-    else:
-        raise ValueError
-    return OpenaiChatMessage(role=role, content=chat_message.text)
+def transform_chat_message_history_to_openai_chat_messages(
+    chat_messages: tuple[ChatMessage, ...],
+) -> list[OpenaiChatMessageDict]:
+    dict_list: list[OpenaiChatMessageDict] = []
+    role: OpenaiRoleLiteral
+    for chat_message in chat_messages:
+        if chat_message.author == Author.USER:
+            role = "user"
+        elif chat_message.author == Author.SYSTEM:
+            role = "system"
+        elif chat_message.author == Author.MODEL:
+            role = "assistant"
+        else:
+            raise ValueError
+        openai_chat_message_dict: OpenaiChatMessageDict = {
+            "content": chat_message.text,
+            "role": role,
+        }
+        dict_list.append(openai_chat_message_dict)
+    return dict_list
 
 
 class OpenaiChat(Chat):
@@ -67,14 +70,8 @@ class OpenaiChat(Chat):
         self.chat_message_history += (user_chat_message,)
         model_response = self.openai.chat.completions.create(
             model=get_model_for_model_enum(config.llm_config.model).name,
-            messages=list(
-                map(
-                    functools.partial(pydantic.BaseModel.model_dump, mode="json"),
-                    map(
-                        transform_chat_message_to_openai_chat_message,
-                        self.chat_message_history,
-                    ),
-                )
+            messages=transform_chat_message_history_to_openai_chat_messages(
+                self.chat_message_history
             ),
             temperature=get_temperature(
                 config.llm_config.deterministic, config.llm_config.temperature
