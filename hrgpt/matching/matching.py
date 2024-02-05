@@ -40,7 +40,7 @@ def match_job_requirements_to_candidate_cv(
     prompt_answers = zip(
         [x[0] for x in prompts],
         [x[1] for x in prompts],
-        get_answer_messages([x[2] for x in prompts]),
+        get_answer_messages(tuple([x[2] for x in prompts])),
     )
     for requirement_type, requirement, answer in prompt_answers:
         requirement_score = Score.model_validate_json(

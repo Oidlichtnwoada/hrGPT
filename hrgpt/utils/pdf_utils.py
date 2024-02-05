@@ -10,7 +10,7 @@ from hrgpt.utils.path_utils import get_random_file_name
 
 def get_pdf_document_text(
     pdf_document_path: str,
-    replacements: tuple[tuple[str, str]] = ((chr(160), " "),),
+    replacements: tuple[tuple[str, str], ...] = ((chr(160), " "),),
     prettify: bool = True,
 ) -> str:
     with fitz.open(pdf_document_path) as pdf_document:

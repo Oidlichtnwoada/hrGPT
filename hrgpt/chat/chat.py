@@ -6,7 +6,7 @@ from hrgpt.utils.type_utils import StrippedString, ChatMessage, Author
 
 class Chat(abc.ABC):
     def __init__(self, context: str) -> None:
-        self.chat_message_history: tuple[ChatMessage] = ()
+        self.chat_message_history: tuple[ChatMessage, ...] = ()
         self.set_context(context)
 
     @abc.abstractmethod
@@ -15,7 +15,7 @@ class Chat(abc.ABC):
 
     def get_chat_message_history(
         self, include_context: bool = False
-    ) -> tuple[ChatMessage]:
+    ) -> tuple[ChatMessage, ...]:
         return tuple(
             [
                 x

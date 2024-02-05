@@ -13,7 +13,7 @@ from hrgpt.utils.reporting_utils import create_output_files
 
 def score_applicants_for_job_path(
     job_path: str, candidate_paths: list[str]
-) -> tuple[ApplicantMatch]:
+) -> tuple[ApplicantMatch, ...]:
     job_requirements = get_requirements_from_job_description(job_path)
     matching_function = functools.partial(
         match_job_requirements_to_candidate_cv, job_requirements
