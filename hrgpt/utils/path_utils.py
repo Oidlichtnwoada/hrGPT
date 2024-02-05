@@ -1,6 +1,8 @@
 import collections
 import os
 import pathlib
+import random
+import string
 
 
 def get_repo_root_path() -> str:
@@ -33,3 +35,7 @@ def get_applicant_document_paths(filter_job_indices: tuple[int, ...] = (0,),
         job_document_path = os.path.abspath(os.path.join(*applicant_document_path.parts[:-2], 'job_description.pdf'))
         result_dict[job_document_path].append(os.path.abspath(applicant_document_path))
     return result_dict
+
+
+def get_random_file_name(length: int = 64) -> str:
+    return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))

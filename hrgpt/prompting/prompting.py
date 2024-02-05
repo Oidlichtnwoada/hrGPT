@@ -1,4 +1,5 @@
-from hrgpt.config.config import AppConfig, get_job_requirement_definitions, JobRequirementType
+from hrgpt.config.config import AppConfig, JobRequirementType
+from hrgpt.utils.config_utils import get_job_requirement_definitions
 from hrgpt.utils.sample_utils import get_empty_requirements, get_sample_requirement, get_empty_score, get_empty_promising_result
 from hrgpt.utils.serialization_utils import dumps
 from hrgpt.utils.type_utils import RequirementType, Requirement, RequirementMatch, PromisingResult

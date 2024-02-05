@@ -1,5 +1,4 @@
 import enum
-import json
 import typing
 
 import pydantic
@@ -25,20 +24,6 @@ JobRequirementDefinitions = typing.Dict[JobRequirementType, StrippedString]
 JobRequirementWeightings = typing.Dict[JobRequirementType, WeightingFloat]
 
 
-def get_job_requirement_definitions(job_requirement_dict: JobRequirementDict) -> JobRequirementDefinitions:
-    job_requirement_definitions = {}
-    for key, value in job_requirement_dict.items():
-        job_requirement_definitions[key] = value.definition
-    return job_requirement_definitions
-
-
-def get_job_requirement_weightings(job_requirement_dict: JobRequirementDict) -> JobRequirementDefinitions:
-    job_requirement_weightings = {}
-    for key, value in job_requirement_dict.items():
-        job_requirement_weightings[key] = value.weighting
-    return job_requirement_weightings
-
-
 class Provider(enum.StrEnum):
     OPENAI = enum.auto()
     REPLICATE = enum.auto()
@@ -55,20 +40,6 @@ class ModelEnum(enum.StrEnum):
     LLAMA_2_70B_CHAT = enum.auto()
     LLAMA_2_13B_CHAT = enum.auto()
     LLAMA_2_7B_CHAT = enum.auto()
-
-
-def get_model_for_model_enum(value: ModelEnum) -> Model:
-    match value:
-        case ModelEnum.GPT_4_TURBO:
-            return Model(provider=Provider.OPENAI, name='gpt-4-0125-preview')
-        case ModelEnum.GPT_35_TURBO:
-            return Model(provider=Provider.OPENAI, name='gpt-3.5-turbo-0125')
-        case ModelEnum.LLAMA_2_70B_CHAT:
-            return Model(provider=Provider.REPLICATE, name='meta/llama-2-70b-chat')
-        case ModelEnum.LLAMA_2_13B_CHAT:
-            return Model(provider=Provider.REPLICATE, name='meta/llama-2-13b-chat')
-        case ModelEnum.LLAMA_2_7B_CHAT:
-            return Model(provider=Provider.REPLICATE, name='meta/llama-2-7b-chat')
 
 
 FrequencyPenaltyFloat = typing.Annotated[float, pydantic.Field(ge=-2.0, le=2.0)]
@@ -148,12 +119,3 @@ class AppConfig(pydantic.BaseModel):
     llm_config: ModelConfiguration
     generic_config: GenericConfiguration
     secrets: EnvironmentSecrets
-
-
-def get_app_config_from_json_file(config_json_file_path: str, secrets_json_file_path: str) -> AppConfig:
-    with open(secrets_json_file_path) as file:
-        secrets_dict = {'secrets': json.loads(file.read())}
-    with open(config_json_file_path) as file:
-        config_dict = json.loads(file.read())
-    app_config = config_dict | secrets_dict
-    return AppConfig.model_validate(app_config)

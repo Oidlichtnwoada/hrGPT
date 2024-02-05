@@ -5,10 +5,12 @@ import functools
 import openai
 import pydantic
 
-from hrgpt.chat.chat import Chat, ChatMessage, get_api_key_for_provider, \
-    Author, Provider, generate_user_chat_message, generate_model_chat_message, get_seed, get_temperature, get_top_probability
-from hrgpt.config.config import AppConfig, get_model_for_model_enum
-from hrgpt.utils.type_utils import StrippedString
+from hrgpt.chat.chat import Chat
+from hrgpt.config.config import AppConfig, Provider
+from hrgpt.utils.config_utils import get_temperature, get_seed, get_top_probability, get_model_for_model_enum
+from hrgpt.utils.message_utils import generate_user_chat_message, generate_model_chat_message
+from hrgpt.utils.secret_utils import get_api_key_for_provider
+from hrgpt.utils.type_utils import StrippedString, ChatMessage, Author
 
 
 class OpenaiRole(enum.StrEnum):

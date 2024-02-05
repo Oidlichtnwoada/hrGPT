@@ -1,10 +1,11 @@
 import concurrent.futures
 import functools
 
-from hrgpt.chat.chat import Chat, Provider, ChatMessage
+from hrgpt.chat.chat import Chat, ChatMessage
 from hrgpt.chat.openai_chat import OpenaiChat
 from hrgpt.chat.replicate_chat import ReplicateChat
-from hrgpt.config.config import AppConfig, get_model_for_model_enum
+from hrgpt.config.config import AppConfig, Provider
+from hrgpt.utils.config_utils import get_model_for_model_enum
 
 
 def get_chat(config: AppConfig) -> Chat:

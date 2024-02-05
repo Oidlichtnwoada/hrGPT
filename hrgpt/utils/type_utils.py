@@ -1,3 +1,4 @@
+import datetime
 import enum
 import typing
 
@@ -47,3 +48,16 @@ class ApplicantMatch(pydantic.BaseModel):
     total_score: ScoreValue
     promising_result: PromisingResult
     requirement_matches: dict[str, list[RequirementMatch]]
+
+
+class Author(enum.StrEnum):
+    USER = enum.auto()
+    MODEL = enum.auto()
+    SYSTEM = enum.auto()
+
+
+class ChatMessage(pydantic.BaseModel):
+    text: StrippedString
+    author: Author
+    creation_datetime: datetime.datetime
+    generation_timedelta: datetime.timedelta

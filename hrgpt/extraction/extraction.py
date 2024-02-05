@@ -1,8 +1,8 @@
 import json
 
-from hrgpt.chat.chat_factory import get_answer_message
 from hrgpt.config.config import AppConfig
 from hrgpt.prompting.prompting import get_prompt_to_extract_requirements
+from hrgpt.utils.chat_utils import get_answer_message
 from hrgpt.utils.extraction_utils import extract_json_object_string_from_string
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.sample_utils import get_empty_requirements
