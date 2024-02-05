@@ -21,6 +21,9 @@ class LoggerFactory:
 
     @classmethod
     def initialize_loggers(cls, config: LoggingConfiguration):
+        for logger_identifier in config.loggers_to_disable_propagation:
+            logger = logging.getLogger(logger_identifier)
+            logger.propagate = False
         for logger_type in LoggerType:
             if logger_type == LoggerType.APPLICATION:
                 logger = logging.getLogger(cls.get_application_name())
@@ -40,6 +43,7 @@ class LoggerFactory:
             stderr_handler.setFormatter(log_format)
             logger.addHandler(stdout_handler)
             logger.addHandler(stderr_handler)
+            logger.addFilter(lambda record: record.name != logger.name)
             cls.logger_dict[logger_type] = logger
 
     @classmethod

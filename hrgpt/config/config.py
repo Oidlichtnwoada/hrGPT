@@ -89,6 +89,7 @@ LogLevel = typing.Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "NOTS
 class LoggingConfiguration(pydantic.BaseModel):
     root_logging_level: LogLevel
     application_logging_level: LogLevel
+    loggers_to_disable_propagation: tuple[str, ...]
 
 
 class NetworkConfiguration(pydantic.BaseModel):

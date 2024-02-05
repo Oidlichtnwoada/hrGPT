@@ -30,7 +30,8 @@
         },
         "logging_config": {
             "root_logging_level": "INFO",
-            "application_logging_level": "DEBUG"
+            "application_logging_level": "DEBUG",
+            "loggers_to_disable_propagation": ["httpx"]
         },
         "network_config": {
             "retry_amount": 1000000
