@@ -1,9 +1,11 @@
 import datetime
 
+from hrgpt.logger.logger import LoggerFactory
 from hrgpt.utils.type_utils import ChatMessage, Author
 
 
 def generate_user_chat_message(prompt: str, datetime_value: datetime.datetime) -> ChatMessage:
+    LoggerFactory.get_logger().debug(f'The following user prompt was used to generate a user chat message:\n{prompt}')
     return ChatMessage(
         text=prompt.strip(),
         author=Author.USER,

@@ -30,7 +30,7 @@
         },
         "logging_config": {
             "root_logging_level": "INFO",
-            "application_logging_level": "INFO"
+            "application_logging_level": "DEBUG"
         },
         "network_config": {
             "retry_amount": 1000000
