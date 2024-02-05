@@ -14,6 +14,7 @@ from hrgpt.utils.config_utils import AppConfigFactory
 from hrgpt.utils.math_utils import clamp_int
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.score_utils import compute_total_score
+from hrgpt.utils.timing_utils import TimingClock, TaskType
 from hrgpt.utils.type_utils import (
     Score,
     PromisingResult,
@@ -26,6 +27,7 @@ def match_job_requirements_to_candidate_cv(
     job_requirements: dict[JobRequirementType, list[Requirement]],
     candidate_cv_file_path: str,
 ) -> ApplicantMatch:
+    TimingClock.start_timer(TaskType.APPLICANT_MATCHING, candidate_cv_file_path)
     cv_text = get_pdf_document_text(candidate_cv_file_path)
     requirement_matches = collections.defaultdict(list)
     app_config = AppConfigFactory.get_app_config()
@@ -68,4 +70,5 @@ def match_job_requirements_to_candidate_cv(
         promising_result=promising_result,
         requirement_matches=requirement_matches,
     )
+    TimingClock.stop_timer(TaskType.APPLICANT_MATCHING, candidate_cv_file_path)
     return applicant_match

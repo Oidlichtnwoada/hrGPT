@@ -6,12 +6,16 @@ from hrgpt.utils.chat_utils import get_answer_message
 from hrgpt.utils.extraction_utils import extract_json_object_string_from_string
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.sample_utils import get_empty_requirements
+from hrgpt.utils.timing_utils import TimingClock, TaskType
 from hrgpt.utils.type_utils import Requirement
 
 
 def get_requirements_from_job_description(
     job_description_pdf_file_path: str,
 ) -> dict[JobRequirementType, list[Requirement]]:
+    TimingClock.start_timer(
+        TaskType.REQUIREMENT_EXTRACTION, job_description_pdf_file_path
+    )
     # generate the extraction prompt
     job_description_text = get_pdf_document_text(job_description_pdf_file_path)
     prompt = get_prompt_to_extract_requirements(job_description_text)
@@ -38,4 +42,7 @@ def get_requirements_from_job_description(
             requirement_object = Requirement.model_validate(requirement)
             # add the requirement
             job_requirements[requirement_type].append(requirement_object)
+    TimingClock.stop_timer(
+        TaskType.REQUIREMENT_EXTRACTION, job_description_pdf_file_path
+    )
     return job_requirements
