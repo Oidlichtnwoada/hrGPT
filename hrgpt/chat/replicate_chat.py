@@ -18,7 +18,7 @@ class ReplicateChat(Chat):
     def __init__(self, config: AppConfig) -> None:
         if get_model_for_model_enum(config.llm_config.model).provider != Provider.REPLICATE:
             raise ValueError
-        super().__init__(config.system_context)
+        super().__init__(config.llm_config.system_context)
         self.config = config
         self.replicate = replicate.Client(
             api_token=get_api_key_for_provider(self.config),

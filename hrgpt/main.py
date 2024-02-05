@@ -15,7 +15,6 @@ def main() -> None:
     configure_polars(app_config.generic_config.polars_config)
     # configure loggers
     LoggerFactory.initialize_loggers(app_config.generic_config.logging_config)
-    LoggerFactory.get_logger().info('gg')
     # start the correct execution path
     if args.target == 'scoring':
         score_applicants(args.job, args.candidate, app_config)
