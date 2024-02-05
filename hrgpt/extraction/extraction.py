@@ -1,9 +1,7 @@
-import json
-
 from hrgpt.config.config import JobRequirementType
 from hrgpt.prompting.prompting import get_prompt_to_extract_requirements
 from hrgpt.utils.chat_utils import get_answer_message
-from hrgpt.utils.extraction_utils import extract_json_object_string_from_string
+from hrgpt.utils.extraction_utils import extract_json_object_from_string
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.sample_utils import get_empty_requirements
 from hrgpt.utils.timing_utils import TimingClock, TaskType
@@ -22,9 +20,7 @@ def get_requirements_from_job_description(
     # send the prompt to the model
     answer = get_answer_message(prompt)
     # extract the JSON object from the answer
-    extracted_json_object = json.loads(
-        extract_json_object_string_from_string(answer.text)
-    )
+    extracted_json_object = extract_json_object_from_string(answer.text)
     # validate the structure and transform the JSON object from the answer
     job_requirements = get_empty_requirements()
     for requirement_type, requirements in extracted_json_object.items():

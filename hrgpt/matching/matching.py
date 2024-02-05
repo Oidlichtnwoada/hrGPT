@@ -3,7 +3,7 @@ import collections
 from hrgpt.config.config import JobRequirementType
 from hrgpt.extraction.extraction import (
     Requirement,
-    extract_json_object_string_from_string,
+    extract_json_object_from_string,
 )
 from hrgpt.prompting.prompting import (
     get_prompt_to_match_requirement,
@@ -46,8 +46,8 @@ def match_job_requirements_to_candidate_cv(
         get_answer_messages(tuple([x[2] for x in prompts])),
     )
     for requirement_type, requirement, answer in prompt_answers:
-        requirement_score = Score.model_validate_json(
-            extract_json_object_string_from_string(answer.text)
+        requirement_score = Score.model_validate(
+            extract_json_object_from_string(answer.text)
         )
         requirement_score.value = clamp_int(
             requirement_score.value,
@@ -61,8 +61,8 @@ def match_job_requirements_to_candidate_cv(
     answer = get_answer_message(
         get_prompt_to_check_if_candidate_is_promising(requirement_matches)
     )
-    promising_result = PromisingResult.model_validate_json(
-        extract_json_object_string_from_string(answer.text)
+    promising_result = PromisingResult.model_validate(
+        extract_json_object_from_string(answer.text)
     )
     total_score = compute_total_score(requirement_matches)
     applicant_match = ApplicantMatch(
