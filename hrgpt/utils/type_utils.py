@@ -4,6 +4,11 @@ import typing
 
 import pydantic
 
+JobRequirementType = typing.Literal[
+    'work_experience', 'education', 'other_qualifications', 'hard_skills',
+    'soft_skills', 'specific_knowledge', 'personal_traits', 'languages',
+    'travel', 'location', 'working_hours', 'physical_ability']
+
 
 def strip_string(string: str) -> str:
     return string.strip()
@@ -47,7 +52,7 @@ class PromisingResult(pydantic.BaseModel):
 class ApplicantMatch(pydantic.BaseModel):
     total_score: ScoreValue
     promising_result: PromisingResult
-    requirement_matches: dict[str, list[RequirementMatch]]
+    requirement_matches: dict[JobRequirementType, list[RequirementMatch]]
 
 
 class Author(enum.StrEnum):

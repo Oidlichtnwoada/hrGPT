@@ -4,24 +4,19 @@ import typing
 import pydantic
 import typing_extensions
 
-from hrgpt.utils.type_utils import StrippedString, PositiveInt, NonNegativeIntWithDefault
+from hrgpt.utils.type_utils import StrippedString, PositiveInt, NonNegativeIntWithDefault, JobRequirementType
 
-JobRequirementType = typing.Literal[
-    'work_experience', 'education', 'other_qualifications', 'hard_skills',
-    'soft_skills', 'specific_knowledge', 'personal_traits', 'languages',
-    'travel', 'location', 'working_hours', 'physical_ability']
-
-WeightingFloat = typing.Annotated[float, pydantic.Field(gt=0)]
+WeightingInt = typing.Annotated[int, pydantic.Field(gt=0)]
 
 
 class JobRequirementConfig(pydantic.BaseModel):
     definition: StrippedString
-    weighting: WeightingFloat
+    weighting: WeightingInt
 
 
 JobRequirementDict = typing.Dict[JobRequirementType, JobRequirementConfig]
 JobRequirementDefinitions = typing.Dict[JobRequirementType, StrippedString]
-JobRequirementWeightings = typing.Dict[JobRequirementType, WeightingFloat]
+JobRequirementWeightings = typing.Dict[JobRequirementType, WeightingInt]
 
 
 class Provider(enum.StrEnum):
