@@ -10,6 +10,7 @@ from hrgpt.config.config import (
     Model,
     Provider,
     AppConfig,
+    JobRequirementWeightings,
 )
 from hrgpt.utils.type_utils import PositiveInt
 
@@ -65,7 +66,7 @@ def get_job_requirement_definitions(
 
 def get_job_requirement_weightings(
     job_requirement_dict: JobRequirementDict,
-) -> JobRequirementDefinitions:
+) -> JobRequirementWeightings:
     job_requirement_weightings = {}
     for key, value in job_requirement_dict.items():
         job_requirement_weightings[key] = value.weighting
