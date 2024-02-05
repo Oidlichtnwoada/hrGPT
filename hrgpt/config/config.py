@@ -4,7 +4,7 @@ import typing
 import pydantic
 import typing_extensions
 
-from hrgpt.utils.type_utils import StrippedString, PositiveInt, NonNegativeIntWithDefault, JobRequirementType
+from hrgpt.utils.type_utils import StrippedString, PositiveInt, NonNegativeIntWithDefault, JobRequirementType, ScoreValue
 
 WeightingInt = typing.Annotated[int, pydantic.Field(gt=0)]
 
@@ -74,8 +74,8 @@ NonEmptyJobRequirementDict = typing.Annotated[JobRequirementDict, pydantic.Field
 
 
 class ScoreConfiguration(pydantic.BaseModel):
-    minimum_score_value: float
-    maximum_score_value: float
+    minimum_score_value: ScoreValue
+    maximum_score_value: ScoreValue
 
 
 class PolarsConfiguration(pydantic.BaseModel):

@@ -31,7 +31,8 @@ class Requirement(pydantic.BaseModel):
     specification: StrippedString
 
 
-ScoreValue: typing.TypeAlias = float
+ScoreValue: typing.TypeAlias = int
+TotalScoreValue: typing.TypeAlias = float
 
 
 class Score(pydantic.BaseModel):
@@ -50,7 +51,7 @@ class PromisingResult(pydantic.BaseModel):
 
 
 class ApplicantMatch(pydantic.BaseModel):
-    total_score: ScoreValue
+    total_score: TotalScoreValue
     promising_result: PromisingResult
     requirement_matches: dict[JobRequirementType, list[RequirementMatch]]
 
