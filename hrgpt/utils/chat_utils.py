@@ -1,29 +1,28 @@
 import concurrent.futures
-import functools
 
 from hrgpt.chat.chat import Chat, ChatMessage
 from hrgpt.chat.openai_chat import OpenaiChat
 from hrgpt.chat.replicate_chat import ReplicateChat
-from hrgpt.config.config import AppConfig, Provider
+from hrgpt.config.config import Provider, AppConfigFactory
 from hrgpt.utils.config_utils import get_model_for_model_enum
 
 
-def get_chat(config: AppConfig) -> Chat:
+def get_chat() -> Chat:
+    config = AppConfigFactory.get_app_config()
     provider = get_model_for_model_enum(config.llm_config.model).provider
     if provider == Provider.OPENAI:
-        return OpenaiChat(config)
+        return OpenaiChat()
     elif provider == Provider.REPLICATE:
-        return ReplicateChat(config)
+        return ReplicateChat()
     else:
         raise ValueError
 
 
-def get_answer_message(prompt: str, config: AppConfig) -> ChatMessage:
-    chat = get_chat(config)
+def get_answer_message(prompt: str) -> ChatMessage:
+    chat = get_chat()
     return chat.send_prompt(prompt)
 
 
-def get_answer_messages(prompts: tuple[str, ...], config: AppConfig) -> tuple[ChatMessage, ...]:
-    get_answer_message_with_config = functools.partial(get_answer_message, config=config)
+def get_answer_messages(prompts: tuple[str, ...]) -> tuple[ChatMessage, ...]:
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        return tuple(executor.map(get_answer_message_with_config, prompts))
+        return tuple(executor.map(get_answer_message, prompts))

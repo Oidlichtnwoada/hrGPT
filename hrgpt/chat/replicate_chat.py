@@ -4,7 +4,7 @@ import pydantic
 import replicate
 
 from hrgpt.chat.chat import Chat
-from hrgpt.config.config import AppConfig, Provider
+from hrgpt.config.config import Provider, AppConfigFactory
 from hrgpt.utils.config_utils import get_top_tokens, get_top_probability, get_temperature, get_seed, get_model_for_model_enum
 from hrgpt.utils.message_utils import generate_user_chat_message, generate_model_chat_message
 from hrgpt.utils.secret_utils import get_api_key_for_provider
@@ -17,15 +17,15 @@ class ReplicateChatMessage(pydantic.BaseModel):
 
 
 class ReplicateChat(Chat):
-    def __init__(self, config: AppConfig) -> None:
+    def __init__(self) -> None:
+        config = AppConfigFactory.get_app_config()
         if get_model_for_model_enum(config.llm_config.model).provider != Provider.REPLICATE:
             raise ValueError
         super().__init__(config.llm_config.system_context)
-        self.config = config
         self.replicate = replicate.Client(
-            api_token=get_api_key_for_provider(self.config),
+            api_token=get_api_key_for_provider(),
         )
-        self.replicate._client._transport.max_attempts = self.config.generic_config.network_config.retry_amount
+        self.replicate._client._transport.max_attempts = config.generic_config.network_config.retry_amount
 
     def transform_chat_messages_to_replicate_chat_object(self) -> ReplicateChatMessage:
         prompts = []
@@ -39,22 +39,23 @@ class ReplicateChat(Chat):
         return ReplicateChatMessage(system_prompt=self.get_context(), prompt='\n'.join(prompts))
 
     def send_prompt(self, prompt: str) -> ChatMessage:
+        config = AppConfigFactory.get_app_config()
         before_datetime = datetime.datetime.now(datetime.timezone.utc)
         user_chat_message = generate_user_chat_message(prompt, before_datetime)
         self.chat_message_history += (user_chat_message,)
         output_parts = self.replicate.run(
-            get_model_for_model_enum(self.config.llm_config.model).name,
+            get_model_for_model_enum(config.llm_config.model).name,
             {
                 **self.transform_chat_messages_to_replicate_chat_object().model_dump(mode='json'),
-                'debug': self.config.llm_config.debug,
-                'top_k': get_top_tokens(self.config.llm_config.deterministic, self.config.llm_config.top_tokens),
-                'top_p': get_top_probability(self.config.llm_config.deterministic, self.config.llm_config.top_probability),
-                'temperature': max(0.01, get_temperature(self.config.llm_config.deterministic, self.config.llm_config.temperature)),
-                'max_new_tokens': self.config.llm_config.max_tokens,
-                'min_new_tokens': self.config.llm_config.min_tokens,
-                'seed': get_seed(self.config.llm_config.deterministic),
-                'stop_sequences': ','.join([f'<{x}>' for x in self.config.llm_config.stop_sequences]),
-                'repetition_penalty': self.config.llm_config.repetition_penalty,
+                'debug': config.llm_config.debug,
+                'top_k': get_top_tokens(config.llm_config.deterministic, config.llm_config.top_tokens),
+                'top_p': get_top_probability(config.llm_config.deterministic, config.llm_config.top_probability),
+                'temperature': max(0.01, get_temperature(config.llm_config.deterministic, config.llm_config.temperature)),
+                'max_new_tokens': config.llm_config.max_tokens,
+                'min_new_tokens': config.llm_config.min_tokens,
+                'seed': get_seed(config.llm_config.deterministic),
+                'stop_sequences': ','.join([f'<{x}>' for x in config.llm_config.stop_sequences]),
+                'repetition_penalty': config.llm_config.repetition_penalty,
             }
         )
         after_datetime = datetime.datetime.now(datetime.timezone.utc)

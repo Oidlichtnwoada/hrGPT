@@ -1,11 +1,12 @@
 import statistics
 
-from hrgpt.config.config import AppConfig, JobRequirementType
+from hrgpt.config.config import JobRequirementType, AppConfigFactory
 from hrgpt.utils.config_utils import get_job_requirement_weightings
 from hrgpt.utils.type_utils import RequirementMatch, TotalScoreValue
 
 
-def compute_total_score(requirement_matches: dict[JobRequirementType, list[RequirementMatch]], app_config: AppConfig) -> TotalScoreValue:
+def compute_total_score(requirement_matches: dict[JobRequirementType, list[RequirementMatch]]) -> TotalScoreValue:
+    app_config = AppConfigFactory.get_app_config()
     requirement_type_weightings = get_job_requirement_weightings(app_config.generic_config.job_requirements_config)
     minimum_score_value = app_config.generic_config.score_config.minimum_score_value
     requirement_types_maximum = sum(requirement_type_weightings.values())

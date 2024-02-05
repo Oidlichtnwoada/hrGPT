@@ -3,14 +3,12 @@ import shutil
 
 import fitz
 
-from hrgpt.config.config import AppConfig
 from hrgpt.prompting.prompting import get_prompt_to_prettify_text
 from hrgpt.utils.chat_utils import get_answer_message
 from hrgpt.utils.path_utils import get_random_file_name
 
 
 def get_pdf_document_text(pdf_document_path: str,
-                          app_config: AppConfig,
                           replacements: tuple[tuple[str, str]] = ((chr(160), ' '),),
                           prettify: bool = True) -> str:
     with fitz.open(pdf_document_path) as pdf_document:
@@ -22,7 +20,7 @@ def get_pdf_document_text(pdf_document_path: str,
             page_texts.append(page_text)
         text = '\n'.join(page_texts)
     if prettify:
-        answer = get_answer_message(get_prompt_to_prettify_text(text), app_config)
+        answer = get_answer_message(get_prompt_to_prettify_text(text))
         text = answer.text
     return text
 

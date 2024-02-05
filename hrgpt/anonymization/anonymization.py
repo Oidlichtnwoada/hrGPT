@@ -1,5 +1,4 @@
 import concurrent.futures
-import functools
 import os
 import random
 import shutil
@@ -7,7 +6,6 @@ import shutil
 import asposepdfcloud
 import pandas
 
-from hrgpt.config.config import AppConfig
 from hrgpt.utils.path_utils import get_module_root_path, get_applicant_document_paths, get_random_file_name
 from hrgpt.utils.pdf_utils import clean_pdf_document, remove_links
 from hrgpt.utils.secret_utils import get_aspose_pdf_cloud_credentials
@@ -45,10 +43,9 @@ def get_text_replacements() -> asposepdfcloud.TextReplaceListRequest:
 
 
 def anonymize_applicant_document(applicant_document_path: str,
-                                 app_config: AppConfig,
                                  replace_text: bool = True) -> None:
     # create the api
-    credentials = get_aspose_pdf_cloud_credentials(app_config)
+    credentials = get_aspose_pdf_cloud_credentials()
     pdf_api_client = asposepdfcloud.api_client.ApiClient(
         app_key=credentials[0],
         app_sid=credentials[1])
@@ -72,11 +69,10 @@ def anonymize_applicant_document(applicant_document_path: str,
     clean_pdf_document(applicant_document_path)
 
 
-def anonymize_applicant_documents(app_config: AppConfig) -> None:
+def anonymize_applicant_documents() -> None:
     paths = []
     for applicant_document_paths in get_applicant_document_paths().values():
         for applicant_document_path in applicant_document_paths:
             paths.append(applicant_document_path)
-    anonymize_applicant_document_with_config = functools.partial(anonymize_applicant_document, app_config=app_config)
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        executor.map(anonymize_applicant_document_with_config, paths)
+        executor.map(anonymize_applicant_document, paths)
