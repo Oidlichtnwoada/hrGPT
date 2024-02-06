@@ -9,3 +9,4 @@ typing-extensions
 mypy
 black
 pytest
+pandas-stubs
