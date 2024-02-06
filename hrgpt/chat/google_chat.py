@@ -37,13 +37,13 @@ def transform_chat_message_history_to_google_chat_messages(
         dict_value: google.generativeai.types.ContentDict
         if chat_message.author == Author.USER:
             user_value: google.generativeai.types.ContentDict = {
-                "role": "USER",
+                "role": "user",
                 "parts": [chat_message.text],
             }
             dict_value = user_value
         elif chat_message.author == Author.MODEL:
             model_value: google.generativeai.types.ContentDict = {
-                "role": "MODEL",
+                "role": "model",
                 "parts": [chat_message.text],
             }
             dict_value = model_value
@@ -63,6 +63,7 @@ class GoogleChat(Chat):
             raise ValueError
         super().__init__(config.llm_config.system_context)
         google.generativeai.configure(api_key=get_api_key_for_provider())
+        i = 0
 
     def send_prompt(self, prompt: str) -> ChatMessage:
         config = AppConfigFactory.get_app_config()
