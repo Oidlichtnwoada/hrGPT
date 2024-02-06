@@ -115,7 +115,7 @@ class AppConfigFactory:
     def get_app_config(
         cls,
     ) -> AppConfig:
-        if is_test_running():
+        if cls.app_config is None and is_test_running():
             cls.initialize_app_config(get_app_config_from_json_file())
         if cls.app_config is None:
             raise RuntimeError
