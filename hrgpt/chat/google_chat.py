@@ -63,7 +63,6 @@ class GoogleChat(Chat):
             raise ValueError
         super().__init__(config.llm_config.system_context)
         google.generativeai.configure(api_key=get_api_key_for_provider())
-        i = 0
 
     def send_prompt(self, prompt: str) -> ChatMessage:
         config = AppConfigFactory.get_app_config()
@@ -99,7 +98,7 @@ class GoogleChat(Chat):
         model_response_choice = model_response.candidates[0]
         if (
             len(model_response_choice.content.parts) != 1
-            or model_response_choice.finish_reason != FinishReason.STOP
+            or model_response_choice.finish_reason.value != FinishReason.STOP.value
         ):
             raise RuntimeError
         creation_datetime = after_datetime

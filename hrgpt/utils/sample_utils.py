@@ -26,9 +26,13 @@ def get_empty_requirements() -> dict[JobRequirementType, list[Requirement]]:
 def get_empty_score() -> Score:
     app_config = AppConfigFactory.get_app_config()
     return Score(
-        value=app_config.generic_config.score_config.minimum_score_value, explanation=""
+        value=app_config.generic_config.score_config.minimum_score_value,
+        explanation="Here should stand the explanation text of the score",
     )
 
 
 def get_empty_promising_result() -> PromisingResult:
-    return PromisingResult(promising=False, explanation="")
+    return PromisingResult(
+        promising=False,
+        explanation="Here should stand the explanation text of the result",
+    )
