@@ -83,8 +83,11 @@ class OpenaiChat(Chat):
             messages=transform_chat_message_history_to_openai_chat_messages(
                 self.chat_message_history
             ),
-            temperature=get_temperature(
-                config.llm_config.deterministic, config.llm_config.temperature
+            temperature=min(
+                2.0,
+                get_temperature(
+                    config.llm_config.deterministic, config.llm_config.temperature
+                ),
             ),
             stop=list(config.llm_config.stop_sequences),
             seed=get_seed(config.llm_config.deterministic),

@@ -2,6 +2,7 @@ git+https://github.com/aspose-pdf-cloud/aspose-pdf-cloud-python.git
 PyMuPDF
 openai
 replicate
+google-generativeai
 polars
 pydantic
 typed-argument-parser

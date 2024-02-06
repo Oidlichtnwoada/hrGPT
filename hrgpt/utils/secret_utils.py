@@ -12,6 +12,8 @@ def get_api_key_for_provider() -> str:
         api_key = app_config.secrets.openai_api_key
     elif provider == Provider.REPLICATE:
         api_key = app_config.secrets.replicate_api_key
+    elif provider == Provider.GOOGLE:
+        api_key = app_config.secrets.google_api_key
     if api_key is None:
         raise RuntimeError
     return api_key

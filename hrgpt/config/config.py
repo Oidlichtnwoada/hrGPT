@@ -28,6 +28,7 @@ JobRequirementWeightings = typing.Dict[JobRequirementType, WeightingInt]
 class Provider(enum.StrEnum):
     OPENAI = enum.auto()
     REPLICATE = enum.auto()
+    GOOGLE = enum.auto()
 
 
 class Model(pydantic.BaseModel):
@@ -41,12 +42,13 @@ class ModelEnum(enum.StrEnum):
     LLAMA_2_70B_CHAT = enum.auto()
     LLAMA_2_13B_CHAT = enum.auto()
     LLAMA_2_7B_CHAT = enum.auto()
+    GEMINI_PRO = enum.auto()
 
 
 FrequencyPenaltyFloat = typing.Annotated[float, pydantic.Field(ge=-2.0, le=2.0)]
 PresencePenaltyFloat = typing.Annotated[float, pydantic.Field(ge=-2.0, le=2.0)]
 TopProbabilityFloat = typing.Annotated[float, pydantic.Field(ge=0.0, le=1.0)]
-TemperatureFloat = typing.Annotated[float, pydantic.Field(ge=0.0, le=2.0)]
+TemperatureFloat = typing.Annotated[float, pydantic.Field(ge=0.0, le=5.0)]
 RepetitionPenaltyFloat = typing.Annotated[float, pydantic.Field(ge=0.0, le=2.0)]
 TokenId: typing.TypeAlias = str
 BiasValueInt = typing.Annotated[int, pydantic.Field(ge=-100, le=100)]
@@ -115,6 +117,7 @@ class GenericConfiguration(pydantic.BaseModel):
 class EnvironmentSecrets(pydantic.BaseModel):
     openai_api_key: str
     replicate_api_key: str
+    google_api_key: str
     aspose_app_key: str
     aspose_app_sid: str
 

@@ -90,6 +90,8 @@ def get_model_for_model_enum(value: ModelEnum) -> Model:
             return Model(provider=Provider.REPLICATE, name="meta/llama-2-13b-chat")
         case ModelEnum.LLAMA_2_7B_CHAT:
             return Model(provider=Provider.REPLICATE, name="meta/llama-2-7b-chat")
+        case ModelEnum.GEMINI_PRO:
+            return Model(provider=Provider.GOOGLE, name="gemini-pro")
 
 
 def get_app_config_from_json_file(
