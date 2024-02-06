@@ -341,17 +341,17 @@ The model works by compressing the read text into an internal state and based on
 As the model compresses the data according to the learned patterns in the training data, it does not understand the text in the same way as humans do.
 These models are used to perform tasks such as translation, summarization, and question answering \parencite[1]{llm_literature_review}.
 As this enabled a wide field of automation for application fields that were primarily carried out by humans, many technology companies have developed their own \acs{LLM} and made their services available to the public while keeping their source code mostly private.
-Some notable example are the PaLM 2 model by Google \parencite{palm2} that powers Bard, the GPT-4 model by OpenAI \parencite{gpt4} that powers ChatGPT and the Llama 2 model by Meta \parencite{llama2}.
-The Llama 2 model is the only model from the picked three candidates that has been released with public source code.
+Some notable examples are the \textit{Gemini} model family by \textit{Google} \parencite{gemini}, the \textit{GPT-4} model by \textit{OpenAI} \parencite{gpt4} and the \textit{LLAMA 2} model family by \textit{Meta} \parencite{llama2}.
+The models of the \textit{LLAMA 2} model family are the only models from the picked three candidate groups that have been released with public source code.
 That means that researches and engineers around the world can use the model as building block and either improve the underlying mechanisms or try to incorporate it in their own applications.
-The real breakthrough of \acs{LLM}s came with the release of the GPT-3 model by OpenAI \parencite{gpt3} that powered the initial version of ChatGPT.
+The real breakthrough of \acs{LLM}s came with the release of the \textit{GPT-3} model by \textit{OpenAI} \parencite{gpt3} that powered the initial version of ChatGPT.
 They offered the model's capabilities as a website that was accessible to the public and allowed users to insert text and receive a response from the model.
 As described in \textcite[1]{gpt3}, the model provided very good performance on various \acs{NLP} datasets that include tasks like translation and question answering.
 To briefly visualize the complexity behind a \acs{LLM}, consider the function $f_{a,b,c}(x) = ax^2+bx+c$ that has the three parameters $a$, $b$ and $c$.
 Here, the function $f$ maps the input data denoted as $x$ to the output data denoted as $f(x)$.
 The input data in the \acs{NLP} case is the input text and the output data is the output text.
 \acs{LLM}s also make use of parameterized and differentiable functions in their internal structure to map the input text to the output text, but they have orders of magnitudes more parameters than this sample function.
-For example, the model GPT-3 uses 175 billion parameters \parencite[1]{gpt3} in total. The parameter count of GPT-4 was not disclosed in their technical report \parencite{gpt4}.
+For example, the model \textit{GPT-3} uses 175 billion parameters \parencite[1]{gpt3} in total. The parameter count of \textit{GPT-4} was not disclosed in their technical report \parencite{gpt4}.
 The training data needed to train these models was present in the required amounts because the researchers have not used reinforcement learning \parencite{rl_bible} or supervised learning \parencite[3]{sl_bible}.
 Reinforcement learning gives the model a reward when an action was good and a punishment when an action was bad, this can be done by letting the model train in the real world which has bad scalability or in simulators that must be coded to mimic the real world which is also a very difficult and time consuming task.
 For example, animals learn that behaviors that lead to food are good and behaviors that lead to hunger are bad.
@@ -365,8 +365,8 @@ The model gets the tokenized text input and predicts the follow-up output tokens
 Based on this comparison, the model parameters are adjusted. As no human data labelling or costly real-world or simulator training is needed, the model can be trained on huge amounts of data.
 Most of the text data used for training large language models is scraped from the internet \parencite[1]{llm_literature_review}.
 The context size of a \acs{LLM} is the number of tokens that the model can store in its internal state while generating the output tokens, so it is the history of tokens it can access while generating the response.
-For example, the context size of the Llama 2 model is 4096 tokens \parencite[47]{llama2}.
-The tokenizer that OpenAI is using, can be accessed via this website \textcite{openai_tokenizer}.
+For example, the context size of the \textit{LLAMA 2} model is 4096 tokens \parencite[47]{llama2}.
+The tokenizer that \textit{OpenAI} is using, can be accessed via this website \textcite{openai_tokenizer}.
 The output tokens of a \acs{LLM} are generated token by token, so when the first token is generated, it is appended to the input and the model generates the next token based on the input that now contains the first generated token. Afterwards, it is run iteratively in the same way.
 That means that the total output token size is also constrained by the context size, when the full history of tokens should be within the context size while generating the output.
 The model stops the output loop, when the model emits the stop token. That means that it has finished the output token generation.
@@ -865,7 +865,7 @@ For this thesis, the second weighting property is the most important one, as we 
 \section{Sample Screening Documents} \label{sample_screening_documents}
 
 \subsection{Overview of the Construction and Usage of the Sample Screening Documents}
-The job descriptions and the applicant documents will be either taken from publicly available datasets, taken from publicly available sources, manually crafted or generated using tools like GPT-4 \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
+The job descriptions and the applicant documents will be either taken from publicly available datasets, taken from publicly available sources, manually crafted or generated using tools like \textit{GPT-4} \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
 The job description and the applicants' \acs{CV}s must be supplied as pure text to the proposed model due to their internal tokenization.
 That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more and more important it will be to supply machine readable applicant documents that please the machine learning models used in the screening process.
 When this \acs{AI} barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
