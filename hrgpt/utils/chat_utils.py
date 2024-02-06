@@ -1,6 +1,7 @@
 import concurrent.futures
 
 from hrgpt.chat.chat import Chat
+from hrgpt.chat.google_chat import GoogleChat
 from hrgpt.chat.openai_chat import OpenaiChat
 from hrgpt.chat.replicate_chat import ReplicateChat
 from hrgpt.config.config import Provider
@@ -15,6 +16,8 @@ def get_chat() -> Chat:
         return OpenaiChat()
     elif provider == Provider.REPLICATE:
         return ReplicateChat()
+    elif provider == Provider.GOOGLE:
+        return GoogleChat()
     else:
         raise ValueError
 
