@@ -1,6 +1,11 @@
-from hrgpt.config.config import JobRequirementType
 from hrgpt.utils.config_utils import AppConfigFactory
-from hrgpt.utils.type_utils import Requirement, RequirementType, Score, PromisingResult
+from hrgpt.utils.type_utils import (
+    Requirement,
+    RequirementType,
+    Score,
+    PromisingResult,
+    JobRequirementType,
+)
 
 
 def get_sample_requirement() -> Requirement:

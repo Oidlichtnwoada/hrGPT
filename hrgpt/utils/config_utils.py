@@ -108,7 +108,7 @@ class AppConfigFactory:
     app_config: AppConfig | None = None
 
     @classmethod
-    def initialize_app_config(cls, config: AppConfig):
+    def initialize_app_config(cls, config: AppConfig) -> None:
         cls.app_config = config
 
     @classmethod

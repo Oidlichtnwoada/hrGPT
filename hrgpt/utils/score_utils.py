@@ -1,9 +1,8 @@
 import statistics
 
-from hrgpt.config.config import JobRequirementType
 from hrgpt.utils.config_utils import get_job_requirement_weightings, AppConfigFactory
 from hrgpt.utils.math_utils import clamp_int
-from hrgpt.utils.type_utils import RequirementMatch, TotalScoreValue
+from hrgpt.utils.type_utils import RequirementMatch, TotalScoreValue, JobRequirementType
 
 
 def compute_total_score(

@@ -1,4 +1,5 @@
 import json
+import typing
 
 import pydantic
 
@@ -7,7 +8,7 @@ def dumps(
     x: object, separators: tuple[str, str] = (", ", ": "), indent: int = 4
 ) -> str:
     class ExtendedEncoder(json.JSONEncoder):
-        def default(self, obj):
+        def default(self, obj: typing.Any) -> typing.Any:
             if isinstance(obj, pydantic.BaseModel):
                 return obj.model_dump(mode="json")
             return json.JSONEncoder.default(self, obj)

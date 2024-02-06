@@ -3,13 +3,11 @@ import concurrent.futures
 import functools
 
 from hrgpt.extraction.extraction import get_requirements_from_job_description
-from hrgpt.matching.matching import (
-    match_job_requirements_to_candidate_cv,
-    ApplicantMatch,
-)
+from hrgpt.matching.matching import match_job_requirements_to_candidate_cv
 from hrgpt.utils.path_utils import get_applicant_document_paths
 from hrgpt.utils.reporting_utils import create_output_files
 from hrgpt.utils.timing_utils import TimingClock, TaskType
+from hrgpt.utils.type_utils import ApplicantMatch
 
 
 def score_applicants_for_job_path(

@@ -20,7 +20,7 @@ class LoggerFactory:
         return os.path.basename(get_repo_root_path()).lower()
 
     @classmethod
-    def initialize_loggers(cls, config: LoggingConfiguration):
+    def initialize_loggers(cls, config: LoggingConfiguration) -> None:
         for logger_identifier in config.loggers_to_disable_propagation:
             logger = logging.getLogger(logger_identifier)
             logger.propagate = False

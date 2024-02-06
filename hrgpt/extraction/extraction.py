@@ -1,13 +1,16 @@
 import typing
 
-from hrgpt.config.config import JobRequirementType
 from hrgpt.prompting.prompting import get_prompt_to_extract_requirements
 from hrgpt.utils.chat_utils import get_answer_message
 from hrgpt.utils.extraction_utils import extract_json_object_from_string
 from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.sample_utils import get_empty_requirements
 from hrgpt.utils.timing_utils import TimingClock, TaskType
-from hrgpt.utils.type_utils import Requirement, VALID_JOB_REQUIREMENT_TYPES
+from hrgpt.utils.type_utils import (
+    Requirement,
+    VALID_JOB_REQUIREMENT_TYPES,
+    JobRequirementType,
+)
 
 
 def get_requirements_from_job_description(
