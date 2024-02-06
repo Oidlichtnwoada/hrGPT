@@ -1127,6 +1127,7 @@ The \textit{OpenAI} API sends a \textit{system fingerprint} value with their res
 If the \textit{system fingerprint} of the response changes compared to a previous request with the same input, it is likely that it will result in a nondeterministic response \parencite{openai_chat_api}.
 The problem for the \textit{OpenAI} API user is that there is no way to specify which system you want to have in order to get deterministic responses, \textit{OpenAI} assigns the used backend systems nondeterministically and it is likely that two back-to-back requests will have two different \textit{system fingerprint} values \parencite{openai_chat_api}.
 The nondeterministic behavior is known to \textit{OpenAI} and hopefully they fix it in a future release.
+The \textit{Gemini} model family suffered from similar issues as the \textit{OpenAI} models, it does not even support to seed the internally used random number generator.
 
 \subsection{Model Configuration}
 This is the default configuration that is used to operate the proposed model, every single setting can be changed in order to modify the behavior of the proposed model to the desires of the operating human expert recruiter:
