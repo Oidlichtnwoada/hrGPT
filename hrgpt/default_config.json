@@ -1,6 +1,6 @@
 {
     "llm_config": {
-        "model": "gemini_pro",
+        "model": "gpt_35_turbo",
         "debug": false,
         "choices": 1,
         "presence_penalty": 0,
