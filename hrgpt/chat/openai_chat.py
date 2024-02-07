@@ -77,11 +77,11 @@ class OpenaiChat(Chat):
         config = AppConfigFactory.get_app_config()
         before_datetime = datetime.datetime.now(datetime.timezone.utc)
         user_chat_message = generate_user_chat_message(prompt, before_datetime)
-        self.chat_message_history += (user_chat_message,)
+        self.add_chat_message_to_history(user_chat_message)
         model_response = self.openai.chat.completions.create(
             model=get_model_for_model_enum(config.llm_config.model).name,
             messages=transform_chat_message_history_to_openai_chat_messages(
-                self.chat_message_history
+                self.get_chat_message_history(include_context=True)
             ),
             temperature=min(
                 2.0,
@@ -117,5 +117,5 @@ class OpenaiChat(Chat):
             creation_datetime,
             after_datetime,
         )
-        self.chat_message_history += (model_chat_message,)
+        self.add_chat_message_to_history(model_chat_message)
         return model_chat_message

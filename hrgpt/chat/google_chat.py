@@ -68,7 +68,7 @@ class GoogleChat(Chat):
         config = AppConfigFactory.get_app_config()
         before_datetime = datetime.datetime.now(datetime.timezone.utc)
         user_chat_message = generate_user_chat_message(prompt, before_datetime)
-        self.chat_message_history += (user_chat_message,)
+        self.add_chat_message_to_history(user_chat_message)
         model = google.generativeai.GenerativeModel(
             get_model_for_model_enum(config.llm_config.model).name,
             generation_config=google.generativeai.GenerationConfig(
@@ -108,5 +108,5 @@ class GoogleChat(Chat):
             creation_datetime,
             after_datetime,
         )
-        self.chat_message_history += (model_chat_message,)
+        self.add_chat_message_to_history(model_chat_message)
         return model_chat_message

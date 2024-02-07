@@ -24,16 +24,21 @@ class Chat(abc.ABC):
             ]
         )
 
+    def add_chat_message_to_history(self, chat_message: ChatMessage) -> None:
+        self.chat_message_history += (chat_message,)
+
     def set_context(self, context: str) -> None:
-        if len(self.chat_message_history) > 0:
-            return
-        self.chat_message_history += (generate_system_chat_message(context),)
+        if len(self.get_chat_message_history(include_context=True)) > 0:
+            raise RuntimeError
+        self.add_chat_message_to_history(generate_system_chat_message(context))
 
     def get_context(self) -> StrippedString:
         system_chat_messages = [
-            x for x in self.chat_message_history if x.author == Author.SYSTEM
+            x
+            for x in self.get_chat_message_history(include_context=True)
+            if x.author == Author.SYSTEM
         ]
-        if len(system_chat_messages) == 0:
+        if len(system_chat_messages) != 1:
             raise RuntimeError
         system_chat_message = system_chat_messages[0]
         return system_chat_message.text

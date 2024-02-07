@@ -59,7 +59,7 @@ class ReplicateChat(Chat):
         config = AppConfigFactory.get_app_config()
         before_datetime = datetime.datetime.now(datetime.timezone.utc)
         user_chat_message = generate_user_chat_message(prompt, before_datetime)
-        self.chat_message_history += (user_chat_message,)
+        self.add_chat_message_to_history(user_chat_message)
         output_parts = self.replicate.run(
             get_model_for_model_enum(config.llm_config.model).name,
             {
@@ -92,5 +92,5 @@ class ReplicateChat(Chat):
         model_chat_message = generate_model_chat_message(
             "".join(output_parts), before_datetime, after_datetime, after_datetime
         )
-        self.chat_message_history += (model_chat_message,)
+        self.add_chat_message_to_history(model_chat_message)
         return model_chat_message
