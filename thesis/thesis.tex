@@ -39,7 +39,7 @@
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Hannes Brantner} % The author name without titles.
-\newcommand{\thesistitle}{Enhancing recruitment efficiency by exploring the impact of large language models on the screening process} % The title of the thesis. The English version should be used if it exists.
+\newcommand{\thesistitle}{Enhancing recruitment efficiency by exploring the impact of large language models on the screening process} % The thesis title. The English version should be used if it exists.
 
 % Set PDF document properties
 \hypersetup{
@@ -76,7 +76,7 @@
 % \setfirstreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
 % \setsecondreviewer{Pretitle}{Forename Surname}{Posttitle}{male}
 
-% For dissertations at the PhD School and optionally for dissertations:
+% For dissertations at the Ph.D. School and optionally for dissertations:
 % \setsecondadvisor{Pretitle}{Forename Surname}{Posttitle}{male} % Comment to remove.
 
 % Required data.
@@ -209,16 +209,16 @@
 \chapter{Introduction} \label{introduction}
 
 \section{Problem Statement} \label{problem_statement}
-This section relies heavily on the article \textcite{ai_recruiting}, which is based on over $50$ research papers in that field and describes the evolution of recruiting in a very concise way.
-As described in \textcite[1]{ai_recruiting}, the average firm's value by 2000 was roughly consisting of 65\% of value from intangible assets.
+This section relies heavily on the article \textcite{ai_recruiting}, which is based on over $50$ research papers in that field and concisely describes the evolution of recruiting.
+As described in \textcite[1]{ai_recruiting}, the average firm's value by 2000 comprised roughly 65\% of value from intangible assets.
 This has evolved a lot, as by the end of 1980, around 70 to 90\% of tangible assets were accountable for the average firm's value \parencite[1]{ai_recruiting}.
-This means that the value of a firm is more and more dependent on the quality of its employees and the knowledge they possess, and this ongoing process does not seem to come to a halt in the near future.
+This means that a firm's value is increasingly dependent on the quality of its employees and the knowledge they possess, and this ongoing process does not seem to halt soon.
 The technological context of how companies recruit people has also evolved a lot over the last decades, as machine learning tools are more and more used to automate processes or assist humans in attracting suitable candidates, screening, assessing, and selecting them \parencite[2]{ai_recruiting}.
 The article \textcite[2-4]{ai_recruiting} described four evolution stages of recruiting, which are the following:
 \begin{enumerate}
     \item \textbf{Analog Recruiting} \label{analog_recruting}\\
-    The first stage is the analog recruiting stage, where people are the primary mechanism of recruiting new employees.
-    Prospective applicants needed to go to the company to turn in a paper job application manually.
+    The first stage is analog recruiting, where people are the primary mechanism of recruiting new employees.
+    Prospective applicants must go to the company to manually submit a paper job application.
     Companies want to maximize the information richness they supply for the current job vacancy, but also, the information reaches to attract as many promising applicants as possible.
     But as described in \textcite[2]{ai_recruiting}, in analog recruiting, these two goals faced the analog reach and richness frontier as shown in \ref{fig:analog_reach_richness_frontier} because the more information is supplied, the more costly it is when you supply to media with great reach at that time:
     \begin{figure}[H]
@@ -228,96 +228,96 @@ The article \textcite[2-4]{ai_recruiting} described four evolution stages of rec
         \label{fig:analog_reach_richness_frontier}
     \end{figure}
     \item \textbf{Digital Recruiting 1.0} \label{digital_recruiting_1}\\
-    This first evolution stage of digital recruiting that happened in the late 1990s was characterized by breaking the analog reach and richness frontier by using digital media, which allowed the supply of rich information to many prospective candidates at a meager cost because there were no printing and low distribution costs involved.
+    This first evolution stage of digital recruiting in the late 1990s was characterized by breaking the analog reach and richness frontier by using digital media, which allowed the supply of rich information to many prospective candidates at a meager cost because there were no printing and low distribution costs.
     There was also a change on the applicant's side as no more manually filled-out documents were required to be handed in physically at the company site.
     It also allowed them to filter out job offers based on various selectors, and it also allowed companies to offer more dynamic content to job seekers by adding video and audio data to the job search websites.
-    There was also a considerable exponential and self-enforcing network effect that was ongoing at that time for job search websites \parencite[3]{ai_recruiting}.
-    As they listed more and more job offers, more and more job seekers were attracted to the platform, which made it easier to persuade companies to list their job offers on job search websites.
+    A considerable exponential and self-enforcing network effect was also ongoing for job search websites \parencite[3]{ai_recruiting}.
+    As they listed more job offers, more job seekers were attracted to the platform, which made it easier to persuade companies to list their job offers on job search websites.
     \item \textbf{Digital Recruiting 2.0} \label{digital_recruiting_2}\\
     This evolution emerged around ten years after the first evolution of digital recruiting and was mainly driven by two developments.
     The first development was the rise of job board aggregation services that presented all job offers from various job search websites on one platform.
-    Job seekers now have access to all available job offers without having to visit each platform individually, and job firms do not need to publish their offers on each individual website.
+    Job seekers can now access all available job offers without visiting each platform individually. Job firms do not need to publish their offers on each website.
     The second development was the introduction and rise of professional social network platforms such as \textit{LinkedIn}.
-    These network platforms allowed people to form professional communities and groups of interest and also allowed companies to present themselves to the public and to potential applicants.
+    These network platforms allowed people to form professional communities and groups of interest and also allowed companies to present themselves to the public and potential applicants.
     Moreover, with endorsements, people on such platforms could endorse the skills of others, which allowed them to build a reputation and trust in the community.
     It enabled companies to target their job ads more effectively to promising candidates, contact candidates directly through the network, and also helped a cheap and efficient way to post job offers on large social websites, whether they are professional or not, like \textit{Facebook} \parencite[3]{ai_recruiting}.
     \item \textbf{Digital Recruiting 3.0} \label{digital_recruiting_3}\\
     After Digital Recruiting matured from 2010 to 2015, Digital Recruiting 3.0 emerged and was primarily driven by the rise of machine learning and artificial intelligence in human resources processes.
-    As digital recruiting digitized the processes and also made them more frictionless for employers and employees, more and more applications came in for each job offer. On average, the number is around 250 applications per job offer \parencite[4]{ai_recruiting}. 
-    This can be explained by the fact that the cost of applying is meager for the applicant, but this led to about 80\% of the applications being unqualified \parencite[4]{ai_recruiting}.
+    As digital recruiting digitized the processes and made them more frictionless for employers and employees, more and more applications came in for each job offer. On average, the number is around 250 applications per job offer \parencite[4]{ai_recruiting}. 
+    This can be explained by the fact that the application cost is meager for the applicant, but this led to about 80\% of the applications being unqualified \parencite[4]{ai_recruiting}.
     To deal with this massive number of applicants, you can either deploy more human resources to screen the applications or use machine learning to automate processes, or assist humans so that they can work more productively.
-    Human resources are mission-critical for companies as human capital is becoming more and more critical for a company's success.
+    Human resources are mission-critical for companies as human capital is increasingly critical for success.
     Moreover, research showed that top performers are four to eight times more productive than the average performers, increasingly so in complex environments, according to \textcite[4]{ai_recruiting}.
     Furthermore, this new evolution stage of recruiting also has its downsides, as discussed in \textcite[4-5]{challenges_opportunities_hr} due to the emerging use of technology:
     \begin{itemize}
-        \item It was stated that the use of technology in human resources typically leads to more efficiency and decreasing costs associated with human resources transactions, but some researchers argue that there is no considerable effect on the primary goal of human resources to attract, motivate, and maintain talented employees. 
-        \item Furthermore, it is argued that the used technologies are often static and one-way communication systems that do not allow either side of the recruiting process to ask questions. This may entail creating an artificial distance between the applicant and the people doing the recruitment tasks. The technologies of the future, which are already here, are already capable of partially mitigating those drawbacks.
-        \item The article also discussed that if the tasks of complete human resource departments are transferred to other employees and managers, this may have a negative effect on the overall productivity of organizations. This also means that if the administrative burden for the human resource department is reduced, it can also contribute to the strategic direction of organizations.
+        \item It was stated that using technology in human resources typically leads to more efficiency and decreasing costs associated with human resources transactions. However, some researchers argue that there is no considerable effect on the primary goal of human resources to attract, motivate, and maintain talented employees. 
+        \item Furthermore, it is argued that the technologies are often static and one-way communication systems that do not allow either side of the recruiting process to ask questions. This may entail creating an artificial distance between the applicant and the people doing the recruitment tasks. The technologies of the future, which are already here, can partially mitigate those drawbacks.
+        \item The article also discussed that if the tasks of complete human resource departments are transferred to other employees and managers, this may hurt the overall productivity of organizations. This also means that if the administrative burden for the human resource department is reduced, it can also contribute to the strategic direction of organizations.
     \end{itemize}
     More consideration on the use of \acs{AI}-assisted technologies regarding recruiting are presented here \parencite[2-4]{ai_in_hr_management}:
     \begin{itemize}
-        \item Algorithms that help filter applicants and were trained with imitation learning are often trained with biased data. As these algorithms try to map input attributes or features to desirable outputs like job performance present in the training data sets, they keep the bias from past recruiting activities, such as hiring fewer women in top management positions in favor of men. Also, \textit{Amazon} had this bias problem in their hiring algorithm, which is an alarming sign for the use of \acs{AI} in human resources due to legal considerations and violations of social norms.
-        \item Furthermore, as applicants more and more discover the biases of the used algorithms or traits that they will like, applicants may more and more artificially craft application documents to meet the algorithm's expectations.
-        \item The article also discussed that it is hard to define what a \textit{good employee} actually is. Most sources describe an excellent employee based on performance appraisal scores, but those are very hard to measure as any reasonably complex job is interdependent with other jobs, making it very hard to disentangle individual performance from group performance. The performance metrics are often criticized for a lack of validity and reliability while having a considerable bias. Therefore, it is challenging and nearly impossible to achieve precisely this behavior of selecting high-performant applicants with imitation learning and unsuitable training data.
+        \item Algorithms that help filter applicants and were trained with imitation learning are often trained with biased data. As these algorithms try to map input attributes or features to desirable outputs like job performance present in the training data sets, they keep the bias from past recruiting activities, such as hiring fewer women in top management positions in favor of men. Also, \textit{Amazon} had this bias problem in their hiring algorithm, which is an alarming sign for using \acs{AI} in human resources due to legal considerations and violations of social norms.
+        \item Furthermore, as applicants discover the biases of the used algorithms or traits they will like, they may increasingly artificially craft application documents to meet the algorithm's expectations.
+        \item The article also discussed that it is hard to define what a \textit{good employee} is. Most sources describe an excellent employee based on performance appraisal scores. Still, those are very hard to measure as any reasonably complex job is interdependent with other jobs, making it very hard to disentangle individual performance from group performance. The performance metrics are often criticized for a lack of validity and reliability while having a considerable bias. Therefore, it is challenging and nearly impossible to achieve precisely this behavior of selecting high-performant applicants with imitation learning and unsuitable training data.
         \item Algorithms based on imitation learning require large amounts of past data, and important events like dismissals may be sparse in the training data.
-        \item Moreover, algorithms are not liable for their decisions, even though hiring activities have a huge effect on the organization’s dynamics. Most algorithms in use today lack the capability to explain what attributes have actually driven the final decision.
+        \item Moreover, algorithms are not liable for their decisions, even though hiring activities greatly affect the organization’s dynamics. Most algorithms in use today cannot explain what attributes have driven the final decision.
     \end{itemize}
 \end{enumerate}
 This should have made the need for an effective human resources pipeline clear. To improve this pipeline, machine learning tools are deployed to the following four fields \parencite[4-8]{ai_recruiting}:
 \begin{enumerate}
     \item \textbf{Outreach}\\
-    Firms try to identify candidates and get job opportunities in front of them in a way that invites them actually to apply. Machine learning can help refine the job description in ways that attract more applicants or bring more balance to the gender of the applicants. As there are more passive candidates not actively searching for a job than actively searching candidates, machine learning can be used to identify suitable talents from a massive pool of candidates, e.g., hundreds of millions of \textit{LinkedIn} users.
+    Firms try to identify candidates and get job opportunities in front of them in a way that invites them to apply. Machine learning can help refine the job description in ways that attract more applicants or bring more balance to the gender of the applicants. As there are more passive candidates not actively searching for a job than actively searching candidates, machine learning can identify suitable talents from a massive pool of candidates, e.g., hundreds of millions of \textit{LinkedIn} users.
     \item \textbf{Screening}\\
     This stage should pre-filter the applicants to keep only the most promising ones for the following assessment stage.
-    As stated in \textcite[6]{ai_recruiting}, machine learning tools were at least 25\% superior to humans even when they got a reasonable amount of time to screen the application. Furthermore, the \acs{AI}-enabled screening tool provider \textit{Ideal} says that with its technology, the average \gls{TTH} fell from 24 days to 9 days.
+    As stated in \textcite[6]{ai_recruiting}, machine learning tools were at least 25\% superior to humans even when they had a reasonable amount of time to screen the application. Furthermore, the \acs{AI}-enabled screening tool provider \textit{Ideal} says that with its technology, the average \gls{TTH} fell from 24 days to 9 days.
     Moreover, \textit{L'Oréal} reported a drop of screening time per resume from 40 minutes to 4 minutes, and \textit{Hilton Hotels \& Resorts} reported a decline of \gls{TTH} from 42 days to 5 days by incorporating \acs{AI} tools in the recruitment process.
     \item \textbf{Assessment}\\
-    The assessments typically involve one to many rounds of evaluation to determine the best or most suitable candidates who will then receive a job offer. Recent research showed that gamification with short games is being used more and more to measure certain personality traits of candidates, like risk aversion. Companies like \textit{Unilever} and \textit{L'Oréal} used \acs{AI}-chatbots that asked various questions, and applicants were able to record video responses in the \textit{Unilever} case and chat response in the case of \textit{L'Oréal}. The \acs{AI} systems analyzed the content, the word choice, and the used structure and matched the responses against successful employees in that field. In the case of video content, the system can also analyze the tone of the voice and the micro-facial movements. These two chatbots could be filled with information at any time within the given timeframe, so it reduces scheduling times with candidates and also offers candidates more freedom to answer the questions at a time that suits them best. These chatbots can also be used to fill in missing information from job seekers, like potential start dates, and can also answer questions regarding the salary range, for example.
+    The assessments typically involve one to many rounds of evaluation to determine the most suitable candidates who will receive a job offer. Recent research showed that gamification with short games is increasingly used to measure candidates' personality traits, like risk aversion. Companies like \textit{Unilever} and \textit{L'Oréal} used \acs{AI}-chatbots that asked various questions, and applicants were able to record video responses in the \textit{Unilever} case and chat response in the case of \textit{L'Oréal}. The \acs{AI} systems analyzed the content, the word choice, and the used structure and matched the responses against successful employees in that field. In the case of video content, the system can also analyze the tone of the voice and the micro-facial movements. These two chatbots could be filled with information at any time within the given timeframe, reducing scheduling times with candidates and offering candidates more freedom to answer the questions at a time that suits them best. These chatbots can also be used to fill in missing information from job seekers, like potential start dates, and answer questions regarding the salary range.
     \item \textbf{Coordination}\\
-    This task involves coordination with the applicants, which requires appointment scheduling and appointment cancellation. As in the age of digital recruitment, more and more candidates are rejected, and therefore, you need to make sure to convey this information to all of your applicants, as little to no information regarding the process is the main driver for bad experiences with the application process. Machine learning tools can help to achieve that.
+    This task involves coordinating with the applicants, which requires appointment scheduling and cancellation. In the age of digital recruitment, more and more candidates are rejected. Therefore, you need to convey this information to all of your applicants, as little to no information regarding the process is the main driver for bad experiences with the application process. Machine learning tools can help to achieve that.
 \end{enumerate}
 By 2018, only around 40\% had used machine learning tools in these four core human resource sourcing processes \parencite[4]{ai_recruiting}.
 The cost to implement, integrate, and maintain \acs{AI} tools in human resources is significant, and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \parencite[8]{ai_recruiting}.
-Furthermore, if the \acs{AI} tools are not used as assistive technology but as a technology to replace humans in the human resource sector, the acceptance of these technologies within this sector is relatively low \parencite[9]{ai_recruiting}.
-Moreover, around 70\% of large organization change initiatives, which also include digital transformations, fail.
-That means there is some space for improvement, and this thesis tries to implement a new open-source tool in the area of screening to improve the productivity of human resources workers in companies of any size.
+Furthermore, suppose the \acs{AI} tools are not used as assistive technology but as a technology to replace humans in the human resource sector. In that case, the acceptance of these technologies within this sector is relatively low \parencite[9]{ai_recruiting}.
+Moreover, around 70\% of large organization change initiatives, including digital transformations, fail.
+That means there is some space for improvement, and this thesis tries to implement a new open-source tool in screening to improve the productivity of human resources workers in companies of any size.
 As \acs{LLM}s are capable of summarization and question-answering when they are presented with natural text as input within their context length, the problem to solve now is to match a provided \acs{CV} from an applicant to the applied job description and assign this match a score.
 Furthermore, the model should also characterize the applicant as promising or not using an additional output.
-The score should represent the suitability of the candidate for the job description and is needed to compare candidates easily and to sort them by their score.
+The score should represent the candidate's suitability for the job description and is needed to compare candidates easily and sort them by their score.
 
 \section{Significance of the Work} \label{significance_of_the_work}
 The advantages of Digital Recruiting 3.0 should be available to all companies and not just to big corporations or as paid services from external providers.
-The usage of machine learning tools should also not have the preconditions to have massive datasets in order to train and use the models.
-Usage of the model should bring efficiency benefits without the need to use it lots of times in order to amortize the costs, making it perfectly viable for small companies.
+Machine learning tools should also not have the precondition of having massive datasets to train and use the models.
+Usage of the model should bring efficiency benefits without the need to use it lots of times to amortize the costs, making it perfectly viable for small companies.
 The effects and the significance of using \acs{AI}-enabled technologies in human resource management have been discussed in detail in \textcite{ai_hrm_review} by reviewing $45$ articles in that field and covering the following main points:
 \begin{itemize}
-    \item The article describes a disruptive (future) transformation from electronic human resource management systems to systems that are defined by intelligent automation. The ongoing digitization of information was an enabler for this transformation \cite[4]{ai_hrm_review}.
+    \item The article describes a disruptive (future) transformation from electronic human resource management systems to systems defined by intelligent automation. The ongoing digitization of information was an enabler for this transformation \cite[4]{ai_hrm_review}.
     \item It is also discussed that automatic matching of candidates to jobs reduces costs and the need for \acs{HR} professionals to have domain knowledge for a particular professional field \cite[10]{ai_hrm_review}.
-    \item Furthermore, as automated tools eliminate distance constraints, there is an increasing risk of lacking direct contact between people, which may hide some lurking problems. Therefore, they propose to use the \acs{AI} tools as assistive technologies \cite[12]{ai_hrm_review}.
-    \item There is also a theory presented that \acs{AI} will not replace human workplaces on the job level from the start but rather on the task level, so more straightforward tasks will be automated first, and more complex tasks will be automated later \cite[12]{ai_hrm_review}. For example, simple question-answering work or administrative work can already be executed by voice assistants like \textit{Siri} without the need to have human employees as representatives at physical locations.
-    \item \acs{AI}-based application could significantly improve employee training or applicant assessing due to the fact that they can be used to simulate real-world scenarios with supported interactivity within a safe environment \cite[13]{ai_hrm_review}. In the future, the automated screening procedure as carried out in the proposed model of the thesis can also be amended with feedback from the applicant to further clarify skills that are a missing education requirement, for example.
-    \item The article \parencite[14]{ai_hrm_review} also highlights the importance of explanations from \acs{AI} systems on decisions they have made in order for a human to understand the automated decision, a feature that was also integrated into the model proposed by this thesis.
-    \item The proposed model of this thesis is based on \acs{LLM} models that have fixed training sets that only contain information up to a certain point in time, but the article \textcite[13]{ai_hrm_review} emphasizes the importance of an up-to-date model that was trained or even has access to real-time data, even if this means continuous readjustments to the model.
+    \item Furthermore, as automated tools eliminate distance constraints, there is an increasing risk of lacking direct contact between people, which may hide lurking problems. Therefore, they propose to use the \acs{AI} tools as assistive technologies \cite[12]{ai_hrm_review}.
+    \item There is also a theory presented that \acs{AI} will not replace human workplaces on the job level from the start but rather on the task level, so more straightforward tasks will be automated first, and more complex tasks will be automated later \cite[12]{ai_hrm_review}. For example, simple question-answering or administrative work can already be executed by voice assistants like \textit{Siri} without having human employees as representatives at physical locations.
+    \item \acs{AI}-based application could significantly improve employee training or applicant assessing because they can be used to simulate real-world scenarios with supported interactivity within a safe environment \cite[13]{ai_hrm_review}. In the future, the automated screening procedure in the proposed thesis model can also be amended with feedback from the applicant to further clarify skills that are a missing education requirement, for example.
+    \item The article \parencite[14]{ai_hrm_review} also highlights the importance of explanations from \acs{AI} systems on decisions they have made for a human to understand the automated decision. This feature was also integrated into the model proposed by this thesis.
+    \item The proposed model of this thesis is based on \acs{LLM} models with fixed training sets that only contain information up to a certain point in time. Still, the article \textcite[13]{ai_hrm_review} emphasizes the importance of an up-to-date model that was trained or had access to real-time data, even if this means continuous readjustments to the model.
 \end{itemize}
 
 
 \section{Research Objective and Research Question} \label{research_objective_and_research_question}
-The research objective is to supply the proposed reasonably accurate screening tool based on \acs{LLM}s that was outlined in \ref{problem_statement} as open-source software to the public. 
-That means companies of any size can use this tool and integrate it into their human capital sourcing pipelines to increase their efficiency and decrease costs eventually.
+The research aims to supply the proposed reasonably accurate screening tool based on \acs{LLM}s outlined in \ref{problem_statement} as open-source software to the public. 
+That means companies of any size can integrate this tool into their human capital sourcing pipelines to increase their efficiency and decrease costs eventually.
 As outlined in the previous chapters, people working in human resources have to screen more and more resumes or \acs{CV}s as the reach of online job advertisements attracts many applicants.
-It was also discussed that many of these applicants were not qualified for the advertised job and should, therefore, not be assessed further.
+It was also discussed that many of these applicants were not qualified for the advertised job and should not be assessed further.
 This pre-filtering saves costly human resources and makes it easier to invest the most time and effort into the most promising candidates, given that you have an easy and cheap way to screen the application documents.
-With the rise of \acs{LLM}s, which are capable of summarization and question answering, the idea was born to use these capabilities and apply them to the screening task in human resources.
+With the rise of \acs{LLM}s capable of summarization and question answering, the idea was born to use these capabilities and apply them to the screening task in human resources.
 \\\\
 The research question is:\\
 \textit{What impact could such an \acs{LLM}-based screening model have on the screening process?}\\\\
 This formulation entails subordinate research questions, which are shown in the following enumeration:
 \begin{itemize}
     \item \textit{What is the accuracy of the proposed model?}\\
-    This question will be answered by testing the accuracy of the model's outputs against annotations from human expert recruiters.
+    This question will be answered by testing the model's outputs' accuracy against human expert recruiters' annotations.
     This procedure is described in detail in \ref{quantitative_research_design}.
-    \item \textit{What are the time savings associated with the model usage?}\\
-    This question will be answered by measuring the time taken by the human experts to execute the above-mentioned data annotation.
+    \item \textit{What time savings are associated with the model usage?}\\
+    This question will be answered by measuring the time the human experts took to execute the data mentioned above annotation.
     This time will be compared to a sampled time it takes for users to automate the same tasks using the model.
 \end{itemize}
 
@@ -328,7 +328,7 @@ In the quantitative context, the accuracy of the proposed model will be measured
 
 \section{Structure of the Work} \label{structure_of_the_work}
 This thesis starts with the introduction chapter \ref{introduction} which gives an overview of the problem statement \ref{problem_statement}, the significance of the work \ref{significance_of_the_work}, the research objective and research question \ref{research_objective_and_research_question}, the research methodology \ref{research_methodology} and the structure of the work \ref{structure_of_the_work}.
-The second chapter \ref{theoretical_background} gives an overview of the theoretical background of the work, like quickly revisiting \gls{LLM}s and then discussing literature on person-environment fit and methods how to quantize this fit.
+The second chapter \ref{theoretical_background} gives an overview of the theoretical background of the work, like quickly revisiting \gls{LLM}s and then discussing literature on person-environment fit and methods to quantize this fit.
 Afterward, the methodology chapter \ref{methodology} describes what research methods have been used, how the results have been obtained, and how sample screening documents and the model have been created.
 
 
@@ -337,33 +337,33 @@ Afterward, the methodology chapter \ref{methodology} describes what research met
 \section{Large Language Models}
 The machine learning model type \gls{LLM} is commonly abbreviated as \acs{LLM} and makes natural language texts processable for computers.
 The model works by compressing the read text into an internal state, and based on this state, an output text is generated.
-As the model compresses the data according to the learned patterns in the training data, it does not understand the text in the same way as humans do.
-These models are used to perform tasks such as translation, summarization, and question answering \parencite[1]{llm_literature_review}.
-As this enabled a wide field of automation for application fields that were primarily carried out by humans, many technology companies have developed their own \acs{LLM} and made their services available to the public while keeping their source code primarily private.
+As the model compresses the data according to the learned patterns in the training data, it does not understand the text the same way humans do.
+These models perform tasks such as translation, summarization, and question answering \parencite[1]{llm_literature_review}.
+As this enabled a wide field of automation for applications that humans primarily carried out, many technology companies have developed their own \acs{LLM} and made their services available to the public while keeping their source code private.
 Some notable examples are the \textit{Gemini} model family by \textit{Google} \parencite{gemini}, the \textit{GPT-4} model by \textit{OpenAI} \parencite{gpt4} and the \textit{LLAMA 2} model family by \textit{Meta} \parencite{llama2}.
 The models of the \textit{LLAMA 2} model family are the only models from the picked three candidate groups that have been released with public source code.
-That means that researchers and engineers around the world can use the model as a building block and either improve the underlying mechanisms or try to incorporate it into their own applications.
+That means that researchers and engineers worldwide can use the model as a building block, improve the underlying mechanisms, or try to incorporate it into their applications.
 The real breakthrough of \acs{LLM}s came with the release of the \textit{GPT-3} model by \textit{OpenAI} \parencite{gpt3} that powered the initial version of ChatGPT.
-They offered the model's capabilities as a website that was accessible to the public and allowed users to insert text and receive a response from the model.
+They offered the model's capabilities as a website accessible to the public and allowed users to insert text and receive a response from the model.
 As described in \textcite[1]{gpt3}, the model provided excellent performance on various \acs{NLP} datasets that include tasks like translation and question answering.
 To briefly visualize the complexity behind a \acs{LLM}, consider the function $f_{a,b,c}(x) = ax^2+bx+c$ that has the three parameters $a$, $b$ and $c$.
 Here, the function $f$ maps the input data denoted as $x$ to the output data denoted as $f(x)$.
 The input data in the \acs{NLP} case is the input text, and the output data is the output text.
-\acs{LLM}s also make use of parameterized and differentiable functions in their internal structure to map the input text to the output text, but they have orders of magnitudes more parameters than this sample function.
+\acs{LLM}s also use parameterized and differentiable functions in their internal structure to map the input text to the output text. Still, they have orders of magnitudes more parameters than this sample function.
 For example, the model \textit{GPT-3} uses 175 billion parameters \parencite[1]{gpt3} in total. The parameter count of \textit{GPT-4} was not disclosed in their technical report \parencite{gpt4}.
 The training data needed to train these models was present in the required amounts because the researchers have yet to use reinforcement learning \parencite{rl_bible} or supervised learning \parencite[3]{sl_bible}.
-Reinforcement learning gives the model a reward when an action is good and a punishment when an action is wrong. This can be done by letting the model train in the real world, which has terrible scalability, or in simulators that must be coded to mimic the real world, which is also a challenging and time-consuming task.
+Reinforcement learning gives the model a reward when an action is good and a punishment when an action is wrong. This can be done by letting the model train in the real world, which has terrible scalability, or in simulators that must be coded to mimic the real world, which is also challenging and time-consuming.
 For example, animals learn that behaviors that lead to food are good and behaviors that lead to hunger are bad.
 The supervised learning approach labels input data with the desired output label, and based on these mappings and a vast number of training samples, the model will adjust its parameters to map the input data correctly.
-An example would be input images that would be labeled with the object that can be seen in the pictures. So, each input image must be labeled by hand before the model can be trained to predict itself correctly.
+An example would be input images labeled with the object that can be seen in the pictures. So, each input image must be labeled by hand before the model can be trained to predict itself correctly.
 To compress the patterns in the training data and fill them into the model parameters, vast amounts of training data are needed as the parameter count of \acs{LLM}s is enormous.
-Both techniques were not sufficient to train models of that sheer size, so the researchers used a method called self-supervised learning \parencite[7]{llm_literature_review} where the model tries to fill in artificially generated gaps in the text.
+Both techniques were insufficient to train models of that sheer size, so the researchers used a method called self-supervised learning \parencite[7]{llm_literature_review} where the model tries to fill in artificially generated gaps in the text.
 Because the gaps are artificially introduced, the expected output is known in advance, so the model can be trained without the need for labeled training data, which makes this technique very scalable.
 Before the text is fed to the model, it is tokenized \parencite[4]{llm_literature_review}, which means the text is converted into a sequence of tokens, which can either be symbols, characters, subwords, and words.
 The model gets the tokenized text input and predicts the follow-up output tokens that will likely follow these input tokens. The output tokens are converted back into text, and then the text from the artificial gap is compared to the model output.
 Based on this comparison, the model parameters are adjusted. As no human data labeling or costly real-world or simulator training is needed, the model can be trained on vast amounts of data.
-Most of the text data used for training large language models is scraped from the internet \parencite[1]{llm_literature_review}.
-The context size of a \acs{LLM} is the number of tokens that the model can store in its internal state while generating the output tokens, so it is the history of tokens it can access while generating the response.
+Most text data for training large language models is scraped from the internet \parencite[1]{llm_literature_review}.
+The context size of a \acs{LLM} is the number of tokens the model can store in its internal state while generating the output tokens, so it is the history of tokens it can access while generating the response.
 For example, the context size of the \textit{LLAMA 2} model is 4096 tokens \parencite[47]{llama2}.
 The tokenizer that \textit{OpenAI} is using can be accessed via this website \textcite{openai_tokenizer}.
 The output tokens of a \acs{LLM} are generated token by token, so when the first token is generated, it is appended to the input, and the model generates the next token based on the input that now contains the first generated token. Afterward, it is run iteratively in the same way.
@@ -373,7 +373,7 @@ Most \acs{LLM}s are based on the machine learning model type called Transformers
 
 \section{Person-Environment Fit}
 The person-environment fit can be broken up into the person-organization and the person-job fit.
-For this section, lots of citations are made from the article \textcite{po_and_pj_fit_literature_review} as it is an excellent summary of more than $90$ research papers in this field.
+For this section, many citations are made from the article \textcite{po_and_pj_fit_literature_review} as it is an excellent summary of more than $90$ research papers in this field.
 Person-organization fit describes the compatibility between the applicant's and the organization's values and characteristics and how well they meet each other's needs \parencite[179]{po_and_pj_fit_literature_review}.
 The person-job fit describes the compatibility between the applicant's abilities and the job's demands or the person's desires and the job's attributes \parencite[179]{po_and_pj_fit_literature_review}.
 These two fit measures should both be considered when computing the score.
@@ -381,11 +381,11 @@ These two fit measures should both be considered when computing the score.
 \subsection{Person-Environment Fit Types} \label{pef_types}
 In essence, person-environment fit is a complex and multi-dimensional concept.
 It can be conceptualized as both complementary and supplementary. 
-Supplementary fit happens when a person supplements, embellishes, or possesses characteristics that are similar to other individuals in the environment \parencite[180]{po_and_pj_fit_literature_review}.
-Complementary fit happens when a person possesses characteristics that are missing in the environment and make it more complete \parencite[180]{po_and_pj_fit_literature_review}.
+Supplementary fit happens when a person supplements, embellishes or possesses characteristics similar to others in the environment \parencite[180]{po_and_pj_fit_literature_review}.
+Complementary fit happens when a person possesses characteristics that are missing in the environment, making it more complete \parencite[180]{po_and_pj_fit_literature_review}.
 Complementary person-environment fit encompasses the needs-supplies and demands-abilities perspectives. 
-An environment supplies financial, physical, and psychological resources as well as task-related, interpersonal, and growth opportunities that are demanded or needed by the person \parencite[180]{po_and_pj_fit_literature_review}.
-When the supply meets the individual's needs, a needs-supplies fit is achieved.
+An environment supplies financial, physical, and psychological resources as well as task-related, interpersonal, and growth opportunities that the person demands or needs \parencite[180]{po_and_pj_fit_literature_review}.
+A needs-supplies fit is achieved when the supply meets the individual's needs.
 A demands-abilities fit is achieved when the individual's professional contributions in terms of time, effort, commitment, skills, and knowledge meet the demands of the environment \parencite[180]{po_and_pj_fit_literature_review}.
 Person-environment fit can be understood as perceived fit and actual fit.
 The interconnections between these types of person-environment fit are visualized in figure \ref{fig:person_environment_fit_types}:
@@ -399,7 +399,7 @@ The interconnections between these types of person-environment fit are visualize
 \subsection{Person-Organization Fit}
 Person organization-fit is defined as the compatibility between people and organizations or between an individual and broader organizational attributes and is the key to maintaining a flexible and committed workforce in competitive business environments with probably tight labor markets \parencite[182]{po_and_pj_fit_literature_review}.
 The roots of person-organization fit research can be traced to Schneider's Attraction-Selection-Attrition framework, which says that organizations are one particular situation where people are attracted to specific job opportunities, selected to be a part of and remain within the organization as long as they are a good fit \parencite[182]{po_and_pj_fit_literature_review}.
-Person-organization fit can be operationalized in four different ways according to \textcite[182]{po_and_pj_fit_literature_review}. The following list is ordered from most used to least used operationalization:
+According to \textcite[182]{po_and_pj_fit_literature_review}, person-organization fit can be operationalized in four ways. The following list is ordered from most used to least used operationalization:
 \begin{enumerate}
     \item \textbf{Congruence between individual and organizational values}\\
     This operationalization primarily encompasses the supplementary fit perspective that was introduced in section \ref{pef_types}.
@@ -409,55 +409,55 @@ Person-organization fit can be operationalized in four different ways according 
     This operationalization reflects the needs-supply fit perspective that was introduced in section \ref{pef_types}.
     \item \textbf{Match between the characteristics of individual personality and organizational climate}\\
     Organizational climate is also sometimes labeled as organizational personality.
-    As the organizational climate is often operationalized in terms of corporate supplies (like communication patterns and reward systems), this operationalization also reflects the needs-supply and the supplementary fit perspectives that were introduced in section \ref{pef_types}.
+    As the organizational climate is often operationalized in terms of corporate supplies (like communication patterns and reward systems), this operationalization also reflects the needs-supply and the supplementary fit perspectives introduced in section \ref{pef_types}.
 \end{enumerate}
 Empirical evidence has shown that a high level of person-organization fit is associated with higher job satisfaction, organizational commitment, self-reported teamwork, and objective measures for work performance \parencite[183]{po_and_pj_fit_literature_review}.
-A high person-organization fit is also associated with lower levels of turnover intentions and actual turnover, although some researchers have also pointed out that a high level of person-organization fit may also have negative organizational outcomes \parencite[183]{po_and_pj_fit_literature_review}.
+A high person-organization fit is associated with lower turnover intentions and actual turnover. However, some researchers have also pointed out that a high level of person-organization fit may have negative organizational outcomes \parencite[183]{po_and_pj_fit_literature_review}.
 
 \subsection{Person-Job Fit}
 The concept of person-job fit is the traditional foundation for employee selection, and the primary concern has been finding the applicants with skills and abilities necessary to do the job \parencite[183]{po_and_pj_fit_literature_review}.
 This encompasses the demands-abilities fit perspective that was introduced in section \ref{pef_types}.
-Person-job fit can be assessed by determining the demand of the job through a job analysis, which identifies the essential tasks that an employer performs and uses this knowledge to specify the skills, knowledge, and abilities to complete the job tasks.
-The process of determining person-job fit increasingly gained sophistication with the identification of both statistically reliable and valid methods to assess the fit between the person and the job \parencite[183]{po_and_pj_fit_literature_review}.
+Person-job fit can be assessed by determining the job demand through a job analysis, which identifies an employer's essential tasks and uses this knowledge to specify the skills, knowledge, and abilities to complete the job tasks.
+Determining person-job fit increasingly gained sophistication by identifying statistically reliable and valid methods to assess the fit between the person and the job \parencite[183]{po_and_pj_fit_literature_review}.
 This assessment also received legal support and was merged into the employee selection procedure, and this fit measure can be operationalized in the following way \parencite[183-184]{po_and_pj_fit_literature_review}:
 \begin{itemize}
     \item \textbf{Needs-supplies and demands-abilities perspective}\\
     These two perspectives cover the complementary fit concept that was introduced in section \ref{pef_types}.
     The supplementary fit concept does not suit the person-job fit context as this model compares the applicant to other people rather than against the job.
     The needs-supplies perspective includes the individual's desires like goals, psychological needs, interests, and values. The characteristics and attributes of a job may or may not satisfy those desires.
-    The demands-abilities perspective consists of job demands like knowledge, skills, abilities, education, experience, and aptitudes that are required in order to carry out the tasks that are part of this job.
+    The demands-abilities perspective consists of job demands like knowledge, skills, abilities, education, experience, and aptitudes required to carry out the tasks of this job.
 \end{itemize}
 The strategies to assess the person-job fit include resumes, \acs{CV}s, tests, interviews, and reference checks \parencite[184]{po_and_pj_fit_literature_review}.
-The more structured and validated the procedures were, the more effective the employee selection process has been when comparing it to using unstructured strategies like oral interviews with no guidelines \parencite[184]{po_and_pj_fit_literature_review}.
+The more structured and validated the procedures were, the more effective the employee selection process compared to using unstructured strategies like oral interviews with no guidelines \parencite[184]{po_and_pj_fit_literature_review}.
 Moreover, most candidate selection processes of companies have focused on achieving a high person-job fit because this has positive outcomes like job satisfaction, lower stress levels, and higher adjustment, organizational commitment, motivation, performance, attendance, and employee retention \parencite[184]{po_and_pj_fit_literature_review}.
 
 \subsection{Relationship between Person-Organization Fit and Person-Job Fit}
-Research showed that the discriminant validity of these two types is, in fact, given, as empirical studies have shown that the correlation between person-organization and person-job fit, whether perceived or actual, is very low \parencite[185]{po_and_pj_fit_literature_review}.
-Using confirmatory factor analysis, it was shown that job recruiters and applicants could, in fact, distinguish between the two types of fit, but it was also demonstrated that the recruiters' perceived fit, no matter what kind, is influenced by their past experiences in a predictable way \parencite[185]{po_and_pj_fit_literature_review}.
+Research showed that the discriminant validity of these two types is given, as empirical studies have shown that the correlation between person-organization and person-job fit, whether perceived or actual, is very low \parencite[185]{po_and_pj_fit_literature_review}.
+Using confirmatory factor analysis, it was shown that job recruiters and applicants could distinguish between the two types of fit, but it was also demonstrated that the recruiters' perceived fit, no matter what kind, is influenced by their past experiences in a predictable way \parencite[185]{po_and_pj_fit_literature_review}.
 It was also shown that person-organization fit has a more significant favorable influence on employee retention and contextual performance than person-job fit \parencite[185]{po_and_pj_fit_literature_review}.
 There can even be a third type called person-group fit, which is like person-organization fit but limited to a specific group within the organization the employee is working with.
-Furthermore, these three types of fit all have a unique impact on various metrics, which supports the previously made claim that they are distinct concepts \parencite[185]{po_and_pj_fit_literature_review}.
+Furthermore, these three types of fit have a unique impact on various metrics, supporting the previously made claim that they are distinct concepts \parencite[185]{po_and_pj_fit_literature_review}.
 
 \subsection{Person-Environment Fit in Employee Selection}
 Research on employee selection can be divided into the following two fields \parencite[185-186]{po_and_pj_fit_literature_review}:
 \begin{itemize}
     \item \textbf{Prescriptive approach}\\
-    The prescriptive approach focuses on guidelines that describe how to select the right candidate for the job.
+    The prescriptive approach focuses on guidelines that describe selecting the right candidate for the job.
     Traditionally, the selection process has been based mainly on the person-job fit concept.
     However, the paradigm shifted, and in addition to the task performance of the candidate, the contextual performance of the candidate is also considered, which is mainly influenced by the person-organization fit of the candidate.
-    Researchers have argued that it may be beneficial to select employees who have a high person-organization fit, as this means congruence in values and visions.
-    Static job analysis needs to be revised in many industries as jobs are dynamic and ever-evolving. Therefore, it is better to recruit a flexible workforce that is capable of teamwork.
-    The person-job fit should also put more focus on the general cognitive ability of the applicant, which is justified by the fact that most employers will hold multiple jobs within a company. Therefore, a more significant focus on general cognitive ability will lead to more flexible employees.
+    Researchers have argued that selecting employees with a high person-organization fit may be beneficial, as this means unity in values and visions.
+    Static job analysis must be revised in many industries as jobs are dynamic and ever-evolving. Therefore, it is better to recruit a flexible workforce capable of teamwork.
+    The person-job fit should also focus more on the applicant's general cognitive ability, which is justified by the fact that most employers will hold multiple jobs within a company. Therefore, a more significant focus on general cognitive ability will lead to more flexible employees.
     To test employees for their person-organization fit, the organization has to define its values and visions beforehand.
     The evaluation can be done using the Q-sort technique.
-    In general, the influence of both person-environment fit types is essential in the employee selection process.
+    In general, the influence of both person-environment fit types is essential in employee selection.
     \item \textbf{Descriptive approach}\\
-    The descriptive approach focuses on how these guidelines play out in actual selection processes.
-    Despite the fact that in traditional selection research, the most focus was put on the person-job fit, the person-organization fit was also already considered in the selection process.
-    This happened through applicant interviews in most cases, which showed to have surprisingly high validity when assessing person-organization fit.
+    The descriptive approach focuses on how these guidelines play out in selection processes.
+    Even though in traditional selection research, the focus was on the person-job fit, the person-organization fit was also already considered in the selection process.
+    In most cases, this happened through applicant interviews, which showed surprisingly high validity when assessing person-organization fit.
     Also, the person-job fit was assessed in interviews, 
 \end{itemize}
-If those two concepts diverge, it may be due to the fact that the research outcomes were not communicated properly or were not followed in practice.
+If those two concepts diverge, it may be because the research outcomes need to be appropriately communicated or required to be followed in practice.
 Furthermore, there can also be some unexplored factors in research that influence the selection process.
 
 \section{Quantizing the Person-Environment Fit}
@@ -467,48 +467,48 @@ The article \textcite{text_mining_for_automatic_profiling} describes the necessi
 Moreover, in this article, the authors have tested their approach using an anonymized dataset of a company's actual applicants consisting of over $40$ resumes in the \textit{PDF} format for each of the three job positions \textit{Data Developer}, \textit{Human Resource and Development} and \textit{Marketing}.
 Text mining is getting increasingly popular due to the big data trend that is expanding into many fields and the fact that most companies probably have many unstructured text documents to analyze \parencite[49]{text_mining_for_automatic_profiling}.
 Some use cases for text mining are sentiment analysis or classification, article classification, spam or fake news detection, argument extraction, exploring social issues, logs mining, search personalization, article summarization and automatic recommendation systems \parencite[49]{text_mining_for_automatic_profiling}.
-The text-processing algorithm is capable of extracting skills, education, and experiences from unstructured resumes to summarize each application.
+The text-processing algorithm can extract skills, education, and experiences from unstructured resumes to summarize each application.
 These extracted keywords are matched against a keyword dictionary of each job vacancy that was created based on the terms used in each profession by the human resource department of the company that provided the dataset \parencite[47]{text_mining_for_automatic_profiling}.
-This is also called the profile matching process that compares the present competencies of the applicant with the required competencies of the job vacancy and tests the person-job fit with regards to the demands-abilities perspective.
-It is assumed that the person-job fit is higher, the higher the congruence between the demands and abilities is.
+This is also called the profile matching process that compares the present competencies of the applicant with the required competencies of the job vacancy and tests the person-job fit regarding the demands-abilities perspective.
+It is assumed that the higher the person-job fit, the higher the congruence between the demands and abilities.
 This simple matching will not work as expected in all cases since it suffers from the extracted words losing their contextual information and structure, and the model also does not understand the inherent meaning of the words as matching is done solely by equality checks \parencite[517]{applicant_semantic_matching}.
-The final ranking was then compared to the ranking of the company's human resources department, which provided the anonymized resume dataset.
+The final ranking was then compared to the company's human resources department ranking, which provided the anonymized resume dataset.
 There were two methods used to compare the extracted keywords against the keyword dictionary of each job vacancy \parencite[53-58]{text_mining_for_automatic_profiling}:
 \begin{enumerate}
     \item \textbf{Document Vector Analysis}\\
-    This analysis was conducted by using the \textit{KNIME Analytics Platform} for document preprocessing and vectorization.
+    This analysis used the \textit{KNIME Analytics Platform} for document preprocessing and vectorization.
     The preprocessing steps on the \textit{PDF} documents include punctuation erasure, number filtering, small word removal with an $n$-char filter (removal of words of length smaller or equal to $n$), conversion to lowercase letters, stop word removal (removal of words not containing any information like \textit{the} and \textit{or}, these words are language-specific) and as final step the bag of words creation (method to build a list of all used words in all input documents).
     Then, document vectorization is applied, which converts the preprocessed data of each resume to a vector of length $N$, where $N$ is the number of unique words in the bag of words.
-    The vector represents a one-hot-encoding, which means that if one of the unique words is present in the processed resume, this one value out of $N$ values will be $1$. Otherwise, it will be $0$.
+    The vector represents a one-hot-encoding, meaning that if one of the unique words is present in the processed resume, this one value out of $N$ will be $1$. Otherwise, it will be $0$.
     This sample vector representation is also computed for the keyword dictionary that was previously defined, whose words are also added to the bag of words.
-    The closer the vector representations of the resumes are to the vector representation of the keyword dictionary with regard to Euclidian distance, the higher the predicted person-job fit is.
-    A downside of this approach is that the presence of words in resumes not in the predefined keyword dictionary will increase the Euclidian distance even if they may not have a negative impact on the person-job fit. 
+    The closer the vector representations of the resumes are to the vector representation of the keyword dictionary concerning Euclidian distance, the higher the predicted person-job fit is.
+    A downside of this approach is that the presence of words in resumes not in the predefined keyword dictionary will increase the Euclidian distance even if they may not hurt the person-job fit. 
     This could be tackled by restricting the bag of words to the words in the keyword dictionary.
     \item \textbf{N-Gram Analysis}\\
     Additionally to the preprocessing steps described in the document vector analysis, the N-gram analysis also includes sentence tokenization (separation of sentences), word tokenization (separation of words), dictionary tagger (tag words that are in a specific language, for example, English) and term identification using verb phrase chunking (splits remaining phrases into its constituents).
     As the bag of words method has the downside of losing the word order and the meanings of word combinations, the data here is analyzed with the N-gram method.
-    That means when a word combination of the manually crafted keyword dictionary is found in the processed resume as a $1$-, $2$- or $3$-gram, depending on the keyword word count, the predicted person-job fit is higher.
+    That means the predicted person-job fit is higher when a word combination of the manually crafted keyword dictionary is found in the processed resume as a $1$-, $2$- or $3$-gram, depending on the keyword word count.
     The more keywords that are found to be present as $N$-grams in the processed resume, the higher the predicted person-job fit is.
 \end{enumerate}
 This method suffers from the manual keyword dictionary creation, which could be automated. 
-Furthermore, the results heavily depend on the quality and the selection of the keywords in the keyword dictionary.
+Furthermore, the results heavily depend on the keywords' quality and selection in the keyword dictionary.
 The accuracy of the $N$-gram model was slightly higher than the accuracy of the document vector model on average and topped at $87.5\%$ for the \textit{Data Developer} role.
 Moreover, when analyzing text based on chunks of words, the context of the words may be lost.
-This thesis tries to mitigate this shortcoming by using the capabilities of \acs{LLM}s to summarize the context of the input documents and to answer questions with regard to the provided context.
+This thesis tries to mitigate this shortcoming by using the capabilities of \acs{LLM}s to summarize the context of the input documents and answer questions regarding the provided context.
 
 \subsection{Machine Learning Approach} \label{machine_learning_approach}
 
 The article \textcite{pj_fit_ml} describes a machine learning approach to predict the person-job fit.
-As also outlined by \textcite[1]{pj_fit_ml}, manual inspection of applicant documents from human resource workers is not feasible anymore due to the subjective, incomplete, and inefficient nature of human judgment.
+As also outlined by \textcite[1]{pj_fit_ml}, manual inspection of applicant documents from human resource workers is no longer feasible due to human judgment's subjective, incomplete, and inefficient nature.
 The authors of this article have developed a novel end-to-end \gls{TAPJFNN} framework that should reduce human labor and make the employee selection process more interpretable.
-The key idea is to exploit the information present in historical job application data using a word-level semantic representation for both job requirements and job seekers' experiences based on the Recurrent Neural Network architecture \parencite[1]{pj_fit_ml}.
+The key idea is to exploit the information in historical job application data using a word-level semantic representation for job requirements and job seekers' experiences based on the Recurrent Neural Network architecture \parencite[1]{pj_fit_ml}.
 There are also two hierarchical topic-based ability-aware attention strategies designed in this article to measure the different importance of job requirements for semantic representation, as well as measure the varying contribution of each job experience to a specific ability requirement \parencite[1]{pj_fit_ml}.
 The \acs{TAPJFNN} framework supports predicting person-job fit, talent sourcing tasks, and job recommendation tasks \parencite[1]{pj_fit_ml}.
 There has also never been a formal, mathematical definition of the person-job fit quantization task, but the article \textcite{pj_fit_ml} provides this definition \parencite[2]{pj_fit_ml}.
 It is proposed in \textcite[2]{pj_fit_ml} that the job description is represented as a set of ability requirements.
-The applicants' abilities are extracted from the applicants' documents and are matched against the ability requirement set by using a weighted, accumulative score, as each requirement can be covered by several abilities, and most of the applicants will have different abilities. 
+The applicants' abilities are extracted from the applicants' documents. They are matched against the ability requirement set by using a weighted, accumulative score, as several abilities can cover each requirement, and most applicants will have different abilities. 
 This approach should counteract the deficiencies of the text mining approach as described in section \ref{text_mining_approach}, where exact keywords or $N$-grams are matched, which can lead to ignoring some abilities if some abilities are not described using the expected keyword list or to misleading of the recruiters due to incomplete or subjective weightings used in the score construction.
-Also, the constructed keyword features also require manual labor, which is a significant downside \parencite[5]{pj_fit_ml}.
+Also, the constructed keyword features require manual labor, which is a significant downside \parencite[5]{pj_fit_ml}.
 Therefore, \textcite[2]{pj_fit_ml} propose to use machine learning to weight abilities based on historic recruitment results instead of just using a semantic understanding of rich textual information.
 
 \subsubsection{Person-Job Fit Quantization Problem Definition}
@@ -531,7 +531,7 @@ The person-job fit quantization problem is mathematically defined as follows in 
     \item $m_l$ number of words in job requirement $j_l$.
     \item $n_l$ number of words in candidate's experience $r_l$.
 \end{itemize}
-The identifier $J$ is used to denote a job posting, which contains $p$ pieces of job requirements and duties, which are called \textit{ability requirements}.
+The identifier $J$ denotes a job posting containing $p$ pieces of job requirements and duties called \textit{ability requirements}.
 The job posting $J$ is the sum of all ability requirements, which means $J = \{j_1,j_2,...,j_p\}$.
 \textcite[7]{pj_fit_ml} divide the ability requirements into two categories:
 \begin{itemize}
@@ -542,14 +542,14 @@ The job posting $J$ is the sum of all ability requirements, which means $J = \{j
 \end{itemize}
 These two types are comprehensively analyzed without any distinction between them.
 Moreover, each job ability requirement $j_l$ is assumed to contain $m_l$ words, that means $j_l = \{j_{l,1},j_{l,2},...,j_{l,m_l}\}$.
-The identifier $R$ is used to denote a candidate's resume, which contains $q$ pieces of experience.
+The identifier $R$ denotes a candidate's resume, which contains $q$ pieces of experience.
 The resume $R$ is the sum of all experiences, which means $R = \{r_1,r_2,...,r_q\}$.
 Furthermore, each candidate's experience $r_l$ is assumed to contain $n_l$ words, that means $r_l = \{r_{l,1},r_{l,2},...,r_{l,n_l}\}$.
 The job application is denoted as $S$ and is represented by a pair of $J$ and $R$, that has an associated recruitment result label $y \in \{0,1\}$ where $y = 1$ means a successful application and $y = 0$ means a failed one.
 Each job $J$ may have many different applicants $R$, and each applicant $R$ may apply for many different jobs $J$.
 The mathematical problem definition can now be given as provided in \textcite[8]{pj_fit_ml}:
 \begin{definition}
-    Given a set of job applications $A$, where each application $S \in A$ contains a job posting $J$ and a resume $R$ as well as the corresponding recruitment result label $y$, the target of person-job fit is to learn a predictive model $M$ for measuring the matching degree between $J$ and $R$, and then the corresponding result label $y$ can be predicted. 
+    Given a set of job applications $A$, where each application $S \in A$ contains a job posting $J$ and a resume $R$ as well as the corresponding recruitment result label $y$, the target of person-job fit is to learn a predictive model $M$ for measuring the matching degree between $J$ and $R$. Then, the corresponding result label $y$ can be predicted. 
 \end{definition}
 
 \subsubsection{\acs{TAPJFNN} Architecture}
@@ -588,8 +588,8 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
         \item \textbf{Single Ability-Aware Part for Experience}\\
         The word-level representations $h^R_{l,t}$ for each job experience $r_l$ are summed up for each job requirement $j_k$ to a single ability-aware experience representation $s^R_{l,k}$ which equals $\sum_{t=1}^{n_l} \gamma_{l,k,t} \cdot h^R_{l,t}$.
         The term $\gamma_{l,k,t}$ is defined to be $\frac{\exp(e^R_{l,k,t})}{\sum_{i=1}^{n_l} \sum^p_{j=1} \exp(e^R_{j,k,i})}$ where $e^R_{j,k,i} = v_{\gamma}^{\intercal} \tanh(W_{\gamma} \cdot s^J_{k} + U_\gamma \cdot h^R_{l,r} + b_{\gamma})$.
-        This is defined to be a novel approach as the attention is not only applied to one dimension, which would be all experiences comparably to the job requirements case, but there is the second dimension of the job requirements that are also considered. 
-        Moreover, the attention mechanism uses $s^J_k$ as input to correctly weigh the words in the experiences with regards to the requirement $j_k$.
+        This is defined as a novel approach as the attention is not only applied to one dimension, which would be all experiences comparably to the job requirements case but the second dimension of the job requirements is also considered. 
+        Moreover, the attention mechanism uses $s^J_k$ as input to correctly weigh the words in the experiences regarding the requirement $j_k$.
         All parameters that are not described are initialized and learned in the training process.
         \item \textbf{Multiple Topic-Based Ability-Aware Part for Experience}\\
         In this layer, the first step is to sum up the attention-weighted intermediate representations $s^R_{l,k}$ to a single ability-aware experience representation $s^R_l$ for each job experience $r_l$.
@@ -602,14 +602,14 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
     \item \textbf{Person-Job Fit Prediction}\\
     The final prediction result can now be computed as $\hat{y} = sigmoid(W_y \cdot D + b_y)$ where $D$ is defined as $tanh(W_d[g^J;g^R;g^J-g^R;g^J \odot g^R;z^J;z^R;(W_Jz^J + b_J) \odot (W_Rz^R + b_R)] + b_d)$.
     All parameters that are not described are initialized and learned in the training process.
-    If the $\hat{y}$ is bigger than $0.5$, then the application is predicted to be successful. Otherwise, it is predicted to be unsuccessful.
-    The researchers have also implemented a refined prediction strategy that improves the accuracy of the model by supplying the model additionally with $k$ successful and $k$ unsuccessful applications for the same job posting $J$.
+    The application is predicted to succeed if the $\hat{y}$ is bigger than $0.5$. Otherwise, it is predicted to be unsuccessful.
+    The researchers have also implemented a refined prediction strategy that improves the model's accuracy by supplying the model additionally with $k$ successful and $k$ unsuccessful applications for the same job posting $J$.
     This is not presented here and can be found in \textcite[13-14]{pj_fit_ml}.
 \end{itemize}
-The accuracy of the \acs{TAPJFNN} architecture was tested on a quite large dataset of around $10000$ applicants, and the resulting accuracy was around $85\%$.
-Of course, the disadvantage of this approach is that the model is only as good as the data it is trained on, and for the training, quite large amounts of successful and unsuccessful applications are needed, which makes this method infeasible for small companies.
-The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences, or words where the focus of the model lies are clearly identified by the model's attention scores.
-The discussion was more detailed here because the authors have successfully applied the divide and conquer strategy to the person-job fit quantization problem and really tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
+The accuracy of the \acs{TAPJFNN} architecture was tested on a large dataset of around $10000$ applicants, and the resulting accuracy was around $85\%$.
+Of course, the disadvantage of this approach is that the model is only as good as the data it is trained on. For the training, many successful and unsuccessful applications are needed, making this method infeasible for small companies.
+The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences, or words where the model's attention scores are high identify the focus of the underlying model.
+The discussion was more detailed here because the authors successfully applied the divide and conquer strategy to the person-job fit quantization problem and tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
 
 \subsection{Mixed Approach}
 The model introduced in \textcite[517]{applicant_semantic_matching} uses a mixed approach to match applicants to job postings by incorporating a combination of supervised learning algorithms and a semantic matching system.
@@ -622,7 +622,7 @@ The $5$ objective criteria that were chosen were \parencite[518]{applicant_seman
     \item Extraversion (deduced from the applicant's social presence)
     \item Skills (used to be semantically matched to the job requirements)
 \end{enumerate}
-It was also introduced as a semantic matching system that was used to match the past experiences of the applicant to the job requirements, which also incorporated an algorithm that determined whether the past work experience was within the domain of expertise of the job position.
+It was also introduced as a semantic matching system that was used to match the applicant's past experiences to the job requirements, which also incorporated an algorithm that determined whether the past work experience was within the domain of expertise of the job position.
 
 The system consisted of the following $4$ components \parencite[518-519]{applicant_semantic_matching}:
 \begin{itemize}
@@ -641,112 +641,112 @@ The system consisted of the following $4$ components \parencite[518-519]{applica
     The months of work experience are only calculated for experiences that concern relative competencies \parencite[519]{applicant_semantic_matching}.
     As the required skills of the job and the skills of the user were provided as skill keywords, the problem of extracting skills from unstructured text was reduced to the work experiences.
     The search was not keyword-based but concept-based, that means because of the provided ontology, the system would know that a requirement of \textit{structured} can be fulfilled by the skill \textit{C} as can be seen in figure \ref{fig:it_skill_taxonomy}.
-    The semantic distance of the required skills and present skills is based on the node distance metric \parencite[520]{applicant_semantic_matching}.
+    The semantic distance of the required and present skills is based on the node distance metric \parencite[520]{applicant_semantic_matching}.
     \item \textbf{Personality Mining Module}\\
     This module uses the \textit{LinkedIn} user's posts to apply linguistic analysis and derive features that may reflect the user's personality, which is often overlooked in existing recruitment pipelines \parencite[518-520]{applicant_semantic_matching}.
     It was scientifically verified that by using the \acs{LIWC} system, the frequency of certain words in written texts correlated with the \textit{Big-Five} personality dimensions, but the dimension extraversion received the most research attention in this regard and was the dimension exclusively used in this article \parencite[521]{applicant_semantic_matching}.
     \item \textbf{Job Application Module}\\
-    This module implemented forms that were necessary to fill out if a candidate wanted to apply to a job \parencite[518]{applicant_semantic_matching}.
+    This module implemented forms necessary to fill out if a candidate wanted to apply to a job \parencite[518]{applicant_semantic_matching}.
     \item \textbf{Applicant Ranking Module}\\
     This module combines the candidate's selection criteria to derive the candidate's relevance score for the applied position using a parameterized function derived through supervised learning algorithms \parencite[518]{applicant_semantic_matching}.
     As is the case with all machine learning techniques, this one, too, requires sufficient training data of past candidate selection decisions, which will only be present in the necessary scale in some companies \parencite[523]{applicant_semantic_matching}.
-    This also gives rise to the problem that the model will learn the past human bias from past candidate selections, as was the case in \textcite[9]{bias_ai_hiring}.
-    Of course, all past candidates must again be used to compute the $5$ objective criteria, and also, a human expert recruiter must annotate all the past recruitment decisions with relevance scores that the model should learn. It should be evident that this involves a lot of manual labor \parencite[523-524]{applicant_semantic_matching}.
+    This also raises the problem that the model will learn the past human bias from past candidate selections, as was the case in \textcite[9]{bias_ai_hiring}.
+    Of course, all past candidates must again be used to compute the $5$ objective criteria. Also, a human expert recruiter must annotate all the past recruitment decisions with relevant scores that the model should learn. Evidently, this involves a lot of manual labor \parencite[523-524]{applicant_semantic_matching}.
 \end{itemize}
 
 \section{Bias in \acs{AI}-enabled Recruiting Tools}
 The article \textcite[9]{bias_ai_hiring} mentions that even \textit{Amazon} had an \acs{AI}-enabled hiring tool that had an internal bias towards male candidates while penalizing female applicants.
 Bias in this context means that identical applications apart from the name and sex would be ranked differently by this algorithm, even if they should be ranked equally.
-As mentioned in \textcite[9]{bias_ai_hiring}, the problem was that since the machine learning model was trained with historic recruitment data, it also inherently learned the bias that was already present in this historical data.
+As mentioned in \textcite[9]{bias_ai_hiring}, the problem was that since the machine learning model was trained with historic recruitment data, it also inherently learned the bias already present in this historical data.
 This was the bias from the past decisions of human recruiters that seemed to prefer male applicants over female ones, and past choices also penalized African Americans \parencite[9-10]{bias_ai_hiring}.
-But there are also a number of startups that want to show that with a carefully designed system, the human bias can also be removed from the recruitment process \parencite[9]{bias_ai_hiring}.
-Some techniques these startups are using are the extraction of identifying information from applications, the holding of anonymous interviews and skill-set tests, and the tuning of the job posting wording in order to attract a more diverse set of applicants \parencite[9]{bias_ai_hiring}.
-The first approach is the one that this thesis takes, the second approach completely eliminates gender bias by focusing on the skills and impartiality of all candidates (personally identifiable information is stripped away), and the third approach is not applicable in this thesis as the job postings have already been created and are input to the model.
-This indeed shows that a bias-free recruiting process cannot be achieved by just replacing one tool in the pipeline. All tools must be carefully designed to be bias-free, starting from the job description wording and ending with a valid way to assess the candidate's skills so that an informed decision can be made.
+However, several startups want to show that with a carefully designed system, the human bias can also be removed from the recruitment process \parencite[9]{bias_ai_hiring}.
+Some techniques these startups are using are extracting identifying information from applications, holding anonymous interviews and skill-set tests, and tuning the job posting wording to attract a more diverse set of applicants \parencite[9]{bias_ai_hiring}.
+The first approach is the one that this thesis takes, the second approach eliminates gender bias by focusing on the skills and impartiality of all candidates (personally identifiable information is stripped away), and the third approach is not applicable in this thesis as the job postings have already been created and are input to the model.
+This shows that a bias-free recruiting process cannot be achieved by just replacing one tool in the pipeline. All tools must be carefully designed to be bias-free, starting from the job description wording and ending with a valid way to assess the candidate's skills to make an informed decision.
 The second approach can be used to assess the candidates further, which the proposed model from the thesis finds promising, and the third approach is also necessary to attract a diverse set of applicants in the first place.
 A filtering model like the one from the thesis can never reintroduce diversity that is not there in the applicants, so the job description wording is crucial.
 Another essential aspect that the article \textcite[9-10]{bias_ai_hiring} mentions is that (continually) trained models must also be monitored for bias continuously, and the recruiters must know that the results from \acs{AI}-enabled tools cannot be trusted blindly but must be overridden by the human judgment if necessary.
-Furthermore, this constant staying on alert and cross-checking the results of the model with human judgment might defeat some of the efficiency gains that the model may bring.
+Furthermore, constantly staying on alert and cross-checking the model results with human judgment might defeat some of the efficiency gains the model may bring.
 The bias issue is increasingly important if the \acs{AI}-enabled tools are increasingly used as autonomous and not as assistive tools, which means the tools make active hiring decisions instead of just providing suggestions or recommendations within the process.
 Moreover, there was also a software presented in \textcite[10-11]{bias_ai_hiring} that computes a match score between a candidate's documents and a job's requirements similar to the model proposed in this thesis, and it was reported that with this matching system, recruiters were more likely to consider underprivileged and underrepresented minorities to move forward in the hiring process, significantly improving the overall hiring diversity.
-There is also the issue with verifying the claims of \acs{AI}-assisted tools as there currently is no publicly available dataset actually to benchmark these systems, and that issue also made the creation of original sample applicant data necessary for this thesis \parencite[11]{bias_ai_hiring}.
+There is also the issue with verifying the claims of \acs{AI}-assisted tools as there currently is no publicly available dataset actually to benchmark these systems \parencite[11]{bias_ai_hiring}. That issue also made the creation of original sample applicant data necessary for this thesis \parencite[11]{bias_ai_hiring}.
 Companies do not want to share their training data as this can lead to data privacy or liability issues if some bias is found in the data or the model, so the current system, lacking robust mechanisms for verification and inherently susceptible to confirmation biases, must undergo a radical and scientifically-driven transformation in the future \parencite[11]{bias_ai_hiring}.
 
 \section{\acs{AI}-enabled Recruiting as Marketing Tool and Current Developments}
-The article \textcite[215]{marketing_ai_recruitment} mentions that companies do not need to spend money to hide their use of \acs{AI} in the application process. Instead, they can use it to promote their use, which has a significant positive effect on job application likelihood due to its novelty factor if the candidate already has a positive view of the organization.
+The article \textcite[215]{marketing_ai_recruitment} mentions that companies do not need to spend money to hide their use of \acs{AI} in the application process. Instead, they can use it to promote their use, which significantly positively affects job application likelihood due to its novelty factor if the candidate already has a positive view of the organization.
 \acs{AI} can utilize physiological characteristics (face recognition, DNA, hand geometry, iris recognition, micro-expressions, scent, and retina scanning) and behavioral traits (gait, typing rhythm, and voice patterns) as part of the candidate selection process apart from the aforementioned text-based features of a candidate \parencite[215]{marketing_ai_recruitment}.
-The research testing the validity of these machine learning-based methods that try to infer and extrapolate characteristics in terms of job fit and performance is lagging behind and gives rise to data privacy and bias discussions as it is also possible to deduce a person's sexual orientation from a face recognition with remarkable accuracy \parencite[215]{marketing_ai_recruitment}.
-It is essential to transparently communicate what can be done with the current state-of-the-art technologies, but the question of what should be done must be asked with an ethical perspective in mind.
-The more data is collected, the more seemingly unrelated features of this data can be used in order to infer more characteristics about the candidate with reasonable accuracy, but since those characteristics are extracted using machine learning methods, they are not valid in any particular applicant's case which gives rise to ethical and privacy concerns \parencite[215]{marketing_ai_recruitment}.
+The research testing the validity of these machine learning-based methods that try to infer and extrapolate characteristics in terms of job fit and performance is lagging and gives rise to data privacy and bias discussions as it is also possible to deduce a person's sexual orientation from a face recognition with remarkable accuracy \parencite[215]{marketing_ai_recruitment}.
+It is essential to transparently communicate what can be done with the current state-of-the-art technologies, but the question of what should be done must be asked from an ethical perspective.
+The more data is collected, the more seemingly unrelated features of this data can be used to infer more characteristics about the candidate with reasonable accuracy, but since those characteristics are extracted using machine learning methods, they are not valid in any particular applicant's case which gives rise to ethical and privacy concerns \parencite[215]{marketing_ai_recruitment}.
 Furthermore, \acs{AI}-enabled recruiting tools also have the potential to be more efficient and effective than human recruiters, and their use within e-recruitment tools is positively catalyzed with an increased technology use motivation of job seekers due to its perceived usefulness \parencite[216]{marketing_ai_recruitment}.
-The candidate's attitude towards the brand or image of the organization is one of the critical factors that prevent applicants from applying for a job, but with the help of \acs{AI} and its novelty factor, the technology use motivation can be increased, leading to a higher job application likelihood \parencite[217]{marketing_ai_recruitment}.
+The candidate's attitude towards the brand or image of the organization is one of the critical factors that prevent applicants from applying for a job. Still, with the help of \acs{AI} and its novelty factor, the technology use motivation can be increased, leading to a higher job application likelihood \parencite[217]{marketing_ai_recruitment}.
 The article also mentions that an applicant's anxiety towards the use of \acs{AI} in recruitment is secondary to the applicant's attitude towards the hiring organization \parencite[217]{marketing_ai_recruitment}.
 Candidates are more satisfied with technology-based recruitment when it is technologically advanced and user-friendly and if the recruitment has a high perceived efficiency \parencite[219]{marketing_ai_recruitment}.
-The novelty of \acs{AI} fosters a positive, sustainable pre-employment relationship behavior where ease of use and playfulness enable candidates with low cow cognitive innovation to form sustainable relationships with potential employers, while aesthetics, service excellence, and usefulness are the enablers for candidates with high cognitive innovation \parencite[220]{marketing_ai_recruitment}.
+The novelty of \acs{AI} fosters a positive, sustainable pre-employment relationship behavior where ease of use and playfulness enable candidates with low cow cognitive innovation to form sustainable relationships with potential employers. At the same time, aesthetics, service excellence, and usefulness are the enablers for candidates with high cognitive innovation \parencite[220]{marketing_ai_recruitment}.
 
 \chapter{Methodology} \label{methodology}
 
 \section{Qualitative Research Design} \label{qualitative_research_design}
-To analyze the model's output and its impact from a qualitative perspective, a focus group of five human expert recruiters will be assembled.
-This amount of experts was chosen to have a diverse set of opinions, but only a few participants, in order to reduce the coordination work.
+A focus group of five human expert recruiters will be assembled to analyze the model's output and its impact from a qualitative perspective.
+This amount of experts was chosen to have diverse opinions, but only a few participants, to reduce the coordination work.
 Those will be involved in three major interactions:
 \begin{enumerate}
     \item \textbf{Kick-Off Meeting} \label{kick_off_meeting}\\ 
     In this meeting, the human expert recruiters will be introduced to the proposed model, and the topic of machine learning-assisted technologies in human resources will be discussed following these major topics to collect the requirements of the domain:
     \begin{enumerate}
         \item \textbf{Bias and Fairness}\\
-        This topic entails a discussion on bias and fairness in the context of machine learning-assisted technologies in human resources.
+        This topic entails discussing bias and fairness in the context of machine learning-assisted technologies in human resources.
         Furthermore, the technologies should probably behave in a way that avoids discrimination based on gender, ethnicity, age, or other non-job-related factors.
         Moreover, more general ethical considerations should also be discussed on this topic.
         \item \textbf{Accuracy and Reliability}\\
         This topic entails a discussion of how well the technologies should be able to replicate human judgment.
         The operation should probably be reliable, and different \acs{CV} formats and layouts should be supported while keeping the ability to match job requirements with various qualifications and experiences in other industry fields.
         \item \textbf{Legal Considerations}\\
-        This topic entails a discussion on the legal considerations of the technologies that must be matched to use \acs{AI}-assisted technologies in real-world human resource processes.
+        This topic entails discussing the legal considerations of the technologies that must be matched to use \acs{AI}-assisted technologies in real-world human resource processes.
         This includes the discussion of data security and privacy, as well as the debate on the transparency of the technologies.
         \item \textbf{Machine Learning as Assistive Technology}\\
         This topic entails a discussion on the role of machine learning in the human resource process and how it can complement the human decision-making process.
         There can maybe also be a discussion on scenarios where it would be better not to use \acs{AI}-assisted technologies or a debate on the balance of automated and human decision-making in the screening process and whether the proposed architecture matches the expected balance or if changes should be implemented.
         Moreover, the expected efficiency gains of the technologies should be discussed.
         \item \textbf{Customization and Adaptability}\\
-        This topic entails a discussion on the customization and adaptability of the technologies, whether they are able to adapt to specific industry needs, company cultures, and varying contexts.
-        Moreover, there must be things that the users might want to tweak in order to customize the technologies to their needs.
-        For example, this can be the weighting or definition of certain job requirement types or general hints on how to match the job requirement to the applicant's screening documents.
-        It is essential to understand how important it is that users are able to feed their improvement suggestions back into the system.
-        This could be done in such a way that every user is capable of tweaking the configuration of the system.
+        This topic entails discussing the customization and adaptability of the technologies and whether they can adapt to specific industry needs, company cultures, and varying contexts.
+        Moreover, there must be things that the users might want to tweak to customize the technologies to their needs.
+        For example, this can be the weighting or definition of certain job requirement types or general hints on matching the job requirement to the applicant's screening documents.
+        It is essential to understand how important it is for users to feed their improvement suggestions into the system.
+        This could be done so every user can tweak the system's configuration.
         \item \textbf{User Experience}\\
         This topic entails a discussion on the user experience of the technologies, whether they are easy to use, understand, and integrate into existing systems.
         Moreover, the file types and programs used in current human resource processes should be discussed here.
-        Furthermore, it is essential to know if these programs support third-party export and import functionalities in order to use an external program for the screening task.
+        Furthermore, it is essential to know if these programs support third-party export and import functionalities to use an external program for the screening task.
         \item \textbf{Candidate experience}\\
         This topic entails a discussion on the candidate's experience of the technologies and whether they have any advantages on their side.
         Moreover, these advantages may include a faster response time and automated feedback generation for positive and negative feedback.
         \item \textbf{Previous experiences with \acs{AI}-assisted technologies in human resources}\\
-        This topic entails a discussion on the previous experiences the human experts may have had with \acs{AI}-assisted technologies in the context of human resources.
-        Moreover, the discussion should include the general reception, advantages, and disadvantages of these technologies, including potential improvements and drawbacks and their field of use within the human resource pipeline.
+        This topic entails discussing the human experts' previous experiences with \acs{AI}-assisted technologies in the context of human resources.
+        Moreover, the discussion should include these technologies' general reception, advantages, and disadvantages, including potential improvements and drawbacks and their field of use within the human resource pipeline.
         \item \textbf{Costs}
         This topic entails a discussion on the costs of the technologies, whether they are affordable, and whether they are worth the investment, including the expected costs for a model as outlined in this thesis. 
     \end{enumerate}
     \item \textbf{Ranking Announcement} \label{ranking_announcement}\\
-    After the kick-off meeting happens, each human expert recruiter will get a set of applicant documents and job descriptions that should be ranked and categorized as described in \ref{quantitative_research_design}.
+    After the kick-off meeting, each human expert recruiter will get a set of applicant documents and job descriptions that should be ranked and categorized in \ref{quantitative_research_design}.
     The final outputs of the experts and the time it took to produce the outputs per job description will be collected via an online form that will be provided for that purpose.
     \item \textbf{Closing Meeting} \label{closing_meeting}\\ 
     In this meeting, the human expert recruiters will get the model's output to the same applicant documents and job descriptions that the recruiters have gotten.
-    In order for the recruiters to be able to prepare for the meeting, the model's output will be provided to the recruiters beforehand.
+    For the recruiters to prepare for the meeting, the model's output will be provided to the recruiters beforehand.
     The model's output will be compared to the human expert recruiters' outputs, and the differences or similarities will be discussed.
     There will also be user tests of the model where the time taken to interface with the model will be measured.
-    The discussion with the experts will be guided by these topics:
+    These topics will guide the discussion with the experts:
     \begin{enumerate} 
         \item \textbf{Consistency and Agreement}\\
-        This topic entails a discussion on the consistency and agreement of the model's output with the human expert recruiters' output.
+        This topic entails discussing the consistency and agreement of the model's output with the human expert recruiters' output.
         There, the satisfaction of the achieved accuracy on the categorization and the ordering task should be discussed, and potential model bias or potential outliers and their reasons can be analyzed.
         \item \textbf{Explainability and Transparency}\\
-        In order to achieve a high degree of user confidence and trust, the users must understand how the model makes its decisions, and the model must have a way to communicate its decisions in a transparent and human-understandable way.
+        To achieve a high degree of user confidence and trust, the users must understand how the model makes its decisions, and the model must have a way to communicate its decisions in a transparent and human-understandable way.
         There should be a discussion on the explainability and transparency of the model's output to the human expert users.
-        If deficiencies in the model are found by inspecting the model's explanations, a discussion on the tweaking of the model's configuration should be done and whether it is understandable and easy to use.
+        If deficiencies in the model are found by inspecting the model's explanations, a discussion on tweaking the model's configuration should be done and whether it is understandable and easy to use.
     \end{enumerate}
 \end{enumerate}
-All the information that is gathered will be qualitatively analyzed, and the discussions will be summarized while also presenting the considerations of the recruiters' common sense.
+All the information gathered will be qualitatively analyzed, and the discussions will be summarized while presenting the considerations of the recruiters' common sense.
 Possible companies that could participate in the qualitative research part of this thesis:
 \begin{enumerate}
     \item \textbf{Michael Page International Austria GmbH}\\
@@ -785,10 +785,10 @@ Possible companies that could participate in the qualitative research part of th
 The five human experts of the focus group introduced in \ref{qualitative_research_design} will get the same sample screening documents consisting of applicant documents and job descriptions.
 The applicant documents should be ranked from best to worst applicant and categorized as promising and unpromising candidates per the job description by each human expert.
 That means that for each job description, there is an applicant ranking from best (1\textsuperscript{st} place) to worst (8\textsuperscript{th} place) applicant, and there are also two applicant groups per job description, the promising applicant group and the unpromising applicant group.
-The screening documents consist of six job descriptions of various industries with eight applicant document sets each.
-This split was chosen in order to have a diverse set of job descriptions with different applicants who are competing for the job.
-Furthermore, it is essential to note that recruiters will have to rank and categorize $48$ applicants while tracking their time usage. Therefore, there is quite some work to do on their end.
-More importantly, the sample screening documents must also be provided in adequate quality in order to mimic the real-world screening process as closely as possible.
+The screening documents comprise six job descriptions of various industries with eight applicant document sets each.
+This split was chosen to have diverse job descriptions with different applicants competing for the job.
+Furthermore, it is essential to note that recruiters must rank and categorize $48$ applicants while tracking their time usage. Therefore, there is quite some work to do on their end.
+More importantly, the sample screening documents must also be provided in adequate quality to mimic the real-world screening process as closely as possible.
 Al job descriptions will only have \acs{CV}s as applicant documents.
 The length of each \acs{CV} is bound to six pages.
 No applicant document will contain a photo of the applicant.
@@ -810,26 +810,26 @@ The following is a table summarizing the structure of the sample screening docum
 The accuracy of the designed screening model will be determined by comparing the human expert annotations to the model's output for the sample screening documents and the following labels:
 \begin{enumerate}
     \item \textbf{Ranking}\\
-    The ranking of the model's output will be compared to the mean human expert ranking and to the individual human expert rankings per job description.
-    Metrics that summarize the ranking accuracy for all job descriptions will also be provided.
+    The ranking of the model's output will be compared to the mean human expert ranking and the individual human expert rankings per job description.
+    Metrics summarizing the ranking accuracy for all job descriptions will also be provided.
     The comparison of the rankings of the model against the mean or individual rankings of the human experts will be made using the rank-biased overlap metric, which was introduced in \textcite{rank_biased_overlap}. 
     The mean rankings and the summarized metrics will be computed with an arithmetic mean.
     Additional criteria will be introduced to break eventually occurring ties.
     \item \textbf{Categorization}\\
-    The set of promising candidates of the model's output will be compared to the mean human expert categorization and to the individual human expert categorizations per job description.
+    The set of promising candidates of the model's output will be compared to the mean human expert categorization and the individual human expert categorizations per job description.
     Metrics that summarize the categorization accuracy for all job descriptions will also be provided.
     The comparison of the categorizations of the model against the mean or individual categorizations of the human experts will be done using the Hamming distance.
-    Therefore, this would equal the amount of applicant category changes necessary to transform one categorization into the other.
+    Therefore, this would equal the number of applicant category changes necessary to transform one categorization into another.
     The mean categorizations will be computed using the mode, and the summarized metrics will be calculated with an arithmetic mean.
     Additional criteria will be introduced to break eventually occurring ties.
 \end{enumerate}
 
-The time savings associated with the model usage will be determined by sampling actual users who are using the model to automate the screening process.
-These mentioned samples will be taken at the closing meeting with the human expert recruiters.
+The time savings associated with the model usage will be determined by sampling actual users using the model to automate the screening process.
+These samples will be taken with the human expert recruiters at the closing meeting.
 
 \subsection{Rank-Biased Overlap}
 Rank-biased overlap (RBO) was used in \textcite{rank_biased_overlap} to compare the search results of various search engines.
-It computes the similarity of two rankings from $0$ (no similarity) to $1$ (most similarity) and can be evaluated up to a certain depth $k$ and needs a weighting parameter $p$ out of the interval $(0,1)$.
+It computes the similarity of two rankings from $0$ (no similarity) to $1$ (most similarity). It can be evaluated up to a certain depth $k$ and needs a weighting parameter $p$ out of the interval $(0,1)$.
 The lower $p$ is chosen, the more weight is put on the top ranks of the rankings.
 Here are some examples to illustrate the behavior of rank-biased overlap denoted as $rbo$, $k=\infty$, which means that the evaluation depth is as deep as the length of the ranking:
 \begin{itemize}
@@ -865,24 +865,24 @@ For this thesis, the second weighting property is the most important one, as we 
 
 \subsection{Overview of the Construction and Usage of the Sample Screening Documents}
 The job descriptions and the applicant documents will be either taken from publicly available datasets, taken from publicly available sources, manually crafted, or generated using tools like \textit{GPT-4} \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
-The job description and the applicants' \acs{CV}s must be supplied as pure text to the proposed model due to their internal tokenization.
-That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more and more important it will be to supply machine-readable applicant documents that please the machine learning models used in the screening process.
-When this \acs{AI} barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading the documents.
-This will lead to new challenges for the applicants as they have to please both the machine-learning models and the human decision-makers.
+Due to their internal tokenization, the job description and the applicants' \acs{CV}s must be supplied as pure text to the proposed model.
+That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recruiting_3} are deployed in the screening process, the more critical it will be to supply machine-readable applicant documents that please the machine learning models used in the screening process.
+When this \acs{AI} barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading them.
+This will lead to new challenges for the applicants as they must please both the machine-learning models and the human decision-makers.
 As the industry-standard formats for applicant documents are the \textit{PDF} and the \textit{Microsoft Word} format, files in such formats must be converted to pure text before they can be supplied to the model.
 As this conversion is not the focus of this thesis, it will be briefly discussed in the chapter ref {implementation}.
-This also means that a more sophisticated \acs{CV} layout or design and an included portrait photo will have no influence at all on the model's output, as the model will only see the text contents.
+This also means that a more sophisticated \acs{CV} layout or design and an included portrait photo will not influence the model's output, as the model will only see the text contents.
 Future work can incorporate this information by converting this visual information to text using image-to-text models.
 The proposed model will compute a score from $0$ to $100$ for each \acs{CV}-job-matchup that will be supplied to it.
-The model should also output if it thinks that the applicant is promising or not, so it also categorizes applicants into two groups.
+The model should also output whether the applicant is promising and should categorize the applicants into two groups.
 Based on this score, the \acs{CV}s for a particular job can be ranked from best to worst.
 If there is a tie with the output scores, additional criteria will be globally introduced to break the tie.
-Furthermore, it is planned that with each score output of the model, an explanation is supplied as well that clarifies why the model thinks this score is justified.
+Furthermore, it is planned that with each score output of the model, an explanation is supplied that clarifies why the model thinks this score is justified.
 The exact implementation details of the score and explanation generation are described in chapter \ref{implementation}.
-The rankings of the human experts will not be available during the model implementation phase. They will be only used to benchmark the model's accuracy after the implementation phase.
+The rankings of the human experts will not be available during the model implementation phase. They will only be used to benchmark the model's accuracy after implementation.
 
 \subsection{Construction Process of the Sample Screening Documents}
-At first, there was extensive research on the availability of datasets done which contain job descriptions and the corresponding applicant \acs{CV}s in document format. 
+At first, there was extensive research on the availability of datasets that contain job descriptions and the corresponding applicant \acs{CV}s in document format. 
 With document format, it means that the documents are either supplied in the \textit{PDF} or the \textit{Microsoft Word} format.
 Most of the datasets that were found on \textit{Kaggle} \parencite{kaggle}, via the \textit{Google} search or in \textit{GitHub} projects had at least one of the following deficiencies:
 \begin{itemize}
@@ -892,8 +892,8 @@ Most of the datasets that were found on \textit{Kaggle} \parencite{kaggle}, via 
     \item The dataset only contained a very narrow set of jobs from a particular industry, making it impossible to test the model's ability to generalize to different industries
     \item The dataset contained seemingly random candidates for the contained jobs, which, as noted before, is no good representation of real-world screening data
 \end{itemize}
-These are the reasons why it was decided to construct the sample screening documents explicitly for this thesis.
-In order to have a diverse set of jobs, the following key sectors of the Austrian economy were looked up on the website \parencite{austria_key_sectors}, which is created by an organization of the Austrian Federal Economic Chamber:
+These are why it was decided to construct the sample screening documents for this thesis explicitly.
+To have a diverse set of jobs, the following key sectors of the Austrian economy were looked up on the website \parencite{austria_key_sectors}, which an organization of the Austrian Federal Economic Chamber created:
 \begin{itemize}
     \item Food and Drink industry
     \item Mechanical and Steel Engineering
@@ -901,7 +901,7 @@ In order to have a diverse set of jobs, the following key sectors of the Austria
     \item Electrics and Electronics industry
     \item Wood, Pulp, and Paper industry
 \end{itemize}
-By doing some research on the platform \textit{LinkedIn} \parencite{linkedin} on the various job opportunities these industries offer, the following six job types were selected to be contained in the sample screening documents' job descriptions in order to cover most of Austria's key sectors:
+By doing some research on the platform \textit{LinkedIn} \parencite{linkedin} on the various job opportunities these industries offer, the following six job types were selected to be contained in the sample screening documents' job descriptions to cover most of Austria's key sectors:
 \begin{itemize}
     \item Export Specialist (Food and Drink industry)
     \item Embedded Software Engineer (Electrics and Electronics industry)
@@ -910,17 +910,17 @@ By doing some research on the platform \textit{LinkedIn} \parencite{linkedin} on
     \item Store Manager (picked representatively for the Commerce industry even if it is not a key sector)
     \item Digital Design Engineer (Chemical and Automotive industry)
 \end{itemize}
-The six job descriptions that are present in the sample screening documents were manually crafted but heavily inspired by job listings from actual companies on the \textit{LinkedIn} platform in order to be as close to reality as possible.
+The six job descriptions in the sample screening documents were manually crafted but heavily inspired by job listings from companies on the \textit{LinkedIn} platform to be as close to reality as possible.
 All the job descriptions kept a reduced form of the initial job description header structure of the platform, which contains the job title, the job location, the work model, the employment type, and the specific level of the position.
-The other content was mainly paraphrased from the real job listings, but the company name was removed from the text, and the job location was always set to \textit{Vienna} in order to redact the job listings further.
-The basic formatting and sectioning of the job listings were kept, but the font and the font sizes of the header and the content were homogenized in order to make the job listings more standardized.
+The other content was mainly paraphrased from the real job listings, but the company name was removed from the text, and the job location was always set to \textit{Vienna} to redact the job listings further.
+The basic formatting and sectioning of the job listings were kept, but the font and the font sizes of the header and the content were homogenized to make the job listings more standardized.
 This is no advantage for the proposed machine learning model as this model only sees the text contents of the job descriptions.
 
-Furthermore, the eight applicants per job description were also manually crafted but heavily inspired by real \acs{CV}s from the \textit{LinkedIn} platform.
+Furthermore, the eight applicants per job description were manually crafted but heavily inspired by real \acs{CV}s from the \textit{LinkedIn} platform.
 Possible applicants per job description were searched for on the \textit{LinkedIn} platform by searching for the job title of the job description using a people search.
-Then, there were eight applicants randomly selected per job description that had a proper English \textit{LinkedIn} profile where most of the entries in the education and experience section were commented and elaborated using English text.
-There were also some candidates selected that were listed on later pages of the search results, which means they had a lower degree of relevance to the job description.
-This was done in order to achieve a reasonable balance of candidate variety and candidate suitability for the job description and to have enough information in the profile to deduce if applicants meet or do not meet specific job requirements.
+Then, eight applicants were randomly selected per job description with a proper English \textit{LinkedIn} profile. Another selection criterion was that most of the entries in the education and experience section are commented on and elaborated using English text.
+Some candidates listed on later pages of the search results were also selected, which means they had a lower degree of relevance to the job description.
+This was done to achieve a reasonable balance of candidate variety and candidate suitability for the job description and to have enough information in the profile to deduce if applicants meet or do not meet specific job requirements.
 The \textit{LinkedIn} platform allows the download of profiles as \acs{CV}s in the form of \textit{PDF} files.
 The structure, layout, and design of this \acs{CV} download was used to craft the \acs{CV}s for the sample screening documents.
 Information that is included in this \acs{CV} structure \label{cv_structure}:
@@ -938,34 +938,34 @@ Information that is included in this \acs{CV} structure \label{cv_structure}:
     \item Honors/Awards (if present)
     \item Patents (if present)
 \end{itemize}
-In order to redact the information taken from the \textit{LinkedIn} profiles, all contact-related information was removed from the \acs{CV} documents as well as all hyperlinks present in the \textit{PDF} files were removed.
-Moreover, the candidate location of most \acs{CV}s was changed to \textit{Austria}. Sometimes, this made no sense as some current positions demanded a physical presence somewhere else in the world in order for the \acs{CV} to appear realistic.
-Furthermore, the names of the candidates were redacted to random unisex English names in order to eliminate the influence of the candidate's sex on the human decision-making process and the model's decision-making process.
+To redact the information taken from the \textit{LinkedIn} profiles, all contact-related information was removed from the \acs{CV} documents as well as all hyperlinks present in the \textit{PDF} files were removed.
+Moreover, most \acs{CV}s’ candidate locations were changed to \textit{Austria}. Sometimes, this made no sense as some current positions demanded a physical presence elsewhere in the world for the \acs{CV} to appear realistic.
+Furthermore, the names of the candidates were redacted to random unisex English names to eliminate the influence of the candidate's sex on the human decision-making process and the model's decision-making process.
 
 \section{Model Design and Model Implementation} \label{implementation}
 
 \subsection{Input Data Preprocessing}
-As described in \ref{sample_screening_documents}, all input files are supplied in the \textit{PDF} format, as this format can be used for humans and for \acs{AI}-enabled screening and is widely adopted.
+As described in \ref{sample_screening_documents}, all input files are supplied in the \textit{PDF} format, as this format can be used for humans and \acs{AI}-enabled screening and is widely adopted.
 The input files can even be printed if a human expert recruiter wants to analyze the person-environment fit while looking at physical paper instead of a digital screen.
 This might be more familiar for recruiters if quick notes need to be made.
-These \textit{PDF} files must be converted to pure text contents in order to be tokenizable and supplied to the proposed model.
+These \textit{PDF} files must be converted to pure text contents to be tokenizable and supplied to the proposed model.
 The text extraction of the \textit{PDF} files was carried out with the \textit{Python} package \textit{PyMuPDF} \parencite{pymupdf}, but faces these issues which are mentioned in \textcite{pymupdf}:
 \begin{itemize}
     \item \textbf{Complex File Structure}\\
     The \textit{PDF Reference} defining the \textit{PDF} standard is vast and extensive. 
     The text in a \textit{PDF} document can either be stored in plain text or as a graphic.
     Whereas plain text is easy to extract, the text in a graphic must be extracted using optical character recognition, which may introduce wrongly extracted characters. 
-    Optical character recognition is supported by the used package but was not used for this thesis.
-    Furthermore, for plain text extraction, the font and the used encoding must be adequately detected in order to extract the text correctly, which is appropriately done by the used package.
+    The \textit{PDF} package supports optical character recognition, but this feature was not used for this thesis.
+    Furthermore, for plain text extraction, the font and the used encoding must be adequately detected to extract the text correctly, which is appropriately done by the used package.
     Moreover, plain text segments can be specified as a collection of words and placed on the \textit{PDF} page, which is commonly used. 
     It is also possible to position each character individually on the page.
-    Not only that, but also the order of the specified plain text segments in the \textit{PDF} file must not occur in the natural reading order of the \textit{PDF} file due to a possible absolute positioning of these segments, and the end result may always be the same even if a random order of these segments is used.
+    Not only that but also the order of the specified plain text segments in the \textit{PDF} file must not occur in the natural reading order of the \textit{PDF} file due to a possible absolute positioning of these segments. The resulting \textit{PDF} file may always be the same even if a random order of these segments is used.
     Due to the final position of the text, a natural reading order may be re-established, but due to the standard's complexity, this is a complex problem. 
     The used package offers several extraction modes to cope with this problem.
     \item \textbf{Complex Layouts}\\
-    Another facet of the problem that was described above is the text extraction of \textit{PDF} files with complex layouts.
+    Another facet of the problem described above is the text extraction of \textit{PDF} files with complex layouts.
     If the layout has multiple columns or even a more complex structure, the order of the extracted text segments should be clarified. 
-    It is tough to determine the natural reading order of this kind of document most of the time.
+    It usually takes work to determine the natural reading order of this kind of document.
     The used package also offers some extraction modes to cope with this problem.
 \end{itemize}
 As the \textit{PDF} files containing the job descriptions have a simple layout and no images, no optical character recognition was needed for this case.
@@ -976,17 +976,17 @@ This is also the industry standard way of doing it, so for the extraction, it wa
 The \textit{PDF} files containing the applicant \acs{CV}s were created using \textit{Apache FOP}. They also have no images, so no optical character recognition was needed for this case.
 They have a slightly more complex layout than the job description \textit{PDF} files as they feature a two-column layout.
 However, the creation tool \textit{Apache FOP} stores the plain text segments of the left column first in the \text{PDF} file, and then the plain text segments of the right column follow in the file.
-This means that the plain text segments are stored in a natural reading order (from left column to right column, from top to bottom), as is the case for most programmatically generated \textit{PDF} files.
+This means the plain text segments are stored in a natural reading order (from left column to right column, from top to bottom), as is the case for most programmatically generated \textit{PDF} files.
 The left \acs{CV} column contains all the information mentioned in \ref{cv_structure} except the name, candidate location, summary, job experiences, and educational degrees.
 The extraction was done in the same way as for the job description \textit{PDF} files by extracting the plain text segments in the order they were defined in the \textit{PDF} file.
 
-If there would have been images with text in the \textit{PDF} files or scanned \textit{PDF} documents, optical character recognition would have been needed.
-Furthermore, if the \textit{PDF} files had had a more complex layout or stored the plain text segments in non-natural reading order, the extraction would have been more difficult.
+Optical character recognition would have been needed if there would have been images with text in the \textit{PDF} files or scanned \textit{PDF} documents.
+Furthermore, the extraction would have been more complicated if the \textit{PDF} files had had a more complex layout or stored the plain text segments in non-natural reading order.
 Text extraction could still have been achieved by using the \textit{PyMuPDF} package and extracting text underneath user-defined extraction rectangles (reading order must be explicitly set), and extracted characters or words can be brought into a natural reading order by ordering them according to the position of their bounding rectangles.
 
 As stated in \textcite{pymupdf}, no effort is made by the package in any way to prettify the extracted text.
 That means there can be too few or too many whitespaces (spaces, line breaks, \dots) in expected or unexpected positions in the extracted text.
-The non-prettified extracted text was already properly usable for the proposed model, but it was decided to prettify the extracted text in order to group relevant information together.
+The non-prettified extracted text was already properly usable for the proposed model, but it was decided to prettify the extracted text to group relevant information together.
 The main issue with the sample screening documents was that the extracted text lacked most of the line breaks that seemed to be there in a \textit{PDF} viewer.
 This was the case as line breaks may also be implicitly coded into the \textit{PDF} file by the absolute starting position of the plain text segment.
 The prettification was done by sending the extracted text to an \acs{LLM}, which was asked to group relevant text parts in a paragraph and to improve the overall formatting of the text without changing the text contents.
@@ -1001,8 +1001,8 @@ Following the divide-and-conquer principle of \textcite{pj_fit_ml}, the hard tas
     This adds determinism to the model's output as the same set of job requirements is used for all applicants for the same job.
     \item \textbf{Job Requirement Matching}\\
     The second part of the proposed model matched the extracted job requirements against the applicant's \acs{CV} that was also supplied as pure text.
-    This part of the model was responsible for quantizing the person-environment fit between the applicant and the job description for every extracted job requirement.
-    Furthermore, the used \acs{LLM} was also asked to state whether the candidate was promising or not by supplying it with all the results that were computed in the previous steps.
+    This part of the model quantized the person-environment fit between the applicant and the job description for every extracted job requirement.
+    Furthermore, the used \acs{LLM} was also asked to state whether the candidate was promising by supplying it with all the results computed in the previous steps.
     Afterward, the quantizations were aggregated into a single score that quantized the person-environment fit between the applicant and the job description in a total score from $0$ to $100$.
 \end{enumerate}
 
@@ -1013,19 +1013,19 @@ Before extracting the requirements, there were $12$ job requirement types or cat
     \item \textbf{Work Experience}\\
     This point includes requirements on previous job titles, key responsibilities, achievements, or duration of tenure at a specific position or in a particular field.
     \item \textbf{Education}\\
-    This requirement type includes the education level or the requested field of study, for example.
+    For example, this requirement type includes the education level or the requested field of study.
     \item \textbf{Other Qualifications}\\
     This requirement type covers other necessary qualifications like certifications, licenses, or accreditations.
     \item \textbf{Hard Skills}\\
-    This requirement type covers the technical skills that are required to perform the job.
+    This requirement type covers the technical skills required to perform the job.
     \item \textbf{Soft Skills}\\
     This requirement type covers the necessary abilities of a candidate to relate well to others.
     \item \textbf{Specific Knowledge}\\
-    This requirement type includes knowledge of specific fields that are necessary to perform the job, which needs to be listed in the other requirement types.
+    This requirement type includes knowledge of specific fields necessary to perform the job, which must be listed in the other requirement types.
     \item \textbf{Personal Traits}\\
-    This requirement type includes mainly personality traits that the employer is looking for in order to achieve a high person-environment fit and a high person-job fit, which may consist of attention to detail, reliability, creativity, or general intelligence, for example.
+    This requirement type includes personality traits that the employer is looking for to achieve a high person-environment fit and a high person-job fit, which may consist of attention to detail, reliability, creativity, or general intelligence.
     \item \textbf{Languages}\\
-    This requirement type includes the languages that are required to perform well in the job with a necessary level of fluency or proficiency.
+    This requirement type includes the languages required to perform well in the job with a necessary level of fluency or proficiency.
     \item \textbf{Travel}\\
     This requirement type includes the traveling aspect apart from commuting that the job entails.
     \item \textbf{Location}\\
@@ -1033,113 +1033,113 @@ Before extracting the requirements, there were $12$ job requirement types or cat
     \item \textbf{Working Hours}\\
     This requirement type includes the total amount of work hours and the flexibility regarding working hours, including shifts or necessary weekend work.
     \item \textbf{Physical Ability}\\
-    This requirement type includes any physical capabilities or limitations relevant to job requirements, such as the ability to lift certain weights or stand for extended periods of time.
+    This requirement type includes any physical capabilities or limitations relevant to job requirements, such as the ability to lift certain weights or stand for extended periods.
 \end{itemize}
 The requirements were extracted using one prompt that is sent to the \acs{LLM} that contains the extracted text from the job description as well as a mapping of the job requirement types to a textual definition of the type that should be extracted including some hints how to match the requirements of that type with an applicant \acs{CV}.
-This mapping is mostly based on the definitions in \textcite{job_requirement_types} and has the same types as in \ref{job_requirement_types}, but some fine tunings were applied to the definitions in order to produce a more human-like output.
-Moreover, the number of requirement types or their definitions can be easily changed in the current architecture if a human expert wants to modify the behavior of the model.
+This mapping is mostly based on the definitions in \textcite{job_requirement_types} and has the same types as in \ref{job_requirement_types}, but some fine tunings were applied to the definitions to produce a more human-like output.
+Moreover, the number of requirement types or their definitions can be easily changed in the current architecture if a human expert wants to modify the model's behavior.
 It was decided to extract all the requirements in one pass as extracting them isolated by job requirement type led to many duplicated job requirements.
-Also, it seemed like the \acs{LLM} models are better at categorizing all the requirements in one pass.
-The prompt requests the \acs{LLM} to output the job requirements extraction result using the \textit{JSON} format with specific fields that are specified in the prompt.
+Also, it seemed like the \acs{LLM} models better categorize all the requirements in one pass.
+The prompt requests the \acs{LLM} to output the job requirements extraction result using the \textit{JSON} format with specific fields specified in the prompt.
 This \text{JSON} object is then extracted from the output text of the \acs{LLM} and contains $0$ or more requirements as a list per requirement type.
 Each requirement has a textual specification and information on whether the requirement is mandatory or optional.
 These extracted job requirements by job requirement types are then passed onto the job requirement matching task.
 
 \subsection{Job Requirement Matching} \label{job_requirement_matching}
-The job requirements that were extracted in the previous step are then matched against each applicant's \acs{CV} that is also already supplied as pure text because it already had gone through the preprocessing.
+The job requirements extracted in the previous step are then matched against each applicant's \acs{CV} that is also already supplied as pure text because it already had gone through the preprocessing.
 The $0$ or more requirements per requirement type are matched individually against each applicant's \acs{CV}, so the matching processes do not interfere with each other and can be parallelized.
 The matching is done by querying the \acs{LLM} to output a \textit{JSON} object that contains a score between $0$ and $100$ and an explanation for the score by supplying the \acs{LLM} with the job requirement specification, the job requirement type, the job requirement type definition from \ref{job_requirement_extraction} and the applicant's \acs{CV}.
-The score was chosen between the interval of $0$ and $100$ as the model was more capable of outputting intermediate scores in this interval than in the interval of $0$ and $1$, for example.
+The score was chosen between the interval of $0$ and $100$ as the model could better output intermediate scores in this interval more than in the interval of $0$ and $1$, for example.
 This is likely because most sample text also contained percentage values instead of values between $0$ and $1$.
-These objects are then extracted from the text output of the \acs{LLM} and are used to amend the data structure that was created in the previous step with the concrete score and a textual explanation.
+These objects are then extracted from the text output of the \acs{LLM} and are used to amend the data structure created in the previous step with the concrete score and a textual explanation.
 Afterward, this amended data structure with scores and explanations was used as input to ask the \acs{LLM} if the applicant is promising or not.
-The model was prompted to output the result again as \textit{JSON} object, which contained whether the applicant is promising or not and a textual explanation for the decision.
-Furthermore, the total score of the applicant was computed by first taking an arithmetic mean of each requirement's score within each requirement type. Job requirement types that had $0$ requirements were left out.
+The model was prompted to output the result again as \textit{JSON} object, which contained whether the applicant is promising and a textual explanation for the decision.
+Furthermore, the applicant's total score was computed by first taking an arithmetic mean of each requirement's score within each requirement type. Job requirement types that had $0$ requirements were left out.
 Secondly, a weighted arithmetic mean was taken from the arithmetic means of each requirement type to build the final total score of the applicant, which is also between $0$ and $100$.
-There was a correction factor used to compensate for requirement types that had $0$ requirements but a non-zero waiting in order to still cover the whole total score range from $0$ to $100$ even if one requirement type had no requirements.
+A correction factor was used to compensate for requirement types with $0$ requirements and a non-zero weighting. The factor was necessary to still cover the total score range from $0$ to $100$ even if one requirement type had no requirements.
 This final total score can be used to sort the applicants by relevance, which means predicted person-environment fit.
-The weighting used for the total score computation was initially set to a fixed value, but the weighting of the individual requirement types can be easily changed if a human expert wants to change the behavior of the model.
+The weighting used for the total score computation was initially set to a fixed value. Still, the weighting of the individual requirement types can be easily changed if a human expert wants to change the model's behavior.
 This concludes the inner workings of the requirement matching task, and the final output of the model per applicant is the amended data structure from before, a total score, a promising or not promising decision, and a textual explanation for the decision.
 
 \subsection{Output Data Postprocessing}
 In this step, the model's output data structure is presented to the user in a human-readable way.
-This was done by providing the user a table per job description that includes all candidates, their total scores, whether the candidate is promising or not, and the textual explanation for this decision.
+This was done by providing the user a table per job description that includes all candidates, their total scores, whether the candidate is promising, and the textual explanation for this decision.
 Furthermore, this table is sorted in descending order by the promising flag first and then by the total score of the applicants.
-This table is provided in the console output of the invoked model, and the table is also offered as a \textit{CSV} file in order to be used as input for other software in the human resource pipeline.
-It must be noted that there can be a promising candidate that has a lower total score than a non-promising candidate, as the decision whether a candidate is promising or not is not solely based on the total score but also on the individual scores of the requirements and whether they are mandatory or not.
-That means focusing the work effort on the most promising candidates, and it is advisable to look at the candidates from top to bottom in the table due to the aforementioned sorting.
-Moreover, if the recruiter wants to have a deeper look into how the decision was made, the model stores the whole internal data structure of each applicant in the human-readable and machine-readable \textit{JSON} format.
-This \textit{JSON} file, in comparison to the table, additionally contains information on the individual requirements that were matched, including their score and their textual explanations.
-That should help to fine-tune the job requirement type definitions and the weightings of the job requirements in order to match the desires of the human expert recruiter. 
+This table is provided in the console output of the invoked model, and the table is also offered as a \textit{CSV} file to be used as input for other software in the human resource pipeline.
+It must be noted that there can be a promising candidate that has a lower total score than a non-promising candidate, as the decision whether a candidate is promising or not is not solely based on the total score but also the individual scores of the requirements and whether they are mandatory or not.
+That means focusing the work effort on the most promising candidates, and it is advisable to look at the candidates from top to bottom in the table due to the sorting above.
+Moreover, suppose the recruiter wants to examine how the decision was made. In that case, the model stores each applicant's whole internal data structure in the human-readable and machine-readable \textit{JSON} format.
+This \textit{JSON} file, compared to the table, additionally contains information on the individual requirements that were matched, including their score and textual explanations.
+That should help to fine-tune the job requirement type definitions and the weightings of the job requirements to match the desires of the human expert recruiter. 
 
 \subsection{Supported \acs{LLM}s}
 Whenever the section \ref{implementation} mentions the use of an \acs{LLM}, it means that a concrete \acs{LLM} implementation is used.
 For this thesis, only \acs{LLM}s that were fine-tuned for chat completions were used, as the prompts are formulated in conversational requests.
 An Interface-based implementation supports different models from different vendors, regardless of whether they are open-source or proprietary.
-All models are queried by making requests to third-party hosting providers, and the model configuration options from the interface-based implementation are automatically translated to options understandable by the underlying and currently used model.
+Requests to third-party hosting providers are used to query all models. The interface-based implementation's configuration options are automatically translated to options understandable by the underlying and currently used model.
 The following models were implemented and can be used as \acs{LLM} for the proposed model:
 \begin{enumerate}
     \item \textbf{GPT-4 Turbo}\\
-    This proprietary model is an evolution of \textit{GPT-4} proposed in \textcite{gpt4}, which has not gotten its own technical report. It has a context window of $128000$ tokens and an undisclosed amount of parameters.
+    This proprietary model is an evolution of \textit{GPT-4} proposed in \textcite{gpt4}, which has not gotten its technical report. It has a context window of $128000$ tokens and an undisclosed amount of parameters.
     The model was developed by \textit{OpenAI} and is hosted by \textit{OpenAI}.
     \item \textbf{GPT-3.5 Turbo}\\
-    This proprietary model is an evolution of \textit{GPT-3} proposed in \textcite{gpt3}, which has not gotten its own technical report. It has a context window of $16385$ tokens and an undisclosed amount of parameters.
+    This proprietary model is an evolution of \textit{GPT-3} proposed in \textcite{gpt3}, which has not gotten its technical report. It has a context window of $16385$ tokens and an undisclosed amount of parameters.
     The model was developed by \textit{OpenAI} and is hosted by \textit{OpenAI}.
     \item \textbf{LLAMA 2-Chat}\\
     This open-source model collection is described in \textcite{llama2}. Each model has a context window of $4096$ tokens, and the three models of this collection used in this thesis differ in their number of parameters, which are either $7$, $13$, or $70$ billion parameters.
-    These models were developed by \textit{Meta} and are hosted by \textit{Replicate} in the implementation's case, which is one of many hosting providers for this model collection.
+    These models were developed by \textit{Meta} and are hosted by \textit{Replicate} in the implementation's case, one of many hosting providers for this model collection.
     \item \textbf{Gemini}\\
     This proprietary model collection is described in \textcite{gemini}. Currently, only \textit{Gemini Pro} is available publicly. \textit{Gemini Pro} has a context window of $32000$ tokens and an undisclosed amount of parameters.
     These models were developed by \textit{Google} and are hosted by \textit{Google}.
 \end{enumerate}
 
 \subsection{Context Windows of \acs{LLM}s}
-It is essential that the context window is large enough to contain the prompt itself, including all input texts and the whole expected output text of the model, in order to reference all input parts in the answer fully.
+The context window must be large enough to contain the prompt itself, including all input texts and the expected output text of the model, to reference all input parts in the answer fully.
 As a rule of thumb, around four characters of standard English text will be translated to one token, a text fragment that is encoded using a unique integer, in the case of the \textit{OpenAI} tokenizer, which is based on the byte pair encoding algorithm \parencite{openai_tokenizer}. 
 This token translation is bidirectional and can, therefore, go both ways, which means the unique integer sequence can be translated back into the source text.
 As mentioned in \textcite[6]{llama2}, the \textit{LLAMA 2-Chat} models also use a tokenizer that employs the byte pair encoding algorithm. Therefore, the rule of thumb for the \textit{OpenAI} tokenizer is used as a general measure in the following calculation examples.
-The largest \acs{CV} that this thesis is using as input text has around $6500$ characters, which would translate to about $1625$ tokens.
-The most extensive job description that this thesis is using as input text consists of around $3700$ characters, which would translate to about $925$ tokens.
+The largest \acs{CV} that this thesis uses as input text has around $6500$ characters, translating to about $1625$ tokens.
+The most extensive job description this thesis uses as input text consists of around $3700$ characters, which would translate to about $925$ tokens.
 The largest prompt without the contained input text is the one that extracts the requirements from the job description as it contains all the job requirement definitions and consists of around $7000$ characters in the current default configuration, which equals about $1750$ tokens.
-That means with a context size of $4096$ tokens, there are only $4096-925-1750=1421$ tokens left for the output text of the model for the job requirement extraction task, which equals about $5684$ characters.
-The longest answer that the used \acs{LLM} may give depends on when the model is stopping to generate output text, which itself depends on how many requirements are actually present in the input job description.
+That means with a context size of $4096$ tokens, only $4096-925-1750=1421$ tokens are left for the output text of the model for the job requirement extraction task, which equals about $5684$ characters.
+The longest answer that the used \acs{LLM} may give depends on when the model is stopping to generate output text, which itself depends on how many requirements are present in the input job description.
 A typical requirement extraction \acs{LLM} output contains around $3000$ characters, so it is within the remaining and available minimum context size of all supported models, and there is still some margin there.
-In terms of the context window size, the job requirement extraction task is the limiting factor or critical path, as the other prompts without the input texts and expected output texts are much smaller.
-If the configuration is changed such that the job requirement definitions are larger in size or if the used job descriptions are much larger in size, the context window size may quickly reach its limit, and models with a larger context size must be used.
+Regarding the context window size, the job requirement extraction task is the limiting factor or critical path, as the other prompts without input texts and expected output texts are much smaller.
+If the configuration is changed such that the job requirement definitions are more extensive or if the used job descriptions are much larger, the context window size may quickly reach its limit. Models with a larger context size must be used in this case.
 
 \subsection{Determinism of \acs{LLM}s}
 The settings used for configuring the \acs{LLM}s were picked to make the underlying \acs{LLM} deterministic, which means that the same input to the model should lead to the same output every single time.
 These settings remove all configurable penalties (presence penalty, repetition penalty, repetition penalty) and biases (only logit bias) that would alter the model output, use a constant system prompt, limit the maximum output token amount to $4096$, and define no stop sequences.
-The aforementioned settings are not altering if the \acs{LLM} is behaving deterministically or not, but they are instead listed for completeness.
-The output tokens of an \acs{LLM} are sampled from the probability distribution of the model's output logits, which represent the token vocabulary.
-This sampling needs a random number generator to sample, which is seeded with a known fixed seed in our case in order to make the output values of this generator and, therefore, the sampled tokens deterministic.
-This is the single setting that makes an \acs{LLM} deterministic.
-Additionally, the token vocabulary sampling space that is sampled in every \acs{LLM} step can be trimmed down by setting the number of top tokens to sample from or by only sampling from the top tokens that add up to a certain probability mass.
+The settings above are not altering if the \acs{LLM} is behaving deterministically or not, but they are instead listed for completeness.
+The output tokens of an \acs{LLM} are sampled from the probability distribution of the model's output logits, representing the token vocabulary.
+This sampling needs a random number generator to sample, which is seeded with a known fixed seed to make the output values of this generator and, therefore, the sampled tokens deterministic.
+This single setting makes an \acs{LLM} deterministic.
+Additionally, the token vocabulary sampling space sampled in every \acs{LLM} step can be trimmed down by setting the number of top tokens to sample from or by only sampling from the top tokens that add up to a certain probability mass.
 Both settings were configured such that only the single top token is sampled in every step, which means the token with the highest probability should always be chosen.
-The temperature setting of \acs{LLM}s is used as the input to a \textit{Softmax} function with temperature. This parameter controls whether the probability differences should be softened or enlarged.
+The temperature setting of \acs{LLM}s is the input to a \textit{Softmax} function with temperature. This parameter controls whether the probability differences should be softened or enlarged.
 In this thesis, the temperature was picked to zero, which means only the highest probability token has a non-zero probability and, therefore, should always be chosen.
 Despite fixing the seed, which should make the model deterministic anyway, trimming the sampling space to only one token and setting the temperature setting to enforce this single token further, only the \textit{LLAMA 2-Chat} models were behaving deterministically.
-Both models from \textit{OpenAI} failed to deliver deterministic responses even with the aforementioned settings, which should lead to deterministic behavior.
-The responses from \textit{OpenAI} models to the same inputs are mostly very similar or even identical, but nothing can be guaranteed, and therefore, no unit test cases can be written for these models if they check the full model response text.
+Both models from \textit{OpenAI} failed to deliver deterministic responses even with the settings above, which should lead to deterministic behavior.
+The responses from \textit{OpenAI} models to the same inputs are primarily similar or identical. Still, nothing can be guaranteed. Therefore, no unit test cases can be written for non-deterministic models if they check the full model response text.
 The \textit{OpenAI} API sends a \textit{system fingerprint} value with their responses and does not guarantee determinism in general \parencite{openai_chat_api}.
-\textit{OpenAI} systems make their best effort to sample deterministically if the seed was also fixed in the request \parencite{openai_chat_api}.
-If the \textit{system fingerprint} of the response changes compared to a previous request with the same input, it is likely that it will result in a non-deterministic response \parencite{openai_chat_api}.
-The problem for the \textit{OpenAI} API user is that there is no way to specify which system you want to have in order to get deterministic responses, \textit{OpenAI} assigns the used backend systems nondeterministically and it is likely that two back-to-back requests will have two different \textit{system fingerprint} values \parencite{openai_chat_api}.
+\textit{OpenAI} systems try to sample deterministically if the seed was also fixed in the request \parencite{openai_chat_api}.
+If the \textit{system fingerprint} of the response changes compared to a previous request with the same input, it will likely result in a non-deterministic response \parencite{openai_chat_api}.
+The problem for the \textit{OpenAI} API user is that there is no way to specify which system you want to have to get deterministic responses. \textit{OpenAI} assigns the used backend systems nondeterministically. Two back-to-back requests will likely have two different \textit{system fingerprint} values \parencite{openai_chat_api}.
 The nondeterministic behavior is known to \textit{OpenAI}, and hopefully, they will fix it in a future release.
 The \textit{Gemini} model family suffered from similar issues as the \textit{OpenAI} models. It does not even support seeding the internally used random number generator.
 
 \subsection{Model Configuration}
-This is the default configuration that is used to operate the proposed model. Every single setting can be changed in order to modify the behavior of the proposed model to the desires of the operating human expert recruiter:
+This is the default configuration that is used to operate the proposed model. Every single setting can be changed to modify the behavior of the proposed model to the desires of the operating human expert recruiter:
 \lstinputlisting[language=TypeScript,label=lst:default_model_configuration,caption=Default configuration of the proposed model]{../hrgpt/default_config.json}
 
 \subsection{Scope and Limitations}
-As \acs{LLM}s are trained on massive amounts of data which are compressed into the model's parameters, the resulting model will be able to summarize text and answer questions based on the input text reasonably well in the most general cases.
-Due to this compression, it is not guaranteed that the model will output plausible text in all cases. 
-As there are vast amounts of possible input texts, the model will not be able to summarize and answer questions on all of them correctly or with the same accuracy, as \acs{LLM}s do not understand the text in the same way as humans do.
+As \acs{LLM}s are trained on massive amounts of data compressed into the model's parameters, the resulting model can summarize text and answer questions based on the input text reasonably well in the most general cases.
+Due to this compression, the model is only guaranteed to output plausible text in some cases. 
+As there are vast amounts of possible input texts, the model cannot summarize and answer questions on all of them correctly or with the same accuracy, as \acs{LLM}s do not understand the text the same way humans do.
 This means that the model will not be able to give a plausible output on every theoretically possible \acs{CV} job matchup and should, therefore, not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
-However, due to the vast amounts of training data that are scraped off the internet and used to train these models, they will behave quite robustly in most cases.
-Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous, and past experiences influence humans’ decisions. This makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms not only for decision-making but also for the detection of discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior is dependent on human-written data, like in the thesis case, is virtually impossible. Also, in \textcite[158-160]{discrimination_algorithms}, the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
-That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be significant, as shown in the example. There might be other application areas like healthcare where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
+However, they will behave quite robustly in most cases due to the vast amounts of training data that are scraped off the internet and used to train these models.
+Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous, and past experiences influence humans’ decisions. This makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms for decision-making and detecting discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior depends on human-written data, like in the thesis case, is virtually impossible. Also, in \textcite[158-160]{discrimination_algorithms}, the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
+That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be significant, as shown in the example. Other application areas like healthcare might be where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
 
 \chapter{Data}
 
@@ -1148,26 +1148,26 @@ That means when the law forbids the usage of certain features in algorithmic or 
 \subsection{Qualitative Research}
 
 \subsubsection{Kick-Off Meeting Discussion Guide}
-In order to provide more validity to the open, verbal discussion with the human experts of the focus group, the following discussion guide formulates the main topics and the most important open questions in the form of a questionnaire as quickly outlined in \ref{kick_off_meeting}:
+To provide more validity to the open, verbal discussion with the human experts of the focus group, the following discussion guide formulates the main topics and the most important open questions in the form of a questionnaire as quickly outlined in \ref{kick_off_meeting}:
 \begin{enumerate}
     \item \textbf{Bias and Fairness}
     \begin{itemize}
         \item How do you perceive the potential for bias or definitive bias in \acs{AI}-assisted recruitment technologies?
         \item How important is it that the used \acs{AI} system is designed to ensure fairness and avoid discrimination based on gender, ethnicity, age, or other non-job-related factors?
-        \item What are your views on the ethical considerations surrounding the use of machine learning in human resource processes?
+        \item What are your views on the ethical considerations surrounding using machine learning in human resource processes?
     \end{itemize}
     \item \textbf{Accuracy and Reliability}
     \begin{itemize}
         \item To what extent should these technologies replicate human judgment in the screening process?
-        \item To what extent have different \acs{CV} formats or layouts an influence on the screening decision? Do you think an \acs{AI} model that uses the text contents of the \acs{CV} is sufficient or not? What important information could be omitted with this approach?
+        \item To what extent have different \acs{CV} formats or layouts influenced the screening decision? Is an \acs{AI} model that uses the text contents of the \acs{CV} sufficient or not? What important information could be omitted with this approach?
         \item What difficulties do you see for \acs{AI} systems that can effectively match job requirements with a diverse range of qualifications and experiences across different industries?
     \end{itemize}
     \item \textbf{Legal Considerations}
     \begin{itemize}
         \item What legal challenges do you foresee in implementing \acs{AI} in \acs{HR} processes, particularly concerning data security and privacy?
         \item How can we maintain transparency in \acs{AI}-assisted recruitment technologies? 
-        \item Would the perceived transparency be better if the \acs{AI} software runs on the user's own servers? Moreover, would you send applicant documents to third-party servers, or would you prefer to run the \acs{LLM} software on your own servers?
-        \item What are the key legal safeguards that should be in place when using these technologies?
+        \item Would the perceived transparency be better if the \acs{AI} software runs on the user's servers? Moreover, would you send applicant documents to third-party servers, or would you prefer to run the \acs{LLM} software on your servers?
+        \item What key legal safeguards should be in place when using these technologies?
     \end{itemize}
     \item \textbf{Machine Learning as Assistive Technology}
     \begin{itemize}
@@ -1180,13 +1180,13 @@ In order to provide more validity to the open, verbal discussion with the human 
     \begin{itemize}
         \item How important is customization in \acs{AI}-assisted recruitment technologies for different industries and company cultures?
         \item What aspects of the technology should be customizable by the user?
-        \item Should the user be able to tweak the model's configuration of requirement extraction, requirement matching, and weighting of the requirement match scores in order to change the model output, or is a more high-level form of customizability desired?
+        \item Should the user be able to tweak the model's configuration of requirement extraction, requirement matching, and weighting of the requirement match scores to change the model output, or is a more high-level form of customizability desired?
     \end{itemize}
     \item \textbf{User Experience}
     \begin{itemize}
         \item What are the key factors that make an \acs{AI}-assisted recruitment tool user-friendly?
         \item How should these technologies integrate with existing \acs{HR} systems, and do these systems support an export/import functionality to/from third-party systems? Moreover, what are the dominant file types used for applicant documents?
-        \item What are your thoughts on third-party tools in HR? Do you prefer a fully integrated solution, or are multiple tools already in use?
+        \item What are your thoughts on third-party tools in HR? Do you prefer a fully integrated solution, or are multiple tools already used?
     \end{itemize}
     \item \textbf{Candidate Experience}
     \begin{itemize}
@@ -1204,7 +1204,7 @@ In order to provide more validity to the open, verbal discussion with the human 
     \begin{itemize}
         \item How do you assess the affordability and cost-effectiveness of \acs{AI}-assisted recruitment technologies?
         \item What are your expectations regarding the investment required for the model outlined in this thesis?
-        \item How do you justify the costs of these technologies in relation to their benefits?
+        \item How do you justify the costs of these technologies with their benefits?
     \end{itemize}
 \end{enumerate}
 
