@@ -35,7 +35,7 @@ def transform_chat_message_history_to_google_chat_messages(
     dict_list: list[google.generativeai.types.ContentDict] = []
     for chat_message in chat_messages:
         dict_value: google.generativeai.types.ContentDict
-        if chat_message.author == Author.USER:
+        if chat_message.author == Author.USER or chat_message.author == Author.SYSTEM:
             user_value: google.generativeai.types.ContentDict = {
                 "role": "user",
                 "parts": [chat_message.text],
@@ -90,7 +90,7 @@ class GoogleChat(Chat):
             ),
         )
         google_chat_messages = transform_chat_message_history_to_google_chat_messages(
-            self.get_chat_message_history()
+            self.get_chat_message_history(include_context=True)
         )
         chat = model.start_chat(history=google_chat_messages[:-1])
         model_response = chat.send_message(google_chat_messages[-1])
