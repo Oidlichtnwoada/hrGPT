@@ -370,6 +370,7 @@ replacements.txt
 
 # Ignore Word version of thesis for Grammarly use
 thesis.docx
+~$thesis.docx
 
 # Ingore name csv files
 forenames.csv
