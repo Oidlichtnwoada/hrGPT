@@ -303,7 +303,7 @@ The effects and the significance of using \acs{AI}-enabled technologies in human
 
 \section{Research Objective and Research Question} \label{research_objective_and_research_question}
 The research aims to supply the proposed reasonably accurate screening tool based on \acs{LLM}s outlined in \ref{problem_statement} as open-source software to the public. 
-That means companies of any size can integrate this tool into their human capital sourcing pipelines to increase their efficiency and decrease costs eventually.
+That means companies of any size can integrate this tool into their human capital sourcing pipelines to increase efficiency and decrease costs eventually.
 As outlined in the previous chapters, people working in human resources have to screen more and more resumes or \acs{CV}s as the reach of online job advertisements attracts many applicants.
 It was also discussed that many of these applicants were not qualified for the advertised job and should not be assessed further.
 This pre-filtering saves costly human resources and makes it easier to invest the most time and effort into the most promising candidates, given that you have an easy and cheap way to screen the application documents.
@@ -382,9 +382,9 @@ These two fit measures should both be considered when computing the score.
 In essence, person-environment fit is a complex and multi-dimensional concept.
 It can be conceptualized as both complementary and supplementary. 
 Supplementary fit happens when a person supplements, embellishes or possesses characteristics similar to others in the environment \parencite[180]{po_and_pj_fit_literature_review}.
-Complementary fit happens when a person possesses characteristics that are missing in the environment, making it more complete \parencite[180]{po_and_pj_fit_literature_review}.
+Complementary fit happens when a person possesses missing characteristics in the environment, making it more complete \parencite[180]{po_and_pj_fit_literature_review}.
 Complementary person-environment fit encompasses the needs-supplies and demands-abilities perspectives. 
-An environment supplies financial, physical, and psychological resources as well as task-related, interpersonal, and growth opportunities that the person demands or needs \parencite[180]{po_and_pj_fit_literature_review}.
+An environment supplies financial, physical, and psychological resources and task-related, interpersonal, and growth opportunities that the person demands or needs \parencite[180]{po_and_pj_fit_literature_review}.
 A needs-supplies fit is achieved when the supply meets the individual's needs.
 A demands-abilities fit is achieved when the individual's professional contributions in terms of time, effort, commitment, skills, and knowledge meet the demands of the environment \parencite[180]{po_and_pj_fit_literature_review}.
 Person-environment fit can be understood as perceived fit and actual fit.
@@ -436,7 +436,7 @@ Research showed that the discriminant validity of these two types is given, as e
 Using confirmatory factor analysis, it was shown that job recruiters and applicants could distinguish between the two types of fit, but it was also demonstrated that the recruiters' perceived fit, no matter what kind, is influenced by their past experiences in a predictable way \parencite[185]{po_and_pj_fit_literature_review}.
 It was also shown that person-organization fit has a more significant favorable influence on employee retention and contextual performance than person-job fit \parencite[185]{po_and_pj_fit_literature_review}.
 There can even be a third type called person-group fit, which is like person-organization fit but limited to a specific group within the organization the employee is working with.
-Furthermore, these three types of fit have a unique impact on various metrics, supporting the previously made claim that they are distinct concepts \parencite[185]{po_and_pj_fit_literature_review}.
+Furthermore, these three types of fit uniquely impact various metrics, supporting the previously made claim that they are distinct concepts \parencite[185]{po_and_pj_fit_literature_review}.
 
 \subsection{Person-Environment Fit in Employee Selection}
 Research on employee selection can be divided into the following two fields \parencite[185-186]{po_and_pj_fit_literature_review}:
@@ -607,7 +607,7 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
     This is not presented here and can be found in \textcite[13-14]{pj_fit_ml}.
 \end{itemize}
 The accuracy of the \acs{TAPJFNN} architecture was tested on a large dataset of around $10000$ applicants, and the resulting accuracy was around $85\%$.
-Of course, the disadvantage of this approach is that the model is only as good as the data it is trained on. For the training, many successful and unsuccessful applications are needed, making this method infeasible for small companies.
+Of course, the disadvantage of this approach is that the model is only as good as the data it is trained on. Many successful and unsuccessful applications are needed for the training, making this method infeasible for small companies.
 The researchers discuss in their article that the attention mechanisms make the whole architecture more interpretable as the requirements, experiences, or words where the model's attention scores are high identify the focus of the underlying model.
 The discussion was more detailed here because the authors successfully applied the divide and conquer strategy to the person-job fit quantization problem and tried to remodel the human steps as differentiable functions in their \acs{TAPJFNN} architecture.
 
@@ -622,7 +622,7 @@ The $5$ objective criteria that were chosen were \parencite[518]{applicant_seman
     \item Extraversion (deduced from the applicant's social presence)
     \item Skills (used to be semantically matched to the job requirements)
 \end{enumerate}
-It was also introduced as a semantic matching system that was used to match the applicant's past experiences to the job requirements, which also incorporated an algorithm that determined whether the past work experience was within the domain of expertise of the job position.
+It was also introduced as a semantic matching system to match the applicant's past experiences to the job requirements. It also incorporated an algorithm that determined whether the past work experience was within the domain of expertise of the job position.
 
 The system consisted of the following $4$ components \parencite[518-519]{applicant_semantic_matching}:
 \begin{itemize}
@@ -651,7 +651,7 @@ The system consisted of the following $4$ components \parencite[518-519]{applica
     This module combines the candidate's selection criteria to derive the candidate's relevance score for the applied position using a parameterized function derived through supervised learning algorithms \parencite[518]{applicant_semantic_matching}.
     As is the case with all machine learning techniques, this one, too, requires sufficient training data of past candidate selection decisions, which will only be present in the necessary scale in some companies \parencite[523]{applicant_semantic_matching}.
     This also raises the problem that the model will learn the past human bias from past candidate selections, as was the case in \textcite[9]{bias_ai_hiring}.
-    Of course, all past candidates must again be used to compute the $5$ objective criteria. Also, a human expert recruiter must annotate all the past recruitment decisions with relevant scores that the model should learn. Evidently, this involves a lot of manual labor \parencite[523-524]{applicant_semantic_matching}.
+    Of course, all past candidates must again be used to compute the $5$ objective criteria. Also, a human expert recruiter must annotate all the past recruitment decisions with relevant scores that the model should learn. This involves a lot of manual labor \parencite[523-524]{applicant_semantic_matching}.
 \end{itemize}
 
 \section{Bias in \acs{AI}-enabled Recruiting Tools}
@@ -687,7 +687,7 @@ The novelty of \acs{AI} fosters a positive, sustainable pre-employment relations
 \chapter{Methodology} \label{methodology}
 
 \section{Qualitative Research Design} \label{qualitative_research_design}
-A focus group of five human expert recruiters will be assembled to analyze the model's output and its impact from a qualitative perspective.
+A focus group of five human expert recruiters will be assembled to analyze the model's output and impact from a qualitative perspective.
 This amount of experts was chosen to have diverse opinions, but only a few participants, to reduce the coordination work.
 Those will be involved in three major interactions:
 \begin{enumerate}
@@ -786,7 +786,7 @@ The five human experts of the focus group introduced in \ref{qualitative_researc
 The applicant documents should be ranked from best to worst applicant and categorized as promising and unpromising candidates per the job description by each human expert.
 That means that for each job description, there is an applicant ranking from best (1\textsuperscript{st} place) to worst (8\textsuperscript{th} place) applicant, and there are also two applicant groups per job description, the promising applicant group and the unpromising applicant group.
 The screening documents comprise six job descriptions of various industries with eight applicant document sets each.
-This split was chosen to have diverse job descriptions with different applicants competing for the job.
+This split was chosen to have diverse job descriptions with different applicants competing.
 Furthermore, it is essential to note that recruiters must rank and categorize $48$ applicants while tracking their time usage. Therefore, there is quite some work to do on their end.
 More importantly, the sample screening documents must also be provided in adequate quality to mimic the real-world screening process as closely as possible.
 Al job descriptions will only have \acs{CV}s as applicant documents.
@@ -1021,7 +1021,7 @@ Before extracting the requirements, there were $12$ job requirement types or cat
     \item \textbf{Soft Skills}\\
     This requirement type covers the necessary abilities of a candidate to relate well to others.
     \item \textbf{Specific Knowledge}\\
-    This requirement type includes knowledge of specific fields necessary to perform the job, which must be listed in the other requirement types.
+    This requirement type includes knowledge of specific fields necessary to perform the job, which must be listed in the job requirements.
     \item \textbf{Personal Traits}\\
     This requirement type includes personality traits that the employer is looking for to achieve a high person-environment fit and a high person-job fit, which may consist of attention to detail, reliability, creativity, or general intelligence.
     \item \textbf{Languages}\\
@@ -1069,7 +1069,7 @@ This table is provided in the console output of the invoked model, and the table
 It must be noted that there can be a promising candidate that has a lower total score than a non-promising candidate, as the decision whether a candidate is promising or not is not solely based on the total score but also the individual scores of the requirements and whether they are mandatory or not.
 That means focusing the work effort on the most promising candidates, and it is advisable to look at the candidates from top to bottom in the table due to the sorting above.
 Moreover, suppose the recruiter wants to examine how the decision was made. In that case, the model stores each applicant's whole internal data structure in the human-readable and machine-readable \textit{JSON} format.
-This \textit{JSON} file, compared to the table, additionally contains information on the individual requirements that were matched, including their score and textual explanations.
+Compared to the table, this \textit{JSON} file also contains information on the individual requirements that were matched, including their score and textual explanations.
 That should help to fine-tune the job requirement type definitions and the weightings of the job requirements to match the desires of the human expert recruiter. 
 
 \subsection{Supported \acs{LLM}s}
@@ -1099,7 +1099,7 @@ As a rule of thumb, around four characters of standard English text will be tran
 This token translation is bidirectional and can, therefore, go both ways, which means the unique integer sequence can be translated back into the source text.
 As mentioned in \textcite[6]{llama2}, the \textit{LLAMA 2-Chat} models also use a tokenizer that employs the byte pair encoding algorithm. Therefore, the rule of thumb for the \textit{OpenAI} tokenizer is used as a general measure in the following calculation examples.
 The largest \acs{CV} that this thesis uses as input text has around $6500$ characters, translating to about $1625$ tokens.
-The most extensive job description this thesis uses as input text consists of around $3700$ characters, which would translate to about $925$ tokens.
+The most extensive job description this thesis uses as input text consists of around $3700$ characters, translating to about $925$ tokens.
 The largest prompt without the contained input text is the one that extracts the requirements from the job description as it contains all the job requirement definitions and consists of around $7000$ characters in the current default configuration, which equals about $1750$ tokens.
 That means with a context size of $4096$ tokens, only $4096-925-1750=1421$ tokens are left for the output text of the model for the job requirement extraction task, which equals about $5684$ characters.
 The longest answer that the used \acs{LLM} may give depends on when the model is stopping to generate output text, which itself depends on how many requirements are present in the input job description.
