@@ -368,6 +368,9 @@ __pycache__
 # Replacements are private
 replacements.txt
 
+# Ignore Word version of thesis for Grammarly use
+thesis.docx
+
 # Ingore name csv files
 forenames.csv
 surnames.csv
