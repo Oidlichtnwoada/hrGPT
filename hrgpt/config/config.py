@@ -106,12 +106,20 @@ class NetworkConfiguration(pydantic.BaseModel):
     retry_amount: PositiveInt
 
 
+class PromptConfiguration(pydantic.BaseModel):
+    prettify_text_prompt: StrippedString
+    extract_requirements_prompt: StrippedString
+    match_requirement_prompt: StrippedString
+    check_if_candidate_is_promising_prompt: StrippedString
+
+
 class GenericConfiguration(pydantic.BaseModel):
     score_config: ScoreConfiguration
     polars_config: PolarsConfiguration
     logging_config: LoggingConfiguration
     network_config: NetworkConfiguration
     job_requirements_config: NonEmptyJobRequirementDict
+    prompt_config: PromptConfiguration
 
 
 class EnvironmentSecrets(pydantic.BaseModel):

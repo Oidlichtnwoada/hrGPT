@@ -98,11 +98,9 @@ def create_dynamic_placeholders_from_requirement_type(
         ),
         (
             DynamicPlaceholder.REQUIREMENT_TYPE_DEFINITION,
-            dumps(
-                get_job_requirement_definitions(
-                    app_config.generic_config.job_requirements_config
-                )[requirement_type]
-            ),
+            get_job_requirement_definitions(
+                app_config.generic_config.job_requirements_config
+            )[requirement_type],
         ),
     )
 
