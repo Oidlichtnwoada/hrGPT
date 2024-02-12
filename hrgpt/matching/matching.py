@@ -35,7 +35,7 @@ def match_job_requirements_to_candidate_cv(
             continue
         for requirement in job_requirements[requirement_type]:
             prompt = get_prompt_to_match_requirement(
-                requirement, requirement_type, cv_text
+                cv_text, requirement, requirement_type
             )
             prompts.append((requirement_type, requirement, prompt))
     prompt_answers = zip(
