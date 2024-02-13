@@ -329,7 +329,7 @@ In the quantitative context, the accuracy of the proposed model will be measured
 \section{Structure of the Work} \label{structure_of_the_work}
 This thesis starts with the introduction chapter \ref{introduction} which gives an overview of the problem statement \ref{problem_statement}, the significance of the work \ref{significance_of_the_work}, the research objective and research question \ref{research_objective_and_research_question}, the research methodology \ref{research_methodology} and the structure of the work \ref{structure_of_the_work}.
 The second chapter \ref{theoretical_background} gives an overview of the theoretical background of the work, like quickly revisiting \gls{LLM}s and then discussing literature on person-environment fit and methods to quantize this fit.
-Afterward, the methodology chapter \ref{methodology} describes what research methods have been used, how the results have been obtained, and how sample screening documents and the model have been created.
+Afterward, the methodology chapter \ref{methodology} describes what research methods have been used, how the results have been obtained, how the sample screening documents were created, and how the model has been created.
 
 
 \chapter{Theoretical Background} \label{theoretical_background}
@@ -1134,12 +1134,19 @@ This is the default configuration that is used to operate the proposed model. Ev
 
 \subsection{Scope and Limitations}
 As \acs{LLM}s are trained on massive amounts of data compressed into the model's parameters, the resulting model can summarize text and answer questions based on the input text reasonably well in the most general cases.
+As most text data on the internet is written in English, the proposed model in its first version was only tested and used with English job descriptions and \acs{CV}s as English is the preferred language of most if not all \acs{LLM}s.
 Due to this compression, the model is only guaranteed to output plausible text in some cases. 
 As there are vast amounts of possible input texts, the model cannot summarize and answer questions on all of them correctly or with the same accuracy, as \acs{LLM}s do not understand the text the same way humans do.
 This means that the model will not be able to give a plausible output on every theoretically possible \acs{CV} job matchup and should, therefore, not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
 However, they will behave quite robustly in most cases due to the vast amounts of training data that are scraped off the internet and used to train these models.
 Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous, and past experiences influence humans’ decisions. This makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms for decision-making and detecting discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior depends on human-written data, like in the thesis case, is virtually impossible. Also, in \textcite[158-160]{discrimination_algorithms}, the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
 That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be significant, as shown in the example. Other application areas like healthcare might be where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
+
+\subsection{Multilingual Support}
+Multilingual support for the proposed model can quickly be introduced by translating the extracted non-English text from job descriptions or \acs{CV}s into English using a machine translation service before supplying it to the underlying \acs{LLM}.
+This has the advantage that the \acs{LLM}s can still operate in their preferred language domain.
+For example, the used machine translation service could be \textcite{deepl_translator}, which also has an API to better integrate with computer programs.
+Furthermore, also the English text contents of the \textit{CSV} and \textit{JSON} output files can be translated back to the non-English language of the input \textit{PDF} documents.
 
 \chapter{Data}
 
