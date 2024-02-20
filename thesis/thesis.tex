@@ -37,7 +37,7 @@
 \usepackage{tabularx} % Provides a tabular package.
 \usepackage{listings} % for code listings.
 
-% Define convenience functions to use the author name and the thesis title in the PDF document properties.
+% Define convenience functions for using the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Hannes Brantner} % The author name without titles.
 \newcommand{\thesistitle}{Enhancing recruitment efficiency by exploring the impact of large language models on the screening process} % The thesis title. The English version should be used if it exists.
 
@@ -288,7 +288,7 @@ The score should represent the candidate's suitability for the job description a
 \section{Significance of the Work} \label{significance_of_the_work}
 The advantages of Digital Recruiting 3.0 should be available to all companies and not just to big corporations or as paid services from external providers.
 Machine learning tools should also not have the precondition of having massive datasets to train and use the models.
-Usage of the model should bring efficiency benefits without the need to use it lots of times to amortize the costs, making it perfectly viable for small companies.
+Using the model should bring efficiency benefits without using it often to amortize costs, making it perfectly viable for small companies.
 The effects and the significance of using \acs{AI}-enabled technologies in human resource management have been discussed in detail in \textcite{ai_hrm_review} by reviewing $45$ articles in that field and covering the following main points:
 \begin{itemize}
     \item The article describes a disruptive (future) transformation from electronic human resource management systems to systems defined by intelligent automation. The ongoing digitization of information was an enabler for this transformation \cite[4]{ai_hrm_review}.
@@ -443,7 +443,7 @@ Research on employee selection can be divided into the following two fields \par
 \begin{itemize}
     \item \textbf{Prescriptive approach}\\
     The prescriptive approach focuses on guidelines that describe selecting the right candidate for the job.
-    Traditionally, the selection process has been based mainly on the person-job fit concept.
+    Traditionally, the selection process has been based mainly on the concept of the person-job fit.
     However, the paradigm shifted, and in addition to the task performance of the candidate, the contextual performance of the candidate is also considered, which is mainly influenced by the person-organization fit of the candidate.
     Researchers have argued that selecting employees with a high person-organization fit may be beneficial, as this means unity in values and visions.
     Static job analysis must be revised in many industries as jobs are dynamic and ever-evolving. Therefore, it is better to recruit a flexible workforce capable of teamwork.
@@ -453,7 +453,7 @@ Research on employee selection can be divided into the following two fields \par
     In general, the influence of both person-environment fit types is essential in employee selection.
     \item \textbf{Descriptive approach}\\
     The descriptive approach focuses on how these guidelines play out in selection processes.
-    Even though in traditional selection research, the focus was on the person-job fit, the person-organization fit was also already considered in the selection process.
+    Even though traditional selection research focused on the person-job fit, the person-organization fit was already considered in the selection process.
     In most cases, this happened through applicant interviews, which showed surprisingly high validity when assessing person-organization fit.
     Also, the person-job fit was assessed in interviews, 
 \end{itemize}
@@ -482,7 +482,7 @@ There were two methods used to compare the extracted keywords against the keywor
     The vector represents a one-hot-encoding, meaning that if one of the unique words is present in the processed resume, this one value out of $N$ will be $1$. Otherwise, it will be $0$.
     This sample vector representation is also computed for the keyword dictionary that was previously defined, whose words are also added to the bag of words.
     The closer the vector representations of the resumes are to the vector representation of the keyword dictionary concerning Euclidian distance, the higher the predicted person-job fit is.
-    A downside of this approach is that the presence of words in resumes not in the predefined keyword dictionary will increase the Euclidian distance even if they may not hurt the person-job fit. 
+    A downside of this approach is that the presence of words in resumes outside the predefined keyword dictionary will increase the Euclidian distance even if they may not hurt the person-job fit. 
     This could be tackled by restricting the bag of words to the words in the keyword dictionary.
     \item \textbf{N-Gram Analysis}\\
     Additionally to the preprocessing steps described in the document vector analysis, the N-gram analysis also includes sentence tokenization (separation of sentences), word tokenization (separation of words), dictionary tagger (tag words that are in a specific language, for example, English) and term identification using verb phrase chunking (splits remaining phrases into its constituents).
@@ -490,8 +490,8 @@ There were two methods used to compare the extracted keywords against the keywor
     That means the predicted person-job fit is higher when a word combination of the manually crafted keyword dictionary is found in the processed resume as a $1$-, $2$- or $3$-gram, depending on the keyword word count.
     The more keywords that are found to be present as $N$-grams in the processed resume, the higher the predicted person-job fit is.
 \end{enumerate}
-This method suffers from the manual keyword dictionary creation, which could be automated. 
-Furthermore, the results heavily depend on the keywords' quality and selection in the keyword dictionary.
+This method suffers from the manual creation of a keyword dictionary, which could be automated. 
+Furthermore, the results heavily depend on the quality and selection of the keywords in the keyword dictionary.
 The accuracy of the $N$-gram model was slightly higher than the accuracy of the document vector model on average and topped at $87.5\%$ for the \textit{Data Developer} role.
 Moreover, when analyzing text based on chunks of words, the context of the words may be lost.
 This thesis tries to mitigate this shortcoming by using the capabilities of \acs{LLM}s to summarize the context of the input documents and answer questions regarding the provided context.
@@ -636,7 +636,7 @@ The system consisted of the following $4$ components \parencite[518-519]{applica
         \caption{A part of an IT skill taxonomy \parencite[519]{applicant_semantic_matching}}
         \label{fig:it_skill_taxonomy}
     \end{figure}
-    This taxonomy would today be labeled as a knowledge graph, which is a way to store information in graphs structurally.
+    Today, this taxonomy is labeled as a knowledge graph, a way to store information in graphs structurally.
     The taxonomy is used to match the skills mentioned in the applicant's profile (skill keywords are used), the applicant's current work experience (skills from unstructured text are used) and eventually (if the candidate has the required skills) the applicant' past work experiences (skills from unstructured text are used) to the job position requirements (skill keywords are used), whenever a required skill is absent the applicant is rejected and not included into the final ranking \parencite[519-520]{applicant_semantic_matching}.
     The months of work experience are only calculated for experiences that concern relative competencies \parencite[519]{applicant_semantic_matching}.
     As the required skills of the job and the skills of the user were provided as skill keywords, the problem of extracting skills from unstructured text was reduced to the work experiences.
@@ -664,7 +664,7 @@ Some techniques these startups are using are extracting identifying information 
 The first approach is the one that this thesis takes, the second approach eliminates gender bias by focusing on the skills and impartiality of all candidates (personally identifiable information is stripped away), and the third approach is not applicable in this thesis as the job postings have already been created and are input to the model.
 This shows that a bias-free recruiting process cannot be achieved by just replacing one tool in the pipeline. All tools must be carefully designed to be bias-free, starting from the job description wording and ending with a valid way to assess the candidate's skills to make an informed decision.
 The second approach can be used to assess the candidates further, which the proposed model from the thesis finds promising, and the third approach is also necessary to attract a diverse set of applicants in the first place.
-A filtering model like the one from the thesis can never reintroduce diversity that is not there in the applicants, so the job description wording is crucial.
+A filtering model like the one from the thesis can never reintroduce diversity that is not present among the applicants, so the wording of the job description is crucial.
 Another essential aspect that the article \textcite[9-10]{bias_ai_hiring} mentions is that (continually) trained models must also be monitored for bias continuously, and the recruiters must know that the results from \acs{AI}-enabled tools cannot be trusted blindly but must be overridden by the human judgment if necessary.
 Furthermore, constantly staying on alert and cross-checking the model results with human judgment might defeat some of the efficiency gains the model may bring.
 The bias issue is increasingly important if the \acs{AI}-enabled tools are increasingly used as autonomous and not as assistive tools, which means the tools make active hiring decisions instead of just providing suggestions or recommendations within the process.
@@ -697,7 +697,7 @@ Those will be involved in three major interactions:
         \item \textbf{Bias and Fairness}\\
         This topic entails discussing bias and fairness in the context of machine learning-assisted technologies in human resources.
         Furthermore, the technologies should probably behave in a way that avoids discrimination based on gender, ethnicity, age, or other non-job-related factors.
-        Moreover, more general ethical considerations should also be discussed on this topic.
+        Moreover, more general ethical considerations should also be discussed.
         \item \textbf{Accuracy and Reliability}\\
         This topic entails a discussion of how well the technologies should be able to replicate human judgment.
         The operation should probably be reliable, and different \acs{CV} formats and layouts should be supported while keeping the ability to match job requirements with various qualifications and experiences in other industry fields.
@@ -717,13 +717,13 @@ Those will be involved in three major interactions:
         \item \textbf{User Experience}\\
         This topic entails a discussion on the user experience of the technologies, whether they are easy to use, understand, and integrate into existing systems.
         Moreover, the file types and programs used in current human resource processes should be discussed here.
-        Furthermore, it is essential to know if these programs support third-party export and import functionalities to use an external program for the screening task.
+        Furthermore, it is essential to know if these programs support third-party export and import functionalities in order to use an external program for the screening task.
         \item \textbf{Candidate experience}\\
         This topic entails a discussion on the candidate's experience of the technologies and whether they have any advantages on their side.
         Moreover, these advantages may include a faster response time and automated feedback generation for positive and negative feedback.
         \item \textbf{Previous experiences with \acs{AI}-assisted technologies in human resources}\\
         This topic entails discussing the human experts' previous experiences with \acs{AI}-assisted technologies in the context of human resources.
-        Moreover, the discussion should include these technologies' general reception, advantages, and disadvantages, including potential improvements and drawbacks and their field of use within the human resource pipeline.
+        Moreover, the discussion should include these technologies' general reception, advantages, disadvantages, potential improvements and drawbacks, and their field of use within the human resource pipeline.
         \item \textbf{Costs}
         This topic entails a discussion on the costs of the technologies, whether they are affordable, and whether they are worth the investment, including the expected costs for a model as outlined in this thesis. 
     \end{enumerate}
@@ -732,7 +732,7 @@ Those will be involved in three major interactions:
     The final outputs of the experts and the time it took to produce the outputs per job description will be collected via an online form that will be provided for that purpose.
     \item \textbf{Closing Meeting} \label{closing_meeting}\\ 
     In this meeting, the human expert recruiters will get the model's output to the same applicant documents and job descriptions that the recruiters have gotten.
-    For the recruiters to prepare for the meeting, the model's output will be provided to the recruiters beforehand.
+    The model's output will be provided to the recruiters beforehand so they can prepare for the meeting.
     The model's output will be compared to the human expert recruiters' outputs, and the differences or similarities will be discussed.
     There will also be user tests of the model where the time taken to interface with the model will be measured.
     These topics will guide the discussion with the experts:
@@ -743,7 +743,7 @@ Those will be involved in three major interactions:
         \item \textbf{Explainability and Transparency}\\
         To achieve a high degree of user confidence and trust, the users must understand how the model makes its decisions, and the model must have a way to communicate its decisions in a transparent and human-understandable way.
         There should be a discussion on the explainability and transparency of the model's output to the human expert users.
-        If deficiencies in the model are found by inspecting the model's explanations, a discussion on tweaking the model's configuration should be done and whether it is understandable and easy to use.
+        If deficiencies in the model are found by inspecting the model's explanations, a discussion on tweaking the model's configuration should be held, as well as whether it is understandable and easy to use.
     \end{enumerate}
 \end{enumerate}
 All the information gathered will be qualitatively analyzed, and the discussions will be summarized while presenting the considerations of the recruiters' common sense.
@@ -892,7 +892,7 @@ Most of the datasets that were found on \textit{Kaggle} \parencite{kaggle}, via 
     \item The dataset only contained a very narrow set of jobs from a particular industry, making it impossible to test the model's ability to generalize to different industries
     \item The dataset contained seemingly random candidates for the contained jobs, which, as noted before, is no good representation of real-world screening data
 \end{itemize}
-These are why it was decided to construct the sample screening documents for this thesis explicitly.
+This is why it was decided to construct the sample screening documents for this thesis explicitly.
 To have a diverse set of jobs, the following key sectors of the Austrian economy were looked up on the website \parencite{austria_key_sectors}, which an organization of the Austrian Federal Economic Chamber created:
 \begin{itemize}
     \item Food and Drink industry
@@ -986,7 +986,7 @@ Text extraction could still have been achieved by using the \textit{PyMuPDF} pac
 
 As stated in \textcite{pymupdf}, no effort is made by the package in any way to prettify the extracted text.
 That means there can be too few or too many whitespaces (spaces, line breaks, \dots) in expected or unexpected positions in the extracted text.
-The non-prettified extracted text was already properly usable for the proposed model, but it was decided to prettify the extracted text to group relevant information together.
+The non-prettified extracted text was already properly usable for the proposed model, but it was decided that the extracted text should be prettified to group relevant information.
 The main issue with the sample screening documents was that the extracted text lacked most of the line breaks that seemed to be there in a \textit{PDF} viewer.
 This was the case as line breaks may also be implicitly coded into the \textit{PDF} file by the absolute starting position of the plain text segment.
 The prettification was done by sending the extracted text to an \acs{LLM}, which was asked to group relevant text parts in a paragraph and to improve the overall formatting of the text without changing the text contents.
@@ -1027,7 +1027,7 @@ Before extracting the requirements, there were $12$ job requirement types or cat
     \item \textbf{Languages}\\
     This requirement type includes the languages required to perform well in the job with a necessary level of fluency or proficiency.
     \item \textbf{Travel}\\
-    This requirement type includes the traveling aspect apart from commuting that the job entails.
+    This requirement type includes traveling, apart from commuting, which the job entails.
     \item \textbf{Location}\\
     This requirement type includes the willingness to commute to the working location of the job, but it also consists of the work model like the hybrid or the remote work model.
     \item \textbf{Working Hours}\\
@@ -1139,7 +1139,7 @@ Due to this compression, the model is only guaranteed to output plausible text i
 As there are vast amounts of possible input texts, the model cannot summarize and answer questions on all of them correctly or with the same accuracy, as \acs{LLM}s do not understand the text the same way humans do.
 This means that the model will not be able to give a plausible output on every theoretically possible \acs{CV} job matchup and should, therefore, not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
 However, they will behave quite robustly in most cases due to the vast amounts of training data that are scraped off the internet and used to train these models.
-Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous, and past experiences influence humans’ decisions. This makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that not even human decision-making is fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms for decision-making and detecting discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior depends on human-written data, like in the thesis case, is virtually impossible. Also, in \textcite[158-160]{discrimination_algorithms}, the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
+Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous, and past experiences influence humans’ decisions. This makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that human decision-making is not fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms for decision-making and detecting discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior depends on human-written data, like in the thesis case, is virtually impossible. Also, in \textcite[158-160]{discrimination_algorithms}, the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
 That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be significant, as shown in the example. Other application areas like healthcare might be where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
 
 \subsection{Multilingual Support}
@@ -1147,6 +1147,10 @@ Multilingual support for the proposed model can quickly be introduced by transla
 This has the advantage that the \acs{LLM}s can still operate in their preferred language domain.
 For example, the used machine translation service could be \textcite{deepl_translator}, which also has an API to better integrate with computer programs.
 Furthermore, also the English text contents of the \textit{CSV} and \textit{JSON} output files can be translated back to the non-English language of the input \textit{PDF} documents using a machine translation service.
+
+\subsection{Multiple File Type Support}
+The thesis only focused on input documents in the \textit{PDF} format.
+However, the tool was also programmed to support \textit{Word} and plain text files as input documents.
 
 \chapter{Data}
 
