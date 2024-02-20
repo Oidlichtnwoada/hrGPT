@@ -46,7 +46,7 @@ def get_confidence(language: google.cloud.translate.DetectedLanguage) -> float:
     return float(language.confidence)
 
 
-def detect_language(text: str, detection_character_limit: int = 1_000) -> str:
+def detect_language(text: str, detection_character_limit: int = 500) -> str:
     detected_languages: tuple[google.cloud.translate.DetectedLanguage, ...] = tuple(
         get_translation_client()
         .detect_language(

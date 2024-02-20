@@ -7,6 +7,11 @@ import fitz
 
 from hrgpt.prompting.prompting import get_prompt_to_prettify_text
 from hrgpt.utils.chat_utils import get_answer_message
+from hrgpt.utils.translation_utils import (
+    detect_language,
+    get_native_language_of_model,
+    translate_text,
+)
 from hrgpt.utils.type_utils import get_supported_file_types, DocumentFileType
 
 
@@ -20,9 +25,16 @@ def extract_json_object_from_string(text: str) -> dict[str, typing.Any]:
         raise ValueError
 
 
+def apply_replacements(text: str, replacements: tuple[tuple[str, str], ...]) -> str:
+    for search_string, replacement_string in replacements:
+        text = text.replace(search_string, replacement_string)
+    return text
+
+
 def get_document_text(
     document_path: str,
-    replacements: tuple[tuple[str, str], ...] = ((chr(160), " "),),
+    replacements: tuple[tuple[str, str], ...] = ((chr(160), " "), (chr(8203), " ")),
+    translate: bool = True,
     prettify: bool = True,
 ) -> str:
     suffix = pathlib.Path(document_path).suffix
@@ -47,9 +59,14 @@ def get_document_text(
         case _:
             raise RuntimeError
     text = "\n".join(map(str.strip, text_parts))
-    for search_string, replacement_string in replacements:
-        text = text.replace(search_string, replacement_string)
+    text = apply_replacements(text, replacements)
+    if translate:
+        text_language = detect_language(text)
+        if text_language != get_native_language_of_model():
+            text = translate_text(text, target_language=get_native_language_of_model())
+    text = apply_replacements(text, replacements)
     if prettify:
         answer = get_answer_message(get_prompt_to_prettify_text(text))
         text = answer.text
+    text = apply_replacements(text, replacements)
     return text
