@@ -6,7 +6,7 @@ import polars as pl
 from hrgpt.logger.logger import LoggerFactory
 from hrgpt.utils.config_utils import AppConfigFactory
 from hrgpt.utils.serialization_utils import dumps
-from hrgpt.utils.translation_utils import get_native_language_of_model
+from hrgpt.utils.translation_utils import get_native_language_of_model, translate_text
 from hrgpt.utils.type_utils import ApplicantMatch
 
 
@@ -16,7 +16,21 @@ def translate_applicant_match(applicant_match: ApplicantMatch) -> ApplicantMatch
     if target_language == get_native_language_of_model():
         return applicant_match
     else:
-        raise RuntimeError
+        applicant_match.promising_result.explanation = translate_text(
+            applicant_match.promising_result.explanation,
+            target_language=target_language,
+        )
+        for requirement_match_list in applicant_match.requirement_matches.values():
+            for requirement_match in requirement_match_list:
+                requirement_match.requirement.specification = translate_text(
+                    requirement_match.requirement.specification,
+                    target_language=target_language,
+                )
+                requirement_match.score.explanation = translate_text(
+                    requirement_match.score.explanation,
+                    target_language=target_language,
+                )
+    return applicant_match
 
 
 def create_output_files(
