@@ -1,8 +1,7 @@
 import collections
 import enum
-import time
-
 import math
+import time
 
 from hrgpt.logger.logger import LoggerFactory
 

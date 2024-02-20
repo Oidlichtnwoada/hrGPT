@@ -6,9 +6,11 @@ from hrgpt.prompting.prompting import (
 )
 from hrgpt.utils.chat_utils import get_answer_messages, get_answer_message
 from hrgpt.utils.config_utils import AppConfigFactory
-from hrgpt.utils.extraction_utils import extract_json_object_from_string
+from hrgpt.utils.extraction_utils import (
+    extract_json_object_from_string,
+    get_document_text,
+)
 from hrgpt.utils.math_utils import clamp_int
-from hrgpt.utils.pdf_utils import get_pdf_document_text
 from hrgpt.utils.score_utils import compute_total_score
 from hrgpt.utils.timing_utils import TimingClock, TaskType
 from hrgpt.utils.type_utils import (
@@ -26,7 +28,7 @@ def match_job_requirements_to_candidate_cv(
     candidate_cv_file_path: str,
 ) -> ApplicantMatch:
     TimingClock.start_timer(TaskType.APPLICANT_MATCHING, candidate_cv_file_path)
-    cv_text = get_pdf_document_text(candidate_cv_file_path)
+    cv_text = get_document_text(candidate_cv_file_path)
     requirement_matches = collections.defaultdict(list)
     app_config = AppConfigFactory.get_app_config()
     prompts = []

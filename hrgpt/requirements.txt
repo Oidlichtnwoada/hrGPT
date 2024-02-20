@@ -11,3 +11,4 @@ mypy
 black
 pytest
 pandas-stubs
+python-docx

@@ -2,8 +2,10 @@ import typing
 
 from hrgpt.prompting.prompting import get_prompt_to_extract_requirements
 from hrgpt.utils.chat_utils import get_answer_message
-from hrgpt.utils.extraction_utils import extract_json_object_from_string
-from hrgpt.utils.pdf_utils import get_pdf_document_text
+from hrgpt.utils.extraction_utils import (
+    extract_json_object_from_string,
+    get_document_text,
+)
 from hrgpt.utils.sample_utils import get_empty_requirements
 from hrgpt.utils.timing_utils import TimingClock, TaskType
 from hrgpt.utils.type_utils import (
@@ -20,7 +22,7 @@ def get_requirements_from_job_description(
         TaskType.REQUIREMENT_EXTRACTION, job_description_pdf_file_path
     )
     # generate the extraction prompt
-    job_description_text = get_pdf_document_text(job_description_pdf_file_path)
+    job_description_text = get_document_text(job_description_pdf_file_path)
     prompt = get_prompt_to_extract_requirements(job_description_text)
     # send the prompt to the model
     answer = get_answer_message(prompt)

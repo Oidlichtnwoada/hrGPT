@@ -81,3 +81,13 @@ class ChatMessage(pydantic.BaseModel):
     author: Author
     creation_datetime: datetime.datetime
     generation_timedelta: datetime.timedelta
+
+
+class DocumentFileType(enum.StrEnum):
+    PDF = ".pdf"
+    DOCX = ".docx"
+    TEXT = ".txt"
+
+
+def get_supported_file_types() -> tuple[str, ...]:
+    return tuple([x.value for x in DocumentFileType])
