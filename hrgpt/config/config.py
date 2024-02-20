@@ -122,12 +122,27 @@ class GenericConfiguration(pydantic.BaseModel):
     prompt_config: PromptConfiguration
 
 
+class GoogleServiceAccount(pydantic.BaseModel):
+    type: StrippedString
+    project_id: StrippedString
+    private_key_id: StrippedString
+    private_key: StrippedString
+    client_email: StrippedString
+    client_id: StrippedString
+    auth_uri: StrippedString
+    token_uri: StrippedString
+    auth_provider_x509_cert_url: StrippedString
+    client_x509_cert_url: StrippedString
+    universe_domain: StrippedString
+
+
 class EnvironmentSecrets(pydantic.BaseModel):
     openai_api_key: str
     replicate_api_key: str
     google_api_key: str
     aspose_app_key: str
     aspose_app_sid: str
+    google_translate_service_account: GoogleServiceAccount
 
 
 class AppConfig(pydantic.BaseModel):
