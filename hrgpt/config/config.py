@@ -113,6 +113,10 @@ class PromptConfiguration(pydantic.BaseModel):
     check_if_candidate_is_promising_prompt: StrippedString
 
 
+class LanguageConfiguration(pydantic.BaseModel):
+    output_language: StrippedString
+
+
 class GenericConfiguration(pydantic.BaseModel):
     score_config: ScoreConfiguration
     polars_config: PolarsConfiguration
@@ -120,6 +124,7 @@ class GenericConfiguration(pydantic.BaseModel):
     network_config: NetworkConfiguration
     job_requirements_config: NonEmptyJobRequirementDict
     prompt_config: PromptConfiguration
+    language_config: LanguageConfiguration
 
 
 class GoogleServiceAccount(pydantic.BaseModel):
