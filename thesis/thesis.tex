@@ -485,7 +485,7 @@ There were two methods used to compare the extracted keywords against the keywor
     A downside of this approach is that the presence of words in resumes outside the predefined keyword dictionary will increase the Euclidian distance even if they may not hurt the person-job fit. 
     This could be tackled by restricting the bag of words to the words in the keyword dictionary.
     \item \textbf{N-Gram Analysis}\\
-    Additionally to the preprocessing steps described in the document vector analysis, the N-gram analysis also includes sentence tokenization (separation of sentences), word tokenization (separation of words), dictionary tagger (tag words that are in a specific language, for example, English) and term identification using verb phrase chunking (splits remaining phrases into its constituents).
+    In addition to the preprocessing steps described in the document vector analysis, the N-gram analysis also includes sentence tokenization (separation of sentences), word tokenization (separation of words), dictionary tagger (tag words that are in a specific language, for example, English) and term identification using verb phrase chunking (splits remaining phrases into its constituents).
     As the bag of words method has the downside of losing the word order and the meanings of word combinations, the data here is analyzed with the N-gram method.
     That means the predicted person-job fit is higher when a word combination of the manually crafted keyword dictionary is found in the processed resume as a $1$-, $2$- or $3$-gram, depending on the keyword word count.
     The more keywords that are found to be present as $N$-grams in the processed resume, the higher the predicted person-job fit is.
@@ -961,7 +961,7 @@ The text extraction of the \textit{PDF} files was carried out with the \textit{P
     It is also possible to position each character individually on the page.
     Not only that but also the order of the specified plain text segments in the \textit{PDF} file must not occur in the natural reading order of the \textit{PDF} file due to a possible absolute positioning of these segments. The resulting \textit{PDF} file may always be the same even if a random order of these segments is used.
     Due to the final position of the text, a natural reading order may be re-established, but due to the standard's complexity, this is a complex problem. 
-    The used package offers several extraction modes to cope with this problem.
+    The package offers several extraction modes to cope with this problem.
     \item \textbf{Complex Layouts}\\
     Another facet of the problem described above is the text extraction of \textit{PDF} files with complex layouts.
     If the layout has multiple columns or even a more complex structure, the order of the extracted text segments should be clarified. 
@@ -1088,6 +1088,7 @@ The following models were implemented and can be used as \acs{LLM} for the propo
     \item \textbf{LLAMA 2-Chat}\\
     This open-source model collection is described in \textcite{llama2}. Each model has a context window of $4096$ tokens, and the three models of this collection used in this thesis differ in their number of parameters, which are either $7$, $13$, or $70$ billion parameters.
     These models were developed by \textit{Meta} and are hosted by \textit{Replicate} in the implementation's case, one of many hosting providers for this model collection.
+    Due to the open-source nature of this model collection, it can be operated self-hosted without sending data to third parties.
     \item \textbf{Gemini}\\
     This proprietary model collection is described in \textcite{gemini}. Currently, only \textit{Gemini Pro} is available publicly. \textit{Gemini Pro} has a context window of $32000$ tokens and an undisclosed amount of parameters.
     These models were developed by \textit{Google} and are hosted by \textit{Google}.
@@ -1128,7 +1129,7 @@ The problem for the \textit{OpenAI} API user is that there is no way to specify 
 The nondeterministic behavior is known to \textit{OpenAI}, and hopefully, they will fix it in a future release.
 The \textit{Gemini} model family suffered from similar issues as the \textit{OpenAI} models. It does not even support seeding the internally used random number generator.
 
-\subsection{Model Configuration}
+\subsection{Model Configuration} \label{model_configuration}
 This is the default configuration that is used to operate the proposed model. Every single setting can be changed to modify the behavior of the proposed model to the desires of the operating human expert recruiter:
 \lstinputlisting[language=TypeScript,label=lst:default_model_configuration,caption=Default configuration of the proposed model]{../hrgpt/default_config.json}
 
@@ -1143,10 +1144,15 @@ Furthermore, the introduced model will not be fair as the human training data us
 That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be significant, as shown in the example. Other application areas like healthcare might be where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
 
 \subsection{Multilingual Support}
-Multilingual support for the proposed model can quickly be introduced by translating the extracted non-English text from job descriptions or \acs{CV}s into English using a machine translation service before supplying it to the underlying \acs{LLM}.
+Multilingual support for the proposed model was introduced by translating all extracted non-English text from job descriptions or \acs{CV}s into English using a machine translation service before supplying it to the underlying \acs{LLM}.
 This has the advantage that the \acs{LLM}s can still operate in their preferred language domain.
-For example, the used machine translation service could be \textcite{deepl_translator}, which also has an API to better integrate with computer programs.
-Furthermore, also the English text contents of the \textit{CSV} and \textit{JSON} output files can be translated back to the non-English language of the input \textit{PDF} documents using a machine translation service.
+The detection of whether a text is non-English and needs translation was done by using the \textit{Python} package \textit{Lingua Language Detector} \parencite{lingua_language_detector}, as it is an open-source language detector that offers similar performance to the language detection accuracy of \textit{Google Translate} for example.
+For example, the used machine translation service could be either \textit{DeepL Translate} \parencite{deepl_translate} or \textit{Google Translate} \parencite{google_translate}, which both have an API to better integrate with computer programs.
+The model implementation only supports translations with \textit{Google Translate}.
+If sending data to third parties is not desired, an open-source and offline machine translation library like \textit{Argos Translate} \parencite{argos_translate} could be used and integrated.
+That means that all critical building blocks of the model can be replaced with open-source and offline alternatives if operating the model in a more privacy-preserving way is desired.
+Furthermore, the English text contents of the \textit{CSV} and \textit{JSON} output files can be optionally translated to a configurable non-English output language using a machine translation service.
+This output language can be changed by altering the configuration of the proposed model \ref{model_configuration}.
 
 \subsection{Multiple File Type Support}
 The thesis only focused on input documents in the \textit{PDF} format.
