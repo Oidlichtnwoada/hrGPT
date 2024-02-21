@@ -5,6 +5,7 @@ import google.cloud.translate
 import lingua
 
 from hrgpt.utils.config_utils import AppConfigFactory
+from hrgpt.utils.type_utils import ApplicantMatch
 
 
 def get_native_language_of_model() -> str:
@@ -49,3 +50,26 @@ def detect_language(text: str) -> str:
     if detected_language is None:
         raise RuntimeError
     return detected_language.iso_code_639_1.name.lower()
+
+
+def translate_applicant_match(applicant_match: ApplicantMatch) -> ApplicantMatch:
+    app_config = AppConfigFactory.get_app_config()
+    target_language = app_config.generic_config.language_config.output_language
+    if target_language == get_native_language_of_model():
+        return applicant_match
+    else:
+        applicant_match.promising_result.explanation = translate_text(
+            applicant_match.promising_result.explanation,
+            target_language=target_language,
+        )
+        for requirement_match_list in applicant_match.requirement_matches.values():
+            for requirement_match in requirement_match_list:
+                requirement_match.requirement.specification = translate_text(
+                    requirement_match.requirement.specification,
+                    target_language=target_language,
+                )
+                requirement_match.score.explanation = translate_text(
+                    requirement_match.score.explanation,
+                    target_language=target_language,
+                )
+    return applicant_match

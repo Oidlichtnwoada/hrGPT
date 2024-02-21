@@ -13,6 +13,7 @@ from hrgpt.utils.extraction_utils import (
 from hrgpt.utils.math_utils import clamp_int
 from hrgpt.utils.score_utils import compute_total_score
 from hrgpt.utils.timing_utils import TimingClock, TaskType
+from hrgpt.utils.translation_utils import translate_applicant_match
 from hrgpt.utils.type_utils import (
     Score,
     PromisingResult,
@@ -70,5 +71,6 @@ def match_job_requirements_to_candidate_cv(
         promising_result=promising_result,
         requirement_matches=requirement_matches,
     )
+    translated_applicant_match = translate_applicant_match(applicant_match)
     TimingClock.stop_timer(TaskType.APPLICANT_MATCHING, candidate_cv_file_path)
-    return applicant_match
+    return translated_applicant_match

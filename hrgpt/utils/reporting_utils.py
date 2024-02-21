@@ -4,33 +4,8 @@ import pathlib
 import polars as pl
 
 from hrgpt.logger.logger import LoggerFactory
-from hrgpt.utils.config_utils import AppConfigFactory
 from hrgpt.utils.serialization_utils import dumps
-from hrgpt.utils.translation_utils import get_native_language_of_model, translate_text
 from hrgpt.utils.type_utils import ApplicantMatch
-
-
-def translate_applicant_match(applicant_match: ApplicantMatch) -> ApplicantMatch:
-    app_config = AppConfigFactory.get_app_config()
-    target_language = app_config.generic_config.language_config.output_language
-    if target_language == get_native_language_of_model():
-        return applicant_match
-    else:
-        applicant_match.promising_result.explanation = translate_text(
-            applicant_match.promising_result.explanation,
-            target_language=target_language,
-        )
-        for requirement_match_list in applicant_match.requirement_matches.values():
-            for requirement_match in requirement_match_list:
-                requirement_match.requirement.specification = translate_text(
-                    requirement_match.requirement.specification,
-                    target_language=target_language,
-                )
-                requirement_match.score.explanation = translate_text(
-                    requirement_match.score.explanation,
-                    target_language=target_language,
-                )
-    return applicant_match
 
 
 def create_output_files(
@@ -42,26 +17,20 @@ def create_output_files(
         os.makedirs(result_directory, exist_ok=True)
         # make the resulting dataframe per job
         job_df_parts = []
-        for candidate_path, match_result in match_results.items():
-            # output translation
-            translated_applicant_match = translate_applicant_match(match_result)
+        for candidate_path, applicant_match in match_results.items():
             # append the result part of the applicant
             job_df_parts.append(
                 pl.DataFrame(
                     {
                         "candidate": [candidate_path],
-                        "score": [translated_applicant_match.total_score],
-                        "promising": [
-                            translated_applicant_match.promising_result.promising
-                        ],
-                        "explanation": [
-                            translated_applicant_match.promising_result.explanation
-                        ],
+                        "score": [applicant_match.total_score],
+                        "promising": [applicant_match.promising_result.promising],
+                        "explanation": [applicant_match.promising_result.explanation],
                     }
                 )
             )
             # save the applicants data as json in the result directory
-            match_result_json = dumps(translated_applicant_match)
+            match_result_json = dumps(applicant_match)
             candidate_result_path = os.path.join(
                 result_directory,
                 f"match_result_{pathlib.Path(candidate_path).stem}.json",
