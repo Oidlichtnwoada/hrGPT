@@ -13,3 +13,4 @@ pytest
 pandas-stubs
 python-docx
 google-cloud-translate
+lingua-language-detector

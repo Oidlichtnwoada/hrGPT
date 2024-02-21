@@ -2,6 +2,7 @@ import typing
 
 import google.auth.credentials
 import google.cloud.translate
+import lingua
 
 from hrgpt.utils.config_utils import AppConfigFactory
 
@@ -42,25 +43,9 @@ def translate_text(
     return str(translation.translated_text)
 
 
-def get_confidence(language: google.cloud.translate.DetectedLanguage) -> float:
-    return float(language.confidence)
-
-
-def detect_language(text: str, detection_character_limit: int = 500) -> str:
-    detected_languages: tuple[google.cloud.translate.DetectedLanguage, ...] = tuple(
-        get_translation_client()
-        .detect_language(
-            google.cloud.translate.DetectLanguageRequest(
-                content=text[:detection_character_limit],
-                mime_type="text/plain",
-                parent=f"projects/{get_project_id()}",
-            )
-        )
-        .languages
-    )
-    if len(detected_languages) == 0:
+def detect_language(text: str) -> str:
+    detector = lingua.LanguageDetectorBuilder.from_all_languages().build()
+    detected_language = detector.detect_language_of(text)
+    if detected_language is None:
         raise RuntimeError
-    sorted_detected_languages: list[google.cloud.translate.DetectedLanguage] = sorted(
-        detected_languages, key=get_confidence, reverse=True
-    )
-    return str(sorted_detected_languages[0].language_code)
+    return detected_language.iso_code_639_1.name.lower()
