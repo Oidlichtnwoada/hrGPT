@@ -221,7 +221,7 @@ The article \textcite[2-4]{ai_recruiting} described four evolution stages of rec
     \item \textbf{Analog Recruiting} \label{analog_recruting}\\
     The first stage is analog recruiting, where people are the primary mechanism of recruiting new employees.
     Prospective applicants must go to the company to manually submit a paper job application.
-    Companies want to maximize the information richness they supply for the current job vacancy, but also, the information reaches to attract as many promising applicants as possible.
+    Companies want to maximize the information richness they supply for the current job vacancy and the information reaches to attract as many promising applicants as possible.
     But as described in \textcite[2]{ai_recruiting}, in analog recruiting, these two goals faced the analog reach and richness frontier as shown in \ref{fig:analog_reach_richness_frontier} because the more information is supplied, the more costly it is when you supply to media with great reach at that time:
     \begin{figure}[H]
         \centering
@@ -247,7 +247,7 @@ The article \textcite[2-4]{ai_recruiting} described four evolution stages of rec
     After Digital Recruiting matured from 2010 to 2015, Digital Recruiting 3.0 emerged and was primarily driven by the rise of machine learning and artificial intelligence in human resources processes.
     As digital recruiting digitized the processes and made them more frictionless for employers and employees, more and more applications came in for each job offer. On average, the number is around 250 applications per job offer \parencite[4]{ai_recruiting}. 
     This can be explained by the fact that the application cost is meager for the applicant, but this led to about 80\% of the applications being unqualified \parencite[4]{ai_recruiting}.
-    To deal with this massive number of applicants, you can either deploy more human resources to screen the applications or use machine learning to automate processes, or assist humans so that they can work more productively.
+    To deal with this massive number of applicants, you can either deploy more human resources to screen the applications or, use machine learning to automate processes or assist humans so that they can work more productively.
     Human resources are mission-critical for companies as human capital is increasingly critical for success.
     Moreover, research showed that top performers are four to eight times more productive than the average performers, increasingly so in complex environments, according to \textcite[4]{ai_recruiting}.
     Furthermore, this new evolution stage of recruiting also has its downsides, as discussed in \textcite[4-5]{challenges_opportunities_hr} due to the emerging use of technology:
@@ -383,7 +383,7 @@ These two fit measures should both be considered when computing the score.
 \subsection{Person-Environment Fit Types} \label{pef_types}
 In essence, person-environment fit is a complex and multi-dimensional concept.
 It can be conceptualized as both complementary and supplementary. 
-Supplementary fit happens when a person supplements, embellishes or possesses characteristics similar to others in the environment \parencite[180]{po_and_pj_fit_literature_review}.
+Supplementary fit happens when a person supplements, embellishes, or possesses characteristics similar to others in the environment \parencite[180]{po_and_pj_fit_literature_review}.
 Complementary fit happens when a person possesses missing characteristics in the environment, making it more complete \parencite[180]{po_and_pj_fit_literature_review}.
 Complementary person-environment fit encompasses the needs-supplies and demands-abilities perspectives. 
 An environment supplies financial, physical, and psychological resources and task-related, interpersonal, and growth opportunities that the person demands or needs \parencite[180]{po_and_pj_fit_literature_review}.
@@ -488,7 +488,7 @@ There were two methods used to compare the extracted keywords against the keywor
     This could be tackled by restricting the bag of words to the words in the keyword dictionary.
     \item \textbf{N-Gram Analysis}\\
     In addition to the preprocessing steps described in the document vector analysis, the N-gram analysis also includes sentence tokenization (separation of sentences), word tokenization (separation of words), dictionary tagger (tag words that are in a specific language, for example, English) and term identification using verb phrase chunking (splits remaining phrases into its constituents).
-    As the bag of words method has the downside of losing the word order and the meanings of word combinations, the data here is analyzed with the N-gram method.
+    As the bag of words, method has the downside of losing the word order and the meanings of word combinations, the data here is analyzed with the N-gram method.
     That means the predicted person-job fit is higher when a word combination of the manually crafted keyword dictionary is found in the processed resume as a $1$-, $2$- or $3$-gram, depending on the keyword word count.
     The more keywords that are found to be present as $N$-grams in the processed resume, the higher the predicted person-job fit is.
 \end{enumerate}
@@ -590,7 +590,7 @@ As can be seen in figure \ref{fig:tapjfnn_architecture}, the architecture mainly
         \item \textbf{Single Ability-Aware Part for Experience}\\
         The word-level representations $h^R_{l,t}$ for each job experience $r_l$ are summed up for each job requirement $j_k$ to a single ability-aware experience representation $s^R_{l,k}$ which equals $\sum_{t=1}^{n_l} \gamma_{l,k,t} \cdot h^R_{l,t}$.
         The term $\gamma_{l,k,t}$ is defined to be $\frac{\exp(e^R_{l,k,t})}{\sum_{i=1}^{n_l} \sum^p_{j=1} \exp(e^R_{j,k,i})}$ where $e^R_{j,k,i} = v_{\gamma}^{\intercal} \tanh(W_{\gamma} \cdot s^J_{k} + U_\gamma \cdot h^R_{l,r} + b_{\gamma})$.
-        This is defined as a novel approach as the attention is not only applied to one dimension, which would be all experiences comparably to the job requirements case but the second dimension of the job requirements is also considered. 
+        This is defined as a novel approach as the attention is not only applied to one dimension, which would be all experiences comparably to the job requirements case, but the second dimension of the job requirements is also considered. 
         Moreover, the attention mechanism uses $s^J_k$ as input to correctly weigh the words in the experiences regarding the requirement $j_k$.
         All parameters that are not described are initialized and learned in the training process.
         \item \textbf{Multiple Topic-Based Ability-Aware Part for Experience}\\
@@ -689,20 +689,20 @@ The novelty of \acs{AI} fosters a positive, sustainable pre-employment relations
 \chapter{Methodology} \label{methodology}
 
 \section{Discussion on the Methods}
-Qualitative methods are concerned with describing, interpreting and understanding contexts, establishing classifications or typologies and generating hypotheses. 
-In the thesis' case the qualitative consideration of the object of investigation is backed by an extensive literature review in chapter \ref{theoretical_background}.
-The literature review focuses on the wide application area and superior generality of \acs{LLM}s and how other researchers have approached the person-environment fit quantization problem.
-As qualitative methods should be used when new findings or new theories need to be developed, these methods are a good fit for the thesis' case as the \acs{LLM} approach to the person-environment fit quantization problem is a relatively novel approach with few available literature.
+Qualitative methods describe, interpret, and understand contexts, establish classifications or typologies, and generate hypotheses. 
+In the thesis's case, the qualitative consideration of the object of investigation is backed by an extensive literature review in chapter \ref{theoretical_background}.
+The literature review focuses on the broad application area and superior generality of \acs{LLM}s and how other researchers have approached the person-environment fit quantization problem.
+As qualitative methods should be used when new findings or new theories need to be developed, these methods are a good fit for the thesis's case as the \acs{LLM} approach to the person-environment fit quantization problem is a relatively novel approach with few available literature documents.
 Those findings and theories cannot be generalized in most cases, as they mostly explore particular cases in depth, like the \acs{LLM} approach in our case. 
-As described in \textcite[127]{qualitative_methods} theories are constructed from the results and conclusions are drawn for practice.
-The qualitative methods should lead to a conclusion whether an \acs{LLM}-based model is a good fit for the person-environment fit quantization problem and what human expert recruiters are expecting from such assistive technologies including their considerations.
-Furthermore, also recruiters' past experiences with such assistive technologies should be part of the results.
-The used qualitative methods should enforce openness, breadth, detail, proximity and interdisciplinarity in favor for representativeness and structuring \parencite[127]{qualitative_methods}.
-Quantitative methods, on the other hand, are concerned with the most accurate description and predictability of behavior in the form of models, correlations and numerical characteristics, i.e. the measurement of quantities, proportions or numbers of one or more specific characteristics of the object under investigation.
-These are also needed in the thesis' case, as the subordinate research questions can only be answered by measuring the proposed model's accuracy against human expert recruiters while tracking the associated time usages.
-Quantitative methods will therefore be used to confirm or refute the theory that \acs{LLM}-based models might be a good fit for the person-environment fit quantization problem.
-The results from quantitative methods may generalize well if statistical significance is given within the results.
-This brief discussion on qualitative and quantitative led to the result that in the context of the thesis it is beneficial that a hybrid approach is used (qualitative and quantitative methods are used) to answer the research question.
+As described in \textcite[127]{qualitative_methods}, theories are constructed from the results, and conclusions are drawn for practice.
+The qualitative methods should conclude whether an \acs{LLM}-based model is a good fit for the person-environment fit quantization problem and what human expert recruiters expect from such assistive technologies, including their considerations.
+Furthermore, recruiters' past experiences with such assistive technologies should also be part of the results.
+The qualitative methods should enforce openness, breadth, detail, proximity, and interdisciplinarity in favor of representativeness and structuring \parencite[127]{qualitative_methods}.
+On the other hand, quantitative methods are concerned with the most accurate description and predictability of behavior in the form of models, correlations, and numerical characteristics, i.e., the measurement of quantities, proportions, or numbers of one or more specific characteristics of the object under investigation.
+These are also needed in the thesis's case, as the subordinate research questions can only be answered by measuring the proposed model's accuracy against human expert recruiters while tracking the associated time usage.
+Quantitative methods will, therefore, be used to confirm or refute the theory that \acs{LLM}-based models might be a good fit for the person-environment fit quantization problem.
+The results from quantitative methods may generalize well if statistical significance is given.
+This brief discussion on qualitative and quantitative led to the result that in the context of the thesis, it is beneficial that a hybrid approach is used (qualitative and quantitative methods are used) to answer the research question.
 As less is known about the object of investigation, a qualitative literature review is necessary before going forward with quantitative methods. 
 From the processing and interpretation of verbal data from the qualitative methods, necessary features can be derived for the proposed model's implementation.
 
@@ -710,63 +710,63 @@ From the processing and interpretation of verbal data from the qualitative metho
 These are the available survey instruments for qualitative research:
 \begin{itemize}
     \item \textbf{Narrative Interview}\\
-    The advantage with this kind of survey instrument might be that the interviewed entity is not particularly constrained in their answers and can tell their story in their own length, expansiveness and level of detail as questions are very open-ended.
-    A disadvantage might be that certain areas will not be covered in the expected level of detail and some areas will not be covered at all if the interview is not guided at all.
+    The advantage of this kind of survey instrument might be that the interviewed entity could be more relaxed in their answers and can tell their story in their length, expansiveness, and level of detail, as questions are very open-ended.
+    A disadvantage might be that certain areas will not be covered in the expected level of detail, and some areas will not be covered if the interview is not guided.
     \item \textbf{Guideline Interview}\\
-    The disadvantage with this kind of survey instrument might be that the interviewed entity is somewhat constrained be the more specific questions of the interviewer that means the answers will be less diverse and more specific to the question that was asked than in a narrative interview.
+    The disadvantage of this kind of survey instrument might be that the interviewed entity is somewhat constrained by the more specific questions of the interviewer, which means the answers will be less diverse and more specific to the question that was asked than in a narrative interview.
     An advantage might be that all expected areas will be covered in the expected level of detail if the interview is guided well.
     \item \textbf{Group Discussion}\\
-    Group discussions might have the advantage that participants can interact with each other and build on each other's ideas. 
-    That means that outputs might be more diverse and richer than in subsequent one-on-one interviews.
-    A disadvantage might be that more introverted people may be overshadowed by more extroverted people and that the discussion might be dominated by a few participants.
-    Furthermore, some participants may not want to or are allowed to share internal business-critical company information in a group setting.
+    Group discussions have the advantage that participants can interact and build on each other's ideas. 
+    That means outputs might be more diverse and prosperous than subsequent one-on-one interviews.
+    A disadvantage might be that more extroverted people may overshadow introverted people and that a few participants might dominate the discussion.
+    Furthermore, some participants may not want to or are not allowed to share internal business-critical company information in a group setting.
     \item \textbf{Text Analysis}\\
-    This survey instrument can be used to do a literature review in order to get a qualitative understanding of the object of investigation and to get new research and model implementation ideas from ongoing research.
-    The advantage is that lots of information is easily accessible which means that a good theoretical foundation can be built fast.
-    A disadvantage may be that literature regarding certain areas may not be available in the expected level of detail and some areas may have no available literature all.
+    This survey instrument can be used to do a literature review to get a qualitative understanding of the object of investigation and to get new research and model implementation ideas from ongoing research.
+    The advantage is that much information is easily accessible, which allows an excellent theoretical foundation to be built quickly.
+    A disadvantage may be that literature regarding certain areas may not be available in the expected level of detail, and some areas may have no available literature.
     \item \textbf{Observation Analysis}\\
-    This survey instrument is not suitable as it is mostly used for social studies where observation refers to all forms of sensory perception.
-    As the object of investigation is a computer program, it makes no sense to observe it in the traditional sense, as it will always execute the way it is programmed to when it is invoked.
+    This survey instrument is unsuitable as it is mainly used for social studies, where observation refers to all forms of sensory perception.
+    As the object of investigation is a computer program, observing it in the traditional sense makes no sense, as it will consistently execute the way it is programmed to when invoked.
 \end{itemize}
-By analyzing all the discussed survey instruments, it was decided that the most suitable qualitative survey instrument for the thesis' case is the guideline interview in a group discussion setting combined with an extensive literature review (text analysis).
-The literature review is needed to get a good theoretical base in order to answer the research question.
-The decision was taken because the group discussion will help to get a diverse set of interactively constructed opinions or may reveal points that have been forgotten in the interview guidelines and the guideline interview will help to guide the discussion to the expected areas that should be covered in the expected level of detail.
+Analyzing all the discussed survey instruments, it was decided that the most suitable qualitative survey instrument for the thesis’s case is the guideline interview in a group discussion setting combined with an extensive literature review (text analysis).
+A literature review is needed to get a good theoretical base and answer the research question.
+The decision was taken because the group discussion will help to get a diverse set of interactively constructed opinions or may reveal points that have been forgotten in the interview guidelines, and the guideline interview will help to guide the discussion to the expected areas that should be covered in the expected level of detail.
 These areas include the impressions of the implemented proposed model, expectations, and considerations on assistive technologies in the \acs{HR} pipeline and the experiences with \acs{AI}-assisted technologies in the context of \acs{HR}.
-Narrative interviews are not used in this thesis' methods as very specific areas need to be addressed in the discussion and in a group setting, the time of all participants needs to be respected.
-As mentioned before, the observation analysis makes no sense in this thesis' case.
+Narrative interviews are not used in this thesis's methods as particular areas must be addressed in the discussion. In a group setting, the time of all participants needs to be respected.
+As mentioned, the observation analysis makes no sense in this thesis's case.
 
 \subsection{Discussion on the Quantitative Methods}
 These are the available survey instruments for quantitative research:
 \begin{itemize}
     \item \textbf{Research Survey}\\
     A survey might be beneficial to quickly get large amounts of easily processable data from a diverse set of participants, especially when automatically checked online forms are used.
-    Another advantage is that each participant can fill the survey asynchronously, which means that the time of the participants is respected.
+    Another advantage is that each participant can fill out the survey asynchronously, which means that the participants' time is respected.
     A downside of this approach might be that participants are very constrained in their answers as they need to conform to the allowed quantitative boundaries of the expected survey answers.
     \item \textbf{Standardized Observation}\\
-    This survey instrument is not suitable as it is mostly used for studies where observation refers to all forms of quantitatively measurable information.
-    As the object of investigation is a computer program, it makes no sense to observe it in the traditional sense, as it will always execute the way it is programmed to when it is invoked.
+    This survey instrument is not suitable as it is mainly used for studies where observation refers to all forms of quantitatively measurable information.
+    As the object of investigation is a computer program, observing it in the traditional sense makes no sense, as it will consistently execute the way it is programmed to when invoked.
     \item \textbf{Research Experiment}\\
-    If secondary data is not available, a research experiment can be conducted to measure values in a repeatable setting.
-    The advantage of this method is that the sourced data has the expected and designed quality and is conformant to the research question and problem definition.
-    The disadvantage is that the data collection process through experiments is time-consuming, costly and may not yield the required amount of data to get statistical significance.
+    If secondary data is unavailable, a research experiment can be conducted to measure values in a repeatable setting.
+    The advantage of this method is that the sourced data has the expected and designed quality and conforms to the research question and problem definition.
+    The disadvantage is that the data collection process through experiments is time-consuming and costly and may not yield the required amount of data to get statistical significance.
     \item \textbf{Research Panel}\\
-    This survey instrument is not suitable as it is mostly used to monitor a fixed set of participants over time to extract trends or other forms of valuable information.As our object of investigation is a computer program, it makes no sense to observe it in the traditional sense, as it will only execute the way it is programmed to when it is invoked.
-    As the object of investigation is a computer program, it makes no sense to observe it over time in the traditional sense, as it will always execute the way it is programmed to when it is invoked.
+    This survey instrument is unsuitable as it mainly monitors a fixed set of participants over time to extract trends or other valuable information. As our object of investigation is a computer program, it makes no sense to observe it in the traditional sense, as it will only execute how it is programmed to when invoked.
+    As the object of investigation is a computer program, observing it over time in the traditional sense makes no sense, as it will consistently execute how it is programmed to when invoked.
     \item \textbf{Secondary Data}\\
-    An advantage of secondary data is that it is already available and can be used to answer the research question without collecting them from scratch.
-    The disadvantage is that suitable data that is conformant to the research question and problem definition might not be publicly available.
-    As the problem domain of this thesis deals with very personal data, publicly available data of jobs and applicants is scarce and almost always in bad quality as discussed in section \ref{construction_process_of_the_sample_screening_documents}.
+    An advantage of secondary data is that it is already available and can be used to answer the research question without collecting it from scratch.
+    The disadvantage is that suitable data conforming to the research question and problem definition might not be publicly available.
+    As this thesis's problem domain deals with personal data, publicly available data on jobs and applicants is scarce and almost always of inadequate quality, as discussed in section \ref{construction_process_of_the_sample_screening_documents}.
 \end{itemize}
-By analyzing all the discussed survey instruments, it was decided that the most suitable quantitative survey instrument for the thesis' case is the research experiment where results are communicated using an online form in order to sanity check the passed input data.
-As mentioned before, high-quality secondary data for the person-environment quantization task (job descriptions with corresponding applicant \acs{CV}s) was not available, therefore the data had to be constructed from scratch as mentioned in section \ref{construction_process_of_the_sample_screening_documents}.
-This constructed data is then used as input to human expert recruiters and the proposed \acs{LLM}-based model in order to quantitatively analyze the accuracy of the model and the time savings associated to the model usage.
+By analyzing all the discussed survey instruments, it was decided that the most suitable quantitative survey instrument for the thesis’s case is the research experiment, where results are communicated using an online form to double-check the passed input data.
+As mentioned, high-quality secondary data for the person-environment quantization task (job descriptions with corresponding applicant \acs{CV}s) was unavailable. Therefore, the data had to be constructed from scratch as mentioned in section \ref{construction_process_of_the_sample_screening_documents}.
+This constructed data is then used as input to human expert recruiters and the proposed \acs{LLM}-based model to quantitatively analyze the accuracy of the model and the time savings associated with the model usage.
 The resulting data will be statistically analyzed.
-As mentioned before, the standardized observation and research panel make no sense in this thesis' case.
+As mentioned, the standardized observation and research panel make no sense in this thesis's case.
 
 \section{Qualitative Research Design} \label{qualitative_research_design}
-The literature review that is also used as a qualitative method was primarily carried out in chapter \ref{theoretical_background}.
+The literature review used as a qualitative method was primarily carried out in chapter \ref{theoretical_background}.
 As it was decided to use a guideline interview in a group discussion setting, a focus group of five human expert recruiters was assembled to analyze the model's output and impact from a qualitative perspective.
-This amount of experts was chosen to have diverse opinions, but not too many participants, to reduce the coordination work.
+This amount of experts was chosen to have diverse opinions, but only a few participants, to reduce the coordination work.
 Those human experts will be involved in three major interactions:
 \begin{enumerate}
     \item \textbf{Kick-Off Meeting} \label{kick_off_meeting}\\ 
@@ -806,7 +806,7 @@ Those human experts will be involved in three major interactions:
         \item \textbf{Costs}
         This topic entails a discussion on the costs of the technologies, whether they are affordable, and whether they are worth the investment, including the expected costs for a model as outlined in this thesis.
         \item \textbf{Open Discussion}
-        This point is reserved to discuss open topics that came up in the meeting that were not covered by the aforementioned topics.
+        This point is reserved to discuss open topics that came up in the meeting that were not covered by the topics above.
     \end{enumerate}
     \item \textbf{Ranking Announcement} \label{ranking_announcement}\\
     After the kick-off meeting, each human expert recruiter will get a set of applicant documents and job descriptions that should be ranked and categorized in \ref{quantitative_research_design}.
@@ -826,11 +826,11 @@ Those human experts will be involved in three major interactions:
         There should be a discussion on the explainability and transparency of the model's output to the human expert users.
         If deficiencies in the model are found by inspecting the model's explanations, a discussion on tweaking the model's configuration should be held, as well as whether it is understandable and easy to use.
         \item \textbf{Open Discussion}
-        This point is reserved to discuss open topics that came up in the meeting that were not covered by the aforementioned topics.
+        This point is reserved to discuss open topics that came up in the meeting that were not covered by the topics above.
     \end{enumerate}
 \end{enumerate}
 All the information gathered will be qualitatively analyzed, and the discussions will be summarized while presenting the considerations of the recruiters' common sense.
-The participating five human expert recruiters where affiliated with the following five anonymized recruiting companies:
+The participating five human expert recruiters were affiliated with the following five anonymized recruiting companies:
 \begin{enumerate}
     \item \textbf{Recruiting Company}\\
     around $6000$ employees
@@ -851,7 +851,7 @@ This marks the start of the experiment.
 The applicant documents should be ranked from best to worst applicant and categorized as promising and unpromising candidates per job description by each human expert.
 That means that for each job description, there is an applicant ranking from best (1\textsuperscript{st} place) to worst (8\textsuperscript{th} place) applicant, and there are also two applicant groups per job description, the promising applicant group and the unpromising applicant group.
 This marks the end of the experiment.
-These ranking and categorization results are then typed into an online form in order to sanity check the passed input data before the human experts are allowed to submit it.
+These ranking and categorization results are then typed into an online form to double-check the passed input data before the human experts are allowed to submit it.
 The screening documents comprise six job descriptions of various industries with eight applicant document sets each.
 This split was chosen to have diverse job descriptions with different applicants competing.
 Furthermore, it is essential to note that recruiters must rank and categorize $48$ applicants while tracking their time usage per job description.
@@ -892,9 +892,9 @@ The accuracy of the designed screening model will be determined by comparing the
 \end{enumerate}
 
 The time savings associated with the model usage will be determined by analyzing the time usage of the human expert recruiters submitted in the online form while carrying out the applicant ranking and categorization task.
-Since the proposed model can run asynchronously in the background whenever new applicant documents come in, the time usage of the model itself during its execution is almost never a limiting factor for the productivity of employees in the \acs{HR} sector.
-The model will just add some latency to incoming applicant documents, which are then preprocessed and easier to work with for the human expert recruiters.
-This latency is below one minute per applicant documents, but exact runtimes of the model will be sampled and reported.
+Since the proposed model can run asynchronously in the background whenever new applicant documents come in, the time usage of the model itself during its execution is rarely a limiting factor for the productivity of employees in the \acs{HR} sector.
+The model will add latency to incoming applicant documents, which are then preprocessed and more accessible for the human expert recruiters to work with.
+This latency is below one minute per applicant document, but the exact runtimes of the model will be sampled and reported.
 
 \subsection{Rank-Biased Overlap}
 Rank-biased overlap (RBO) was used in \textcite{rank_biased_overlap} to compare the search results of various search engines.
@@ -1028,7 +1028,7 @@ The text extraction of the \textit{PDF} files was carried out with the \textit{P
     Furthermore, for plain text extraction, the font and the used encoding must be adequately detected to extract the text correctly, which is appropriately done by the used package.
     Moreover, plain text segments can be specified as a collection of words and placed on the \textit{PDF} page, which is commonly used. 
     It is also possible to position each character individually on the page.
-    Not only that but also the order of the specified plain text segments in the \textit{PDF} file must not occur in the natural reading order of the \textit{PDF} file due to a possible absolute positioning of these segments. The resulting \textit{PDF} file may always be the same even if a random order of these segments is used.
+    Not only that, but also the order of the specified plain text segments in the \textit{PDF} file must not occur in the natural reading order of the \textit{PDF} file due to a possible absolute positioning of these segments. The resulting \textit{PDF} file may always be the same even if a random order of these segments is used.
     Due to the final position of the text, a natural reading order may be re-established, but due to the standard's complexity, this is a complex problem. 
     The package offers several extraction modes to cope with this problem.
     \item \textbf{Complex Layouts}\\
@@ -1164,7 +1164,7 @@ The following models were implemented and can be used as \acs{LLM} for the propo
 \end{enumerate}
 
 \subsection{Context Windows of \acs{LLM}s}
-The context window must be large enough to contain the prompt itself, including all input texts and the expected output text of the model, to reference all input parts in the answer fully.
+The context window must be large enough to contain the prompt itself, including all input texts and the expected output text of the model, to fully reference all input parts in the answer.
 As a rule of thumb, around four characters of standard English text will be translated to one token, a text fragment that is encoded using a unique integer, in the case of the \textit{OpenAI} tokenizer, which is based on the byte pair encoding algorithm \parencite{openai_tokenizer}. 
 This token translation is bidirectional and can, therefore, go both ways, which means the unique integer sequence can be translated back into the source text.
 As mentioned in \textcite[6]{llama2}, the \textit{LLAMA 2-Chat} models also use a tokenizer that employs the byte pair encoding algorithm. Therefore, the rule of thumb for the \textit{OpenAI} tokenizer is used as a general measure in the following calculation examples.
@@ -1209,7 +1209,7 @@ Due to this compression, the model is only guaranteed to output plausible text i
 As there are vast amounts of possible input texts, the model cannot summarize and answer questions on all of them correctly or with the same accuracy, as \acs{LLM}s do not understand the text the same way humans do.
 This means that the model will not be able to give a plausible output on every theoretically possible \acs{CV} job matchup and should, therefore, not be used as a single point of truth to pre-filter applicants in the screening process if fairness is a top priority.
 However, they will behave quite robustly in most cases due to the vast amounts of training data that are scraped off the internet and used to train these models.
-Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous, and past experiences influence humans’ decisions. This makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that human decision-making is not fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms for decision-making and detecting discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior depends on human-written data, like in the thesis case, is virtually impossible. Also, in \textcite[158-160]{discrimination_algorithms}, the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
+Furthermore, the introduced model will not be fair as the human training data used to build \acs{LLM}s already has some bias within its data. The decision-making process of humans is ambiguous, and past experiences influence humans’ decisions. This makes it very hard even for the legal systems to detect discrimination \parencite[113]{discrimination_algorithms}. That means that human decision-making is not fair in all cases. But \textcite[113]{discrimination_algorithms} sees a positive force for equity by incorporating algorithms for decision-making and detecting discrimination if fairness can be reasonably defined. Proving an algorithm's fairness in all possible cases if its behavior depends on human-written data, like in the thesis’s case, is virtually impossible. Also, in \textcite[158-160]{discrimination_algorithms}, the authors pointed out that race-aware predictors are more capable of determining college success than race-blind predictors.
 That means when the law forbids the usage of certain features in algorithmic or human decision-making in terms of fairness, the loss of accuracy can be significant, as shown in the example. Other application areas like healthcare might be where race-aware algorithms could save lives, but more restrictive legislation would prevent their usage.
 
 \subsection{Multilingual Support}
