@@ -1142,19 +1142,17 @@
   english=Affirmation,
   naustrian=Eidesstattliche Erklärung]{StatementChapter}%
 \CreatePolylingual[
-  english={I hereby declare that I have written this Master Thesis
-    independently, that I have completely specified the utilized
-    sources and resources and that I have definitely marked all parts
-    of the work - including tables, maps and figures - which belong
-    to other works or to the internet, literally or extracted, by
-    referencing the source as borrowed.},
-  naustrian={Hiermit erkl\"are ich, dass ich diese Arbeit
-    selbst\"andig verfasst habe, dass ich die verwendeten Quellen
-    und Hilfsmittel vollst\"andig angegeben habe und dass ich die
-    Stellen der Arbeit -- einschlie{\ss}lich Tabellen, Karten und
-    Abbildungen --, die anderen Werken oder dem Internet im Wortlaut
-    oder dem Sinn nach entnommen sind, auf jeden Fall unter Angabe
-    der Quelle als Entlehnung kenntlich gemacht habe.}]{Statement}%
+  english={I, [First name Family name], born on [date of birth], in [place of birth], declare,},
+  naustrian={Ich, [Vorname Nachname], geboren am [TT.MM.JJJJ], in [Ort], erkläre,}]{StatementHeader}%
+\CreatePolylingual[
+  english={that I composed my master's thesis independently, have not used other references than stipulated and have not used any illegitimate support,},
+  naustrian={dass ich meine Master Thesis selbständig verfasst, andere als die angegebenen Quellen und Hilfsmittel nicht benutzt und mich auch sonst keiner unerlaubten Hilfen bedient habe,}]{StatementFirstPoint}%
+\CreatePolylingual[
+  english={that I have not presented my master's thesis in any form or part of an exam neither do-mestically nor abroad,},
+  naustrian={dass ich meine Master Thesis bisher weder im In- noch im Ausland in irgendeiner Form als Prüfungsarbeit vorgelegt habe,}]{StatementSecondPoint}%
+\CreatePolylingual[
+  english={that I, if the work concerns my company or employer, obtained agreement from them re-garding title, form and content of my master's thesis.},
+  naustrian={dass ich, falls die Arbeit meine/n ArbeitgeberIn oder eine/n andere/n externe/n KooperationspartnerIn betrifft, diese/n über Titel, Form und Inhalt der Master Thesis unterrichtet und sein/ihr Einverständnis eingeholt habe, erhobene Daten und Informationen in die schriftliche Arbeit einfließen zu lassen.}]{StatementThirdPoint}%
 %    \end{macrocode}
 % Degree titles.
 %    \begin{macrocode}
@@ -1648,14 +1646,16 @@
   \setlength{\baselineskip}{13.6pt}%
   \setlength{\parskip}{0pt plus 1pt}%
   \begin{SFFont}{phv}%
-    \sffamily
-      \chapter*{\thesisclass@polylingual@StatementChapter}%
-      \thesisclass@person@author@fullname\par
-% ^^A      \thesisclass@data@address\par
-      \vspace{1.2cm}%
-      {\normalfont\thesisclass@polylingual@Statement}\par
-      \vspace{1.2cm}%
-      \SignatureFields[y]{\thesisclass@person@author@name}{}%
+    \chapter*{\thesisclass@polylingual@StatementChapter}%
+    \vspace{1.2cm}%
+    {\normalfont\thesisclass@polylingual@StatementHeader}\par
+    \begin{enumerate}
+      \item {\normalfont\thesisclass@polylingual@StatementFirstPoint}\par
+      \item {\normalfont\thesisclass@polylingual@StatementSecondPoint}\par
+      \item {\normalfont\thesisclass@polylingual@StatementThirdPoint}\par
+    \end{enumerate}
+    \vspace{1.2cm}%
+    \SignatureFields[y]{\thesisclass@person@author@name}{}%
   \end{SFFont}%
   \cleardoublepage
   \thesisclass@restorelayout
