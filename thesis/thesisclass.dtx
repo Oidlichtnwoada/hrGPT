@@ -1115,24 +1115,29 @@
   english=Second advisor,
   naustrian=Zweitbetreuung]{Secondadvisor}%
 \CreatePolylingual[
-  english=submitted in partial fulfillment of the requirements
-    for the degree of,
-  naustrian=zur Erlangung des akademischen Grades]{submission}%
+  english=Master's thesis for obtaining the academic degree,
+  naustrian=Master Thesis zur Erlangung des akademischen Grades]{submission}%
 \CreatePolylingual[
-  english=in,
-  naustrian=im Rahmen des Studiums]{in}%
+  english=in the study program,
+  naustrian=im Universitätslehrgang]{in}%
 \CreatePolylingual[
-  english=by,
+  english=of,
+  naustrian=der]{of}%
+\CreatePolylingual[
+  english=submitted by,
   naustrian=eingereicht von]{by}%
 \CreatePolylingual[
   english=Registration Number,
   naustrian=Matrikelnummer]{Registrationnumber}%
 \CreatePolylingual[
-  english=to the Danube Business School,
-  naustrian=am Department für Wirtschafts- und Managementwissenschaften]{faculty}%
+  english=Danube Business School,
+  naustrian=Danube Business School]{faculty}%
 \CreatePolylingual[
-  english=at the Danube University Krems,
-  naustrian=der Universit\"at für Weiterbildung Krems]{university}%
+  english=Department for Management and Economics,
+  naustrian=Department für Wirtschafts- und Managementwissenschaften]{department}%
+\CreatePolylingual[
+  english=Danube University Krems,
+  naustrian=Universit\"at für Weiterbildung Krems]{university}%
 \CreatePolylingual[
   english=Assistance,
   naustrian=Mitwirkung]{Assistance}%
@@ -1175,8 +1180,8 @@
   english=Bachelor of Science,
   naustrian=Bachelor of Science]{Bdeg}%
 \CreatePolylingual[
-  english=Master of Business Administration,
-  naustrian=Master of Business Administration]{MdegMaster}%
+  english=Master of Business Administration (MBA),
+  naustrian=Master of Business Administration (MBA)]{MdegMaster}%
 \CreatePolylingual[
   english=Diplom-Ingenieur,
   naustrian=Diplom-Ingenieur]{MdegDiplMale}%
@@ -1341,7 +1346,7 @@
 % Initialize footer.
 %    \begin{macrocode}
 \newcommand{\thesisclass@footer@titlepage}{%
-  \centering
+\centering
   \begin{minipage}{\textwidth}%
     \centering\thesisclass@normalsize\sffamily
     Universit\"{a}t für Weiterbildung Krems\\
@@ -1590,16 +1595,22 @@
         }%
       \end{minipage}\par
       \thesisclass@bigskip\thesisclass@bigskip
-      {\thesisclass@LARGE\thesisclass@polylingual@thesisname}\par
-      \thesisclass@bigskip
       {\thesisclass@large\thesisclass@polylingual@submission}\par
       \thesisclass@bigskip
       \ifundergraduate{%
         {\thesisclass@LARGE{\bfseries\thesisclass@polylingual@degreename}}\par
         \thesisclass@bigskip
         {\thesisclass@large\thesisclass@polylingual@in}\par
+        \smallskip
+        {\thesisclass@large{\thesisclass@polylingual@Curriculum}}\par
+        \smallskip
+        {\thesisclass@large{\thesisclass@polylingual@of\space\thesisclass@polylingual@university}}\par
         \thesisclass@bigskip
-        {\thesisclass@Large{\bfseries\thesisclass@polylingual@Curriculum}}\par
+        {\thesisclass@large{\thesisclass@polylingual@department}}\par
+        \thesisclass@bigskip
+        {\thesisclass@large{\thesisclass@polylingual@faculty}}\par
+        \thesisclass@bigskip
+        \thesisclass@bigskip
       }%
       \ifgraduate{%
         {\thesisclass@LARGE{\bfseries\thesisclass@polylingual@degreename}}\par
@@ -1609,15 +1620,8 @@
       \thesisclass@bigskip
       {\thesisclass@Large{\bfseries\thesisclass@person@author@fullname}}\par
       \smallskip
-      {\thesisclass@large\thesisclass@polylingual@Registrationnumber\
-      \thesisclass@data@regnumber}\par
     }%
     \thesisclass@bigskip\thesisclass@bigskip
-    \begin{minipage}[b][1.6cm][c]{\textwidth}%
-      \thesisclass@normalsize%
-      \thesisclass@polylingual@faculty\par
-      \thesisclass@polylingual@university
-    \end{minipage}\par
     \AdvisorBlock\par
 %    \end{macrocode}
 % Add stretchable glue between the advisor block and the signatures.
