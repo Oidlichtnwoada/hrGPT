@@ -851,6 +851,7 @@ This marks the start of the experiment.
 The applicant documents should be ranked from best to worst applicant and categorized as promising and unpromising candidates per job description by each human expert.
 That means that for each job description, there is an applicant ranking from best (1\textsuperscript{st} place) to worst (8\textsuperscript{th} place) applicant, and there are also two applicant groups per job description, the promising applicant group and the unpromising applicant group.
 This marks the end of the experiment.
+These ranking and categorization results are then typed into an online form in order to sanity check the passed input data before the human experts are allowed to submit it.
 The screening documents comprise six job descriptions of various industries with eight applicant document sets each.
 This split was chosen to have diverse job descriptions with different applicants competing.
 Furthermore, it is essential to note that recruiters must rank and categorize $48$ applicants while tracking their time usage per job description.
@@ -873,7 +874,7 @@ The following is a table summarizing the structure of the sample screening docum
     \caption{Structure of the sample screening documents}
 \end{table}
 
-The accuracy of the designed screening model will be determined by comparing the human expert annotations to the model's output for the same sample screening documents and the following labels:
+The accuracy of the designed screening model will be determined by comparing the human expert annotations submitted in the online form to the model's output for the same sample screening documents and the following labels:
 \begin{enumerate}
     \item \textbf{Ranking}\\
     The ranking of the model's output and each human expert's output will be compared to the mean human expert ranking per job description.
@@ -890,7 +891,7 @@ The accuracy of the designed screening model will be determined by comparing the
     Additional criteria will be introduced to break eventually occurring ties.
 \end{enumerate}
 
-The time savings associated with the model usage will be determined by analyzing the time usage of the human expert recruiters while carrying out the applicant ranking and categorization task.
+The time savings associated with the model usage will be determined by analyzing the time usage of the human expert recruiters submitted in the online form while carrying out the applicant ranking and categorization task.
 Since the proposed model can run asynchronously in the background whenever new applicant documents come in, the time usage of the model itself during its execution is almost never a limiting factor for the productivity of employees in the \acs{HR} sector.
 The model will just add some latency to incoming applicant documents, which are then preprocessed and easier to work with for the human expert recruiters.
 This latency is below one minute per applicant documents, but exact runtimes of the model will be sampled and reported.
