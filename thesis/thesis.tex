@@ -845,14 +845,17 @@ The participating five human expert recruiters where affiliated with the followi
 \end{enumerate}
 
 \section{Quantitative Research Design} \label{quantitative_research_design}
+It was decided to conduct a research experiment where results are communicated using an online form to answer the subordinate research questions.
 The five human experts of the focus group introduced in \ref{qualitative_research_design} will get the same sample screening documents consisting of applicant documents and job descriptions.
-The applicant documents should be ranked from best to worst applicant and categorized as promising and unpromising candidates per the job description by each human expert.
+This marks the start of the experiment.
+The applicant documents should be ranked from best to worst applicant and categorized as promising and unpromising candidates per job description by each human expert.
 That means that for each job description, there is an applicant ranking from best (1\textsuperscript{st} place) to worst (8\textsuperscript{th} place) applicant, and there are also two applicant groups per job description, the promising applicant group and the unpromising applicant group.
+This marks the end of the experiment.
 The screening documents comprise six job descriptions of various industries with eight applicant document sets each.
 This split was chosen to have diverse job descriptions with different applicants competing.
-Furthermore, it is essential to note that recruiters must rank and categorize $48$ applicants while tracking their time usage. Therefore, there is quite some work to do on their end.
+Furthermore, it is essential to note that recruiters must rank and categorize $48$ applicants while tracking their time usage per job description.
 More importantly, the sample screening documents must also be provided in adequate quality to mimic the real-world screening process as closely as possible.
-Al job descriptions will only have \acs{CV}s as applicant documents.
+All job descriptions will only have \acs{CV}s as applicant documents.
 The length of each \acs{CV} is bound to six pages.
 No applicant document will contain a photo of the applicant.
 The following is a table summarizing the structure of the sample screening documents:
@@ -870,25 +873,27 @@ The following is a table summarizing the structure of the sample screening docum
     \caption{Structure of the sample screening documents}
 \end{table}
 
-The accuracy of the designed screening model will be determined by comparing the human expert annotations to the model's output for the sample screening documents and the following labels:
+The accuracy of the designed screening model will be determined by comparing the human expert annotations to the model's output for the same sample screening documents and the following labels:
 \begin{enumerate}
     \item \textbf{Ranking}\\
-    The ranking of the model's output will be compared to the mean human expert ranking and the individual human expert rankings per job description.
+    The ranking of the model's output and each human expert's output will be compared to the mean human expert ranking per job description.
     Metrics summarizing the ranking accuracy for all job descriptions will also be provided.
-    The comparison of the rankings of the model against the mean or individual rankings of the human experts will be made using the rank-biased overlap metric, which was introduced in \textcite{rank_biased_overlap}. 
+    The comparison of the rankings will be made using the rank-biased overlap metric, which was introduced in \textcite{rank_biased_overlap}. 
     The mean rankings and the summarized metrics will be computed with an arithmetic mean.
     Additional criteria will be introduced to break eventually occurring ties.
     \item \textbf{Categorization}\\
-    The set of promising candidates of the model's output will be compared to the mean human expert categorization and the individual human expert categorizations per job description.
+    The set of promising candidates of the model's output and each human expert's output will be compared to the mean human expert categorization per job description.
     Metrics that summarize the categorization accuracy for all job descriptions will also be provided.
-    The comparison of the categorizations of the model against the mean or individual categorizations of the human experts will be done using the Hamming distance.
+    The comparison of the categorizations will be done using the Hamming distance.
     Therefore, this would equal the number of applicant category changes necessary to transform one categorization into another.
     The mean categorizations will be computed using the mode, and the summarized metrics will be calculated with an arithmetic mean.
     Additional criteria will be introduced to break eventually occurring ties.
 \end{enumerate}
 
-The time savings associated with the model usage will be determined by sampling actual users using the model to automate the screening process.
-These samples will be taken with the human expert recruiters at the closure meeting.
+The time savings associated with the model usage will be determined by analyzing the time usage of the human expert recruiters while carrying out the applicant ranking and categorization task.
+Since the proposed model can run asynchronously in the background whenever new applicant documents come in, the time usage of the model itself during its execution is almost never a limiting factor for the productivity of employees in the \acs{HR} sector.
+The model will just add some latency to incoming applicant documents, which are then preprocessed and easier to work with for the human expert recruiters.
+This latency is below one minute per applicant documents, but exact runtimes of the model will be sampled and reported.
 
 \subsection{Rank-Biased Overlap}
 Rank-biased overlap (RBO) was used in \textcite{rank_biased_overlap} to compare the search results of various search engines.
@@ -1002,7 +1007,7 @@ Information that is included in this \acs{CV} structure \label{cv_structure}:
     \item Patents (if present)
 \end{itemize}
 To redact the information taken from the \textit{LinkedIn} profiles, all contact-related information was removed from the \acs{CV} documents as well as all hyperlinks present in the \textit{PDF} files were removed.
-Moreover, most \acs{CV}s’ candidate locations were changed to \textit{Austria}. Sometimes, this made no sense as some current positions demanded a physical presence elsewhere in the world for the \acs{CV} to appear realistic.
+Moreover, most \acs{CV}s' candidate locations were changed to \textit{Austria}. Sometimes, this made no sense as some current positions demanded a physical presence elsewhere in the world for the \acs{CV} to appear realistic.
 Furthermore, the names of the candidates were redacted to random unisex English names to eliminate the influence of the candidate's sex on the human decision-making process and the model's decision-making process.
 
 \section{Model Design and Model Implementation} \label{implementation}
