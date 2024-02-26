@@ -130,6 +130,8 @@
 %
 % ^^A\DescribeMacro{\setaddress}
 % \DescribeMacro{\setregnumber}
+% \DescribeMacro{\setauthorbirthdate}
+% \DescribeMacro{\setauthorbirthplace}
 % \DescribeMacro{\settitle}
 % \DescribeMacro{\setsubtitle}
 % \DescribeMacro{\setcurriculum}
@@ -143,6 +145,8 @@
 %   \midrule
 %   ^^A|\setaddress| & Address of the author & All & No \\
 %   |\setregnumber| & Registration number of the author & All & No \\
+%   |\setauthorbirthdate| & Birth place of the author & All & No \\
+%   |\setauthorbirthplace| & Birth date of the author & All & No \\
 %   |\settitle|\ispoly & Title of the thesis & All & No \\
 %   |\setsubtitle|\ispoly & Subtitle of the thesis & All & Yes \\
 %   |\setcurriculum|\ispoly & Name of the curriculum & B, M & No \\
@@ -1067,6 +1071,8 @@
 %    \begin{macrocode}
 % ^^A\CreateData{address}%
 \CreateData{regnumber}%
+\CreateData{authorbirthdate}%
+\CreateData{authorbirthplace}%
 \CreateData{firstreviewerdata}%
 \CreateData{secondreviewerdata}%
 %    \end{macrocode}
@@ -1142,8 +1148,17 @@
   english=Affirmation,
   naustrian=Eidesstattliche Erklärung]{StatementChapter}%
 \CreatePolylingual[
-  english={I, [First name Family name], born on [date of birth], in [place of birth], declare,},
-  naustrian={Ich, [Vorname Nachname], geboren am [TT.MM.JJJJ], in [Ort], erkläre,}]{StatementHeader}%
+  english={I,},
+  naustrian={Ich,}]{StatementHeaderFirst}%
+\CreatePolylingual[
+  english={, born on },
+  naustrian={, geboren am }]{StatementHeaderSecond}%
+\CreatePolylingual[
+  english={, in },
+  naustrian={, in }]{StatementHeaderThird}%
+\CreatePolylingual[
+  english={, declare,},
+  naustrian={, erkläre,}]{StatementHeaderFourth}%
 \CreatePolylingual[
   english={that I composed my master's thesis independently, have not used other references than stipulated and have not used any illegitimate support,},
   naustrian={dass ich meine Master Thesis selbständig verfasst, andere als die angegebenen Quellen und Hilfsmittel nicht benutzt und mich auch sonst keiner unerlaubten Hilfen bedient habe,}]{StatementFirstPoint}%
@@ -1648,7 +1663,7 @@
   \begin{SFFont}{phv}%
     \chapter*{\thesisclass@polylingual@StatementChapter}%
     \vspace{1.2cm}%
-    {\normalfont\thesisclass@polylingual@StatementHeader}\par
+    {\normalfont\thesisclass@polylingual@StatementHeaderFirst}\space\textbf{\thesisclass@person@author@name}{\normalfont\thesisclass@polylingual@StatementHeaderSecond}\space\thesisclass@data@authorbirthdate{\normalfont\thesisclass@polylingual@StatementHeaderThird}\space\thesisclass@data@authorbirthplace{\normalfont\thesisclass@polylingual@StatementHeaderFourth}\par
     \begin{enumerate}
       \item {\normalfont\thesisclass@polylingual@StatementFirstPoint}\par
       \item {\normalfont\thesisclass@polylingual@StatementSecondPoint}\par
