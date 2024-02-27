@@ -1040,6 +1040,10 @@ Moreover, most \acs{CV}s' candidate locations were changed to \textit{Austria}. 
 Furthermore, the names of the candidates were redacted to random unisex English names to eliminate the influence of the candidate's sex on the human decision-making process and the model's decision-making process.
 
 \section{Model Design and Model Implementation} \label{implementation}
+This section describes what ideas were used to design the model and how the model was implemented.
+It is described how the input screening documents are processed step by step to the final model output.
+Furthermore, it is explained what \acs{LLM}s are supported to be used within the proposed model and there are also some remarks made on the context windows and determinism of \acs{LLM}s.
+Moreover, the fully changeable configuration of the proposed model is presented, its scope and limitations as well as the model's capability to handle various input and output languages and different input document formats.
 
 \subsection{Input Data Preprocessing}
 As described in \ref{sample_screening_documents}, all input files are supplied in the \textit{PDF} format, as this format can be used for humans and \acs{AI}-enabled screening and is widely adopted.
