@@ -211,7 +211,14 @@
 \chapter{Introduction} \label{introduction}
 
 \section{Problem Statement} \label{problem_statement}
-This section relies heavily on the article \textcite{ai_recruiting}, which is based on over $50$ research papers in that field and concisely describes the evolution of recruiting.
+This section gives an overview on how the evolution of digital recruiting has led to much more candidates applying to each job offer \parencite[4]{ai_recruiting}.
+It also discusses that the use of \acs{AI}-enabled tools in human resources is increasing and that mostly larger companies can afford to use these tools or have the required amount of historic recruiting data to calibrate the tools.
+This leads to productivity gains and cost reductions in the human resources department of larger companies that may be necessary to cope with an increasing level of applicant numbers.
+To bring a part of this efficiency gain also to smaller companies, this thesis aims to implement an open-source \acs{AI}-enabled tool that can be used to screen applicants for a job offer by using \acs{LLM}s.
+This has the advantage of manageable costs and eliminates the need for historic recruiting data to calibrate the tool as \acs{LLM}s are trained on and have knowledge of a huge corpus of text.
+The full version of the problem statement is given in the following.
+
+The problem statement elaboration relies heavily on the article \textcite{ai_recruiting}, which is based on over $50$ research papers in that field and concisely describes the evolution of recruiting.
 As described in \textcite[1]{ai_recruiting}, the average firm's value by 2000 comprised roughly 65\% of value from intangible assets.
 This has evolved a lot, as by the end of 1980, around 70 to 90\% of tangible assets were accountable for the average firm's value \parencite[1]{ai_recruiting}.
 This means that a firm's value is increasingly dependent on the quality of its employees and the knowledge they possess, and this ongoing process does not seem to halt soon.
@@ -279,13 +286,16 @@ This should have made the need for an effective human resources pipeline clear. 
     This task involves coordinating with the applicants, which requires appointment scheduling and cancellation. In the age of digital recruitment, more and more candidates are rejected. Therefore, you need to convey this information to all of your applicants, as little to no information regarding the process is the main driver for bad experiences with the application process. Machine learning tools can help to achieve that.
 \end{enumerate}
 By 2018, only around 40\% had used machine learning tools in these four core human resource sourcing processes \parencite[4]{ai_recruiting}.
-The cost to implement, integrate, and maintain \acs{AI} tools in human resources is significant, and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \parencite[8]{ai_recruiting}.
+The cost to implement, integrate, and maintain \acs{AI} tools in human resources is significant, may need large amounts of historic recruitment data, and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \parencite[8]{ai_recruiting}.
+This circumstance makes \acs{AI} tools less affordable for smaller companies.
 Furthermore, suppose the \acs{AI} tools are not used as assistive technology but as a technology to replace humans in the human resource sector. In that case, the acceptance of these technologies within this sector is relatively low \parencite[9]{ai_recruiting}.
 Moreover, around 70\% of large organization change initiatives, including digital transformations, fail.
-That means there is some space for improvement, and this thesis tries to implement a new open-source tool in screening to improve the productivity of human resources workers in companies of any size.
-As \acs{LLM}s are capable of summarization and question-answering when they are presented with natural text as input within their context length, the problem to solve now is to match a provided \acs{CV} from an applicant to the applied job description and assign this match a score.
-Furthermore, the model should also characterize the applicant as promising or not using an additional output.
-The score should represent the candidate's suitability for the job description and is needed to compare candidates easily and sort them by their score.
+
+This thesis tries to implement a new open-source tool in screening to bring part of the productivity gains of \acs{AI}-enabled tools to human resources workers in companies of any size.
+As \acs{LLM}s are capable of summarization and question-answering when they are presented with natural text as input within their context length, the problem statement to solve now is to match a provided \acs{CV} from an applicant to the applied job description and assign this match a score with the help of prompting the \acs{LLM}s.
+Furthermore, the model should also categorize the applicants as promising or not by prompting the \acs{LLM}.
+The score should represent the candidate's suitability for the job description and enables ordering while the promising flag is needed to quickly filter out unsuitable candidates.
+This approach should result in manageable costs for the company and does not require historic recruitment data to calibrate the model as the \acs{LLM}s have inherent knowledge.
 
 \section{Significance of the Work} \label{significance_of_the_work}
 The advantages of Digital Recruiting 3.0 should be available to all companies and not just to big corporations or as paid services from external providers.
