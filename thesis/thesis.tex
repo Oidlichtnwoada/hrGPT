@@ -480,7 +480,7 @@ If those two concepts diverge, it may be because the research outcomes need to b
 Furthermore, there can also be some unexplored factors in research that influence the selection process.
 
 \section{Quantizing the Person-Environment Fit}
-In this section, the literature on how the person-environment fit can be quantized in a technical perspective is discussed.
+In this section, the literature on how the person-environment fit can be quantized from a technical perspective is discussed.
 This is necessary to understand how the proposed model can be designed and implemented to compute the person-environment fit as some ideas may be transferrable.
 All the presented approaches either used a machine learning model, a text mining or semantical matching approach, or a combination of these approaches to quantize the person-environment fit.
 The presented methods all have the common deficiency of either needing to manually create a keyword dictionary or needing to have access to a large dataset of applicant \acs{CV}s and associated job descriptions with past recruitment decisions to train the model.
@@ -502,7 +502,7 @@ There were two methods used to compare the extracted keywords against the keywor
 \begin{enumerate}
     \item \textbf{Document Vector Analysis}\\
     This analysis used the \textit{KNIME Analytics Platform} for document preprocessing and vectorization.
-    The preprocessing steps on the \textit{PDF} documents include punctuation erasure, number filtering, small word removal with an $n$-char filter (removal of words of length smaller or equal to $n$), conversion to lowercase letters, stop word removal (removal of words not containing any information like \textit{the} and \textit{or}, these words are language-specific) and as final step the bag of words creation (method to build a list of all used words in all input documents).
+    The preprocessing steps on the \textit{PDF} documents include punctuation erasure, number filtering, small word removal with an $n$-char filter (removal of words of length smaller or equal to $n$), conversion to lowercase letters, stop word removal (removal of words not containing any information like \textit{the} and \textit{or}, these words are language-specific) and as a final step the bag of words creation (method to build a list of all used words in all input documents).
     Then, document vectorization is applied, which converts the preprocessed data of each resume to a vector of length $N$, where $N$ is the number of unique words in the bag of words.
     The vector represents a one-hot-encoding, meaning that if one of the unique words is present in the processed resume, this one value out of $N$ will be $1$. Otherwise, it will be $0$.
     This sample vector representation is also computed for the keyword dictionary that was previously defined, whose words are also added to the bag of words.
@@ -1019,7 +1019,7 @@ Then, eight applicants were randomly selected per job description with a proper 
 Some candidates listed on later pages of the search results were also selected, which means they had a lower degree of relevance to the job description.
 This was done to achieve a reasonable balance of candidate variety and candidate suitability for the job description and to have enough information in the profile to deduce if applicants meet or do not meet specific job requirements.
 The \textit{LinkedIn} platform allows the download of profiles as \acs{CV}s in the form of \textit{PDF} files.
-The structure, layout, and design of this \acs{CV} download was used to craft the \acs{CV}s for the sample screening documents.
+The structure, layout, and design of this \acs{CV} download were used to craft the \acs{CV}s for the sample screening documents.
 Information that is included in this \acs{CV} structure: \label{cv_structure}
 \begin{itemize}
     \item Name
@@ -1041,9 +1041,9 @@ Furthermore, the names of the candidates were redacted to random unisex English 
 
 \section{Model Design and Model Implementation} \label{implementation}
 This section describes what ideas were used to design the model and how the model was implemented.
-It is described how the input screening documents are processed step by step to the final model output.
-Furthermore, it is explained what \acs{LLM}s are supported to be used within the proposed model and there are also some remarks made on the context windows and determinism of \acs{LLM}s.
-Moreover, the fully changeable configuration of the proposed model is presented, its scope and limitations as well as the model's capability to handle various input and output languages and different input document formats.
+It describes how the input screening documents are processed step by step to the final model output.
+Furthermore, it explains what \acs{LLM}s are supported to be used within the proposed model, and there are also some remarks made on the context windows and determinism of \acs{LLM}s.
+Moreover, the fully changeable configuration of the proposed model, its scope and limitations, and its capability to handle various input and output languages and different input document formats are presented.
 
 \subsection{Input Data Preprocessing}
 As described in \ref{sample_screening_documents}, all input files are supplied in the \textit{PDF} format, as this format can be used for humans and \acs{AI}-enabled screening and is widely adopted.
@@ -1264,7 +1264,7 @@ However, the tool was also programmed to support \textit{Word} and plain text fi
 \section{Data Collection}
 This section covers how the data was collected.
 For the two meetings that were used to get qualitative data, the data collection was done by recording and transcribing the meetings.
-In order to lead the discussion for both meetings in the right direction, a discussion guide was used to formulate the main topics and the most important open questions in the form of a questionnaire.
+To lead the discussion for both meetings in the right direction, a discussion guide was used to formulate the main topics and the most important open questions in the form of a questionnaire.
 For the experiment to get quantitative data, the human expert recruiters participating in the experiment were asked to type in the results into an online form.
 
 \subsection{Qualitative Research}
@@ -1354,16 +1354,16 @@ To provide more validity to the open, verbal discussion with the human experts o
 
 \subsection{Quantitative Research}
 This section describes how the quantitative data was retrieved.
-The experiment results (applicant ranking, applicant promising categorization and human expert time usage) were typed into the below online form by the each human expert recruiters participating in the experiment.
+The experiment results (applicant ranking, applicant promising categorization, and human expert time usage) were typed into the below online form by each human expert recruiter participating in the experiment.
 These results are later statistically analyzed.
 
 \subsubsection{Online Form for Experiment Results}
 \lipsum[1]
 
 \section{Data Overview}
-This section covers what data was collected and gives an overview of that data.
-The two meetings that were used to get qualitative data were categorized and coded with qualitative content analysis with inductive category formation according to \textit{Mayring} \parencite{mayring}.
-The numeric data from the experiment that was submitted with the online form was aggregated according to section \ref{quantitative_research_design}.
+This section covers the data collected and gives an overview of the collected data.
+The two meetings used to get qualitative data were categorized and coded with qualitative content analysis with inductive category formation according to \textit{Mayring} \parencite{mayring}.
+The numeric data from the experiment submitted with the online form was aggregated according to section \ref{quantitative_research_design}.
 
 \subsection{Qualitative Research}
 This section describes what qualitative data was retrieved.
@@ -1377,7 +1377,7 @@ The transcribed meetings were categorized and coded leading to the resulting dat
 
 \subsection{Quantitative Research}
 This section describes what quantitative data was retrieved.
-The experiment results (applicant ranking, applicant promising categorization and human expert time usage) were extracted from the online form submissions.
+The experiment results (applicant ranking, applicant promising categorization, and human expert time usage) were extracted from the online form submissions.
 The results are aggregated leading to the resulting data presented below.
 
 \subsubsection{Online Form for Experiment Results}
