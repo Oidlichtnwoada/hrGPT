@@ -211,12 +211,12 @@
 \chapter{Introduction} \label{introduction}
 
 \section{Problem Statement} \label{problem_statement}
-This section gives an overview on how the evolution of digital recruiting has led to much more candidates applying to each job offer \parencite[4]{ai_recruiting}.
-It also discusses that the use of \acs{AI}-enabled tools in human resources is increasing and that mostly larger companies can afford to use these tools or have the required amount of historic recruiting data to calibrate the tools.
+This section gives an overview of how the evolution of digital recruiting has led to many more candidates applying to each job offer \parencite[4]{ai_recruiting}.
+It also discusses that the usage of \acs{AI}-enabled tools in human resources is increasing and that mostly larger companies can afford to use these tools or have the required amount of historic recruiting data to calibrate them.
 This leads to productivity gains and cost reductions in the human resources department of larger companies that may be necessary to cope with an increasing level of applicant numbers.
-To bring a part of this efficiency gain also to smaller companies, this thesis aims to implement an open-source \acs{AI}-enabled tool that can be used to screen applicants for a job offer by using \acs{LLM}s.
-This has the advantage of manageable costs and eliminates the need for historic recruiting data to calibrate the tool as \acs{LLM}s are trained on and have knowledge of a huge corpus of text.
-The full version of the problem statement is given in the following.
+To bring a part of this efficiency gain to smaller companies, this thesis aims to implement an open-source \acs{AI}-enabled tool that can screen applicants for a job offer by using \acs{LLM}s.
+This has the advantage of manageable costs and eliminates the need for historic recruiting data to calibrate the tool as \acs{LLM}s are trained on and have knowledge of a vast corpus of text.
+The full version of the problem statement is given below.
 
 The problem statement elaboration relies heavily on the article \textcite{ai_recruiting}, which is based on over $50$ research papers in that field and concisely describes the evolution of recruiting.
 As described in \textcite[1]{ai_recruiting}, the average firm's value by 2000 comprised roughly 65\% of value from intangible assets.
@@ -286,7 +286,7 @@ This should have made the need for an effective human resources pipeline clear. 
     This task involves coordinating with the applicants, which requires appointment scheduling and cancellation. In the age of digital recruitment, more and more candidates are rejected. Therefore, you need to convey this information to all of your applicants, as little to no information regarding the process is the main driver for bad experiences with the application process. Machine learning tools can help to achieve that.
 \end{enumerate}
 By 2018, only around 40\% had used machine learning tools in these four core human resource sourcing processes \parencite[4]{ai_recruiting}.
-The cost to implement, integrate, and maintain \acs{AI} tools in human resources is significant, may need large amounts of historic recruitment data, and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \parencite[8]{ai_recruiting}.
+The cost to implement, integrate, and maintain \acs{AI} tools in human resources is high, may need large amounts of historic recruitment data, and most companies should use services from external providers if they do not have massive amounts of hires to amortize these costs \parencite[8]{ai_recruiting}.
 This circumstance makes \acs{AI} tools less affordable for smaller companies.
 Furthermore, suppose the \acs{AI} tools are not used as assistive technology but as a technology to replace humans in the human resource sector. In that case, the acceptance of these technologies within this sector is relatively low \parencite[9]{ai_recruiting}.
 Moreover, around 70\% of large organization change initiatives, including digital transformations, fail.
@@ -294,7 +294,7 @@ Moreover, around 70\% of large organization change initiatives, including digita
 This thesis tries to implement a new open-source tool in screening to bring part of the productivity gains of \acs{AI}-enabled tools to human resources workers in companies of any size.
 As \acs{LLM}s are capable of summarization and question-answering when they are presented with natural text as input within their context length, the problem statement to solve now is to match a provided \acs{CV} from an applicant to the applied job description and assign this match a score with the help of prompting the \acs{LLM}s.
 Furthermore, the model should also categorize the applicants as promising or not by prompting the \acs{LLM}.
-The score should represent the candidate's suitability for the job description and enables ordering while the promising flag is needed to quickly filter out unsuitable candidates.
+The score should represent the candidate's suitability for the job description and enable ordering, while the promising flag is needed to filter out unsuitable candidates quickly.
 This approach should result in manageable costs for the company and does not require historic recruitment data to calibrate the model as the \acs{LLM}s have inherent knowledge.
 
 \section{Significance of the Work} \label{significance_of_the_work}
@@ -401,15 +401,15 @@ The model stops the output loop when the model emits the stop token. That means 
 Most \acs{LLM}s are based on the machine learning model type called Transformers \parencite[1]{transformer}, which is a neural network architecture that is based on the attention mechanism.
 
 \subsection{MMLU (Massive Multitask Language Understanding) Test}
-As \acs{LLM}s are trained on vast amounts of text data, they have knowledge of various represented domains within that data which can be assessed by the recently introduced \textit{MMLU} test \parencite{mmlu}.
-This massive multitask language understanding (\textit{MMLU}) test consists of $14079$ multiple-choice test questions from various branches of knowledge that cover $57$ tasks including mathematics, history and law each represented with at least $100$ test questions \parencite[1-3]{mmlu}.
-The final result is given in percent of correct questions and the authors estimated that human expert level performance is approximately $89.8\%$.
-That means if an \acs{LLM} scores higher than the human expert level performance, it can be considered to have the same or superior performance to human domain experts.
-The first \acs{LLM} that broke this human expert level performance boundary was \textit{Gemini Ultra} with a score of above $90\%$ \parencite[1]{gemini}.
+As \acs{LLM}s are trained on vast amounts of text data, they have knowledge of various represented domains within that data, which can be assessed by the recently introduced \textit{MMLU} test \parencite{mmlu}.
+This massive multitask language understanding (\textit{MMLU}) test consists of $14079$ multiple-choice test questions from various branches of knowledge that cover $57$ tasks including mathematics, history, and law, each represented with at least $100$ test questions \parencite[1-3]{mmlu}.
+The final result is given in percentage of correct questions, and the authors estimated that human expert-level performance is approximately $89.8\%$.
+That means if an \acs{LLM} scores higher than the human expert-level performance, it can perform similarly to human domain experts.
+The first \acs{LLM} that broke this human expert-level performance boundary was \textit{Gemini Ultra} with a score of above $90\%$ \parencite[1]{gemini}.
 Also, the \textit{GPT-4} model scored quite high with $86.4\%$ on the \textit{MMLU} test \parencite[32]{gpt4}.
-The \textit{LLAMA 2} model with $70$ billion parameters scored $68.9\%$ on the \textit{MMLU} test \parencite[49]{llama2} which is a considerable worse result that the other two models.
-That means all three mentioned models, but especially \textit{Gemini Ultra} and \textit{GPT-4}, have a broad understanding of various domains of knowledge.
-This may help the proposed model to accurately match the applicant's \acs{CV} to the job description without the need to supply the model with historic recruitment data.
+The \textit{LLAMA 2} model with $70$ billion parameters scored $68.9\%$ on the \textit{MMLU} test \parencite[49]{llama2}, which is a considerably worse result than the other two models have achieved.
+That means all three mentioned models, but especially \textit{Gemini Ultra} and \textit{GPT-4}, have a broad understanding of various knowledge domains.
+This may help the proposed model with the help of \acs{LLM}s to accurately match the applicant's \acs{CV} to the job description without supplying the model with historic recruitment data.
 
 \section{Person-Environment Fit}
 The person-environment fit can be broken up into the person-organization and the person-job fit.
@@ -502,9 +502,9 @@ Furthermore, there can also be some unexplored factors in research that influenc
 
 \section{Quantizing the Person-Environment Fit}
 In this section, the literature on how the person-environment fit can be quantized from a technical perspective is discussed.
-This is necessary to understand how the proposed model can be designed and implemented to compute the person-environment fit as some ideas may be transferrable.
-All the presented approaches either used a machine learning model, a text mining or semantical matching approach, or a combination of these approaches to quantize the person-environment fit.
-The presented methods all have the common deficiency of either needing to manually create a keyword dictionary or needing to have access to a large dataset of applicant \acs{CV}s and associated job descriptions with past recruitment decisions to train the model.
+This is necessary to understand how the proposed model can be designed and implemented to compute the person-environment fit, as some ideas may be transferrable.
+All the presented approaches used either a machine learning model, a text mining or semantical matching approach, or a combination of these approaches to quantify the person-environment fit.
+The presented methods all have the common deficiency of either manually creating a keyword dictionary or having access to a large dataset of applicant \acs{CV}s and associated job descriptions with past recruitment decisions to train the model.
 The usage of \acs{LLM}s in the proposed model may enable to match the job description and the applicant \acs{CV}s on a semantical level with greater context awareness and without the need for manual intervention or past recruitment decision data due to the superior question answering and summarization capabilities of \acs{LLM}s including their.
 Furthermore, as \acs{LLM}s are trained on vast amounts of text data, they also have a broad understanding of quite a few professional fields, which may enable them to understand and match the job description and the applicant \acs{CV}s better than the presented methods.
 
@@ -978,7 +978,7 @@ For this thesis, the second weighting property is the most important one, as we 
 \section{Sample Screening Documents} \label{sample_screening_documents}
 The sample screening documents (job descriptions and applicant \acs{CV}s) for the previously mentioned research experiment needed to be constructed from scratch as no quality secondary data was available.
 This was necessary to mimic the real-world screening process as closely as possible.
-Only in a realistic scenario the model's output can be compared to the human expert recruiters' output.
+Only in a realistic scenario can the model's output be compared to the human expert recruiters' output.
 Details on how the screening documents were constructed can be found in the following sections.
 
 \subsection{Overview of the Construction and Usage of the Sample Screening Documents}
@@ -1290,7 +1290,7 @@ For the experiment to get quantitative data, the human expert recruiters partici
 
 \subsection{Qualitative Research}
 This section describes how the qualitative data was retrieved.
-The meetings where the below discussion guides were used were recorded and transcribed in order to get the qualitative data.
+The meetings where the discussion guides from below were used were recorded and transcribed to get the qualitative data.
 
 \subsubsection{Kick-Off Meeting Discussion Guide}
 To provide more validity to the open, verbal discussion with the human experts of the focus group, the following discussion guide formulates the main topics and the most important open questions in the form of a questionnaire as quickly outlined in \ref{kick_off_meeting}:
@@ -1383,12 +1383,12 @@ These results are later statistically analyzed.
 
 \section{Data Overview}
 This section covers the data collected and gives an overview of the collected data.
-The two meetings used to get qualitative data were categorized and coded with qualitative content analysis with inductive category formation according to \textit{Mayring} \parencite{mayring}.
+The two meetings to get qualitative data were categorized and coded with qualitative content analysis with inductive category formation according to \textit{Mayring} \parencite{mayring}.
 The numeric data from the experiment submitted with the online form was aggregated according to section \ref{quantitative_research_design}.
 
 \subsection{Qualitative Research}
 This section describes what qualitative data was retrieved.
-The transcribed meetings were categorized and coded leading to the resulting data presented below.
+The transcribed meetings were categorized and coded, resulting in the below data.
 
 \subsubsection{Kick-Off Meeting Discussion Guide}
 \lipsum[1]
@@ -1399,7 +1399,7 @@ The transcribed meetings were categorized and coded leading to the resulting dat
 \subsection{Quantitative Research}
 This section describes what quantitative data was retrieved.
 The experiment results (applicant ranking, applicant promising categorization, and human expert time usage) were extracted from the online form submissions.
-The results are aggregated leading to the resulting data presented below.
+The results are aggregated, and the resulting data is presented below.
 
 \subsubsection{Online Form for Experiment Results}
 \lipsum[1]
