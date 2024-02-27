@@ -404,7 +404,7 @@ Most \acs{LLM}s are based on the machine learning model type called Transformers
 As \acs{LLM}s are trained on vast amounts of text data, they have knowledge of various represented domains within that data, which can be assessed by the recently introduced \textit{MMLU} test \parencite{mmlu}.
 This massive multitask language understanding (\textit{MMLU}) test consists of $14079$ multiple-choice test questions from various branches of knowledge that cover $57$ tasks including mathematics, history, and law, each represented with at least $100$ test questions \parencite[1-3]{mmlu}.
 The final result is given in percentage of correct questions, and the authors estimated that human expert-level performance is approximately $89.8\%$.
-That means if an \acs{LLM} scores higher than the human expert-level performance, it can perform similarly to human domain experts.
+If an \acs{LLM} scores higher than the human expert-level performance, it can perform similarly to human domain experts.
 The first \acs{LLM} that broke this human expert-level performance boundary was \textit{Gemini Ultra} with a score of above $90\%$ \parencite[1]{gemini}.
 Also, the \textit{GPT-4} model scored quite high with $86.4\%$ on the \textit{MMLU} test \parencite[32]{gpt4}.
 The \textit{LLAMA 2} model with $70$ billion parameters scored $68.9\%$ on the \textit{MMLU} test \parencite[49]{llama2}, which is a considerably worse result than the other two models have achieved.
@@ -504,7 +504,7 @@ Furthermore, there can also be some unexplored factors in research that influenc
 In this section, the literature on how the person-environment fit can be quantized from a technical perspective is discussed.
 This is necessary to understand how the proposed model can be designed and implemented to compute the person-environment fit, as some ideas may be transferrable.
 All the presented approaches used either a machine learning model, a text mining or semantical matching approach, or a combination of these approaches to quantify the person-environment fit.
-The presented methods all have the common deficiency of either manually creating a keyword dictionary or having access to a large dataset of applicant \acs{CV}s and associated job descriptions with past recruitment decisions to train the model.
+The presented methods all have the common deficiency of manually creating a keyword dictionary or accessing a large dataset of applicant \acs{CV}s and associated job descriptions with past recruitment decisions to train the model.
 The usage of \acs{LLM}s in the proposed model may enable to match the job description and the applicant \acs{CV}s on a semantical level with greater context awareness and without the need for manual intervention or past recruitment decision data due to the superior question answering and summarization capabilities of \acs{LLM}s including their.
 Furthermore, as \acs{LLM}s are trained on vast amounts of text data, they also have a broad understanding of quite a few professional fields, which may enable them to understand and match the job description and the applicant \acs{CV}s better than the presented methods.
 
