@@ -399,11 +399,17 @@ The output tokens of a \acs{LLM} are generated token by token, so when the first
 That means that the total output token size is also constrained by the context size when the entire history of tokens should be within the context size while generating the output.
 The model stops the output loop when the model emits the stop token. That means that it has finished the output token generation.
 Most \acs{LLM}s are based on the machine learning model type called Transformers \parencite[1]{transformer}, which is a neural network architecture that is based on the attention mechanism.
+
+\subsection{MMLU (Massive Multitask Language Understanding) Test}
 As \acs{LLM}s are trained on vast amounts of text data, they have knowledge of various represented domains within that data which can be assessed by the recently introduced \textit{MMLU} test \parencite{mmlu}.
 This massive multitask language understanding (\textit{MMLU}) test consists of $14079$ multiple-choice test questions from various branches of knowledge that cover $57$ tasks including mathematics, history and law each represented with at least $100$ test questions \parencite[1-3]{mmlu}.
 The final result is given in percent of correct questions and the authors estimated that human expert level performance is approximately $89.8\%$.
 That means if an \acs{LLM} scores higher than the human expert level performance, it can be considered to have the same or superior performance to human domain experts.
 The first \acs{LLM} that broke this human expert level performance boundary was \textit{Gemini Ultra} with a score of above $90\%$ \parencite[1]{gemini}.
+Also, the \textit{GPT-4} model scored quite high with $86.4\%$ on the \textit{MMLU} test \parencite[32]{gpt4}.
+The \textit{LLAMA 2} model with $70$ billion parameters scored $68.9\%$ on the \textit{MMLU} test \parencite[49]{llama2} which is a considerable worse result that the other two models.
+That means all three mentioned models, but especially \textit{Gemini Ultra} and \textit{GPT-4}, have a broad understanding of various domains of knowledge.
+This may help the proposed model to accurately match the applicant's \acs{CV} to the job description without the need to supply the model with historic recruitment data.
 
 \section{Person-Environment Fit}
 The person-environment fit can be broken up into the person-organization and the person-job fit.
