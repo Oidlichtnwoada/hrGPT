@@ -365,12 +365,12 @@ That means that researchers and engineers worldwide can use the model as a build
 The real breakthrough of \acs{LLM}s came with the release of the \textit{GPT-3} model by \textit{OpenAI} \parencite{gpt3} that powered the initial version of \textit{ChatGPT}.
 They offered the model's capabilities as a website accessible to the public and allowed users to insert text and receive a response from the model.
 As described in \textcite[1]{gpt3}, the model provided excellent performance on various \acs{NLP} datasets that include tasks like translation and question answering.
-To briefly visualize the complexity behind a \acs{LLM}, consider the function $f_{a,b,c}(x) = ax^2+bx+c$ that has the three parameters $a$, $b$ and $c$.
+To briefly visualize the complexity behind an \acs{LLM}, consider the function $f_{a,b,c}(x) = ax^2+bx+c$ that has the three parameters $a$, $b$ and $c$.
 Here, the function $f$ maps the input data denoted as $x$ to the output data denoted as $f(x)$.
 The input data in the \acs{NLP} case is the input text, and the output data is the output text.
 \acs{LLM}s also use parameterized and differentiable functions in their internal structure to map the input text to the output text. Still, they have orders of magnitudes more parameters than this sample function.
 For example, the model \textit{GPT-3} uses 175 billion parameters \parencite[1]{gpt3} in total. The parameter count of \textit{GPT-4} was not disclosed in their technical report \parencite{gpt4}.
-The training data needed to train these models was present in the required amounts because the researchers have yet to use reinforcement learning \parencite{rl_bible} or supervised learning \parencite[3]{sl_bible}.
+The training data needed to train these models was present in the required amounts because the researchers have not used reinforcement learning \parencite{rl_bible} or supervised learning \parencite[3]{sl_bible}.
 Reinforcement learning gives the model a reward when an action is good and a punishment when an action is wrong. This can be done by letting the model train in the real world, which has terrible scalability, or in simulators that must be coded to mimic the real world, which is also challenging and time-consuming.
 For example, animals learn that behaviors that lead to food are good and behaviors that lead to hunger are bad.
 The supervised learning approach labels input data with the desired output label, and based on these mappings and a vast number of training samples, the model will adjust its parameters to map the input data correctly.
@@ -480,6 +480,12 @@ If those two concepts diverge, it may be because the research outcomes need to b
 Furthermore, there can also be some unexplored factors in research that influence the selection process.
 
 \section{Quantizing the Person-Environment Fit}
+In this section, the literature on how the person-environment fit can be quantized in a technical perspective is discussed.
+This is necessary to understand how the proposed model can be designed and implemented to compute the person-environment fit as some ideas may be transferrable.
+All the presented approaches either used a machine learning model, a text mining or semantical matching approach, or a combination of these approaches to quantize the person-environment fit.
+The presented methods all have the common deficiency of either needing to manually create a keyword dictionary or needing to have access to a large dataset of applicant \acs{CV}s and associated job descriptions with past recruitment decisions to train the model.
+The usage of \acs{LLM}s in the proposed model may enable to match the job description and the applicant \acs{CV}s on a semantical level with greater context awareness and without the need for manual intervention or past recruitment decision data due to the superior question answering and summarization capabilities of \acs{LLM}s including their.
+Furthermore, as \acs{LLM}s are trained on vast amounts of text data, they also have a broad understanding of quite a few professional fields, which may enable them to understand and match the job description and the applicant \acs{CV}s better than the presented methods.
 
 \subsection{Text Mining Approach} \label{text_mining_approach}
 The article \textcite{text_mining_for_automatic_profiling} describes the necessity of automatically filtering candidates due to the probably very high number of applicants when job vacancies are opened using the internet.
