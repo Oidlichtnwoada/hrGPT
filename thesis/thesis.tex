@@ -955,6 +955,10 @@ These properties were helpful when comparing search results from search engines 
 For this thesis, the second weighting property is the most important one, as we have complete, definite rankings that are conjoint.
 
 \section{Sample Screening Documents} \label{sample_screening_documents}
+The sample screening documents (job descriptions and applicant \acs{CV}s) for the previously mentioned research experiment needed to be constructed from scratch as no quality secondary data was available.
+This was necessary to mimic the real-world screening process as closely as possible.
+Only in a realistic scenario the model's output can be compared to the human expert recruiters' output.
+Details on how the screening documents were constructed can be found in the following sections.
 
 \subsection{Overview of the Construction and Usage of the Sample Screening Documents}
 The job descriptions and the applicant documents will be either taken from publicly available datasets, taken from publicly available sources, manually crafted, or generated using tools like \textit{GPT-4} \parencite{gpt4} while giving the model some hints on the context and the expected applicant characteristics.
@@ -963,7 +967,7 @@ That means the more tools belonging to Digital Recruiting 3.0 \ref{digital_recru
 When this \acs{AI} barrier is successfully surpassed, it must be ensured that the documents also please the decision-making human after reading them.
 This will lead to new challenges for the applicants as they must please both the machine-learning models and the human decision-makers.
 As the industry-standard formats for applicant documents are the \textit{PDF} and the \textit{Microsoft Word} format, files in such formats must be converted to pure text before they can be supplied to the model.
-As this conversion is not the focus of this thesis, it will be briefly discussed in the chapter ref {implementation}.
+As this conversion is not the focus of this thesis, it will be briefly discussed in chapter \ref{implementation}.
 This also means that a more sophisticated \acs{CV} layout or design and an included portrait photo will not influence the model's output, as the model will only see the text contents.
 Future work can incorporate this information by converting this visual information to text using image-to-text models.
 The proposed model will compute a score from $0$ to $100$ for each \acs{CV}-job-matchup that will be supplied to it.
@@ -971,7 +975,7 @@ The model should also output whether the applicant is promising and should categ
 Based on this score, the \acs{CV}s for a particular job can be ranked from best to worst.
 If there is a tie with the output scores, additional criteria will be globally introduced to break the tie.
 Furthermore, it is planned that with each score output of the model, an explanation is supplied that clarifies why the model thinks this score is justified.
-The exact implementation details of the score and explanation generation are described in chapter \ref{implementation}.
+The exact implementation details of the score and explanation generation are described in section \ref{implementation}.
 The rankings of the human experts will not be available during the model implementation phase. They will only be used to benchmark the model's accuracy after implementation.
 
 \subsection{Construction Process of the Sample Screening Documents} \label{construction_process_of_the_sample_screening_documents}
