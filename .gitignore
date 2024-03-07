@@ -375,6 +375,9 @@ thesis.docx
 # Ignore open presentation marker
 ~$presentation.pptx
 
+# Video files
+*.mp4
+
 # Ingore name csv files
 forenames.csv
 surnames.csv
