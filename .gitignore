@@ -372,6 +372,9 @@ replacements.txt
 thesis.docx
 ~$thesis.docx
 
+# Ignore open presentation marker
+~$presentation.pptx
+
 # Ingore name csv files
 forenames.csv
 surnames.csv
