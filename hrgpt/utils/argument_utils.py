@@ -9,7 +9,7 @@ from hrgpt.utils.path_utils import (
 
 
 class ArgumentParser(tap.Tap):
-    target: typing.Literal["scoring", "anonymization"] = "scoring"
+    target: typing.Literal["scoring", "anonymization", "evaluation"] = "scoring"
     job: tuple[str, ...] = ()
     candidate: tuple[str, ...] = ()
     config: str = get_default_model_config_json_path()

@@ -23,7 +23,7 @@ def main() -> None:
         score_applicants(args.job, args.candidate)
     elif args.target == "anonymization":
         anonymize_applicant_documents()
-    elif args.target == "evaluate":
+    elif args.target == "evaluation":
         produce_evaluation_output()
     else:
         raise RuntimeError
