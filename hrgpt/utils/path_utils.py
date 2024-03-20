@@ -13,6 +13,14 @@ def get_repo_root_path() -> str:
     )
 
 
+def get_job_folder_path_by_job_index(job_index: int) -> str:
+    return os.path.join(get_repo_root_path(), "screening_documents", f"job_{job_index}")
+
+
+def get_responses_csv_path() -> str:
+    return os.path.join(get_repo_root_path(), "online_form_responses", "responses.csv")
+
+
 def get_module_root_path() -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
