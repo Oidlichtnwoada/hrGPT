@@ -378,6 +378,9 @@ thesis.docx
 # Video files
 *.mp4
 
+# Text files
+*.txt
+
 # Ingore name csv files
 forenames.csv
 surnames.csv
