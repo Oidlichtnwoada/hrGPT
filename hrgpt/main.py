@@ -1,4 +1,5 @@
 from hrgpt.anonymization.anonymization import anonymize_applicant_documents
+from hrgpt.evaluation.evaluation import produce_evaluation_output
 from hrgpt.logger.logger import LoggerFactory
 from hrgpt.scoring.scoring import score_applicants
 from hrgpt.utils.argument_utils import get_args
@@ -22,6 +23,8 @@ def main() -> None:
         score_applicants(args.job, args.candidate)
     elif args.target == "anonymization":
         anonymize_applicant_documents()
+    elif args.target == "evaluate":
+        produce_evaluation_output()
     else:
         raise RuntimeError
 
