@@ -29,7 +29,7 @@ def load_result_from_responses_csv_file() -> CompleteHumanMatchingResult:
     responses_df = pandas.read_csv(get_responses_csv_path())
     for human_id, human_result_row in responses_df.iterrows():
         timestamp = pendulum.from_format(
-            human_result_row[0].replace("GMT+1", "+01:00"),
+            human_result_row.iloc[0].replace("GMT+1", "+01:00"),
             "YYYY/MM/DD hh:mm:ss A Z",
         )
         human_result_row_without_timestamp = human_result_row[1:]
