@@ -34,13 +34,7 @@ def load_result_from_responses_csv_file() -> CompleteHumanMatchingResult:
         )
         human_result_row_without_timestamp = human_result_row[1:]
         for index, human_job_result in enumerate(
-            chunked(
-                zip(
-                    human_result_row_without_timestamp.index,
-                    human_result_row_without_timestamp,
-                ),
-                10,
-            )
+            chunked(human_result_row_without_timestamp.items(), 10)
         ):
             job_index = index + 1
             minutes_taken = int(human_job_result[0][1])
