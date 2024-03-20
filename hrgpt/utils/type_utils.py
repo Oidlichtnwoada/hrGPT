@@ -3,6 +3,7 @@ import enum
 import typing
 
 import pydantic
+import typing_extensions
 
 JobRequirementType = typing.Literal[
     "work_experience",
@@ -96,13 +97,27 @@ def get_supported_file_types() -> tuple[str, ...]:
 RankingPlace = typing.Literal[1, 2, 3, 4, 5, 6, 7, 8]
 
 
+def check_applicant_name(name: str) -> str:
+    name_parts = name.split(" ")
+    assert len(name_parts) == 2
+    first_name, last_name = name_parts
+    assert first_name == first_name.strip()
+    assert last_name == last_name.strip()
+    return name
+
+
+ApplicantName = typing_extensions.Annotated[
+    str, pydantic.functional_validators.AfterValidator(check_applicant_name)
+]
+
+
 class HumanMatchingResult(pydantic.BaseModel):
     human_id: int
     job_name: str
     timestamp: datetime.datetime
     minutes_taken: int
-    promising_candidates: set[str]
-    candidate_places: dict[RankingPlace, str]
+    promising_candidates: set[ApplicantName]
+    candidate_places: dict[RankingPlace, ApplicantName]
 
     @pydantic.model_validator(mode="after")
     def check_consistency(self) -> "HumanMatchingResult":

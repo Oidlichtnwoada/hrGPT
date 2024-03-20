@@ -10,6 +10,7 @@ typing-extensions
 mypy
 black
 pytest
+pandas
 pandas-stubs
 python-docx
 google-cloud-translate
