@@ -110,10 +110,12 @@ ApplicantName = typing_extensions.Annotated[
     str, pydantic.functional_validators.AfterValidator(check_applicant_name)
 ]
 
+JobName: typing.TypeAlias = str
+
 
 class HumanMatchingResult(pydantic.BaseModel):
     human_id: int
-    job_name: str
+    job_name: JobName
     timestamp: datetime.datetime
     minutes_taken: int
     promising_candidates: set[ApplicantName]
@@ -136,3 +138,6 @@ class HumanMatchingResult(pydantic.BaseModel):
         )
         assert self.promising_candidates == promising_candidates_according_to_ranking
         return self
+
+
+CompleteHumanMatchingResult = dict[JobName, tuple[HumanMatchingResult]]
