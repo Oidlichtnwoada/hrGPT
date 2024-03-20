@@ -91,3 +91,33 @@ class DocumentFileType(enum.StrEnum):
 
 def get_supported_file_types() -> tuple[str, ...]:
     return tuple([x.value for x in DocumentFileType])
+
+
+RankingPlace = typing.Literal[1, 2, 3, 4, 5, 6, 7, 8]
+
+
+class HumanMatchingResult(pydantic.BaseModel):
+    human_id: int
+    job_name: str
+    timestamp: datetime.datetime
+    minutes_taken: int
+    promising_candidates: set[str]
+    candidate_places: dict[RankingPlace, str]
+
+    @pydantic.model_validator(mode="after")
+    def check_consistency(self) -> "HumanMatchingResult":
+        unique_places_amount = len(typing.get_args(RankingPlace))
+        unique_places = set(self.candidate_places.keys())
+        unique_applicants = set(self.candidate_places.values())
+        assert len(unique_places) == unique_places_amount
+        assert len(unique_applicants) == unique_places_amount
+        assert self.promising_candidates.issubset(unique_applicants)
+        promising_candidates_amount = len(self.promising_candidates)
+        promising_candidates_according_to_ranking = set(
+            [
+                self.candidate_places[place]
+                for place in range(1, promising_candidates_amount + 1)
+            ]
+        )
+        assert self.promising_candidates == promising_candidates_according_to_ranking
+        return self
