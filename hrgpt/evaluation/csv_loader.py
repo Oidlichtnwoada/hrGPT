@@ -1,5 +1,6 @@
 import collections
 import pathlib
+import typing
 
 import pandas
 import pendulum
@@ -42,11 +43,11 @@ def load_result_from_responses_csv_file() -> CompleteHumanMatchingResult:
             candidate_places: dict[RankingPlace, str] = {}
             for applicant_place in human_job_result[2:]:
                 candidate_places[applicant_place[1]] = " ".join(
-                    applicant_place[0].split(" ")[2:]
+                    str(applicant_place[0]).split(" ")[2:]
                 )
             human_matching_result_list.append(
                 HumanMatchingResult(
-                    human_id=human_id,
+                    human_id=typing.cast(int, human_id),
                     job_name=get_job_name_by_job_index(job_index),
                     timestamp=timestamp,
                     minutes_taken=minutes_taken,

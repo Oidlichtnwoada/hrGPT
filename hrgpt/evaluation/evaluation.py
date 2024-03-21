@@ -39,7 +39,7 @@ from hrgpt.utils.type_utils import (
 T = typing.TypeVar("T")
 
 
-def compute_mean_set(sets: tuple[set[T]]) -> set[T]:
+def compute_mean_set(sets: tuple[set[T], ...]) -> set[T]:
     result_set: set[T] = set()
     set_amount = len(sets)
     half_set_amount = set_amount / 2
@@ -54,7 +54,7 @@ def compute_mean_set(sets: tuple[set[T]]) -> set[T]:
 
 
 def compute_mean_ranking(
-    rankings: tuple[dict[RankingPlace, T]]
+    rankings: tuple[dict[RankingPlace, T], ...]
 ) -> dict[RankingPlace, T]:
     result: dict[RankingPlace, T] = {}
     places_per_element: dict[T, list[RankingPlace]] = collections.defaultdict(list)
@@ -78,7 +78,7 @@ def compute_mean_ranking(
         ignore_index=True,
     )
     for index, name in ordered_order_information_df["name"].items():
-        result[index + 1] = name
+        result[typing.cast(RankingPlace, typing.cast(int, index) + 1)] = name
     return result
 
 

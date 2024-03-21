@@ -175,7 +175,7 @@ class HumanMatchingResult(pydantic.BaseModel):
         promising_candidates_amount = len(self.promising_candidates)
         promising_candidates_according_to_ranking = set(
             [
-                self.candidate_places[place]
+                self.candidate_places[typing.cast(RankingPlace, place)]
                 for place in range(1, promising_candidates_amount + 1)
             ]
         )
