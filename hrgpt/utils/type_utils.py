@@ -123,6 +123,22 @@ class HumanMatchingErrorResult(pydantic.BaseModel):
 CompleteHumanMatchingErrorResult = dict[JobName, tuple[HumanMatchingErrorResult]]
 
 
+class ModelMatchingErrorResult(pydantic.BaseModel):
+    job_name: JobName
+    promising_candidates_hamming_distance: int
+    candidate_places_rank_biased_overlap_similarity: float
+
+
+CompleteModelMatchingErrorResult = dict[JobName, ModelMatchingErrorResult]
+
+
+class ModelMatchingResult(pydantic.BaseModel):
+    job_name: JobName
+    seconds_taken: int
+    promising_candidates: set[ApplicantName]
+    candidate_places: dict[RankingPlace, ApplicantName]
+
+
 class MeanHumanMatchingResult(pydantic.BaseModel):
     job_name: JobName
     minutes_taken: float
