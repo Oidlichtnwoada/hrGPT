@@ -113,6 +113,16 @@ ApplicantName = typing_extensions.Annotated[
 JobName: typing.TypeAlias = str
 
 
+class HumanMatchingErrorResult(pydantic.BaseModel):
+    human_id: int
+    job_name: JobName
+    promising_candidates_hamming_distance: int
+    candidate_places_rank_biased_overlap_similarity: float
+
+
+CompleteHumanMatchingErrorResult = dict[JobName, tuple[HumanMatchingErrorResult]]
+
+
 class MeanHumanMatchingResult(pydantic.BaseModel):
     job_name: JobName
     minutes_taken: float

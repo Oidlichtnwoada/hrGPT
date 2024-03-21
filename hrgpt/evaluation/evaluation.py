@@ -3,6 +3,7 @@ import statistics
 import typing
 
 import pandas
+import rbo
 
 from hrgpt.evaluation.csv_loader import load_result_from_responses_csv_file
 from hrgpt.utils.type_utils import (
@@ -10,6 +11,8 @@ from hrgpt.utils.type_utils import (
     CompleteMeanHumanMatchingResult,
     MeanHumanMatchingResult,
     RankingPlace,
+    CompleteHumanMatchingErrorResult,
+    HumanMatchingErrorResult,
 )
 
 T = typing.TypeVar("T")
@@ -79,8 +82,58 @@ def compute_mean_human_matching_result(
     return result
 
 
+def compute_hamming_distance(first_set: set[T], second_set: set[T]) -> int:
+    return len(first_set.symmetric_difference(second_set))
+
+
+def compute_rank_biased_overlap(
+    first_ranking: dict[RankingPlace, T],
+    second_ranking: dict[RankingPlace, T],
+    p: float,
+) -> float:
+    first_ranking_values_in_order = [
+        first_ranking[key] for key in sorted(first_ranking.keys())
+    ]
+    second_ranking_values_in_order = [
+        second_ranking[key] for key in sorted(second_ranking.keys())
+    ]
+    similarity_measure = rbo.RankingSimilarity(
+        first_ranking_values_in_order, second_ranking_values_in_order
+    ).rbo(p=p)
+    return similarity_measure
+
+
+def compute_human_matching_error_result(
+    mean_human_matching_result: CompleteMeanHumanMatchingResult,
+    human_matching_result: CompleteHumanMatchingResult,
+    p: float = 0.5,
+) -> CompleteHumanMatchingErrorResult:
+    result: CompleteHumanMatchingErrorResult = collections.defaultdict(tuple)
+    for job_name, human_matching_results in human_matching_result.items():
+        mean_human_job_matching = mean_human_matching_result[job_name]
+        for human_matching_result in human_matching_results:
+            error = HumanMatchingErrorResult(
+                human_id=human_matching_result.human_id,
+                job_name=job_name,
+                promising_candidates_hamming_distance=compute_hamming_distance(
+                    mean_human_job_matching.promising_candidates,
+                    human_matching_result.promising_candidates,
+                ),
+                candidate_places_rank_biased_overlap_similarity=compute_rank_biased_overlap(
+                    mean_human_job_matching.candidate_places,
+                    human_matching_result.candidate_places,
+                    p,
+                ),
+            )
+            result[job_name] += (error,)
+    return result
+
+
 def produce_evaluation_output() -> None:
     human_matching_result = load_result_from_responses_csv_file()
     mean_human_matching_result = compute_mean_human_matching_result(
         human_matching_result
+    )
+    human_matching_error_result = compute_human_matching_error_result(
+        mean_human_matching_result, human_matching_result
     )
