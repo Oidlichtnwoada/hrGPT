@@ -215,12 +215,18 @@ class ModelMetrics(pydantic.BaseModel):
     filter_accuracy: float
 
 
+class HumanMetrics(pydantic.BaseModel):
+    candidates_filtered_by_humans: int | float
+    filter_accuracy: float
+
+
 class JobMatchingResult(pydantic.BaseModel):
     job_name: JobName
     mean_human_evaluation: MeanHumanMatchingEvaluation
     human_matching_evaluation: HumanMatchingEvaluation
     ai_model_matching_evaluation: ModelMatchingEvaluation
     ai_model_metrics: ModelMetrics
+    human_metrics: HumanMetrics
 
 
 class MergedMetrics(pydantic.BaseModel):
@@ -229,6 +235,7 @@ class MergedMetrics(pydantic.BaseModel):
     ai_model_promising_candidates_hamming_distance: float
     ai_model_candidate_places_kendall_tau_correlation: float
     ai_model_metrics: ModelMetrics
+    human_metrics: HumanMetrics
 
 
 class MatchingResult(pydantic.BaseModel):

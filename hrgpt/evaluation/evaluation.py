@@ -36,6 +36,9 @@ from hrgpt.utils.type_utils import (
     MeanHumanMatchingEvaluation,
     MeanHumanMatchingErrorResult,
     MergedMetrics,
+    HumanMatchingResult,
+    HumanMetrics,
+    get_unique_places_amount,
 )
 
 T = typing.TypeVar("T")
@@ -310,6 +313,15 @@ def merge_model_metrics(metrics_to_merge: tuple[ModelMetrics, ...]) -> ModelMetr
     )
 
 
+def merge_human_metrics(metrics_to_merge: tuple[HumanMetrics, ...]) -> HumanMetrics:
+    return HumanMetrics(
+        candidates_filtered_by_humans=statistics.mean(
+            [x.candidates_filtered_by_humans for x in metrics_to_merge]
+        ),
+        filter_accuracy=statistics.mean([x.filter_accuracy for x in metrics_to_merge]),
+    )
+
+
 def compute_merged_metrics(
     matching_result_dict: dict[JobName, JobMatchingResult]
 ) -> MergedMetrics:
@@ -345,7 +357,49 @@ def compute_merged_metrics(
         ai_model_metrics=merge_model_metrics(
             tuple([x.ai_model_metrics for x in matching_result_dict.values()])
         ),
+        human_metrics=merge_human_metrics(
+            tuple([x.human_metrics for x in matching_result_dict.values()])
+        ),
     )
+
+
+def compute_human_metrics(
+    human_matching_results: tuple[HumanMatchingResult, ...],
+    mean_promising_candidates: set[ApplicantName],
+) -> HumanMetrics:
+    candidates_filtered_amount = [
+        get_unique_places_amount() - len(x.promising_candidates)
+        for x in human_matching_results
+    ]
+    filter_accuracies = [
+        get_filter_accuracy(
+            x.promising_candidates,
+            mean_promising_candidates,
+            set(x.candidate_places.values()),
+        )
+        for x in human_matching_results
+    ]
+    return HumanMetrics(
+        candidates_filtered_by_humans=statistics.mean(candidates_filtered_amount),
+        filter_accuracy=statistics.mean(filter_accuracies),
+    )
+
+
+def get_filter_accuracy(
+    test_promising_candidates: set[ApplicantName],
+    mean_promising_candidates: set[ApplicantName],
+    all_candidates: set[ApplicantName],
+) -> float:
+    filtered_model_candidates = all_candidates - test_promising_candidates
+    filtered_model_candidate_amount = len(filtered_model_candidates)
+    if filtered_model_candidate_amount == 0:
+        filter_accuracy = 0.0
+    else:
+        filter_accuracy = (
+            filtered_model_candidate_amount
+            - len(filtered_model_candidates.intersection(mean_promising_candidates))
+        ) / filtered_model_candidate_amount
+    return filter_accuracy
 
 
 def produce_evaluation_output() -> MatchingResult:
@@ -369,21 +423,15 @@ def produce_evaluation_output() -> MatchingResult:
         time_savings_percentage = (
             mean_human_seconds_taken - job_model_matching_result.seconds_taken
         ) / mean_human_seconds_taken
-        filtered_model_candidates = set(
-            job_model_matching_result.candidate_places.values()
-        ) - set(job_model_matching_result.promising_candidates)
-        filtered_model_candidate_amount = len(filtered_model_candidates)
-        if filtered_model_candidate_amount == 0:
-            filter_accuracy = 0.0
-        else:
-            filter_accuracy = (
-                filtered_model_candidate_amount
-                - len(
-                    filtered_model_candidates.intersection(
-                        mean_human_matching_value.promising_candidates
-                    )
-                )
-            ) / filtered_model_candidate_amount
+        filtered_model_candidate_amount = len(
+            set(job_model_matching_result.candidate_places.values())
+            - job_model_matching_result.promising_candidates
+        )
+        filter_accuracy = get_filter_accuracy(
+            job_model_matching_result.promising_candidates,
+            mean_human_matching_value.promising_candidates,
+            set(job_model_matching_result.candidate_places.values()),
+        )
         model_ranking_better_or_equal_than_human_percentage = (
             get_better_or_equal_percentage(
                 job_model_matching_error_result,
@@ -422,6 +470,10 @@ def produce_evaluation_output() -> MatchingResult:
                 time_savings_percentage=time_savings_percentage,
                 candidates_filtered_by_model=filtered_model_candidate_amount,
                 filter_accuracy=filter_accuracy,
+            ),
+            human_metrics=compute_human_metrics(
+                human_matching_result[job_name],
+                mean_human_matching_value.promising_candidates,
             ),
         )
         matching_result_dict[job_name] = job_matching_result
