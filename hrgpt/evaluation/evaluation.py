@@ -32,6 +32,9 @@ from hrgpt.utils.type_utils import (
     CompleteModelMatchingResult,
     HumanMatchingEvaluation,
     ModelMatchingEvaluation,
+    ModelMetrics,
+    MeanHumanMatchingEvaluation,
+    MeanHumanMatchingErrorResult,
 )
 
 T = typing.TypeVar("T")
@@ -259,6 +262,29 @@ def get_better_or_equal_percentage(
         return statistics.mean([1 if model_value <= x else 0 for x in human_values])
 
 
+def compute_mean_human_matching_error_result(
+    human_job_matching_error_result: tuple[HumanMatchingErrorResult, ...]
+) -> MeanHumanMatchingErrorResult:
+    assert len(human_job_matching_error_result) > 0
+    mean_promising_candidates_hamming_distance = statistics.mean(
+        [
+            x.promising_candidates_hamming_distance
+            for x in human_job_matching_error_result
+        ]
+    )
+    mean_candidate_places_kendall_tau_correlation = statistics.mean(
+        [
+            x.candidate_places_kendall_tau_correlation
+            for x in human_job_matching_error_result
+        ]
+    )
+    return MeanHumanMatchingErrorResult(
+        job_name=human_job_matching_error_result[0].job_name,
+        promising_candidates_hamming_distance=mean_promising_candidates_hamming_distance,
+        candidate_places_kendall_tau_correlation=mean_candidate_places_kendall_tau_correlation,
+    )
+
+
 def produce_evaluation_output() -> MatchingResult:
     human_matching_result = load_result_from_responses_csv_file()
     mean_human_matching_result = compute_mean_human_matching_result(
@@ -313,7 +339,12 @@ def produce_evaluation_output() -> MatchingResult:
         )
         job_matching_result = JobMatchingResult(
             job_name=job_name,
-            mean_human_result=mean_human_matching_value,
+            mean_human_evaluation=MeanHumanMatchingEvaluation(
+                mean_human_result=mean_human_matching_value,
+                mean_human_error_result=compute_mean_human_matching_error_result(
+                    human_matching_error_result[job_name]
+                ),
+            ),
             human_matching_evaluation=HumanMatchingEvaluation(
                 human_results=human_matching_result[job_name],
                 human_error_results=human_matching_error_result[job_name],
@@ -322,11 +353,13 @@ def produce_evaluation_output() -> MatchingResult:
                 ai_model_result=model_matching_result[job_name],
                 ai_model_error_result=model_matching_error_result[job_name],
             ),
-            ai_model_ranking_better_or_equal_than_human_percentage=model_ranking_better_or_equal_than_human_percentage,
-            ai_model_categorization_better_or_equal_than_human_percentage=model_categorization_better_or_equal_than_human_percentage,
-            time_savings_percentage=time_savings_percentage,
-            candidates_filtered_by_model=filtered_model_candidate_amount,
-            filter_accuracy=filter_accuracy,
+            ai_model_metrics=ModelMetrics(
+                ai_model_ranking_better_or_equal_than_human_percentage=model_ranking_better_or_equal_than_human_percentage,
+                ai_model_categorization_better_or_equal_than_human_percentage=model_categorization_better_or_equal_than_human_percentage,
+                time_savings_percentage=time_savings_percentage,
+                candidates_filtered_by_model=filtered_model_candidate_amount,
+                filter_accuracy=filter_accuracy,
+            ),
         )
         matching_result[job_name] = job_matching_result
     create_matching_result_output(matching_result)

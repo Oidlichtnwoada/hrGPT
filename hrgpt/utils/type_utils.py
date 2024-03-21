@@ -120,6 +120,12 @@ class HumanMatchingErrorResult(pydantic.BaseModel):
     candidate_places_kendall_tau_correlation: float
 
 
+class MeanHumanMatchingErrorResult(pydantic.BaseModel):
+    job_name: JobName
+    promising_candidates_hamming_distance: float
+    candidate_places_kendall_tau_correlation: float
+
+
 CompleteHumanMatchingErrorResult = dict[JobName, tuple[HumanMatchingErrorResult, ...]]
 
 
@@ -196,16 +202,25 @@ class ModelMatchingEvaluation(pydantic.BaseModel):
     ai_model_error_result: ModelMatchingErrorResult
 
 
-class JobMatchingResult(pydantic.BaseModel):
-    job_name: JobName
+class MeanHumanMatchingEvaluation(pydantic.BaseModel):
     mean_human_result: MeanHumanMatchingResult
-    human_matching_evaluation: HumanMatchingEvaluation
-    ai_model_matching_evaluation: ModelMatchingEvaluation
+    mean_human_error_result: MeanHumanMatchingErrorResult
+
+
+class ModelMetrics(pydantic.BaseModel):
     ai_model_ranking_better_or_equal_than_human_percentage: float
     ai_model_categorization_better_or_equal_than_human_percentage: float
     time_savings_percentage: float
     candidates_filtered_by_model: int
     filter_accuracy: float
+
+
+class JobMatchingResult(pydantic.BaseModel):
+    job_name: JobName
+    mean_human_evaluation: MeanHumanMatchingEvaluation
+    human_matching_evaluation: HumanMatchingEvaluation
+    ai_model_matching_evaluation: ModelMatchingEvaluation
+    ai_model_metrics: ModelMetrics
 
 
 MatchingResult = dict[JobName, JobMatchingResult]
