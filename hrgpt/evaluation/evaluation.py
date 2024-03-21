@@ -319,12 +319,12 @@ def produce_evaluation_output() -> MatchingResult:
                 human_results=human_matching_result[job_name],
                 human_error_results=human_matching_error_result[job_name],
             ),
-            model_matching_evaluation=ModelMatchingEvaluation(
-                model_result=model_matching_result[job_name],
-                model_error_result=model_matching_error_result[job_name],
+            ai_model_matching_evaluation=ModelMatchingEvaluation(
+                ai_model_result=model_matching_result[job_name],
+                ai_model_error_result=model_matching_error_result[job_name],
             ),
-            model_ranking_better_or_equal_than_human_percentage=model_ranking_better_or_equal_than_human_percentage,
-            model_categorization_better_or_equal_than_human_percentage=model_categorization_better_or_equal_than_human_percentage,
+            ai_model_ranking_better_or_equal_than_human_percentage=model_ranking_better_or_equal_than_human_percentage,
+            ai_model_categorization_better_or_equal_than_human_percentage=model_categorization_better_or_equal_than_human_percentage,
             time_savings_percentage=time_savings_percentage,
             candidates_filtered_by_model=filtered_candidate_amount,
             filter_accuracy=filter_accuracy,

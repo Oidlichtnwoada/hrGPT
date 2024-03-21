@@ -192,17 +192,17 @@ class HumanMatchingEvaluation(pydantic.BaseModel):
 
 
 class ModelMatchingEvaluation(pydantic.BaseModel):
-    model_result: ModelMatchingResult
-    model_error_result: ModelMatchingErrorResult
+    ai_model_result: ModelMatchingResult
+    ai_model_error_result: ModelMatchingErrorResult
 
 
 class JobMatchingResult(pydantic.BaseModel):
     job_name: JobName
     mean_human_result: MeanHumanMatchingResult
     human_matching_evaluation: HumanMatchingEvaluation
-    model_matching_evaluation: ModelMatchingEvaluation
-    model_ranking_better_or_equal_than_human_percentage: float
-    model_categorization_better_or_equal_than_human_percentage: float
+    ai_model_matching_evaluation: ModelMatchingEvaluation
+    ai_model_ranking_better_or_equal_than_human_percentage: float
+    ai_model_categorization_better_or_equal_than_human_percentage: float
     time_savings_percentage: float
     candidates_filtered_by_model: int
     filter_accuracy: float
