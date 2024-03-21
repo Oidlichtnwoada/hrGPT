@@ -12,8 +12,9 @@ from hrgpt.evaluation.csv_loader import load_result_from_responses_csv_file
 from hrgpt.utils.path_utils import (
     get_job_folder_path_by_job_index,
     get_responses_csv_path,
-    get_repo_root_path,
+    get_screening_documents_path,
 )
+from hrgpt.utils.reporting_utils import create_matching_result_output
 from hrgpt.utils.type_utils import (
     CompleteHumanMatchingResult,
     CompleteMeanHumanMatchingResult,
@@ -150,9 +151,7 @@ def compute_human_matching_error_result(
 
 
 def get_job_index_by_job_name(job_name: str) -> int:
-    screening_documents_folder = pathlib.Path(
-        os.path.join(get_repo_root_path(), "screening_documents")
-    )
+    screening_documents_folder = pathlib.Path(get_screening_documents_path())
     result_indices = [
         int(x.parts[-2].split("_")[1])
         for x in screening_documents_folder.rglob(f"{job_name}.txt")
@@ -330,4 +329,5 @@ def produce_evaluation_output() -> MatchingResult:
             filter_accuracy=filter_accuracy,
         )
         matching_result[job_name] = job_matching_result
+    create_matching_result_output(matching_result)
     return matching_result

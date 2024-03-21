@@ -13,8 +13,12 @@ def get_repo_root_path() -> str:
     )
 
 
+def get_screening_documents_path() -> str:
+    return os.path.join(get_repo_root_path(), "screening_documents")
+
+
 def get_job_folder_path_by_job_index(job_index: int) -> str:
-    return os.path.join(get_repo_root_path(), "screening_documents", f"job_{job_index}")
+    return os.path.join(get_screening_documents_path(), f"job_{job_index}")
 
 
 def get_responses_csv_path() -> str:
@@ -55,9 +59,7 @@ def get_applicant_document_paths(
     filter_candidate_indices: tuple[str, ...] = (),
 ) -> dict[str, list[str]]:
     result_dict = collections.defaultdict(list)
-    screening_documents_folder_path = pathlib.Path(
-        os.path.join(get_repo_root_path(), "screening_documents")
-    )
+    screening_documents_folder_path = pathlib.Path(get_screening_documents_path())
     for applicant_document_path in screening_documents_folder_path.rglob("candidate_*"):
         if (
             not applicant_document_path.is_file()

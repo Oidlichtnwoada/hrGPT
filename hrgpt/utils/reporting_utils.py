@@ -4,8 +4,9 @@ import pathlib
 import polars as pl
 
 from hrgpt.logger.logger import LoggerFactory
+from hrgpt.utils.path_utils import get_screening_documents_path
 from hrgpt.utils.serialization_utils import dumps
-from hrgpt.utils.type_utils import ApplicantMatch
+from hrgpt.utils.type_utils import ApplicantMatch, MatchingResult
 
 
 def create_output_files(
@@ -46,3 +47,11 @@ def create_output_files(
             LoggerFactory.get_logger().info(
                 f"\n\nMatching results for the job '{job_path}':\n{job_df}\n"
             )
+
+
+def create_matching_result_output(matching_result: MatchingResult) -> None:
+    matching_result_json_string = dumps(matching_result)
+    result_directory = os.path.join(get_screening_documents_path(), "result")
+    os.makedirs(result_directory, exist_ok=True)
+    with open(os.path.join(result_directory, "matching_result.json"), "w") as file:
+        file.write(matching_result_json_string)
