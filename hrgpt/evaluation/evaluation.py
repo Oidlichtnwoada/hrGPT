@@ -35,6 +35,7 @@ from hrgpt.utils.type_utils import (
     ModelMetrics,
     MeanHumanMatchingEvaluation,
     MeanHumanMatchingErrorResult,
+    MergedMetrics,
 )
 
 T = typing.TypeVar("T")
@@ -285,6 +286,68 @@ def compute_mean_human_matching_error_result(
     )
 
 
+def merge_model_metrics(metrics_to_merge: tuple[ModelMetrics, ...]) -> ModelMetrics:
+    return ModelMetrics(
+        ai_model_ranking_better_or_equal_than_human_percentage=statistics.mean(
+            [
+                x.ai_model_ranking_better_or_equal_than_human_percentage
+                for x in metrics_to_merge
+            ]
+        ),
+        ai_model_categorization_better_or_equal_than_human_percentage=statistics.mean(
+            [
+                x.ai_model_categorization_better_or_equal_than_human_percentage
+                for x in metrics_to_merge
+            ]
+        ),
+        time_savings_percentage=statistics.mean(
+            [x.time_savings_percentage for x in metrics_to_merge]
+        ),
+        candidates_filtered_by_model=statistics.mean(
+            [x.candidates_filtered_by_model for x in metrics_to_merge]
+        ),
+        filter_accuracy=statistics.mean([x.filter_accuracy for x in metrics_to_merge]),
+    )
+
+
+def compute_merged_metrics(
+    matching_result_dict: dict[JobName, JobMatchingResult]
+) -> MergedMetrics:
+    mean_human_promising_candidates_hamming_distance = statistics.mean(
+        [
+            x.mean_human_evaluation.mean_human_error_result.promising_candidates_hamming_distance
+            for x in matching_result_dict.values()
+        ]
+    )
+    mean_human_candidate_places_kendall_tau_correlation = statistics.mean(
+        [
+            x.mean_human_evaluation.mean_human_error_result.candidate_places_kendall_tau_correlation
+            for x in matching_result_dict.values()
+        ]
+    )
+    mean_ai_model_promising_candidates_hamming_distance = statistics.mean(
+        [
+            x.ai_model_matching_evaluation.ai_model_error_result.promising_candidates_hamming_distance
+            for x in matching_result_dict.values()
+        ]
+    )
+    mean_ai_model_candidate_places_kendall_tau_correlation = statistics.mean(
+        [
+            x.ai_model_matching_evaluation.ai_model_error_result.candidate_places_kendall_tau_correlation
+            for x in matching_result_dict.values()
+        ]
+    )
+    return MergedMetrics(
+        human_promising_candidates_hamming_distance=mean_human_promising_candidates_hamming_distance,
+        human_candidate_places_kendall_tau_correlation=mean_human_candidate_places_kendall_tau_correlation,
+        ai_model_promising_candidates_hamming_distance=mean_ai_model_promising_candidates_hamming_distance,
+        ai_model_candidate_places_kendall_tau_correlation=mean_ai_model_candidate_places_kendall_tau_correlation,
+        ai_model_metrics=merge_model_metrics(
+            tuple([x.ai_model_metrics for x in matching_result_dict.values()])
+        ),
+    )
+
+
 def produce_evaluation_output() -> MatchingResult:
     human_matching_result = load_result_from_responses_csv_file()
     mean_human_matching_result = compute_mean_human_matching_result(
@@ -297,7 +360,7 @@ def produce_evaluation_output() -> MatchingResult:
     model_matching_error_result = compute_model_matching_error_result(
         mean_human_matching_result, model_matching_result
     )
-    matching_result: MatchingResult = {}
+    matching_result_dict: dict[JobName, JobMatchingResult] = {}
     for job_name, mean_human_matching_value in mean_human_matching_result.items():
         job_model_matching_result = model_matching_result[job_name]
         job_model_matching_error_result = model_matching_error_result[job_name]
@@ -361,6 +424,10 @@ def produce_evaluation_output() -> MatchingResult:
                 filter_accuracy=filter_accuracy,
             ),
         )
-        matching_result[job_name] = job_matching_result
+        matching_result_dict[job_name] = job_matching_result
+    matching_result = MatchingResult(
+        matching_result=matching_result_dict,
+        merged_metrics=compute_merged_metrics(matching_result_dict),
+    )
     create_matching_result_output(matching_result)
     return matching_result

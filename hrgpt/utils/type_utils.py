@@ -211,7 +211,7 @@ class ModelMetrics(pydantic.BaseModel):
     ai_model_ranking_better_or_equal_than_human_percentage: float
     ai_model_categorization_better_or_equal_than_human_percentage: float
     time_savings_percentage: float
-    candidates_filtered_by_model: int
+    candidates_filtered_by_model: int | float
     filter_accuracy: float
 
 
@@ -223,4 +223,14 @@ class JobMatchingResult(pydantic.BaseModel):
     ai_model_metrics: ModelMetrics
 
 
-MatchingResult = dict[JobName, JobMatchingResult]
+class MergedMetrics(pydantic.BaseModel):
+    human_promising_candidates_hamming_distance: float
+    human_candidate_places_kendall_tau_correlation: float
+    ai_model_promising_candidates_hamming_distance: float
+    ai_model_candidate_places_kendall_tau_correlation: float
+    ai_model_metrics: ModelMetrics
+
+
+class MatchingResult(pydantic.BaseModel):
+    matching_result: dict[JobName, JobMatchingResult]
+    merged_metrics: MergedMetrics
