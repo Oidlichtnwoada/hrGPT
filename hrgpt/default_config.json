@@ -1,6 +1,6 @@
 {
     "llm_config": {
-        "model": "gpt_35_turbo",
+        "model": "gpt_4_turbo",
         "debug": false,
         "choices": 1,
         "presence_penalty": 0,
