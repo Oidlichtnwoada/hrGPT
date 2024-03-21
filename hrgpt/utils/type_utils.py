@@ -120,7 +120,7 @@ class HumanMatchingErrorResult(pydantic.BaseModel):
     candidate_places_kendall_tau_correlation: float
 
 
-CompleteHumanMatchingErrorResult = dict[JobName, tuple[HumanMatchingErrorResult]]
+CompleteHumanMatchingErrorResult = dict[JobName, tuple[HumanMatchingErrorResult, ...]]
 
 
 class ModelMatchingErrorResult(pydantic.BaseModel):
@@ -139,6 +139,9 @@ class ModelMatchingResult(pydantic.BaseModel):
     candidate_places: dict[RankingPlace, ApplicantName]
 
 
+CompleteModelMatchingResult = dict[JobName, ModelMatchingResult]
+
+
 class MeanHumanMatchingResult(pydantic.BaseModel):
     job_name: JobName
     minutes_taken: float
@@ -147,6 +150,10 @@ class MeanHumanMatchingResult(pydantic.BaseModel):
 
 
 CompleteMeanHumanMatchingResult = dict[JobName, MeanHumanMatchingResult]
+
+
+def get_unique_places_amount() -> int:
+    return len(typing.get_args(RankingPlace))
 
 
 class HumanMatchingResult(pydantic.BaseModel):
@@ -159,7 +166,7 @@ class HumanMatchingResult(pydantic.BaseModel):
 
     @pydantic.model_validator(mode="after")
     def check_consistency(self) -> "HumanMatchingResult":
-        unique_places_amount = len(typing.get_args(RankingPlace))
+        unique_places_amount = get_unique_places_amount()
         unique_places = set(self.candidate_places.keys())
         unique_applicants = set(self.candidate_places.values())
         assert len(unique_places) == unique_places_amount
@@ -176,4 +183,29 @@ class HumanMatchingResult(pydantic.BaseModel):
         return self
 
 
-CompleteHumanMatchingResult = dict[JobName, tuple[HumanMatchingResult]]
+CompleteHumanMatchingResult = dict[JobName, tuple[HumanMatchingResult, ...]]
+
+
+class HumanMatchingEvaluation(pydantic.BaseModel):
+    human_results: tuple[HumanMatchingResult, ...]
+    human_error_results: tuple[HumanMatchingErrorResult, ...]
+
+
+class ModelMatchingEvaluation(pydantic.BaseModel):
+    model_result: ModelMatchingResult
+    model_error_result: ModelMatchingErrorResult
+
+
+class JobMatchingResult(pydantic.BaseModel):
+    job_name: JobName
+    mean_human_result: MeanHumanMatchingResult
+    human_matching_evaluation: HumanMatchingEvaluation
+    model_matching_evaluation: ModelMatchingEvaluation
+    model_ranking_better_or_equal_than_human_percentage: float
+    model_categorization_better_or_equal_than_human_percentage: float
+    time_savings_percentage: float
+    candidates_filtered_by_model: int
+    filter_accuracy: float
+
+
+MatchingResult = dict[JobName, JobMatchingResult]

@@ -26,6 +26,13 @@ from hrgpt.utils.type_utils import (
     ModelMatchingResult,
     JobName,
     ApplicantName,
+    MatchingResult,
+    JobMatchingResult,
+    CompleteModelMatchingResult,
+    HumanMatchingEvaluation,
+    ModelMatchingEvaluation,
+    get_unique_places_amount,
+    HumanMatchingResult,
 )
 
 T = typing.TypeVar("T")
@@ -195,28 +202,67 @@ def get_model_matching_result_by_job_name(job_name: JobName) -> ModelMatchingRes
     )
 
 
+def get_model_matching_result(
+    mean_human_matching_result: CompleteMeanHumanMatchingResult,
+) -> CompleteModelMatchingResult:
+    result: CompleteModelMatchingResult = {}
+    for job_name, mean_human_job_matching in mean_human_matching_result.items():
+        model_matching_result = get_model_matching_result_by_job_name(job_name)
+        result[job_name] = model_matching_result
+    return result
+
+
 def compute_model_matching_error_result(
     mean_human_matching_result: CompleteMeanHumanMatchingResult,
+    model_matching_result: CompleteModelMatchingResult,
 ) -> CompleteModelMatchingErrorResult:
     result: CompleteModelMatchingErrorResult = {}
     for job_name, mean_human_job_matching in mean_human_matching_result.items():
-        model_matching_result = get_model_matching_result_by_job_name(job_name)
+        job_model_matching_result = model_matching_result[job_name]
         error = ModelMatchingErrorResult(
             job_name=job_name,
             promising_candidates_hamming_distance=compute_hamming_distance(
                 mean_human_job_matching.promising_candidates,
-                model_matching_result.promising_candidates,
+                job_model_matching_result.promising_candidates,
             ),
             candidate_places_kendall_tau_correlation=compute_kendall_tau_correlation(
                 mean_human_job_matching.candidate_places,
-                model_matching_result.candidate_places,
+                job_model_matching_result.candidate_places,
             ),
         )
         result[job_name] = error
     return result
 
 
-def produce_evaluation_output() -> None:
+def get_hamming_distance(
+    result: ModelMatchingErrorResult | HumanMatchingErrorResult,
+) -> int:
+    return result.promising_candidates_hamming_distance
+
+
+def get_kendall_tau_correlation(
+    result: ModelMatchingErrorResult | HumanMatchingErrorResult,
+) -> float:
+    return result.candidate_places_kendall_tau_correlation
+
+
+def get_better_or_equal_percentage(
+    job_model_matching_error_result: ModelMatchingErrorResult,
+    job_human_matching_error_results: tuple[HumanMatchingErrorResult, ...],
+    getter_callback: typing.Callable[
+        [typing.Union[ModelMatchingResult, HumanMatchingResult]], int | float
+    ],
+    higher_is_better: bool,
+) -> float:
+    model_value = getter_callback(job_model_matching_error_result)
+    human_values = map(getter_callback, job_human_matching_error_results)
+    if higher_is_better:
+        return statistics.mean([1 if model_value >= x else 0 for x in human_values])
+    else:
+        return statistics.mean([1 if model_value <= x else 0 for x in human_values])
+
+
+def produce_evaluation_output() -> MatchingResult:
     human_matching_result = load_result_from_responses_csv_file()
     mean_human_matching_result = compute_mean_human_matching_result(
         human_matching_result
@@ -224,6 +270,64 @@ def produce_evaluation_output() -> None:
     human_matching_error_result = compute_human_matching_error_result(
         mean_human_matching_result, human_matching_result
     )
+    model_matching_result = get_model_matching_result(mean_human_matching_result)
     model_matching_error_result = compute_model_matching_error_result(
-        mean_human_matching_result
+        mean_human_matching_result, model_matching_result
     )
+    matching_result: MatchingResult = {}
+    for job_name, mean_human_matching_value in mean_human_matching_result.items():
+        job_model_matching_result = model_matching_result[job_name]
+        job_model_matching_error_result = model_matching_error_result[job_name]
+        job_human_matching_error_results = human_matching_error_result[job_name]
+        mean_human_seconds_taken = mean_human_matching_value.minutes_taken * 60
+        time_savings_percentage = (
+            mean_human_seconds_taken - job_model_matching_result.seconds_taken
+        ) / mean_human_seconds_taken
+        filtered_candidate_amount = get_unique_places_amount() - len(
+            job_model_matching_result.promising_candidates
+        )
+        if filtered_candidate_amount == 0:
+            filter_accuracy = 0
+        else:
+            filter_accuracy = (
+                filtered_candidate_amount
+                - len(
+                    mean_human_matching_value.promising_candidates
+                    - job_model_matching_result.promising_candidates
+                )
+            ) / filtered_candidate_amount
+        model_ranking_better_or_equal_than_human_percentage = (
+            get_better_or_equal_percentage(
+                job_model_matching_error_result,
+                job_human_matching_error_results,
+                get_kendall_tau_correlation,
+                True,
+            )
+        )
+        model_categorization_better_or_equal_than_human_percentage = (
+            get_better_or_equal_percentage(
+                job_model_matching_error_result,
+                job_human_matching_error_results,
+                get_hamming_distance,
+                False,
+            )
+        )
+        job_matching_result = JobMatchingResult(
+            job_name=job_name,
+            mean_human_result=mean_human_matching_value,
+            human_matching_evaluation=HumanMatchingEvaluation(
+                human_results=human_matching_result[job_name],
+                human_error_results=human_matching_error_result[job_name],
+            ),
+            model_matching_evaluation=ModelMatchingEvaluation(
+                model_result=model_matching_result[job_name],
+                model_error_result=model_matching_error_result[job_name],
+            ),
+            model_ranking_better_or_equal_than_human_percentage=model_ranking_better_or_equal_than_human_percentage,
+            model_categorization_better_or_equal_than_human_percentage=model_categorization_better_or_equal_than_human_percentage,
+            time_savings_percentage=time_savings_percentage,
+            candidates_filtered_by_model=filtered_candidate_amount,
+            filter_accuracy=filter_accuracy,
+        )
+        matching_result[job_name] = job_matching_result
+    return matching_result
