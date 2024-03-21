@@ -32,8 +32,6 @@ from hrgpt.utils.type_utils import (
     CompleteModelMatchingResult,
     HumanMatchingEvaluation,
     ModelMatchingEvaluation,
-    get_unique_places_amount,
-    HumanMatchingResult,
 )
 
 T = typing.TypeVar("T")
@@ -282,19 +280,21 @@ def produce_evaluation_output() -> MatchingResult:
         time_savings_percentage = (
             mean_human_seconds_taken - job_model_matching_result.seconds_taken
         ) / mean_human_seconds_taken
-        filtered_candidate_amount = get_unique_places_amount() - len(
-            job_model_matching_result.promising_candidates
-        )
-        if filtered_candidate_amount == 0:
+        filtered_model_candidates = set(
+            job_model_matching_result.candidate_places.values()
+        ) - set(job_model_matching_result.promising_candidates)
+        filtered_model_candidate_amount = len(filtered_model_candidates)
+        if filtered_model_candidate_amount == 0:
             filter_accuracy = 0.0
         else:
             filter_accuracy = (
-                filtered_candidate_amount
+                filtered_model_candidate_amount
                 - len(
-                    mean_human_matching_value.promising_candidates
-                    - job_model_matching_result.promising_candidates
+                    filtered_model_candidates.intersection(
+                        mean_human_matching_value.promising_candidates
+                    )
                 )
-            ) / filtered_candidate_amount
+            ) / filtered_model_candidate_amount
         model_ranking_better_or_equal_than_human_percentage = (
             get_better_or_equal_percentage(
                 job_model_matching_error_result,
@@ -325,7 +325,7 @@ def produce_evaluation_output() -> MatchingResult:
             ai_model_ranking_better_or_equal_than_human_percentage=model_ranking_better_or_equal_than_human_percentage,
             ai_model_categorization_better_or_equal_than_human_percentage=model_categorization_better_or_equal_than_human_percentage,
             time_savings_percentage=time_savings_percentage,
-            candidates_filtered_by_model=filtered_candidate_amount,
+            candidates_filtered_by_model=filtered_model_candidate_amount,
             filter_accuracy=filter_accuracy,
         )
         matching_result[job_name] = job_matching_result
