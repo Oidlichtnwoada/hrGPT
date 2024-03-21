@@ -133,17 +133,17 @@ def compute_human_matching_error_result(
     result: CompleteHumanMatchingErrorResult = collections.defaultdict(tuple)
     for job_name, human_matching_results in human_matching_result.items():
         mean_human_job_matching = mean_human_matching_result[job_name]
-        for human_matching_result in human_matching_results:
+        for human_job_matching_result in human_matching_results:
             error = HumanMatchingErrorResult(
-                human_id=human_matching_result.human_id,
+                human_id=human_job_matching_result.human_id,
                 job_name=job_name,
                 promising_candidates_hamming_distance=compute_hamming_distance(
                     mean_human_job_matching.promising_candidates,
-                    human_matching_result.promising_candidates,
+                    human_job_matching_result.promising_candidates,
                 ),
                 candidate_places_kendall_tau_correlation=compute_kendall_tau_correlation(
                     mean_human_job_matching.candidate_places,
-                    human_matching_result.candidate_places,
+                    human_job_matching_result.candidate_places,
                 ),
             )
             result[job_name] += (error,)
@@ -185,12 +185,12 @@ def get_model_matching_result_by_job_name(job_name: JobName) -> ModelMatchingRes
     promising_candidate_paths = set(
         match_result_df[match_result_df["promising"] == True]["candidate"]
     )
-    promising_candidates = [
-        map_candidate_path_to_candidate_name(x) for x in promising_candidate_paths
-    ]
+    promising_candidates = set(
+        [map_candidate_path_to_candidate_name(x) for x in promising_candidate_paths]
+    )
     ordered_candidate_paths = list(match_result_df["candidate"])
     candidate_places = {
-        index + 1: map_candidate_path_to_candidate_name(path)
+        typing.cast(RankingPlace, index + 1): map_candidate_path_to_candidate_name(path)
         for index, path in enumerate(ordered_candidate_paths)
     }
     return ModelMatchingResult(
@@ -249,7 +249,7 @@ def get_better_or_equal_percentage(
     job_model_matching_error_result: ModelMatchingErrorResult,
     job_human_matching_error_results: tuple[HumanMatchingErrorResult, ...],
     getter_callback: typing.Callable[
-        [typing.Union[ModelMatchingResult, HumanMatchingResult]], int | float
+        [typing.Union[ModelMatchingErrorResult, HumanMatchingErrorResult]], int | float
     ],
     higher_is_better: bool,
 ) -> float:
@@ -286,7 +286,7 @@ def produce_evaluation_output() -> MatchingResult:
             job_model_matching_result.promising_candidates
         )
         if filtered_candidate_amount == 0:
-            filter_accuracy = 0
+            filter_accuracy = 0.0
         else:
             filter_accuracy = (
                 filtered_candidate_amount
