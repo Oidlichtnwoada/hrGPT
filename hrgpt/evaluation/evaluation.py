@@ -123,7 +123,7 @@ def compute_kendall_tau_correlation(
         nan_policy="raise",
         method="exact",
     )
-    return kendall_tau.correlation
+    return float(kendall_tau.correlation)
 
 
 def compute_human_matching_error_result(
