@@ -117,7 +117,7 @@ class HumanMatchingErrorResult(pydantic.BaseModel):
     human_id: int
     job_name: JobName
     promising_candidates_hamming_distance: int
-    candidate_places_rank_biased_overlap_similarity: float
+    candidate_places_kendall_tau_correlation: float
 
 
 CompleteHumanMatchingErrorResult = dict[JobName, tuple[HumanMatchingErrorResult]]
@@ -126,7 +126,7 @@ CompleteHumanMatchingErrorResult = dict[JobName, tuple[HumanMatchingErrorResult]
 class ModelMatchingErrorResult(pydantic.BaseModel):
     job_name: JobName
     promising_candidates_hamming_distance: int
-    candidate_places_rank_biased_overlap_similarity: float
+    candidate_places_kendall_tau_correlation: float
 
 
 CompleteModelMatchingErrorResult = dict[JobName, ModelMatchingErrorResult]
