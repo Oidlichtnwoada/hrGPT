@@ -378,6 +378,9 @@ thesis.docx
 # Video files
 *.mp4
 
+# Transcripts
+*.transcript.docx
+
 # Text files
 *.txt
 
