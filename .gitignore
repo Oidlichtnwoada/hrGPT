@@ -387,3 +387,6 @@ thesis.docx
 # Ingore name csv files
 forenames.csv
 surnames.csv
+
+# Latex save errors
+*-SAVE-ERROR

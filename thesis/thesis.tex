@@ -182,11 +182,15 @@
 % Add acronym entries.
 \begin{acronym}
     \acro{AI}{Artificial Intelligence}
+    \acro{ATS}{Applicant Tracking System}
     \acro{CV}{Curriculum Vitae}
+    \acro{EU AI Act}{European Union Artificial Intelligence Act}
+    \acro{GDPR}{General Data Protection Regulation}
     \acro{LLM}{Large Language Model}
     \acro{LIWC}{Linguistic Inquiry and Word Count}
     \acro{HR}{Human Resources}
     \acro{NLP}{Natural Language Processing}
+    \acro{SaaS}{Software as a Service}
     \acro{TAPJFNN}{Topic-Based Ability-Aware Person-Job Fit Neural Network}
 \end{acronym}
 \cleardoublepage
@@ -1310,8 +1314,7 @@ To provide more validity to the open, verbal discussion with the human experts o
     \end{itemize}
     \item \textbf{Legal Considerations}
     \begin{itemize}
-        \item What legal challenges do you foresee in implementing \acs{AI} in \acs{HR} processes, particularly concerning data security and privacy?
-        \item How can we maintain transparency in \acs{AI}-assisted recruitment technologies? 
+        \item What legal challenges do you foresee in implementing \acs{AI} in \acs{HR} processes, particularly concerning data security and privacy? How can we maintain transparency in \acs{AI}-assisted recruitment technologies? 
         \item Would the perceived transparency be better if the \acs{AI} software runs on the user's servers? Moreover, would you send applicant documents to third-party servers, or would you prefer to run the \acs{LLM} software on your servers?
         \item What key legal safeguards should be in place when using these technologies?
     \end{itemize}
@@ -1397,7 +1400,7 @@ The transcribed meeting was carefully analyzed and brought into inductively buil
     \item \textbf{Bias and Fairness}
     \begin{itemize}
         \item \textbf{How do you perceive the potential for bias or definitive bias in \acs{AI}-assisted recruitment technologies?}\\
-        Four out of the five participating recruiters have said that they came across definite bias in \acs{AI}-assisted recruitment technologies. Only one participant said that they did not came across any bias issues within their internal tests or other tools. Three out of five participants have identified bias issues in their internal tool chain when carrying out tests of \acs{AI}-enabled tools. Two participants said that they cope with these issues by constant evaluation of the made decisions of these tools and feeding back better configuration parameters to bring the machine-made decisions in the expected window. That means it is important for \acs{AI}-based technologies to be configurable or tunable.
+        Four out of the five participating recruiters have said that they came across definite bias in \acs{AI}-assisted recruitment technologies. Only one participant said that they did not came across any bias issues within their internal tests or other tools. Three out of five participants have identified bias issues in their internal tool chain when carrying out tests of \acs{AI}-enabled tools. Two participants said that they cope with these issues by constant evaluation of the made decisions of these tools and feeding back better configuration parameters to bring the machine-made decisions in the expected window. That means it is important for \acs{AI}-based technologies to be configurable and/or learning from past mistakes.
         \item \textbf{How important is it that the used \acs{AI} system is designed to ensure fairness and avoid discrimination based on gender, ethnicity, age, or other non-job-related factors?}\\
         All five participants agreed that a fair \acs{AI} system that is as unbiased as possible is crucial for the success of \acs{AI}-assisted recruitment technologies. Two participants discussed the issue further and it was concluded that past experiences of humans that form the human bias could also have positive effects like acting fast under pressure or learning from past experiences. Furthermore, the discussion led to the point of the testability of a tools bias. If each human is biased caused by its past experiences which entity could validate if a tool is really bias-free? Furthermore, a participant mentioned a tool that can be used to postprocess human-written text to make it appealing any group of people. This tool can be used to make job descriptions more appealing to a broader audience and not just men or women, for example.
         \item \textbf{What are your views on the ethical considerations surrounding using machine learning in human resource processes?}
@@ -1417,10 +1420,16 @@ The transcribed meeting was carefully analyzed and brought into inductively buil
     \end{itemize}
     \item \textbf{Legal Considerations}
     \begin{itemize}
-        \item What legal challenges do you foresee in implementing \acs{AI} in \acs{HR} processes, particularly concerning data security and privacy?
-        \item How can we maintain transparency in \acs{AI}-assisted recruitment technologies? 
-        \item Would the perceived transparency be better if the \acs{AI} software runs on the user's servers? Moreover, would you send applicant documents to third-party servers, or would you prefer to run the \acs{LLM} software on your servers?
-        \item What key legal safeguards should be in place when using these technologies?
+        \item \textbf{What legal challenges do you foresee in implementing \acs{AI} in \acs{HR} processes, particularly concerning data security and privacy? How can we maintain transparency in \acs{AI}-assisted recruitment technologies?}\\
+        All five participants agreed that a big challenge is to conform to \acs{GDPR} when processing data. Only one participant gave a definite answer on the transparency question and mentioned that labelling \acs{AI} use and focussing on unbiased treatment of all applicants is key to maintain transparency. Furthermore, this participant mentioned that \acs{AI} tools should focus on facts matching and tool decisions should be randomly checked by humans. Another participant mentions that the \acs{EU AI Act} may further complicate the usage of \acs{AI} in human resources. One other recruiter mentioned that there may be disproportionate work done to protect incoming \acs{CV} data while the same data can be scraped off any professional networking site like \textit{LinkedIn} by any web crawler.
+        Another two recruiters mentioned that used \acs{AI} tools should be enhanced by learning from past redacted screening documents and decisions to not reveal the identity of the applicant. It is also a challenge to implement this model training in a law-conforming way.
+        \item \textbf{Would the perceived transparency be better if the \acs{AI} software runs on the user's servers? Moreover, would you send applicant documents to third-party servers, or would you prefer to run the \acs{LLM} software on your servers?}
+        All five participants agreed that the perceived transparency would be better with on-premise software. 
+        Three participants preferred an on-premise solution with one recruiter open to a \acs{SaaS} solution while two participants preferred a \acs{SaaS} solution. 
+        These two participants mentioned that also other mission-critical software in their company like the \acs{ATS} is already implemented using \acs{SaaS} products and they see no point in reinstalling an in-house operations team to run on-premise software.
+        Both trust the \acs{SaaS} provider to handle their data securely and see \acs{SaaS} as the industry standard.
+        \item \textbf{What key legal safeguards should be in place when using these technologies?}
+        Only two participants gave a direct answer to this questions and mentioned that each company has to legally verify that its data processing conforms to the \acs{GDPR} when using \acs{AI}-based tools. Furthermore, in the future it will be necessary to also conform to the \acs{EU AI Act}.
     \end{itemize}
     \item \textbf{Machine Learning as Assistive Technology}
     \begin{itemize}
