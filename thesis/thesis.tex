@@ -1257,7 +1257,14 @@ The nondeterministic behavior is known to \textit{OpenAI}, and hopefully, they w
 The \textit{Gemini} model family suffered from similar issues as the \textit{OpenAI} models. It does not even support seeding the internally used random number generator.
 
 \subsection{Model Configuration} \label{model_configuration}
-This is the default configuration that is used to operate the proposed model. Every single setting can be changed to modify the behavior of the proposed model to the desires of the operating human expert recruiter:
+The main changeable configuration parameters of the model configuration enable: 
+\begin{enumerate}
+    \item setting the weight of each requirement type
+    \item changing the definitions of requirement types
+    \item modification of the internally used prompts
+\end{enumerate}
+This is the default configuration that is used to operate the proposed model. 
+Every single setting can be changed to modify the behavior of the proposed model to the desires of the operating human expert recruiter:
 \lstinputlisting[language=TypeScript,label=lst:default_model_configuration,caption=Default configuration of the proposed model]{../hrgpt/default_config.json}
 
 \subsection{Scope and Limitations}
@@ -1327,7 +1334,7 @@ To provide more validity to the open, verbal discussion with the human experts o
     \item \textbf{Customization and Adaptability}
     \begin{itemize}
         \item How important is customization in \acs{AI}-assisted recruitment technologies for different industries and company cultures?
-        \item What aspects of the technology should be customizable by the user?
+        \item What aspects of the technology should be customizable by the user? How to supply feedback to the model?
         \item Should the user be able to tweak the model's configuration of requirement extraction, requirement matching, and weighting of the requirement match scores to change the model output, or is a more high-level form of customizability desired?
     \end{itemize}
     \item \textbf{User Experience}
@@ -1444,9 +1451,12 @@ The transcribed meeting was carefully analyzed and brought into inductively buil
     \end{itemize}
     \item \textbf{Customization and Adaptability}
     \begin{itemize}
-        \item How important is customization in \acs{AI}-assisted recruitment technologies for different industries and company cultures?
-        \item What aspects of the technology should be customizable by the user?
-        \item Should the user be able to tweak the model's configuration of requirement extraction, requirement matching, and weighting of the requirement match scores to change the model output, or is a more high-level form of customizability desired?
+        \item \textbf{How important is customization in \acs{AI}-assisted recruitment technologies for different industries and company cultures?}
+        Four of five recruiters agreed that customization of \acs{AI}-assisted recruitment technologies is important regardless of industry or company culture. Only one participant said that customization is not that important when using machine learning tools in the human resources pipeline.
+        \item \textbf{What aspects of the technology should be customizable by the user? How to supply feedback to the model?}
+        The suggested configuration parameters defined in \ref{model_configuration} were found to be suitable by all of the five candidates. However, two applicants requested even more possibilities to tune the model output. One of these two recruiters wished to take the company culture into account as an additional parameter to the model or any other information that is only present implicitly. With ever-improving \acs{LLM}s this should be less of a necessity in the future. The other recruiter wanted to add an explicit fading factor to the model, that can give the model a hint on how to value experiences regarding certain job requirements that are relevant to the job but are already several years old. The fading valuation of past experiences is handled implicitly by the model at the moment which is definitely an area for improvement.
+        \item \textbf{Should the user be able to tweak the model's configuration of requirement extraction, requirement matching, and weighting of the requirement match scores to change the model output, or is a more high-level form of customizability desired?}
+        Three out of five recruiters said that the proposed configuration parameters are at a sufficient abstraction level. The other two participants requested a more high level way of configuring the model. A possibility for that could be to supply different validated model configurations that are tailored and validated specifically for specific job group and are activatable by just specifying the name of that validated configuration. The idea is to provide multiple presets of the model configuration and not just a single default configuration.
     \end{itemize}
     \item \textbf{User Experience}
     \begin{itemize}
