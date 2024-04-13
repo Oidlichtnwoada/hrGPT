@@ -1392,7 +1392,83 @@ This section describes what qualitative data was retrieved.
 The transcribed meetings were categorized and coded, resulting in the below data.
 
 \subsubsection{Kick-Off Meeting Discussion Guide}
-\lipsum[1]
+The transcribed meeting was carefully analyzed and brought into inductively built categories. Due to strict meeting time limits not all questions from the discussion guide for each topic were answered in the same level of detail by all five human experts. Nonetheless, it was tried to make the resulting coding as consistent and representative as possible.
+\begin{enumerate}
+    \item \textbf{Bias and Fairness}
+    \begin{itemize}
+        \item \textbf{How do you perceive the potential for bias or definitive bias in \acs{AI}-assisted recruitment technologies?}\\
+        Four out of the five participating recruiters have said that they came across definite bias in \acs{AI}-assisted recruitment technologies. Only one participant said that they did not came across any bias issues within their internal tests or other tools. Three out of five participants have identified bias issues in their internal tool chain when carrying out tests of \acs{AI}-enabled tools. Two participants said that they cope with these issues by constant evaluation of the made decisions of these tools and feeding back better configuration parameters to bring the machine-made decisions in the expected window. That means it is important for \acs{AI}-based technologies to be configurable or tunable.
+        \item \textbf{How important is it that the used \acs{AI} system is designed to ensure fairness and avoid discrimination based on gender, ethnicity, age, or other non-job-related factors?}\\
+        All five participants agreed that a fair \acs{AI} system that is as unbiased as possible is crucial for the success of \acs{AI}-assisted recruitment technologies. Two participants discussed the issue further and it was concluded that past experiences of humans that form the human bias could also have positive effects like acting fast under pressure or learning from past experiences. Furthermore, the discussion led to the point of the testability of a tools bias. If each human is biased caused by its past experiences which entity could validate if a tool is really bias-free? Furthermore, a participant mentioned a tool that can be used to postprocess human-written text to make it appealing any group of people. This tool can be used to make job descriptions more appealing to a broader audience and not just men or women, for example.
+        \item \textbf{What are your views on the ethical considerations surrounding using machine learning in human resource processes?}
+        All five participants agreed that the biggest ethical consideration on \acs{AI}-based tools is that not everybody is treated fairly. That means that automated tools use decision criteria that are not directly related to job requirements and job performance and should therefore have no influence on the model decision. Such criteria may be gender, race or age, for example.
+    \end{itemize}
+    \item \textbf{Accuracy and Reliability}
+    \begin{itemize}
+        \item To what extent should these technologies replicate human judgment in the screening process?
+        \item To what extent have different \acs{CV} formats or layouts influenced the screening decision? Is an \acs{AI} model that uses the text contents of the \acs{CV} sufficient or not? What important information could be omitted with this approach?
+        \item What difficulties do you see for \acs{AI} systems that can effectively match job requirements with a diverse range of qualifications and experiences across different industries?
+    \end{itemize}
+    \item \textbf{Legal Considerations}
+    \begin{itemize}
+        \item What legal challenges do you foresee in implementing \acs{AI} in \acs{HR} processes, particularly concerning data security and privacy?
+        \item How can we maintain transparency in \acs{AI}-assisted recruitment technologies? 
+        \item Would the perceived transparency be better if the \acs{AI} software runs on the user's servers? Moreover, would you send applicant documents to third-party servers, or would you prefer to run the \acs{LLM} software on your servers?
+        \item What key legal safeguards should be in place when using these technologies?
+    \end{itemize}
+    \item \textbf{Machine Learning as Assistive Technology}
+    \begin{itemize}
+        \item How do you see machine learning complementing human decision-making in \acs{HR}?
+        \item Are there scenarios where \acs{AI}-assisted technologies should not be used in recruitment?
+        \item What balance should be struck between automated and human decision-making in the screening process?
+        \item What are your expectations regarding the efficiency gains from these technologies?
+    \end{itemize}
+    \item \textbf{Customization and Adaptability}
+    \begin{itemize}
+        \item How important is customization in \acs{AI}-assisted recruitment technologies for different industries and company cultures?
+        \item What aspects of the technology should be customizable by the user?
+        \item Should the user be able to tweak the model's configuration of requirement extraction, requirement matching, and weighting of the requirement match scores to change the model output, or is a more high-level form of customizability desired?
+    \end{itemize}
+    \item \textbf{User Experience}
+    \begin{itemize}
+        \item What are the key factors that make an \acs{AI}-assisted recruitment tool user-friendly?
+        \item How should these technologies integrate with existing \acs{HR} systems, and do these systems support an export/import functionality to/from third-party systems? Moreover, what are the dominant file types used for applicant documents?
+        \item What are your thoughts on third-party tools in HR? Do you prefer a fully integrated solution, or are multiple tools already used?
+    \end{itemize}
+    \item \textbf{Candidate Experience}
+    \begin{itemize}
+        \item What advantages do \acs{AI}-assisted recruitment technologies offer to candidates?
+        \item How might these technologies improve response times and feedback generation for applicants?
+        \item What impact do you think \acs{AI} screening will have on the overall candidate experience?
+    \end{itemize}
+    \item \textbf{Previous Experiences with \acs{AI}-assisted Technologies in Human Resources}
+    \begin{itemize}
+        \item What has been your experience with \acs{AI}-assisted technologies in \acs{HR} to date?
+        \item Can you share insights on the general reception, advantages, disadvantages, and areas of improvement for these technologies?
+        \item How have these technologies been integrated into the \acs{HR} pipeline in your experience, and in what part of the \acs{HR} process?
+    \end{itemize}
+    \item \textbf{Costs}
+    \begin{itemize}
+        \item How do you assess the affordability and cost-effectiveness of \acs{AI}-assisted recruitment technologies?
+        \item What are your expectations regarding the investment required for the model outlined in this thesis?
+        \item How do you justify the costs of these technologies with their benefits?
+    \end{itemize}
+    \item \textbf{Open Discussion}
+    This enumeration covers points that came up at any time within the interview but were not directly attributable to the above main topics.
+    \begin{itemize}
+        \item \textbf{Completeness of Job Requirement Types}\\
+        All five participating human expert recruiters agreed that the $12$ chosen job requirement types are sufficient for \acs{AI}-enabled screening and matching.
+        \item \textbf{More Fine-Grained Weighting}\\
+        One recruiter expressed the desire for a more fine-grained weighting of the job requirements. 
+        Not only the weighting of the job requirement types should be configurable, but also the weighting of subtypes like the weighting of hardware development skills compared to software development skills within the defined job requirement type \textit{Hard Skills}.
+        In order to implement such a feature, a knowledge graph or some kind of ontology would be necessary, such that the model knows which subtypes belong to which parent job requirement type. A complete ontology is also necessary such that the user can define an appropriate weighting for each job requirement subtype.
+        \item \textbf{Information Sourcing Apart From Input Documents}\\
+        One participant suggested that the model should be able to source information from other sources apart from the input documents.
+        For example, the model could query the internet on implicit job requirements that are no explicitly listed on the job description.
+        \item \textbf{Lack of Domain Knowledge}\\
+        One recruiter pointed out that in fields which are underrepresented in the training data of the \acs{LLM}, the model might not be able to make accurate decisions due to lacking domain knowledge. The participant has experienced this issue in the domain of law.
+    \end{itemize}
+\end{enumerate}
 
 \subsubsection{Closure Meeting Discussion Guide}
 \lipsum[1]
