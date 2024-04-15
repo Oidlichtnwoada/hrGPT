@@ -1290,7 +1290,7 @@ This output language can be changed by altering the configuration of the propose
 
 \subsection{Multiple File Type Support}
 The thesis only focused on input documents in the \textit{PDF} format.
-However, the tool was also programmed to support \textit{Word} and plain text files as input documents.
+However, the tool was also programmed to support \textit{Microsoft Word} and plain text files as input documents.
 
 \chapter{Data} \label{data}
 
@@ -1340,8 +1340,8 @@ To provide more validity to the open, verbal discussion with the human experts o
     \item \textbf{User Experience}
     \begin{itemize}
         \item What are the key factors that make an \acs{AI}-assisted recruitment tool user-friendly?
-        \item How should these technologies integrate with existing \acs{HR} systems, and do these systems support an export/import functionality to/from third-party systems? Moreover, what are the dominant file types used for applicant documents?
-        \item What are your thoughts on third-party tools in HR? Do you prefer a fully integrated solution, or are multiple tools already used?
+        \item How should these technologies integrate with existing \acs{HR} systems? Moreover, what are the dominant file types used for applicant documents?
+        \item What are your thoughts on third-party \acs{AI} tools in HR? Do you prefer a fully integrated solution, or are multiple tools already used?
     \end{itemize}
     \item \textbf{Candidate Experience}
     \begin{itemize}
@@ -1459,9 +1459,17 @@ The transcribed meeting was carefully analyzed and brought into inductively buil
     \end{itemize}
     \item \textbf{User Experience}
     \begin{itemize}
-        \item What are the key factors that make an \acs{AI}-assisted recruitment tool user-friendly?
-        \item How should these technologies integrate with existing \acs{HR} systems, and do these systems support an export/import functionality to/from third-party systems? Moreover, what are the dominant file types used for applicant documents?
-        \item What are your thoughts on third-party tools in HR? Do you prefer a fully integrated solution, or are multiple tools already used?
+        \item \textbf{What are the key factors that make an \acs{AI}-assisted recruitment tool user-friendly?}
+        All five recruiters agreed that the user interface must be easy-to-use, self-explanatory, intuitive and must present the applicant ranking and categorization in an understandable and visually pleasing way.
+        \item \textbf{How should these technologies integrate with existing \acs{HR} systems? Moreover, what are the dominant file types used for applicant documents?}
+        Two participants gave no answer to the integration question. Two other participants preferred an \acs{AI} tool integration with the existing \acs{ATS} by leveraging on-premise or \acs{SaaS} products. Those two recruiters mentioned that the deployment type depends on company guidelines and if the current company software stack is built more around on-premise software or if more \acs{SaaS} products are used. That means if an on-premise database should not be exposed to the public internet or via a VPN server, on-premise products are favorable. If all software components are already used as \acs{SaaS} products, it makes sense to also use further \acs{AI} tools as \acs{SaaS} products as those companies might not need or have a skilled operations team available to manage the hardware infrastructure. The two participants wanted to use the \acs{AI}-enabled tools in \acs{HR} to assist in the tasks of screening, ranking and applicant sourcing from internal and external data sources. 
+        The last participant favored an on-premise \acs{AI} tool in order to better interface with the existing on-premise infrastructure as outlined before. This applicant only wants to use \acs{AI} tools to source candidates from their internal candidate database as tasks like screening can be quickly carried out by humans for their current amount of incoming \acs{CV}s.
+        One recruiter additionally made the very important remark that \acs{AI} tools or third-party tools in general that are operating on data provided by the \acs{ATS} should only act as data processors and not as data warehouses. That means that the tools should only have temporary storage of the data while processing it and should not store the data permanently. 
+        This dramatically simplifies data protection and data privacy handling in order to comply with \acs{GDPR} as there is just a single point of truth and not multiple encapsulated systems saving multiple copies of the same underlying data.
+        All five participants agreed that the dominant file types used for applicant documents are the \textit{PDF} and the \textit{Microsoft Word} format.
+        \item \textbf{What are your thoughts on third-party \acs{AI} tools in HR? Do you prefer a fully integrated solution, or are multiple tools already used?}
+        All five recruiters said that they prefer a fully integrated solution that is tightly coupled to the internally used \acs{ATS}.
+        One recruiter additionally mentioned that a fully integrated solution is preferred in order to simplify usage of the whole software stack for the recruiters and to not to rely on multiple data import and export functionalities from various third-party encapsulated systems.
     \end{itemize}
     \item \textbf{Candidate Experience}
     \begin{itemize}
@@ -1498,7 +1506,9 @@ The transcribed meeting was carefully analyzed and brought into inductively buil
         One participant suggested that the model should be able to source information from other sources apart from the input documents.
         For example, the model could query the internet on implicit job requirements that are no explicitly listed on the job description.
         \item \textbf{Lack of Domain Knowledge}\\
-        One recruiter pointed out that in fields which are underrepresented in the training data of the \acs{LLM}, the model might not be able to make accurate decisions due to lacking domain knowledge. The participant has experienced this issue in the domain of law.
+        One recruiter pointed out that in fields which are underrepresented in the training data of the \acs{LLM}, the model might not be able to make accurate decisions due to lacking domain knowledge. The participant has experienced this issue in the domain of law. This limitation may vanish with newer generations of \acs{LLM}s that may or may not incorporate knowledge graphs to source information.
+        \item \textbf{Screening Task for State-Owned Enterprises}\\
+        One recruiter reported that when screening applicants for state-owned enterprises, rejected candidates have the possibility to turn to the equal treatment authority to challenge the decision. Then the recruitment company must give valid reasons why this candidate was rejected. This is a very important point to consider when using \acs{AI}-based tools in the recruitment process of state-owned enterprises as relying too much on the decision of an \acs{AI} tool might not be valid enough reason.
     \end{itemize}
 \end{enumerate}
 
