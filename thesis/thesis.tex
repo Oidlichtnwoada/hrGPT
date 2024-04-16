@@ -1375,7 +1375,6 @@ To provide more validity to the open, verbal discussion with the human experts o
     \begin{itemize}
         \item How would you rate the model's ability to explain its decision-making process transparently and understandably?
         \item Can you give an example of a situation where the model's explanation of its decision was particularly clear or unclear?
-        \item Upon reviewing the model's explanations, did you identify any deficiencies? If so, what were they?
         \item In your opinion, what changes or tweaks could be made to the model's configuration to improve understanding and usability?
         \item How important do you believe explainability and transparency are in using \acs{AI} for recruitment? Do you think these factors impact user trust and confidence?
     \end{itemize}
@@ -1470,7 +1469,7 @@ The transcribed meeting was carefully analyzed and brought into inductively buil
         All five recruiters said that they prefer a fully integrated solution that is tightly coupled to the internally used \acs{ATS}.
         One recruiter additionally mentioned that a fully integrated solution is preferred in order to simplify usage of the whole software stack for the recruiters and to not to rely on multiple data import and export functionalities from various third-party encapsulated systems.
     \end{itemize}
-    \item \textbf{Candidate Experience}
+    \item \textbf{Candidate Experience} \label{candidate_experience}
     \begin{itemize}
         \item \textbf{What impact do you think \acs{AI} screening will have on the overall candidate experience?}
         All five participants said that they expect a faster overall screening process if \acs{AI} tools are used as assistive technologies in the screening task as the tool can already check the coverage of mandatory and optional job requirements for each applicant and save the result in a human-readable way. Three out of five recruiters additionally made the remark that recruiters must decide themselves which candidates proceed in the process and which are rejected but can use the output of \acs{AI} tools for that. Those three participants elaborated further that a rejection letter should not be sent by \acs{AI} tools but should be formulated by a human recruiter in order to protect the candidate relationship which is very important for recruitment companies. One other recruiter mentioned that using \acs{AI} tools may have the advantage to reduce the effect of human bias during the screening phase. The input applicant documents to the \acs{AI} tool could be redacted such that no features susceptible to bias are present in the input data, this may include age and gender, for example. Another possibility would be that the \acs{AI} tool ignores such susceptible features overall. The last remaining recruiter made the remark that the \acs{AI} tool used during screening should not only compute the job requirement coverage but also list needed follow-up questions to the candidate to clarify unclear or missing information in the \acs{CV}. This may help in giving candidates with unclear mandatory or optional requirement coverages in their applicant documents a second chance to clarify their abilities instead of sorting them out.
@@ -1513,7 +1512,31 @@ The transcribed meeting was carefully analyzed and brought into inductively buil
 \end{enumerate}
 
 \subsubsection{Closure Meeting Discussion Guide}
-\lipsum[1]
+The transcribed meeting was carefully analyzed and brought into inductively built categories. Due to strict meeting time limits not all questions from the discussion guide for each topic were answered in the same level of detail by all five human experts. Nonetheless, it was tried to make the resulting coding as consistent and representative as possible.
+\begin{enumerate}
+    \item \textbf{Consistency and Agreement}
+    \begin{itemize}
+        \item \textbf{How do you perceive the consistency between the model's categorization and ordering of applicants compared to the human recruiters' approach? Can you provide specific examples?}
+        asdf
+        \item \textbf{Are you satisfied with the accuracy achieved by the model in both the categorization and the ordering tasks? Why or why not?}
+        asdf
+        \item \textbf{Did you notice any biases in the model's output? If so, how do these biases compare to human recruiters' biases?}
+        asdf
+        \item \textbf{Were there any outliers in the model's results? What do you think could be the reasons behind these outliers?}
+        asdf
+    \end{itemize}
+    \item \textbf{Explainability and Transparency}
+    \begin{itemize}
+        \item \textbf{How would you rate the model's ability to explain its decision-making process transparently and understandably?}
+        All five recruiters stated that the model's decision-making process was transparent and understandable due to the given sensible and detailed explanations for the individual job requirement scores. However, also all participants mentioned that the model results should be visually presented in a more appealing way to make the results even more understandable for less experienced users and to make the model more user-friendly. This is understandable as the most of the decision details are only output in a \textit{JSON} file at the moment.
+        \item \textbf{Can you give an example of a situation where the model's explanation of its decision was particularly clear or unclear?}
+        Four out of five recruiters have not given specific examples where the models's explanation was particularly clear or unclear. The one remaining recruiter mentioned that the model's explanations were in general very clear and understandable. The same recruiter mentioned that a perfect score was given for two job requirements of type \textit{Location} and \textit{Working Hours}, even though it was only a partial match in the recruiter's opinion. In the first case the \acs{CV} only mentioned Austria as the candidate's location and the job was located in Vienna but the model gave a perfect score. In the second case the job was a full-time position but the positions in the candidate's \acs{CV} have not listed the past worked working hours, but the model deduced that they were most likely full-time positions and also explained that and noted that and then therefore gave a perfect score. That was intentionally by design as the used requirement type definitions in the default model config \ref{model_configuration} for these two job requirement types were designed such that they should always yield a perfect match if no specific preference is explicitly given by the applicant. This decision was made as most applicants are fine with the advertised job location and job working hours as otherwise they would not have applied. In general it is a cautiously good sign that no big job requirement scoring issue was detected by one of the recruiters.
+        \item \textbf{In your opinion, what changes or tweaks could be made to the model's configuration to improve understanding and usability?}
+        All recruiters mentioned that the model's output with the individual job requirement scores including the explanations should not only be saved as a \textit{JSON} file, but also as table to easily compare the the scores of all applicants for each job. One of those recruiters additionally mentioned that the produced explanations by the model were too elaborate and should be shortened to only contain the most important information, probably using bullet points. The same recruiter mentioned that the resulting \textit{CSV} file containing only the total score per applicant where applicants are easily comparable is too high level and the complete model output \textit{JSON} file per applicant which contains all individual job requirement scores where it is difficult to compare candidates due to the separation of files is too low level and too much information to be scanned by the recruiter. Therefore, maybe the total score per job requirement type should additionally be added to the model's \textit{CSV} output file in order to please the desire to better compare all job applicants using a tabular view. One other recruiter mentioned that the explanations should be more concise and more concrete regarding the given scores and the weightings of the job requirement types should also be present in the output file. Furthermore, the same recruiter mentioned that the tool should also generate follow-up questions as defined in \ref{candidate_experience} that should guide the operating recruiter to the next steps regarding processing the candidate's application.
+        \item \textbf{How important do you believe explainability and transparency are in using \acs{AI} for recruitment? Do you think these factors impact user trust and confidence?}
+        All five participants mentioned that it is very important that the model's decisions are transparent and understandable. Furthermore, also all five recruiters stated that these features are of utmost importance to build up user trust and confidence. One recruiter additionally added that especially in times of drastic innovation like the introduction of \acs{AI} in almost all applicable areas, features like explainability and transparency are key to build up user trust and confidence in new technologies in the beginning until they can be trusted and used with gradually lowered levels of alertness in the future. Moreover, consistent positive experiences with the tool and evidence of reliability also helps to build up user trust faster.
+    \end{itemize}
+\end{enumerate}
 
 \subsection{Quantitative Research}
 This section describes what quantitative data was retrieved.
