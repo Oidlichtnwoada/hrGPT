@@ -36,6 +36,8 @@
 \usepackage{float} % Provides the H float modifier option.
 \usepackage{tabularx} % Provides a tabular package.
 \usepackage{listings} % for code listings.
+\usepackage{csvsimple} % for CSV displayment.
+\usepackage{rotating} % for sideways tables.
 
 % Define convenience functions for using the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Hannes Brantner} % The author name without titles.
@@ -78,6 +80,34 @@
 
 % For dissertations at the Ph.D. School and optionally for dissertations:
 % \setsecondadvisor{Pretitle}{Forename Surname}{Posttitle}{male} % Comment to remove.
+
+\newcolumntype{?}{>{\global\let\currentrowstyle\relax}}
+\newcolumntype{^}{>{\currentrowstyle}}
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}#1\ignorespaces}
+
+\makeatletter
+\csvset{
+    options/.style={
+        after head=\csv@pretable\begin{tabular}{|?l|*{\csv@columncount}{^c|}}
+                                    \csv@tablehead,
+                                    table head=\hline \rowstyle{\bfseries}\csvlinetotablerow \\\hline\hline \rowstyle{},
+                                    late after line=                                         \\\hline,
+                                    table foot=                                              \\\hline,
+                                    late after last line=\csv@tablefoot
+        \end{tabular}\csv@posttable,
+        command=\csvlinetotablerow,
+        respect all=true},
+}
+\makeatother
+
+\newcommand{\csv}[2]{
+    \begin{table}[h]
+        \centering{}
+        \resizebox{\linewidth}{!}{\csvautotabular[options]{../generated_tables/#1.csv}}
+        \caption{#2}
+        \label{tab:#2}
+    \end{table}
+}
 
 % Required data.
 \setregnumber{01614466}
@@ -1560,7 +1590,8 @@ The experiment results (applicant ranking, applicant promising categorization, a
 The results are aggregated, and the resulting data is presented below.
 
 \subsubsection{Online Form for Experiment Results}
-\lipsum[1]
+As \textit{Google Forms} was used to retrieve the responses from the human recruiters, the data was directly available as a downloadable \textit{CSV} file when all responses came in. The categorization and ranking results of the human recruiters will be presented in the analysis chapter, but the tracked time of the participating human recruiters can be found in the following table:
+\csv{taken_time}{Tracked Taken Time Tracked by Human Recruiters}
 
 \chapter{Analysis} \label{analysis}
 
