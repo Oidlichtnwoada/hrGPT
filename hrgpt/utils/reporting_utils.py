@@ -76,7 +76,9 @@ def create_taken_time_table(matching_result: MatchingResult) -> None:
         {**dataframe.mean(axis=0).to_dicts()[0], "job_name": "mean"}
     )
     dataframe = pl.concat((dataframe, mean_row))
-    dataframe.write_csv(os.path.join(get_generated_tables_path(), "taken_time.csv"))
+    dataframe.write_csv(
+        os.path.join(get_generated_tables_path(), "taken_time.csv"), float_precision=1
+    )
 
 
 def create_matching_result_output(matching_result: MatchingResult) -> None:
