@@ -81,9 +81,9 @@ def get_job_requirement_weightings(
 def get_model_for_model_enum(value: ModelEnum) -> Model:
     match value:
         case ModelEnum.GPT_4_TURBO:
-            return Model(provider=Provider.OPENAI, name="gpt-4-0125-preview")
+            return Model(provider=Provider.OPENAI, name="gpt-4-turbo")
         case ModelEnum.GPT_35_TURBO:
-            return Model(provider=Provider.OPENAI, name="gpt-3.5-turbo-0125")
+            return Model(provider=Provider.OPENAI, name="gpt-3.5-turbo")
         case ModelEnum.LLAMA_2_70B_CHAT:
             return Model(provider=Provider.REPLICATE, name="meta/llama-2-70b-chat")
         case ModelEnum.LLAMA_2_13B_CHAT:
