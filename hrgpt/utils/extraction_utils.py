@@ -35,7 +35,7 @@ def get_document_text(
     document_path: str,
     replacements: tuple[tuple[str, str], ...] = ((chr(160), " "), (chr(8203), " ")),
     translate: bool = True,
-    prettify: bool = True,
+    prettify: bool = False,
 ) -> str:
     suffix = pathlib.Path(document_path).suffix
     if suffix not in get_supported_file_types():

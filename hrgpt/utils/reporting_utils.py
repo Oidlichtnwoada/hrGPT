@@ -1,5 +1,6 @@
 import os
 import pathlib
+import statistics
 
 import polars as pl
 
@@ -10,6 +11,19 @@ from hrgpt.utils.path_utils import (
 )
 from hrgpt.utils.serialization_utils import dumps
 from hrgpt.utils.type_utils import ApplicantMatch, MatchingResult
+
+
+def create_category_scores_for_applicant_match(
+    match: ApplicantMatch,
+) -> dict[str, float]:
+    category_scores: dict[str, float] = {}
+    for category, requirement_match_list in match.requirement_matches.items():
+        if len(requirement_match_list) == 0:
+            continue
+        category_scores[f"score ({category})"] = float(
+            statistics.mean([x.score.value for x in requirement_match_list])
+        )
+    return category_scores
 
 
 def create_output_files(
@@ -26,10 +40,10 @@ def create_output_files(
             job_df_parts.append(
                 pl.DataFrame(
                     {
-                        "candidate": [candidate_path],
-                        "score": [applicant_match.total_score],
+                        "candidate": [pathlib.Path(candidate_path).stem],
                         "promising": [applicant_match.promising_result.promising],
-                        "explanation": [applicant_match.promising_result.explanation],
+                        "total_score": [applicant_match.total_score],
+                        **create_category_scores_for_applicant_match(applicant_match),
                     }
                 )
             )
@@ -42,10 +56,12 @@ def create_output_files(
             with open(candidate_result_path, "w") as file:
                 file.write(match_result_json)
         job_df = pl.concat(job_df_parts).sort(
-            "promising", "score", descending=(True, True)
+            "promising", "total_score", descending=(True, True)
         )
         # save the result table in the result directory
-        job_df.write_csv(os.path.join(result_directory, "job_match_result.csv"))
+        job_df.write_csv(
+            os.path.join(result_directory, "job_match_result.csv"), float_precision=1
+        )
         if log_result:
             LoggerFactory.get_logger().info(
                 f"\n\nMatching results for the job '{job_path}':\n{job_df}\n"

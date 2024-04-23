@@ -81,6 +81,45 @@
 % For dissertations at the Ph.D. School and optionally for dissertations:
 % \setsecondadvisor{Pretitle}{Forename Surname}{Posttitle}{male} % Comment to remove.
 
+\definecolor{delim}{RGB}{20,105,176}
+\definecolor{numb}{RGB}{106, 109, 32}
+\definecolor{string}{rgb}{0.64,0.08,0.08}
+
+\lstdefinelanguage{json}{
+    numbers=left,
+    numberstyle=\small,
+    frame=single,
+    rulecolor=\color{black},
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
+    breakatwhitespace=true,
+    basicstyle=\ttfamily\small,
+    upquote=true,
+    morestring=[b]",
+    stringstyle=\color{string},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\newcommand{\json}[2]{
+    \lstinputlisting[language=json,label=lst:#1,caption=#2]{../generated_jsons/#1.json}
+}
+
 \newcolumntype{?}{>{\global\let\currentrowstyle\relax}}
 \newcolumntype{^}{>{\currentrowstyle}}
 \newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}#1\ignorespaces}
@@ -101,7 +140,7 @@
 \makeatother
 
 \newcommand{\csv}[2]{
-    \begin{table}[h]
+    \begin{table}[H]
         \centering{}
         \resizebox{\linewidth}{!}{\csvautotabular[options]{../generated_tables/#1.csv}}
         \caption{#2}
@@ -259,7 +298,7 @@ This means that a firm's value is increasingly dependent on the quality of its e
 The technological context of how companies recruit people has also evolved a lot over the last decades, as machine learning tools are more and more used to automate processes or assist humans in attracting suitable candidates, screening, assessing, and selecting them \parencite[2]{ai_recruiting}.
 The article \textcite[2-4]{ai_recruiting} described four evolution stages of recruiting, which are the following:
 \begin{enumerate}
-    \item \textbf{Analog Recruiting} \label{analog_recruting}\\
+    \item \textbf{Analog Recruiting} \label{analog_recruiting}\\
     The first stage is analog recruiting, where people are the primary mechanism of recruiting new employees.
     Prospective applicants must go to the company to manually submit a paper job application.
     Companies want to maximize the information richness they supply for the current job vacancy and the information reaches to attract as many promising applicants as possible.
@@ -1218,15 +1257,16 @@ This final total score can be used to sort the applicants by relevance, which me
 The weighting used for the total score computation was initially set to a fixed value. Still, the weighting of the individual requirement types can be easily changed if a human expert wants to change the model's behavior.
 This concludes the inner workings of the requirement matching task, and the final output of the model per applicant is the amended data structure from before, a total score, a promising or not promising decision, and a textual explanation for the decision.
 
-\subsection{Output Data Postprocessing}
+\subsection{Output Data Postprocessing} \label{output_data_postprocessing}
 In this step, the model's output data structure is presented to the user in a human-readable way.
-This was done by providing the user a table per job description that includes all candidates, their total scores, whether the candidate is promising, and the textual explanation for this decision.
+This was done by providing the user a table per job description that includes all candidates, their total scores and whether the candidate is promising or not.
 Furthermore, this table is sorted in descending order by the promising flag first and then by the total score of the applicants.
 This table is provided in the console output of the invoked model, and the table is also offered as a \textit{CSV} file to be used as input for other software in the human resource pipeline.
 It must be noted that there can be a promising candidate that has a lower total score than a non-promising candidate, as the decision whether a candidate is promising or not is not solely based on the total score but also the individual scores of the requirements and whether they are mandatory or not.
 That means focusing the work effort on the most promising candidates, and it is advisable to look at the candidates from top to bottom in the table due to the sorting above.
 Moreover, suppose the recruiter wants to examine how the decision was made. In that case, the model stores each applicant's whole internal data structure in the human-readable and machine-readable \textit{JSON} format.
 Compared to the table, this \textit{JSON} file also contains information on the matched individual requirements, including their score and textual explanations.
+Moreover, an explanation is given there why the candidate seems to be promising.
 That should help to fine-tune the job requirement type definitions and the weightings of the job requirements to match the desires of the human expert recruiter. 
 
 \subsection{Supported \acs{LLM}s}
@@ -1594,6 +1634,23 @@ As \textit{Google Forms} was used to retrieve the responses from the human recru
 \csv{taken_time}{Tracked Taken Time by Human Recruiters}
 
 \chapter{Analysis} \label{analysis}
+
+\section{Analysis of a Model Sample Output}
+A sample output of the model was generated by running the proposed model on the provided sample job description for the position \textit{Digital Design Engineer} and the applicant \acs{CV}s of candidate $1$ called \textit{Bao Neilan} and candidate $8$ called \textit{Emanuelle Fought}. This was done in order to briefly discuss the generated output files of the model and their contents and to understand how the model made its decision. The model creates the already mentioned \textit{CSV} file that briefly summarizes the model's decision which was further enhanced by the feedback of the human recruiters to also include the mean scores for each present job requirement type in order to better visually compare the candidates in a tabular view. This table is the \textit{CSV} output for the described screening document set:
+\csv{sample_job_match_result}{Sample Job Match Result Overview}
+This view makes it very easy for the human recruiters to compare the individual candidates for a single job description regarding various aspects. As the candidates are transparently sorted in descending order by the promising flag first and then by the total score as described in \ref{output_data_postprocessing}, the recruiter can also start working from the top of the list and work their way down and this immediately aligns with the priority that each candidate should get according to the model. The total score is computed according to the weighting of the job requirement types which are set in the configuration of the model \ref{model_configuration}. If the recruiter wants to dive deeper into the mean score for a specific job requirement type or the explanation for the promising decision, the mentioned \textit{JSON} file per job applicant can be consulted. This information is only present there as textual explanations are not very suited to be displayed in a compact \textit{CSV} file that should provide a concise overview. The following presented outputs are excerpts from the candidate \textit{JSON} file. For example, the explanation for the promising result of candidate $1$ is given by the model as follows:
+\json{candidate_1_promising_result}{Promising Result Explanation for \textit{Bao Neilan}}
+The promising result of candidate $8$ is given by the model with this explanation:
+\json{candidate_8_promising_result}{Promising Result Explanation for \textit{Emanuelle Fought}}
+By reviewing the requirements of the job descriptions and the abilities of the candidates as presented in their \acs{CV}s the decision of the model seems to be perfectly valid.
+Furthermore, the candidates can be further compared on a deeper level by analyzing the model output for the job requirement type \textit{Hard Skills}.
+The model extracted the following job requirement for this category from the job description and scored the requirement like this for candidate $1$:
+\json{candidate_1_hard_skills_result}{Requirement Matches of Type \textit{Hard Skills} for \textit{Bao Neilan}}
+The same extracted requirement was also scored for candidate $8$:
+\json{candidate_8_hard_skills_result}{Requirement Matches of Type \textit{Hard Skills} for \textit{Emanuelle Fought}}
+The model seems to understand the provided information in the job description quite well and and creates an extracted requirement which contains a concise specification and whether this requirement is \textit{mandatory} or \textit{optional}. Furthermore, the requirement is adequately matched to the applicant's \acs{CV} by provided a score accompanied with a textual explanation of that score. In order to also supply an example of an \textit{optional} requirement, the matched requirements of candidate $1$ for the job requirement type \textit{Languages} are given in the following listing:
+\json{candidate_1_languages_result}{Requirement Matches of Type \textit{Languages} for \textit{Bao Neilan}}
+The model correctly separates the two language requirements for the job description and assign the correct requirement type. The scoring of the requirements also seem to be appropriate when analyzing the applicant documents. That overview should have given the reader a good overview on what output files and output information the human recruiter can expect from the proposed model.
 
 \section{Accuracy of the Model}
 The following two sections analyze the accuracy of the model for the applicant ranking task and the applicant categorization task that divides the applicants into promising and non-promising candidates.
