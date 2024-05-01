@@ -143,10 +143,10 @@
 }
 \makeatother
 
-\newcommand{\csv}[2]{
+\newcommand{\csv}[3]{
     \begin{table}[H]
         \centering{}
-        \resizebox{\linewidth}{!}{\csvautotabular[options]{../generated_tables/#1.csv}}
+        \resizebox{#3\linewidth}{!}{\csvautotabular[options]{../generated_tables/#1.csv}}
         \caption{#2}
         \label{tab:#1}
     \end{table}
@@ -1005,7 +1005,7 @@ The accuracy of the designed screening model will be determined by comparing the
     \item \textbf{Ranking}\\
     The ranking of the model's output and each human expert's output will be compared to the mean human expert ranking per job description.
     Metrics summarizing the ranking accuracy for all job descriptions will also be provided.
-    The comparison of the rankings will be made using the rank-biased overlap metric, which was introduced in \textcite{rank_biased_overlap}.
+    The comparison of the rankings will be made using Kendall's Tau \ref{kendalls_tau}.
     The mean rankings and the summarized metrics will be computed with an arithmetic mean.
     Additional criteria will be introduced to break eventually occurring ties.
     \item \textbf{Categorization}\\
@@ -1054,7 +1054,25 @@ As described in \textcite[1]{rank_biased_overlap}, it was the first metric at th
 \end{itemize}
 \end{enumerate}
 These properties were helpful when comparing search results from search engines as they most likely supply incomplete rankings, which are non-conjoint, massive in size (monotonicity and evaluation at a certain depth are desirable), and results at the front are much more important than search results further back in the ranking.
-For this thesis, the second weighting property is the most important one, as we have complete, definite rankings that are conjoint.
+
+\subsection{Kendall's Tau} \label{kendalls_tau}
+Kendall's Tau as defined in \textcite{kendall_tau} is a correlation coefficient used to measure the ordinal association between two conjoint rankings. It is a rank correlation coefficient that evaluates the similarity between two rankings, providing a value between $-1$ (perfect disagreement, ranking order is reversed) and $1$ (perfect agreement, ranking order is the same). A value of $0$ indicates no association or correlation. The metric is computed by: $\tau = \frac{(number\:of\:concordant\:pairs)-(number\:of\:discordant\:pairs)}{number\:of\:pairs}$. A pair of objects is said to be concordant if the order between two elements is the same in both rankings, otherwise the pair is discordant. There is also a weighted version of the metric, where more importance can be given to the head of the ranking, the tail of the ranking or even another custom weigher function. This feature was not used as the ranking's head for prioritization and the ranking's tail for filtering is important. This metric only supports conjoint rankings, that means the ordered elements must be exactly the same in both rankings. This metric is always computed for full depth, so no partial evaluations are possible with this metric. Here are some examples to illustrate the behavior of Kendall's Tau, denoted as $\tau$, when comparing different rankings:
+\begin{itemize}
+    \item $\tau(['dog', 'cat', 'mom', 'tennis'], ['dog', 'cat', 'mom', 'tennis']) = 1$
+    \item $\tau(['dog', 'cat', 'mom', 'tennis'], ['tennis', 'mom', 'cat', 'dog']) = -1$
+    \item $\tau(['dog', 'cat', 'mom', 'tennis'], ['cat', 'mom', 'tennis', 'dog']) = 0$
+    \item $\tau(['dog', 'cat', 'mom', 'tennis'], ['cat', 'dog', 'mom', 'tennis']) = \frac{2}{3}$
+\end{itemize}
+As described in the \textcite[713-715]{kendall_tau}, Kendall's Tau has several properties that make it suitable for comparing rankings, especially in scenarios where the exact order of items is significant:
+\begin{enumerate}
+\item Sensitivity to swaps\\
+Kendall's Tau is sensitive to the number of swaps needed to convert one ranking into another.
+\item Interpretability\\
+The coefficient is easy to interpret as a measure of concordance or discordance between two rankings, providing clear insights into the degree of association.
+\end{enumerate}
+
+\subsection{Decision of Ranking Correlation Metric}
+As the candidate rankings are limited and size, conjoint and no special weighting is needed, it was decided to use the Kendall's Tau metric to compare the candidate rankings instead of the rank-biased overlap metric due to the superior interpretability. This interpretability is given as the metric simply compares the concordant and discordant object pairs in both rankings.
 
 \section{Sample Screening Documents} \label{sample_screening_documents}
 The sample screening documents (job descriptions and applicant \acs{CV}s) for the previously mentioned research experiment needed to be constructed from scratch as no quality secondary data was available.
@@ -1641,13 +1659,13 @@ The results are aggregated, and the resulting data is presented below.
 
 \subsubsection{Online Form for Experiment Results}
 As \textit{Google Forms} was used to retrieve the responses from the human recruiters, the data was directly available as a downloadable \textit{CSV} file when all responses came in. The categorization and ranking results of the human recruiters will be presented in the analysis chapter, but the tracked time of the participating human recruiters can be found in the following table:
-\csv{taken_time}{Tracked Taken Time in minutes by Human Recruiters}
+\csv{taken_time}{Tracked Taken Time in minutes by Human Recruiters}{1.0}
 
 \chapter{Analysis} \label{analysis}
 
-\section{Analysis of a Model Sample Output} \label{analysis_sample_output}
+\section{Analysis of a Sample Model Output} \label{analysis_sample_output}
 A sample output of the model was generated by running the proposed model on the provided sample job description for the position \textit{Digital Design Engineer} and the applicant \acs{CV}s of candidate $1$ called \textit{Bao Neilan} and candidate $8$ called \textit{Emanuelle Fought}. This was done in order to briefly discuss the generated output files of the model and their contents and to understand how the model made its decision. The model creates the already mentioned \textit{CSV} file that briefly summarizes the model's decision which was further enhanced by the feedback of the human recruiters to also include the mean scores for each present job requirement type in order to better visually compare the candidates in a tabular view. This table is the \textit{CSV} output for the described screening document set:
-\csv{sample_job_match_result}{Sample Job Match Result Overview}
+\csv{sample_job_match_result}{Sample Job Match Result Overview}{1.0}
 This view makes it very easy for the human recruiters to compare the individual candidates for a single job description regarding various aspects. As the candidates are transparently sorted in descending order by the promising flag first and then by the total score as described in \ref{output_data_postprocessing}, the recruiter can also start working from the top of the list and work their way down and this immediately aligns with the priority that each candidate should get according to the model. The total score is computed according to the weighting of the job requirement types which are set in the configuration of the model \ref{model_configuration}. If the recruiter wants to dive deeper into the mean score for a specific job requirement type or the explanation for the promising decision, the mentioned \textit{JSON} file per job applicant can be consulted. This information is only present there as textual explanations are not very suited to be displayed in a compact \textit{CSV} file that should provide a concise overview. The following presented outputs are excerpts from the candidate \textit{JSON} file. For example, the explanation for the promising result of candidate $1$ is given by the model as follows:
 \json{candidate_1_promising_result}{Promising Result Explanation for \textit{Bao Neilan}}
 The promising result of candidate $8$ is given by the model with this explanation:
@@ -1660,7 +1678,7 @@ The same extracted requirement was also scored for candidate $8$:
 \json{candidate_8_hard_skills_result}{Requirement Matches of Type \textit{Hard Skills} for \textit{Emanuelle Fought}}
 The model seems to understand the provided information in the job description quite well and and creates an extracted requirement which contains a concise specification and whether this requirement is \textit{mandatory} or \textit{optional}. Furthermore, the requirement is adequately matched to the applicant's \acs{CV} by provided a score accompanied with a textual explanation of that score. In order to also supply an example of an \textit{optional} requirement, the matched requirements of candidate $1$ for the job requirement type \textit{Languages} are given in the following listing:
 \json{candidate_1_languages_result}{Requirement Matches of Type \textit{Languages} for \textit{Bao Neilan}}
-The model correctly separates the two language requirements for the job description and assign the correct requirement type. The scoring of the requirements also seem to be appropriate when analyzing the applicant documents. That overview should have given the reader a good overview on what output files and output information the human recruiter can expect from the proposed model. The full model output in \textit{JSON} format can be found in the appendix.
+The model correctly separates the two language requirements for the job description and assign the correct requirement type. The scoring of the requirements also seem to be appropriate when analyzing the applicant documents. That overview should have given the reader a good overview on what output files and output information the human recruiter can expect from the proposed model. The full model output in \textit{JSON} format for both applicants can be found in the appendix under \ref{lst:match_result_candidate_1} and \ref{lst:match_result_candidate_8}.
 
 \section{Quantitative Result Analysis}
 The following sections analyze the accuracy of the model for the applicant ranking task and the applicant categorization task that divides the applicants into promising and non-promising candidates. Furthermore, the time savings and the costs associated with the model usage are presented.
@@ -1673,7 +1691,7 @@ The following sections analyze the accuracy of the model for the applicant ranki
 
 \subsection{Time Savings associated with the Model Usage}
 The tracked times of the human recruiters have already been presented in \ref{tab:taken_time}. The following table presents the tracked execution time of the proposed model:
-\csv{taken_time_model}{Tracked Taken Time in minutes by Model}
+\csv{taken_time_model}{Tracked Taken Time in minutes by Model}{0.5}
 The mean time for the categorization and ranking task for a single job with $8$ applicants was around $21.60$ minutes by human recruiters and $1.04$ minutes by the proposed model. That means the proposed model uses around $95\%$ less time to rank and categorize the applicants than the human recruiters. By using a faster \gls{LLM} like the \textit{GPT-3.5 Turbo} model, this savings percentage can be brought even closer to $100\%$. The open question which must be answered in future research is how to compare the quality of the human recruiters' and the proposed model's results in terms of quality and accuracy to understand the tradeoffs of the saved time by \acs{AI} assistance. The limited sample size and low correlation of the human recruiters' data unfortunately do not allow a satisfactory answer in this regard.
 
 \subsection{Costs associated with the Model Usage}
@@ -1813,9 +1831,9 @@ The interview data highlights a recruiter's suggestion for enhancing job require
 \setcounter{chapter}{0}
 
 \section{Code Listings}
-\lstinputlisting[language=Python,label=lst:code_usage_example,caption=Example usage of the programmed model]{../hrgpt/utils/chat_utils.py}
+\lstinputlisting[language=Python,label=lst:code_usage_example,caption=Functions of the programmed \gls{LLM} interface]{../hrgpt/utils/chat_utils.py}
 
-\section{Model Sample Match Results}
+\section{Sample Model Match Results}
 \json{match_result_candidate_1}{Match Result for \textit{Bao Neilan}}
 \json{match_result_candidate_8}{Match Result for \textit{Emanuelle Fought}}
 
