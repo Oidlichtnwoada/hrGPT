@@ -93,12 +93,41 @@ def create_taken_time_table(matching_result: MatchingResult) -> None:
     )
     dataframe = pl.concat((dataframe, mean_row))
     dataframe.write_csv(
-        os.path.join(get_generated_tables_path(), "taken_time.csv"), float_precision=1
+        os.path.join(get_generated_tables_path(), "taken_time.csv"), float_precision=2
+    )
+
+
+def create_taken_time_model_table(matching_result: MatchingResult) -> None:
+    dataframe = pl.DataFrame()
+    for job_name, job_matching_result in matching_result.matching_result.items():
+        minutes_taken_dict = {}
+        ai_result = job_matching_result.ai_model_matching_evaluation.ai_model_result
+        minutes_taken = ai_result.seconds_taken / 60
+        minutes_taken_dict["model"] = float(minutes_taken)
+        dataframe = pl.concat(
+            (
+                dataframe,
+                pl.DataFrame(
+                    {
+                        "job_name": job_name,
+                        **minutes_taken_dict,
+                    }
+                ),
+            ),
+        )
+    mean_row = pl.DataFrame(
+        {**dataframe.mean(axis=0).to_dicts()[0], "job_name": "mean"}
+    )
+    dataframe = pl.concat((dataframe, mean_row))
+    dataframe.write_csv(
+        os.path.join(get_generated_tables_path(), "taken_time_model.csv"),
+        float_precision=2,
     )
 
 
 def create_matching_result_output(matching_result: MatchingResult) -> None:
     create_taken_time_table(matching_result)
+    create_taken_time_model_table(matching_result)
     matching_result_json_string = dumps(matching_result)
     result_directory = get_result_directory_path(get_screening_documents_path())
     with open(os.path.join(result_directory, "matching_result.json"), "w") as file:

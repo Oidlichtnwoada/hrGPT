@@ -1635,7 +1635,7 @@ The results are aggregated, and the resulting data is presented below.
 
 \subsubsection{Online Form for Experiment Results}
 As \textit{Google Forms} was used to retrieve the responses from the human recruiters, the data was directly available as a downloadable \textit{CSV} file when all responses came in. The categorization and ranking results of the human recruiters will be presented in the analysis chapter, but the tracked time of the participating human recruiters can be found in the following table:
-\csv{taken_time}{Tracked Taken Time by Human Recruiters}
+\csv{taken_time}{Tracked Taken Time in minutes by Human Recruiters}
 
 \chapter{Analysis} \label{analysis}
 
@@ -1666,7 +1666,9 @@ The following sections analyze the accuracy of the model for the applicant ranki
 \lipsum[1]
 
 \subsection{Time Savings associated with the Model Usage}
-\lipsum[1]
+The tracked times of the human recruiters have already been presented in \ref{tab:taken_time}. The following table presents the tracked execution time of the proposed model:
+\csv{taken_time_model}{Tracked Taken Time in minutes by Model}
+The mean time for the categorization and ranking task for a single job with $8$ applicants was around $21.60$ minutes by human recruiters and $1.04$ minutes by the proposed model. That means the proposed model uses around $95\%$ less time to rank and categorize the applicants than the human recruiters. By using a faster \gls{LLM} like the \textit{GPT-3.5 Turbo} model, this savings percentage can be brought even closer to $100\%$. The open question which must be answered in future research is how to compare the quality of the human recruiters' and the proposed model's results in terms of quality and accuracy to understand the tradeoffs of the saved time by \acs{AI} assistance. The limited sample size and low correlation of the human recruiters' data unfortunately do not allow a satisfactory answer in this regard.
 
 \subsection{Costs associated with the Model Usage}
 The costs of operating the proposed model are determined by the hardware needed to run the \textit{Python} program and the costs associated to the third-party \gls{LLM} usage via an API. 

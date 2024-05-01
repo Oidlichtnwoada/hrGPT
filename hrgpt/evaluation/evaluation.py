@@ -1,4 +1,5 @@
 import collections
+import functools
 import json
 import os
 import pathlib
@@ -167,6 +168,19 @@ def get_job_index_by_job_name(job_name: str) -> int:
     return result_indices[0]
 
 
+def map_candidate_file_name_to_candidate_path(
+    candidate_file_stem: str, job_index: int
+) -> str:
+    return os.path.abspath(
+        os.path.join(
+            get_screening_documents_path(),
+            f"job_{job_index}",
+            "applicants",
+            f"{candidate_file_stem}.pdf",
+        )
+    )
+
+
 def map_candidate_path_to_candidate_name(candidate_path: str) -> ApplicantName:
     path_object = pathlib.Path(candidate_path)
     job_id = int(path_object.parts[-3].split("_")[1])
@@ -187,13 +201,21 @@ def get_model_matching_result_by_job_name(job_name: JobName) -> ModelMatchingRes
     match_result_df = pandas.read_csv(
         os.path.join(job_folder_path, "result", "job_match_result.csv")
     )
+    candidate_map_function = functools.partial(
+        map_candidate_file_name_to_candidate_path, job_index=job_index
+    )
     promising_candidate_paths = set(
-        match_result_df[match_result_df["promising"] == True]["candidate"]
+        map(
+            candidate_map_function,
+            match_result_df[match_result_df["promising"] == True]["candidate"],
+        )
     )
     promising_candidates = set(
         [map_candidate_path_to_candidate_name(x) for x in promising_candidate_paths]
     )
-    ordered_candidate_paths = list(match_result_df["candidate"])
+    ordered_candidate_paths = list(
+        map(candidate_map_function, match_result_df["candidate"])
+    )
     candidate_places = {
         typing.cast(RankingPlace, index + 1): map_candidate_path_to_candidate_name(path)
         for index, path in enumerate(ordered_candidate_paths)
