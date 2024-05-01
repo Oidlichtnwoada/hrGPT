@@ -27,8 +27,8 @@ from hrgpt.utils.type_utils import (
 T = typing.TypeVar("T")
 
 
-def get_float_precision() -> int:
-    return 2
+def get_float_precision(adjustment: int = 0) -> int:
+    return 2 + adjustment
 
 
 def create_category_scores_for_applicant_match(
@@ -98,8 +98,8 @@ def get_mean_name() -> str:
     return "mean"
 
 
-def get_empty_name() -> str:
-    return ""
+def get_entity_name() -> str:
+    return "entity"
 
 
 def create_taken_time_table(matching_result: MatchingResult) -> None:
@@ -188,7 +188,7 @@ def create_matrix(
                 dataframe,
                 pl.DataFrame(
                     {
-                        get_empty_name(): column_name,
+                        get_entity_name(): column_name,
                         **metric_data,
                         get_mean_name(): float(statistics.mean(metric_data.values())),
                     }
@@ -196,7 +196,7 @@ def create_matrix(
             ),
         )
     dataframe = add_mean_row_to_dataframe(
-        dataframe, {get_empty_name(): get_mean_name()}
+        dataframe, {get_entity_name(): get_mean_name()}
     )
     return dataframe
 
@@ -207,15 +207,19 @@ def compute_mean_dataframe(data: dict[JobName, pl.DataFrame]) -> pl.DataFrame:
             axis=1
         )
     )
-    column_names = pl.DataFrame(list(data.values())[0][get_empty_name()])
+    column_names = pl.DataFrame(list(data.values())[0][get_entity_name()])
     return pl.concat((column_names, mean_values), how="horizontal")
 
 
 def store_dictionary_data(data: dict[JobName, pl.DataFrame], key: str) -> None:
     for job_name, df in data.items():
+        if job_name == get_mean_name():
+            float_precision = get_float_precision(1)
+        else:
+            float_precision = get_float_precision()
         df.write_csv(
             os.path.join(get_generated_tables_path(), f"{job_name}_{key}.csv"),
-            float_precision=get_float_precision(),
+            float_precision=float_precision,
         )
 
 
