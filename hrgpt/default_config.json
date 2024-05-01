@@ -20,12 +20,17 @@
         "temperature": 0
     },
     "generic_config": {
+        "prettify_config": {
+            "enable_llm_prettification": false
+        },
         "score_config": {
             "minimum_score_value": 0,
             "maximum_score_value": 100
         },
         "polars_config": {
-            "max_print_string_length": 4096,
+            "max_print_string_length": 16384,
+            "max_print_table_width": 16384,
+            "max_print_columns_amount": 16384,
             "disable_shape_print": true
         },
         "logging_config": {

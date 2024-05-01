@@ -94,3 +94,9 @@ def get_applicant_document_paths(
 
 def get_random_file_name(length: int = 64) -> str:
     return "".join(random.choice(string.ascii_lowercase) for _ in range(length))
+
+
+def get_result_directory_path(base_path: str) -> str:
+    result_directory = os.path.abspath(os.path.join(base_path, "result"))
+    os.makedirs(result_directory, exist_ok=True)
+    return result_directory

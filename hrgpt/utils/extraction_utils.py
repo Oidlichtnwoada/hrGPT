@@ -7,6 +7,7 @@ import fitz
 
 from hrgpt.prompting.prompting import get_prompt_to_prettify_text
 from hrgpt.utils.chat_utils import get_answer_message
+from hrgpt.utils.config_utils import AppConfigFactory
 from hrgpt.utils.translation_utils import (
     detect_language,
     get_native_language_of_model,
@@ -35,8 +36,8 @@ def get_document_text(
     document_path: str,
     replacements: tuple[tuple[str, str], ...] = ((chr(160), " "), (chr(8203), " ")),
     translate: bool = True,
-    prettify: bool = False,
 ) -> str:
+    config = AppConfigFactory.get_app_config()
     suffix = pathlib.Path(document_path).suffix
     if suffix not in get_supported_file_types():
         raise RuntimeError
@@ -65,7 +66,7 @@ def get_document_text(
         if text_language != get_native_language_of_model():
             text = translate_text(text, target_language=get_native_language_of_model())
     text = apply_replacements(text, replacements)
-    if prettify:
+    if config.generic_config.prettify_config.enable_llm_prettification:
         answer = get_answer_message(get_prompt_to_prettify_text(text))
         text = answer.text
     text = apply_replacements(text, replacements)

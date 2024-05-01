@@ -1,9 +1,12 @@
 import collections
 import enum
+import json
 import math
+import os.path
 import time
 
 from hrgpt.logger.logger import LoggerFactory
+from hrgpt.utils.path_utils import get_result_directory_path
 
 
 class TaskType(enum.StrEnum):
@@ -37,9 +40,19 @@ class TimingClock:
         cls, task_type: TaskType, timing_id: str, elapsed_seconds: float
     ) -> None:
         logger = LoggerFactory.get_logger()
-        message = f'Task of type "{task_type}" with id "{timing_id}" completed in {math.ceil(elapsed_seconds)} seconds'
+        rounded_up_elapsed_seconds = math.ceil(elapsed_seconds)
+        message = f'Task of type "{task_type}" with id "{timing_id}" completed in {rounded_up_elapsed_seconds} seconds'
         match task_type:
             case TaskType.REQUIREMENT_EXTRACTION | TaskType.APPLICANT_MATCHING:
                 logger.debug(message)
-            case TaskType.JOB_SCORING | TaskType.COMPLETE_SCORING:
+            case TaskType.JOB_SCORING:
+                logger.info(message)
+                result_directory = get_result_directory_path(os.path.dirname(timing_id))
+                with open(
+                    os.path.join(result_directory, "additional_info.json"), "w"
+                ) as file:
+                    file.write(
+                        json.dumps({"seconds_taken": rounded_up_elapsed_seconds})
+                    )
+            case TaskType.COMPLETE_SCORING:
                 logger.info(message)

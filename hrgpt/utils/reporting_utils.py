@@ -8,6 +8,7 @@ from hrgpt.logger.logger import LoggerFactory
 from hrgpt.utils.path_utils import (
     get_screening_documents_path,
     get_generated_tables_path,
+    get_result_directory_path,
 )
 from hrgpt.utils.serialization_utils import dumps
 from hrgpt.utils.type_utils import ApplicantMatch, MatchingResult
@@ -31,8 +32,7 @@ def create_output_files(
 ) -> None:
     for job_path, match_results in score_result.items():
         # create the result directory
-        result_directory = os.path.join(os.path.dirname(job_path), "result")
-        os.makedirs(result_directory, exist_ok=True)
+        result_directory = get_result_directory_path(os.path.dirname(job_path))
         # make the resulting dataframe per job
         job_df_parts = []
         for candidate_path, applicant_match in match_results.items():
@@ -100,7 +100,6 @@ def create_taken_time_table(matching_result: MatchingResult) -> None:
 def create_matching_result_output(matching_result: MatchingResult) -> None:
     create_taken_time_table(matching_result)
     matching_result_json_string = dumps(matching_result)
-    result_directory = os.path.join(get_screening_documents_path(), "result")
-    os.makedirs(result_directory, exist_ok=True)
+    result_directory = get_result_directory_path(get_screening_documents_path())
     with open(os.path.join(result_directory, "matching_result.json"), "w") as file:
         file.write(matching_result_json_string)

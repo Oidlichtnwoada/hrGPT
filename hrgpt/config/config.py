@@ -83,6 +83,10 @@ NonEmptyJobRequirementDict = typing.Annotated[
 ]
 
 
+class PrettifyConfiguration(pydantic.BaseModel):
+    enable_llm_prettification: bool
+
+
 class ScoreConfiguration(pydantic.BaseModel):
     minimum_score_value: ScoreValue
     maximum_score_value: ScoreValue
@@ -90,6 +94,8 @@ class ScoreConfiguration(pydantic.BaseModel):
 
 class PolarsConfiguration(pydantic.BaseModel):
     max_print_string_length: PositiveInt
+    max_print_table_width: PositiveInt
+    max_print_columns_amount: PositiveInt
     disable_shape_print: bool
 
 
@@ -118,6 +124,7 @@ class LanguageConfiguration(pydantic.BaseModel):
 
 
 class GenericConfiguration(pydantic.BaseModel):
+    prettify_config: PrettifyConfiguration
     score_config: ScoreConfiguration
     polars_config: PolarsConfiguration
     logging_config: LoggingConfiguration
