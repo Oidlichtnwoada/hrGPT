@@ -7,13 +7,16 @@ import statistics
 import typing
 
 import pandas
-import scipy
 
 from hrgpt.evaluation.csv_loader import load_result_from_responses_csv_file
 from hrgpt.utils.path_utils import (
     get_job_folder_path_by_job_index,
     get_responses_csv_path,
     get_screening_documents_path,
+)
+from hrgpt.utils.math_utils import (
+    compute_kendall_tau_correlation,
+    compute_hamming_distance,
 )
 from hrgpt.utils.reporting_utils import create_matching_result_output
 from hrgpt.utils.type_utils import (
@@ -107,29 +110,6 @@ def compute_mean_human_matching_result(
             ),
         )
     return result
-
-
-def compute_hamming_distance(first_set: set[T], second_set: set[T]) -> int:
-    return len(first_set.symmetric_difference(second_set))
-
-
-def compute_kendall_tau_correlation(
-    first_ranking: dict[RankingPlace, T],
-    second_ranking: dict[RankingPlace, T],
-) -> float:
-    first_ranking_values_in_order = [
-        first_ranking[key] for key in sorted(first_ranking.keys())
-    ]
-    second_ranking_values_in_order = [
-        second_ranking[key] for key in sorted(second_ranking.keys())
-    ]
-    kendall_tau = scipy.stats.kendalltau(
-        first_ranking_values_in_order,
-        second_ranking_values_in_order,
-        nan_policy="raise",
-        method="exact",
-    )
-    return float(kendall_tau.correlation)
 
 
 def compute_human_matching_error_result(

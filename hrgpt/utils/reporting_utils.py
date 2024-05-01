@@ -1,17 +1,34 @@
 import os
 import pathlib
 import statistics
+import typing
 
 import polars as pl
 
 from hrgpt.logger.logger import LoggerFactory
+from hrgpt.utils.math_utils import (
+    compute_kendall_tau_correlation,
+    compute_hamming_distance,
+)
 from hrgpt.utils.path_utils import (
     get_screening_documents_path,
     get_generated_tables_path,
     get_result_directory_path,
 )
 from hrgpt.utils.serialization_utils import dumps
-from hrgpt.utils.type_utils import ApplicantMatch, MatchingResult
+from hrgpt.utils.type_utils import (
+    ApplicantMatch,
+    MatchingResult,
+    RankingPlace,
+    ApplicantName,
+    JobName,
+)
+
+T = typing.TypeVar("T")
+
+
+def get_float_precision() -> int:
+    return 2
 
 
 def create_category_scores_for_applicant_match(
@@ -60,7 +77,8 @@ def create_output_files(
         )
         # save the result table in the result directory
         job_df.write_csv(
-            os.path.join(result_directory, "job_match_result.csv"), float_precision=1
+            os.path.join(result_directory, "job_match_result.csv"),
+            float_precision=get_float_precision(),
         )
         if log_result:
             LoggerFactory.get_logger().info(
@@ -68,12 +86,28 @@ def create_output_files(
             )
 
 
+def get_human_id_name(human_id: int) -> str:
+    return f"human_id: {human_id}"
+
+
+def get_model_name() -> str:
+    return "model"
+
+
+def get_mean_name() -> str:
+    return "mean"
+
+
+def get_empty_name() -> str:
+    return ""
+
+
 def create_taken_time_table(matching_result: MatchingResult) -> None:
     dataframe = pl.DataFrame()
     for job_name, job_matching_result in matching_result.matching_result.items():
         minutes_taken_dict = {}
         for human_result in job_matching_result.human_matching_evaluation.human_results:
-            minutes_taken_dict[f"human_id: {human_result.human_id}"] = float(
+            minutes_taken_dict[get_human_id_name(human_result.human_id)] = float(
                 human_result.minutes_taken
             )
         dataframe = pl.concat(
@@ -83,18 +117,29 @@ def create_taken_time_table(matching_result: MatchingResult) -> None:
                     {
                         "job_name": job_name,
                         **minutes_taken_dict,
-                        "mean": job_matching_result.mean_human_evaluation.mean_human_result.minutes_taken,
+                        get_mean_name(): job_matching_result.mean_human_evaluation.mean_human_result.minutes_taken,
                     }
                 ),
             ),
         )
     mean_row = pl.DataFrame(
-        {**dataframe.mean(axis=0).to_dicts()[0], "job_name": "mean"}
+        {**dataframe.mean(axis=0).to_dicts()[0], "job_name": get_mean_name()}
     )
     dataframe = pl.concat((dataframe, mean_row))
     dataframe.write_csv(
-        os.path.join(get_generated_tables_path(), "taken_time.csv"), float_precision=2
+        os.path.join(get_generated_tables_path(), "taken_time.csv"),
+        float_precision=get_float_precision(),
     )
+
+
+def add_mean_row_to_dataframe(
+    df: pl.DataFrame, non_numeric_column_values: dict[str, str]
+) -> pl.DataFrame:
+    mean_row = pl.DataFrame(
+        {**df.mean(axis=0).to_dicts()[0], **non_numeric_column_values}
+    )
+    new_dataframe = pl.concat((df, mean_row))
+    return new_dataframe
 
 
 def create_taken_time_model_table(matching_result: MatchingResult) -> None:
@@ -103,7 +148,7 @@ def create_taken_time_model_table(matching_result: MatchingResult) -> None:
         minutes_taken_dict = {}
         ai_result = job_matching_result.ai_model_matching_evaluation.ai_model_result
         minutes_taken = ai_result.seconds_taken / 60
-        minutes_taken_dict["model"] = float(minutes_taken)
+        minutes_taken_dict[get_model_name()] = float(minutes_taken)
         dataframe = pl.concat(
             (
                 dataframe,
@@ -115,19 +160,116 @@ def create_taken_time_model_table(matching_result: MatchingResult) -> None:
                 ),
             ),
         )
+    dataframe = add_mean_row_to_dataframe(dataframe, {"job_name": get_mean_name()})
     mean_row = pl.DataFrame(
-        {**dataframe.mean(axis=0).to_dicts()[0], "job_name": "mean"}
+        {**dataframe.mean(axis=0).to_dicts()[0], "job_name": get_mean_name()}
     )
     dataframe = pl.concat((dataframe, mean_row))
     dataframe.write_csv(
         os.path.join(get_generated_tables_path(), "taken_time_model.csv"),
-        float_precision=2,
+        float_precision=get_float_precision(),
+    )
+
+
+def create_matrix(
+    data: dict[str, T],
+    metric_function: typing.Callable[[T, T], typing.Union[float, int]],
+) -> pl.DataFrame:
+    column_names = list(data.keys())
+    dataframe = pl.DataFrame()
+    for column_name in column_names:
+        metric_data: dict[str, float] = {}
+        for other_column_name in column_names:
+            metric_data[other_column_name] = float(
+                metric_function(data[column_name], data[other_column_name])
+            )
+        dataframe = pl.concat(
+            (
+                dataframe,
+                pl.DataFrame(
+                    {
+                        get_empty_name(): column_name,
+                        **metric_data,
+                        get_mean_name(): float(statistics.mean(metric_data.values())),
+                    }
+                ),
+            ),
+        )
+    dataframe = add_mean_row_to_dataframe(
+        dataframe, {get_empty_name(): get_mean_name()}
+    )
+    return dataframe
+
+
+def compute_mean_dataframe(data: dict[JobName, pl.DataFrame]) -> pl.DataFrame:
+    mean_values = pl.DataFrame(
+        pl.DataFrame([x[get_mean_name()].to_numpy() for x in data.values()]).mean(
+            axis=1
+        )
+    )
+    column_names = pl.DataFrame(list(data.values())[0][get_empty_name()])
+    return pl.concat((column_names, mean_values), how="horizontal")
+
+
+def store_dictionary_data(data: dict[JobName, pl.DataFrame], key: str) -> None:
+    for job_name, df in data.items():
+        df.write_csv(
+            os.path.join(get_generated_tables_path(), f"{job_name}_{key}.csv"),
+            float_precision=get_float_precision(),
+        )
+
+
+def create_kendall_tau_correlation_matrices(
+    matching_result: MatchingResult, include_model: bool = True
+) -> None:
+    kendall_tau_correlation_matrices: dict[JobName, pl.DataFrame] = {}
+    for job_name, job_matching_result in matching_result.matching_result.items():
+        rankings: dict[str, dict[RankingPlace, ApplicantName]] = {}
+        for human_result in job_matching_result.human_matching_evaluation.human_results:
+            rankings[get_human_id_name(human_result.human_id)] = (
+                human_result.candidate_places
+            )
+        if include_model:
+            rankings[get_model_name()] = (
+                job_matching_result.ai_model_matching_evaluation.ai_model_result.candidate_places
+            )
+        matrix = create_matrix(rankings, compute_kendall_tau_correlation)
+        kendall_tau_correlation_matrices[job_name] = matrix
+    mean_dataframe = compute_mean_dataframe(kendall_tau_correlation_matrices)
+    kendall_tau_correlation_matrices[get_mean_name()] = mean_dataframe
+    store_dictionary_data(
+        kendall_tau_correlation_matrices, "kendall_tau_correlation_matrix"
+    )
+
+
+def create_hamming_distance_distance_matrices(
+    matching_result: MatchingResult, include_model: bool = True
+) -> None:
+    hamming_distance_distance_matrices: dict[JobName, pl.DataFrame] = {}
+    for job_name, job_matching_result in matching_result.matching_result.items():
+        promising_candidates: dict[str, set[ApplicantName]] = {}
+        for human_result in job_matching_result.human_matching_evaluation.human_results:
+            promising_candidates[get_human_id_name(human_result.human_id)] = (
+                human_result.promising_candidates
+            )
+        if include_model:
+            promising_candidates[get_model_name()] = (
+                job_matching_result.ai_model_matching_evaluation.ai_model_result.promising_candidates
+            )
+        matrix = create_matrix(promising_candidates, compute_hamming_distance)
+        hamming_distance_distance_matrices[job_name] = matrix
+    mean_dataframe = compute_mean_dataframe(hamming_distance_distance_matrices)
+    hamming_distance_distance_matrices[get_mean_name()] = mean_dataframe
+    store_dictionary_data(
+        hamming_distance_distance_matrices, "hamming_distance_distance_matrix"
     )
 
 
 def create_matching_result_output(matching_result: MatchingResult) -> None:
     create_taken_time_table(matching_result)
     create_taken_time_model_table(matching_result)
+    create_kendall_tau_correlation_matrices(matching_result)
+    create_hamming_distance_distance_matrices(matching_result)
     matching_result_json_string = dumps(matching_result)
     result_directory = get_result_directory_path(get_screening_documents_path())
     with open(os.path.join(result_directory, "matching_result.json"), "w") as file:
