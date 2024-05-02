@@ -161,10 +161,6 @@ def create_taken_time_model_table(matching_result: MatchingResult) -> None:
             ),
         )
     dataframe = add_mean_row_to_dataframe(dataframe, {"job_name": get_mean_name()})
-    mean_row = pl.DataFrame(
-        {**dataframe.mean(axis=0).to_dicts()[0], "job_name": get_mean_name()}
-    )
-    dataframe = pl.concat((dataframe, mean_row))
     dataframe.write_csv(
         os.path.join(get_generated_tables_path(), "taken_time_model.csv"),
         float_precision=get_float_precision(),
