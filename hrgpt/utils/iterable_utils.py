@@ -14,3 +14,9 @@ def chunked(
         if not chunk:
             break
         yield chunk
+
+
+def all_elements_equal(lst: list[T]) -> bool:
+    if len(lst) == 0:
+        return True
+    return lst.count(lst[0]) == len(lst)

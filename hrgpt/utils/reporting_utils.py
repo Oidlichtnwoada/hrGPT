@@ -1,3 +1,4 @@
+import collections
 import os
 import pathlib
 import statistics
@@ -6,6 +7,7 @@ import typing
 import polars as pl
 
 from hrgpt.logger.logger import LoggerFactory
+from hrgpt.utils.iterable_utils import all_elements_equal
 from hrgpt.utils.math_utils import (
     compute_kendall_tau_correlation,
     compute_hamming_distance,
@@ -198,13 +200,34 @@ def create_matrix(
 
 
 def compute_mean_dataframe(data: dict[JobName, pl.DataFrame]) -> pl.DataFrame:
-    mean_values = pl.DataFrame(
-        pl.DataFrame([x[get_mean_name()].to_numpy() for x in data.values()]).mean(
-            axis=1
-        )
+    columns = [tuple(x.columns) for x in data.values()]
+    shapes = [x.shape for x in data.values()]
+    if (
+        not all_elements_equal(columns)
+        or not all_elements_equal(shapes)
+        or len(data) == 0
+    ):
+        raise ValueError
+    numeric_values: dict[tuple[int, int], list[float]] = collections.defaultdict(
+        lambda: []
     )
-    column_names = pl.DataFrame(list(data.values())[0][get_entity_name()])
-    return pl.concat((column_names, mean_values), how="horizontal")
+    text_values: dict[tuple[int, int], list[float]] = collections.defaultdict(
+        lambda: []
+    )
+    for df in data.values():
+        for column, series in enumerate(df.iter_columns()):
+            for row, value in enumerate(series):
+                if series.dtype == pl.String:
+                    text_values[(row, column)].append(value)
+                else:
+                    numeric_values[(row, column)].append(value)
+    for text_value_list in text_values.values():
+        if not all_elements_equal(text_value_list):
+            raise ValueError
+    mean_values_df = list(data.values())[0].clone()
+    for (row, column), numeric_value_list in numeric_values.items():
+        mean_values_df[row, column] = float(statistics.mean(numeric_value_list))
+    return mean_values_df
 
 
 def store_dictionary_data(data: dict[JobName, pl.DataFrame], key: str) -> None:
