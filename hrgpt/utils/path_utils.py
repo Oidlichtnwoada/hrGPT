@@ -29,6 +29,10 @@ def get_generated_tables_path() -> str:
     return os.path.join(get_repo_root_path(), "generated_tables")
 
 
+def get_generated_pdfs_path() -> str:
+    return os.path.join(get_repo_root_path(), "generated_pdfs")
+
+
 def get_module_root_path() -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 

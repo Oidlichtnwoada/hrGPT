@@ -34,5 +34,6 @@ def compute_kendall_tau_correlation(
         second_ranking_values_in_order,
         nan_policy="raise",
         method="exact",
+        variant="b",
     )
     return float(kendall_tau.correlation)

@@ -1,10 +1,15 @@
 import collections
+import math
 import os
 import pathlib
 import statistics
 import typing
 
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import polars as pl
+import scipy
+import sklearn.manifold
 
 from hrgpt.logger.logger import LoggerFactory
 from hrgpt.utils.iterable_utils import all_elements_equal
@@ -16,6 +21,7 @@ from hrgpt.utils.path_utils import (
     get_screening_documents_path,
     get_generated_tables_path,
     get_result_directory_path,
+    get_generated_pdfs_path,
 )
 from hrgpt.utils.serialization_utils import dumps
 from hrgpt.utils.type_utils import (
@@ -24,6 +30,7 @@ from hrgpt.utils.type_utils import (
     RankingPlace,
     ApplicantName,
     JobName,
+    get_unique_places_amount,
 )
 
 T = typing.TypeVar("T")
@@ -242,6 +249,76 @@ def store_dictionary_data(data: dict[JobName, pl.DataFrame], key: str) -> None:
         )
 
 
+def default_transform(df: pl.DataFrame) -> pl.DataFrame:
+    return df
+
+
+def kendall_tau_correlation_to_distance(value: float) -> int:
+    return int(
+        (value - 1) * (-1) / 2 * scipy.special.binom(get_unique_places_amount(), 2)
+    )
+
+
+def kendall_tau_distance_transform(df: pl.DataFrame) -> pl.DataFrame:
+    column_names: list[str] = df.columns
+    df = df.map_rows(lambda row: tuple(map(kendall_tau_correlation_to_distance, row)))
+    df = df.rename(
+        {
+            column_name: new_column_name
+            for column_name, new_column_name in zip(df.columns, column_names)
+        }
+    )
+    return df
+
+
+def create_plot_from_mean_dataframe(
+    mean_df: pl.DataFrame,
+    title: str,
+    transform_function: typing.Callable[
+        [pl.DataFrame, float], float
+    ] = default_transform,
+) -> None:
+    mds = sklearn.manifold.MDS(
+        n_components=2,
+        metric=True,
+        n_init=256,
+        max_iter=1024,
+        verbose=0,
+        eps=1e-6,
+        n_jobs=-1,
+        random_state=42,
+        dissimilarity="precomputed",
+        normalized_stress="auto",
+    )
+    distance_matrix = transform_function(mean_df[mean_df.columns[1:-1]].slice(0, -1))
+    fit_result = mds.fit(distance_matrix)
+    position_for_label_dict: dict[str, tuple[float, float]] = {
+        key: (x, y)
+        for key, (x, y) in zip(fit_result.feature_names_in_, fit_result.embedding_)
+    }
+    x_limit = max([abs(x) for (x, _) in position_for_label_dict.values()])
+    y_limit = max([abs(y) for (_, y) in position_for_label_dict.values()])
+    limit = math.ceil(max(x_limit, y_limit)) + 1
+    figure, axis = plt.subplots()
+    axis.set_xlabel("x")
+    axis.set_ylabel("y")
+    axis.set_xlim([-limit, limit])
+    axis.set_ylim([-limit, limit])
+    axis.set_aspect("equal", adjustable="box")
+    axis.xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    axis.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    axis.set_title(f"{title} (Multidimensional Scaling)", pad=12)
+    axis.set_axisbelow(True)
+    for key, (x, y) in position_for_label_dict.items():
+        axis.scatter(x, y, label=key, s=128)
+    plt.grid(color="lightgrey", linestyle=(0, (1, 1)), linewidth=1)
+    plt.tight_layout()
+    plt.legend(bbox_to_anchor=(1.05, 0.5), loc="center left", borderaxespad=0.0)
+    file_name = f'{title.lower().replace(" ", "_")}.pdf'
+    plt.savefig(os.path.join(get_generated_pdfs_path(), file_name), bbox_inches="tight")
+    plt.close()
+
+
 def create_kendall_tau_correlation_matrices(
     matching_result: MatchingResult, include_model: bool = True
 ) -> None:
@@ -259,6 +336,9 @@ def create_kendall_tau_correlation_matrices(
         matrix = create_matrix(rankings, compute_kendall_tau_correlation)
         kendall_tau_correlation_matrices[job_name] = matrix
     mean_dataframe = compute_mean_dataframe(kendall_tau_correlation_matrices)
+    create_plot_from_mean_dataframe(
+        mean_dataframe, "Kendall's Tau Distance", kendall_tau_distance_transform
+    )
     kendall_tau_correlation_matrices[get_mean_name()] = mean_dataframe
     store_dictionary_data(
         kendall_tau_correlation_matrices, "kendall_tau_correlation_matrix"
@@ -282,6 +362,7 @@ def create_hamming_distance_distance_matrices(
         matrix = create_matrix(promising_candidates, compute_hamming_distance)
         hamming_distance_distance_matrices[job_name] = matrix
     mean_dataframe = compute_mean_dataframe(hamming_distance_distance_matrices)
+    create_plot_from_mean_dataframe(mean_dataframe, "Hamming Distance")
     hamming_distance_distance_matrices[get_mean_name()] = mean_dataframe
     store_dictionary_data(
         hamming_distance_distance_matrices, "hamming_distance_distance_matrix"

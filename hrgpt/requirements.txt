@@ -16,3 +16,5 @@ python-docx
 google-cloud-translate
 lingua-language-detector
 scipy
+scikit-learn
+matplotlib
