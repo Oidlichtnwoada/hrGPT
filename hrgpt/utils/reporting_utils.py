@@ -275,7 +275,7 @@ def create_plot_from_mean_dataframe(
     mean_df: pl.DataFrame,
     title: str,
     transform_function: typing.Callable[
-        [pl.DataFrame, float], float
+        [pl.DataFrame], pl.DataFrame
     ] = default_transform,
 ) -> None:
     mds = sklearn.manifold.MDS(
