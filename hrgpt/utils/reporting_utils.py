@@ -339,7 +339,7 @@ def create_kendall_tau_correlation_matrices(
         kendall_tau_correlation_matrices[job_name] = matrix
     mean_dataframe = compute_mean_dataframe(kendall_tau_correlation_matrices)
     create_plot_from_mean_dataframe(
-        mean_dataframe, "Kendall's Tau Distance", kendall_tau_distance_transform
+        mean_dataframe, "Mean Kendall's Tau Distance", kendall_tau_distance_transform
     )
     kendall_tau_correlation_matrices[get_mean_name()] = mean_dataframe
     store_dictionary_data(
@@ -364,7 +364,7 @@ def create_hamming_distance_distance_matrices(
         matrix = create_matrix(promising_candidates, compute_hamming_distance)
         hamming_distance_distance_matrices[job_name] = matrix
     mean_dataframe = compute_mean_dataframe(hamming_distance_distance_matrices)
-    create_plot_from_mean_dataframe(mean_dataframe, "Hamming Distance")
+    create_plot_from_mean_dataframe(mean_dataframe, "Mean Hamming Distance")
     hamming_distance_distance_matrices[get_mean_name()] = mean_dataframe
     store_dictionary_data(
         hamming_distance_distance_matrices, "hamming_distance_distance_matrix"
