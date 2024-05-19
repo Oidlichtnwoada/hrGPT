@@ -314,8 +314,10 @@ def create_plot_from_mean_dataframe(
     plt.grid(color="lightgrey", linestyle=(0, (1, 1)), linewidth=1)
     plt.tight_layout()
     plt.legend(bbox_to_anchor=(1.05, 0.5), loc="center left", borderaxespad=0.0)
-    file_name = f'{title.lower().replace(" ", "_")}.pdf'
-    plt.savefig(os.path.join(get_generated_pdfs_path(), file_name), bbox_inches="tight")
+    file_name = title.lower().replace(" ", "_").replace("'", "")
+    plt.savefig(
+        os.path.join(get_generated_pdfs_path(), f"{file_name}.pdf"), bbox_inches="tight"
+    )
     plt.close()
 
 
