@@ -4,11 +4,10 @@ import pathlib
 import random
 import string
 
+from hrgpt.utils.file_utils import convert_path_to_file
 from hrgpt.utils.type_utils import (
     get_supported_file_types,
     ScoreWorkload,
-    File,
-    DocumentFileType,
 )
 
 
@@ -65,17 +64,6 @@ def get_job_document_path_from_applicant_document_path(
         if candidate_path.exists():
             return os.path.abspath(candidate_path)
     raise RuntimeError
-
-
-def convert_path_to_file(path: str) -> File:
-    path_object = pathlib.Path(path)
-    with open(path_object, "rb") as file:
-        content = file.read()
-    return File(
-        name=path_object.stem,
-        type=DocumentFileType(path_object.suffix),
-        content=content,
-    )
 
 
 def get_score_workloads(

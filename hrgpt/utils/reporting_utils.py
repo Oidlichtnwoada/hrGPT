@@ -54,7 +54,8 @@ def create_category_scores_for_applicant_match(
 
 def create_output_files(
     score_result: dict[str, dict[str, ApplicantMatch]], log_result: bool = True
-) -> None:
+) -> dict[str, pl.DataFrame]:
+    job_dfs: dict[str, pl.DataFrame] = {}
     for job_name, match_results in score_result.items():
         # create the result directory
         result_directory = get_result_directory_path(os.path.dirname(job_name))
@@ -88,10 +89,12 @@ def create_output_files(
             os.path.join(result_directory, "job_match_result.csv"),
             float_precision=get_float_precision(),
         )
+        job_dfs[job_name] = job_df
         if log_result:
             LoggerFactory.get_logger().info(
                 f"\n\nMatching results for the job '{job_name}':\n{job_df}\n"
             )
+    return job_dfs
 
 
 def get_human_id_name(human_id: int) -> str:
