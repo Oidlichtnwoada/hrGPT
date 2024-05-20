@@ -1318,10 +1318,10 @@
 %
 % Initialize the header graphics. The vertical placement of the header graphics on the title pages are given by |\thesisclass@header@placement|, while the composition of the graphical elements are determined by the subsequent lengths, which constitute direct measurements of the graphics. If the header graphics are changed, these values have to be adapted.
 %    \begin{macrocode}
-\newsetlength{\thesisclass@logo@offset@x}{90mm}%
-\newsetlength{\thesisclass@logo@offset@y}{22mm}%
-\newsetlength{\thesisclass@logo@width@safe}{74mm}%
-\newsetlength{\thesisclass@logo@height}{11mm}%
+\newsetlength{\thesisclass@logo@offset@x}{75mm}%
+\newsetlength{\thesisclass@logo@offset@y}{50mm}%
+\newsetlength{\thesisclass@logo@width@safe}{120mm}%
+\newsetlength{\thesisclass@logo@height}{22mm}%
 \newsetlength{\thesisclass@header@width}{\paperwidth - \thesisclass@logo@offset@x - \thesisclass@logo@offset@x}%
 \newsetlength{\thesisclass@header@height}{\thesisclass@logo@height}%
 \newsetlength{\thesisclass@header@separator}{-12mm}%
@@ -1333,7 +1333,8 @@
 %    \begin{macrocode}
 \newcommand{\thesisclass@header@titlepage}{%
   \setlength{\unitlength}{1mm}%
-  \begin{picture}(74, 6)%
+  \vspace{0.5cm}
+  \begin{picture}(120, 12)%
     {\includegraphics[height=\thesisclass@logo@height]{logo.pdf}}
   \end{picture}\hfill
   \vspace{5cm}
