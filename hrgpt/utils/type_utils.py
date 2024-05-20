@@ -241,3 +241,14 @@ class MergedMetrics(pydantic.BaseModel):
 class MatchingResult(pydantic.BaseModel):
     matching_result: dict[JobName, JobMatchingResult]
     merged_metrics: MergedMetrics
+
+
+class File(pydantic.BaseModel):
+    name: str
+    type: DocumentFileType
+    content: bytes
+
+
+class ScoreWorkload(pydantic.BaseModel):
+    job_file: File
+    cv_files: tuple[File, ...]

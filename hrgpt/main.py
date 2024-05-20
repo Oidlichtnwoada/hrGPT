@@ -4,6 +4,7 @@ from hrgpt.logger.logger import LoggerFactory
 from hrgpt.scoring.scoring import score_applicants
 from hrgpt.utils.argument_utils import get_args
 from hrgpt.utils.config_utils import get_app_config_from_json_file, AppConfigFactory
+from hrgpt.utils.path_utils import get_score_workloads
 from hrgpt.utils.polars_utils import configure_polars
 
 
@@ -20,7 +21,7 @@ def main() -> None:
     AppConfigFactory.initialize_app_config(app_config)
     # start the correct execution path
     if args.target == "scoring":
-        score_applicants(args.job, args.candidate)
+        score_applicants(get_score_workloads(args.job, args.candidate))
     elif args.target == "anonymization":
         anonymize_applicant_documents()
     elif args.target == "evaluation":

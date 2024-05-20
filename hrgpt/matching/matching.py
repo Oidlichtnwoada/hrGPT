@@ -21,15 +21,16 @@ from hrgpt.utils.type_utils import (
     ApplicantMatch,
     JobRequirementType,
     Requirement,
+    File,
 )
 
 
-def match_job_requirements_to_candidate_cv(
+def match_job_requirements_to_cv_file(
     job_requirements: dict[JobRequirementType, list[Requirement]],
-    candidate_cv_file_path: str,
+    cv_file: File,
 ) -> ApplicantMatch:
-    TimingClock.start_timer(TaskType.APPLICANT_MATCHING, candidate_cv_file_path)
-    cv_text = get_document_text(candidate_cv_file_path)
+    TimingClock.start_timer(TaskType.APPLICANT_MATCHING, cv_file.name)
+    cv_text = get_document_text(cv_file)
     requirement_matches = collections.defaultdict(list)
     app_config = AppConfigFactory.get_app_config()
     prompts = []
@@ -72,5 +73,5 @@ def match_job_requirements_to_candidate_cv(
         requirement_matches=requirement_matches,
     )
     translated_applicant_match = translate_applicant_match(applicant_match)
-    TimingClock.stop_timer(TaskType.APPLICANT_MATCHING, candidate_cv_file_path)
+    TimingClock.stop_timer(TaskType.APPLICANT_MATCHING, cv_file.name)
     return translated_applicant_match

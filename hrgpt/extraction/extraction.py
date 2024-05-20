@@ -12,17 +12,16 @@ from hrgpt.utils.type_utils import (
     Requirement,
     VALID_JOB_REQUIREMENT_TYPES,
     JobRequirementType,
+    File,
 )
 
 
 def get_requirements_from_job_description(
-    job_description_pdf_file_path: str,
+    job_file: File,
 ) -> dict[JobRequirementType, list[Requirement]]:
-    TimingClock.start_timer(
-        TaskType.REQUIREMENT_EXTRACTION, job_description_pdf_file_path
-    )
+    TimingClock.start_timer(TaskType.REQUIREMENT_EXTRACTION, job_file.name)
     # generate the extraction prompt
-    job_description_text = get_document_text(job_description_pdf_file_path)
+    job_description_text = get_document_text(job_file)
     prompt = get_prompt_to_extract_requirements(job_description_text)
     # send the prompt to the model
     answer = get_answer_message(prompt)
@@ -48,7 +47,5 @@ def get_requirements_from_job_description(
             requirement_object = Requirement.model_validate(requirement)
             # add the requirement
             job_requirements[job_requirement_type].append(requirement_object)
-    TimingClock.stop_timer(
-        TaskType.REQUIREMENT_EXTRACTION, job_description_pdf_file_path
-    )
+    TimingClock.stop_timer(TaskType.REQUIREMENT_EXTRACTION, job_file.name)
     return job_requirements

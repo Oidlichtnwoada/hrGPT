@@ -1,5 +1,6 @@
 import json
-import pathlib
+import os.path
+import tempfile
 import typing
 
 import docx
@@ -13,7 +14,7 @@ from hrgpt.utils.translation_utils import (
     get_native_language_of_model,
     translate_text,
 )
-from hrgpt.utils.type_utils import get_supported_file_types, DocumentFileType
+from hrgpt.utils.type_utils import get_supported_file_types, DocumentFileType, File
 
 
 def extract_json_object_from_string(text: str) -> dict[str, typing.Any]:
@@ -33,41 +34,48 @@ def apply_replacements(text: str, replacements: tuple[tuple[str, str], ...]) -> 
 
 
 def get_document_text(
-    document_path: str,
+    file: File,
     replacements: tuple[tuple[str, str], ...] = ((chr(160), " "), (chr(8203), " ")),
     translate: bool = True,
 ) -> str:
-    config = AppConfigFactory.get_app_config()
-    suffix = pathlib.Path(document_path).suffix
-    if suffix not in get_supported_file_types():
-        raise RuntimeError
-    text_parts: list[str] = []
-    match suffix:
-        case DocumentFileType.PDF:
-            with fitz.open(document_path) as pdf_document:
-                for page in pdf_document:
-                    page_text = page.get_text()
-                    text_parts.append(page_text)
-        case DocumentFileType.DOCX:
-            word_document = docx.Document(document_path)
-            for paragraph in word_document.paragraphs:
-                paragraph_text = paragraph.text
-                text_parts.append(paragraph_text)
-        case DocumentFileType.TEXT:
-            with open(document_path) as text_file:
-                file_text = text_file.read()
-                text_parts.append(file_text)
-        case _:
+    with tempfile.NamedTemporaryFile(
+        prefix=file.name, suffix=file.type.name
+    ) as temp_file:
+        temp_file.write(file.content)
+        file_path = os.path.abspath(file.name)
+        suffix = file.type.name
+        if suffix not in get_supported_file_types():
             raise RuntimeError
-    text = "\n".join(map(str.strip, text_parts))
-    text = apply_replacements(text, replacements)
-    if translate:
-        text_language = detect_language(text)
-        if text_language != get_native_language_of_model():
-            text = translate_text(text, target_language=get_native_language_of_model())
-    text = apply_replacements(text, replacements)
-    if config.generic_config.prettify_config.enable_llm_prettification:
-        answer = get_answer_message(get_prompt_to_prettify_text(text))
-        text = answer.text
-    text = apply_replacements(text, replacements)
-    return text
+        text_parts: list[str] = []
+        match suffix:
+            case DocumentFileType.PDF:
+                with fitz.open(file_path) as pdf_document:
+                    for page in pdf_document:
+                        page_text = page.get_text()
+                        text_parts.append(page_text)
+            case DocumentFileType.DOCX:
+                word_document = docx.Document(file_path)
+                for paragraph in word_document.paragraphs:
+                    paragraph_text = paragraph.text
+                    text_parts.append(paragraph_text)
+            case DocumentFileType.TEXT:
+                with open(file_path) as text_file:
+                    file_text = text_file.read()
+                    text_parts.append(file_text)
+            case _:
+                raise RuntimeError
+        text = "\n".join(map(str.strip, text_parts))
+        text = apply_replacements(text, replacements)
+        if translate:
+            text_language = detect_language(text)
+            if text_language != get_native_language_of_model():
+                text = translate_text(
+                    text, target_language=get_native_language_of_model()
+                )
+        text = apply_replacements(text, replacements)
+        config = AppConfigFactory.get_app_config()
+        if config.generic_config.prettify_config.enable_llm_prettification:
+            answer = get_answer_message(get_prompt_to_prettify_text(text))
+            text = answer.text
+        text = apply_replacements(text, replacements)
+        return text

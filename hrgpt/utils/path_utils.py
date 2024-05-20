@@ -4,7 +4,7 @@ import pathlib
 import random
 import string
 
-from hrgpt.utils.type_utils import get_supported_file_types
+from hrgpt.utils.type_utils import get_supported_file_types, ScoreWorkload
 
 
 def get_repo_root_path() -> str:
@@ -60,6 +60,13 @@ def get_job_document_path_from_applicant_document_path(
         if candidate_path.exists():
             return os.path.abspath(candidate_path)
     raise RuntimeError
+
+
+def get_score_workloads(
+    filter_job_indices: tuple[str, ...] = (),
+    filter_candidate_indices: tuple[str, ...] = (),
+) -> tuple[ScoreWorkload, ...]:
+    return ()
 
 
 def get_applicant_document_paths(
