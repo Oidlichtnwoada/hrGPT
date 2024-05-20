@@ -38,11 +38,12 @@ class Model(pydantic.BaseModel):
 
 class ModelEnum(enum.StrEnum):
     GPT_4_TURBO = enum.auto()
+    GPT_4O = enum.auto()
     GPT_35_TURBO = enum.auto()
-    LLAMA_2_70B_CHAT = enum.auto()
-    LLAMA_2_13B_CHAT = enum.auto()
-    LLAMA_2_7B_CHAT = enum.auto()
-    GEMINI_PRO = enum.auto()
+    LLAMA_3_70B_INSTRUCT = enum.auto()
+    LLAMA_3_8B_INSTRUCT = enum.auto()
+    GEMINI_15_PRO = enum.auto()
+    GEMINI_15_FLASH = enum.auto()
 
 
 FrequencyPenaltyFloat = typing.Annotated[float, pydantic.Field(ge=-2.0, le=2.0)]

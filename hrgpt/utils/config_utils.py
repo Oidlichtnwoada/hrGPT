@@ -82,16 +82,22 @@ def get_model_for_model_enum(value: ModelEnum) -> Model:
     match value:
         case ModelEnum.GPT_4_TURBO:
             return Model(provider=Provider.OPENAI, name="gpt-4-turbo")
+        case ModelEnum.GPT_4O:
+            return Model(provider=Provider.OPENAI, name="gpt-4o")
         case ModelEnum.GPT_35_TURBO:
             return Model(provider=Provider.OPENAI, name="gpt-3.5-turbo")
-        case ModelEnum.LLAMA_2_70B_CHAT:
-            return Model(provider=Provider.REPLICATE, name="meta/llama-2-70b-chat")
-        case ModelEnum.LLAMA_2_13B_CHAT:
-            return Model(provider=Provider.REPLICATE, name="meta/llama-2-13b-chat")
-        case ModelEnum.LLAMA_2_7B_CHAT:
-            return Model(provider=Provider.REPLICATE, name="meta/llama-2-7b-chat")
-        case ModelEnum.GEMINI_PRO:
-            return Model(provider=Provider.GOOGLE, name="gemini-pro")
+        case ModelEnum.LLAMA_3_70B_INSTRUCT:
+            return Model(
+                provider=Provider.REPLICATE, name="meta/meta-llama-3-70b-instruct"
+            )
+        case ModelEnum.LLAMA_3_8B_INSTRUCT:
+            return Model(
+                provider=Provider.REPLICATE, name="meta/meta-llama-3-8b-instruct"
+            )
+        case ModelEnum.GEMINI_15_PRO:
+            return Model(provider=Provider.GOOGLE, name="gemini-1.5-pro")
+        case ModelEnum.GEMINI_15_FLASH:
+            return Model(provider=Provider.GOOGLE, name="gemini-1.5-flash")
 
 
 def get_app_config_from_json_file(
