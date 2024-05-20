@@ -38,12 +38,10 @@ def get_document_text(
     replacements: tuple[tuple[str, str], ...] = ((chr(160), " "), (chr(8203), " ")),
     translate: bool = True,
 ) -> str:
-    with tempfile.NamedTemporaryFile(
-        prefix=file.name, suffix=file.type.name
-    ) as temp_file:
+    suffix = file.type.value
+    with tempfile.NamedTemporaryFile(prefix=file.name, suffix=suffix) as temp_file:
         temp_file.write(file.content)
-        file_path = os.path.abspath(file.name)
-        suffix = file.type.name
+        file_path = os.path.abspath(temp_file.name)
         if suffix not in get_supported_file_types():
             raise RuntimeError
         text_parts: list[str] = []

@@ -1,7 +1,6 @@
 import collections
 import math
 import os
-import pathlib
 import statistics
 import typing
 
@@ -56,17 +55,17 @@ def create_category_scores_for_applicant_match(
 def create_output_files(
     score_result: dict[str, dict[str, ApplicantMatch]], log_result: bool = True
 ) -> None:
-    for job_path, match_results in score_result.items():
+    for job_name, match_results in score_result.items():
         # create the result directory
-        result_directory = get_result_directory_path(os.path.dirname(job_path))
+        result_directory = get_result_directory_path(os.path.dirname(job_name))
         # make the resulting dataframe per job
         job_df_parts = []
-        for candidate_path, applicant_match in match_results.items():
+        for cv_name, applicant_match in match_results.items():
             # append the result part of the applicant
             job_df_parts.append(
                 pl.DataFrame(
                     {
-                        "candidate": [pathlib.Path(candidate_path).stem],
+                        "candidate": [cv_name],
                         "promising": [applicant_match.promising_result.promising],
                         "total_score": [applicant_match.total_score],
                         **create_category_scores_for_applicant_match(applicant_match),
@@ -77,7 +76,7 @@ def create_output_files(
             match_result_json = dumps(applicant_match)
             candidate_result_path = os.path.join(
                 result_directory,
-                f"match_result_{pathlib.Path(candidate_path).stem}.json",
+                f"match_result_{cv_name}.json",
             )
             with open(candidate_result_path, "w") as file:
                 file.write(match_result_json)
@@ -91,7 +90,7 @@ def create_output_files(
         )
         if log_result:
             LoggerFactory.get_logger().info(
-                f"\n\nMatching results for the job '{job_path}':\n{job_df}\n"
+                f"\n\nMatching results for the job '{job_name}':\n{job_df}\n"
             )
 
 

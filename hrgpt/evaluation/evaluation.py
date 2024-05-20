@@ -9,14 +9,14 @@ import typing
 import pandas
 
 from hrgpt.evaluation.csv_loader import load_result_from_responses_csv_file
+from hrgpt.utils.math_utils import (
+    compute_kendall_tau_correlation,
+    compute_hamming_distance,
+)
 from hrgpt.utils.path_utils import (
     get_job_folder_path_by_job_index,
     get_responses_csv_path,
     get_screening_documents_path,
-)
-from hrgpt.utils.math_utils import (
-    compute_kendall_tau_correlation,
-    compute_hamming_distance,
 )
 from hrgpt.utils.reporting_utils import create_matching_result_output
 from hrgpt.utils.type_utils import (
