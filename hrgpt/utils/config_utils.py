@@ -11,6 +11,7 @@ from hrgpt.config.config import (
     Provider,
     AppConfig,
     JobRequirementWeightings,
+    GoogleServiceAccount,
 )
 from hrgpt.utils.path_utils import (
     get_default_model_config_json_path,
@@ -128,3 +129,17 @@ class AppConfigFactory:
         if cls.app_config is None:
             raise RuntimeError
         return cls.app_config
+
+    @classmethod
+    def set_openai_api_key(cls, openai_api_key: str) -> None:
+        app_config = cls.get_app_config()
+        app_config.secrets.openai_api_key = openai_api_key
+
+    @classmethod
+    def set_google_translate_service_account(
+        cls, google_translate_service_account: str
+    ) -> None:
+        app_config = cls.get_app_config()
+        app_config.secrets.google_translate_service_account = (
+            GoogleServiceAccount.model_validate_json(google_translate_service_account)
+        )
