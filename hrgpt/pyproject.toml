@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "hrgpt"
+version = "1.0.0"
+description = ""
+authors = ["Oidlichtnwoada <42490916+Oidlichtnwoada@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12.3"
+asposepdfcloud = {git = "https://github.com/aspose-pdf-cloud/aspose-pdf-cloud-python.git"}
+pymupdf = "^1.24.4"
+openai = "^1.30.3"
+replicate = "^0.26.0"
+google-generativeai = "^0.5.4"
+polars = "^0.20.29"
+pydantic = "^2.7.1"
+typed-argument-parser = "^1.10.0"
+typing-extensions = "^4.12.0"
+mypy = "^1.10.0"
+black = "^24.4.2"
+pytest = "^8.2.1"
+pandas = "^2.2.2"
+pandas-stubs = "^2.2.2.240514"
+python-docx = "^1.1.2"
+google-cloud-translate = "^3.15.3"
+lingua-language-detector = "^2.0.2"
+scipy = "^1.13.1"
+scikit-learn = "^1.5.0"
+matplotlib = "^3.9.0"
+fastapi = "^0.111.0"
+python-multipart = "^0.0.9"
+uvicorn = "^0.29.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
