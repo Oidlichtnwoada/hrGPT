@@ -143,3 +143,8 @@ class AppConfigFactory:
         app_config.secrets.google_translate_service_account = (
             GoogleServiceAccount.model_validate_json(google_translate_service_account)
         )
+
+    @classmethod
+    def set_output_language(cls, output_language: str) -> None:
+        app_config = cls.get_app_config()
+        app_config.generic_config.language_config.output_language = output_language

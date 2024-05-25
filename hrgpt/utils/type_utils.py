@@ -252,3 +252,8 @@ class File(pydantic.BaseModel):
 class ScoreWorkload(pydantic.BaseModel):
     job_file: File
     cv_files: tuple[File, ...]
+
+
+class ApiMatchResult(pydantic.BaseModel):
+    overview_result: list[dict[str, typing.Any]]
+    exact_result: dict[str, ApplicantMatch]
