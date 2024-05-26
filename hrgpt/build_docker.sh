@@ -4,4 +4,4 @@
 set -e
 
 # build the Dockerfile
-docker build .. -f ./Dockerfile
+docker build .. -f ./Dockerfile -t hrgpt:latest
