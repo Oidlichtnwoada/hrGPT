@@ -14,5 +14,5 @@ COPY hrgpt hrgpt/
 WORKDIR /hrgpt
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --no-root
 
-WORKDIR /hrgpt
-ENTRYPOINT [".venv/bin/python", "-m", "hrgpt.server.server"]
+WORKDIR /
+ENTRYPOINT ["hrgpt/.venv/bin/python", "-m", "hrgpt.server.server"]
