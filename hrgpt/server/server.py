@@ -3,6 +3,7 @@ import typing
 
 import uvicorn
 from fastapi import FastAPI, UploadFile, HTTPException, Header
+from fastapi.responses import JSONResponse
 
 from hrgpt.scoring.scoring import score_applicants
 from hrgpt.utils.config_utils import AppConfigFactory
@@ -27,7 +28,7 @@ def get_server() -> FastAPI:
         output_language_base64: typing.Annotated[
             str | None, Header(convert_underscores=False)
         ] = None,
-    ) -> dict[str, tuple[list[dict[str, typing.Any]], dict[str, ApplicantMatch]]]:
+    ) -> JSONResponse:
         # check if all required headers are there
         if (
             openai_api_key_base64 is None
@@ -75,7 +76,7 @@ def get_server() -> FastAPI:
                 overview_result=job_result[0].to_dicts(), exact_result=job_result[1]
             )
         # send the response
-        return result_dict
+        return JSONResponse(content=result_dict)
 
     return app
 
