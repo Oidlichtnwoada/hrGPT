@@ -70,11 +70,11 @@ def get_server() -> FastAPI:
         score_workload = ScoreWorkload(job_file=job_file, cv_files=cv_files_tuple)
         score_result = score_applicants((score_workload,))
         # build the response
-        result_dict: dict[str, ApiMatchResult] = {}
+        result_dict: dict[str, dict[str, typing.Any]] = {}
         for job_name, job_result in score_result.items():
             result_dict[job_name] = ApiMatchResult(
                 overview_result=job_result[0].to_dicts(), exact_result=job_result[1]
-            )
+            ).model_dump(mode="json")
         # send the response
         return JSONResponse(content=result_dict)
 
