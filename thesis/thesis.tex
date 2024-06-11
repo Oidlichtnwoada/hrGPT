@@ -628,8 +628,8 @@ There were two methods used to compare the extracted keywords against the keywor
     That means the predicted person-job fit is higher when a word combination of the manually crafted keyword dictionary is found in the processed resume as a $1$-, $2$- or $3$-gram, depending on the keyword word count.
     The more keywords found to be present as $N$-grams in the processed resume, the higher the predicted person-job fit.
 \end{enumerate}
-This method suffers from the manual creation of a keyword dictionary, which could be automated due to the recent technological advancements in the area of \gls{LLM}s.
-Furthermore, the results heavily depend on the quality and selection of the keywords in the keyword dictionary.
+In summary, this method suffers from the manual creation of a keyword dictionary, which could be automated due to the recent technological advancements in the area of \gls{LLM}s.
+Furthermore, the overall results heavily depend on the quality and selection of the keywords in the keyword dictionary.
 The accuracy of the $N$-gram model was slightly higher than the accuracy of the document vector model on average and topped at $87.5\%$ for the \textit{Data Developer} role \parencite[47]{text_mining_for_automatic_profiling}.
 Moreover, when analyzing text based on chunks of words, the context of the words may be lost.
 This thesis tries to mitigate this shortcoming by using the capabilities of \gls{LLM}s to summarize the context of the input documents and answer questions regarding the provided context.
