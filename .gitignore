@@ -368,9 +368,10 @@ __pycache__
 # Replacements are private
 replacements.txt
 
-# Ignore Word version of thesis for Grammarly use
+# Ignore Word/Pages version of thesis for Grammarly use
 thesis.docx
 ~$thesis.docx
+thesis.pages
 
 # Ignore open presentation marker
 ~$presentation.pptx
