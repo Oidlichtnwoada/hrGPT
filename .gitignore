@@ -391,3 +391,6 @@ surnames.csv
 
 # Latex save errors
 *-SAVE-ERROR
+
+# presentation files
+*.key
